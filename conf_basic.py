@@ -23,12 +23,12 @@
 #   route -- the trusted url route 
 
 app_config = {
-               'app_id': 'G9nUpvbZQyiPrk3um2YAkQ',
-               'app_key': 'ybZu7fm_JKJTFwKEHfoZ7Q',
+               'app_id': 'rzQ2Fl48OyGpabNiVo5wYQ',
+               'app_key': 'BpBbSId5iAVG988lMvgj5g',
                'host': 'localhost',
                'port': '8080',
                'scheme':'http',
-               'lms_host': 'lms.valence.desire2learn.com',
+               'lms_host': 'wlutest.desire2learn.com',
                'lms_port': '443',
                'encrypt_requests': True,
                'verify' : False,
