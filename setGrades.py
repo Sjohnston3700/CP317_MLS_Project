@@ -38,11 +38,13 @@ def auth_token_handler():
 
 @app.route('/availableCourses/')
 def showCourses():
-    return render_template('available_grades.html', user=app.config['user'] )
+	try:
+		return render_template('available_grades.html', user=app.config['user'])
+	except:
+		return redirect("/")
 
-
-@app.route('/grades/<courseId>/<gradeItemId>',methods = ['GET', 'POST'])
-def set_grades(courseId,gradeItemId):
+@app.route('/grades/<courseId>/<gradeItemId>', methods = ['GET', 'POST'])
+def set_grades(courseId, gradeItemId):
     try:
         user   = app.config['user']
         course = user.getCourse(courseId)

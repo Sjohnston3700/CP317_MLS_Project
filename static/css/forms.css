@@ -1,0 +1,42 @@
+.form-group input
+{
+	padding: 10px;
+	float: right;
+	width: 70%;
+	border: 1px solid #c4bebe;
+}
+
+.form-group input:active, .form-group input:focus
+{
+	border: 1px solid #9e9696;
+}
+
+.form-group label
+{
+	margin-right: 10px;
+	padding: 10px;
+	display: inline-block;
+}
+
+.form-group
+{
+	margin: 10px 0px;
+}
+
+form
+{
+	width: 40%;
+	margin: 40px 0px;
+}
+
+.form-group-inline
+{
+	margin: 10px 0px 10px 30%;
+	padding: 10px 0px;
+}
+
+input[type="checkbox"]
+{
+	display: inline-block;
+}
+
