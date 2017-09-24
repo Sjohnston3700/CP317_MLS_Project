@@ -1,0 +1,86 @@
+/* Buttons */
+
+.btn
+{
+	padding: 10px;
+	margin: 10px;
+	font-size: 14px;
+	color: #444;
+	background: #eee;
+	border: 1px solid #ddd;
+	transition: 0.4s;
+}
+
+.btn:hover
+{	
+	background: #ddd;
+	cursor: pointer;
+}
+
+.btn-success
+{
+	border: 1px solid #7dbf4a;
+	background: #8ed854;
+	color: white;
+}
+
+.btn-success:hover
+{
+	background: #7dbf4a;
+}
+
+.btn-error
+{
+	background: #d1554f;
+	color: white;
+	border: 1px solid #ad4641;
+}
+
+.btn-error:hover
+{
+	background: #ad4641;
+}
+
+/* Accordion */
+
+button.accordion 
+{
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+	border: 1px solid #ddd;
+}
+
+button.accordion.active, button.accordion:hover
+{
+    background-color: #ddd;
+}
+
+div.panel 
+{
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+button.accordion:after 
+{
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+button.accordion.active:after 
+{
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}

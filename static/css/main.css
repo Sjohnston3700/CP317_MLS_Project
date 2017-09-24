@@ -1,0 +1,43 @@
+/* 
+
+Legend: 
+
+primary colour, nav bar background: #333 
+nav hover border: #8b9099
+nav hover: #111
+text color: #111
+page section border: #cfd2d6
+input border: #c4bebe
+input border hover: #9e9696
+button: #eee
+button color: #444
+button border, button hover: #ddd 
+
+*/
+
+html, body, *
+{
+	font-family: 'Raleway', sans-serif;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	color: #111;
+}
+
+html
+{
+	height: 100%;
+	color: #111;
+}
+
+body
+{
+	min-height: 100%;
+	margin: 0px;
+}
+
+.float-right
+{
+	float: right;
+}
+

@@ -44,15 +44,3 @@
 	
 3.4.1 Only those who have been given permission to edit grades will be allowed past the login page.
 3.4.2 No information about the contents of the site will be available to anyone who has not logged in. 
-
-3.4 Logical Database Requirements
-
-!!! are we storing any data? !!!
-
-3.5 Portability
-		
-!!! are we going portable? don't think so but might as well ask !!!
-
-3.6 !!! anything I missed? !!!
-
-	

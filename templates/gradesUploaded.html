@@ -1,31 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <title> Grades upload finished </title>
-    
-</head>
-<body>
-    <H1> {{ '{} of {} grades uploaded successfully for {} - {}'.format(successful_grades,grades|length,course.name,gradeItem.name ) }} </H1>
-    
-    
-    <H2> Errors </H2>
+{% extends "index.html" %}
+
+{% block title %}
+	<title>ezGrading | Grades Uploaded</title>
+{% endblock %}
+
+{% block content %}
+	<h3> {{ '{} of {} grades uploaded successfully for {} - {}'.format(successful_grades,grades|length,course.name,gradeItem.name ) }} </h3>
+	{% if errors != [] %}
+	<h3> Errors </h3>
     <ul id="navigation">
-    {% for error in errors %}
+    	{% for error in errors %}
         <li>{{ error }}</li>   
-    {% endfor %}
+    	{% endfor %}
     </ul>
-    
-    <br>
-    
+	{% endif %}
+    <br>    
     <a href="{{ url_for('showCourses') }}"> Upload more grades</a>
-    
     <br>
-    
     <a href="{{ gradesUrl }}" target="_blank"> Check Grades</a>
-    
     <br>
-    
     <a href="{{ logoutUrl }}"> Logout </a>
-    
-</body>
-</html>
+{% endblock %}

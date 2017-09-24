@@ -1,0 +1,17 @@
+h1.page-title
+{
+	font-size: 40px; 
+	margin-bottom: 30px;
+}
+
+.grade-link
+{
+	text-decoration: none;
+	display: block;
+	margin: 5px;
+}
+
+.grade-link:hover
+{
+	text-decoration: underline;
+}
