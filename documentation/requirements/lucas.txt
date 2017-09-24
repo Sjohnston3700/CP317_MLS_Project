@@ -1,0 +1,46 @@
+3 Software Requirements
+
+3.1 User Interfaces
+		
+3.1.1 The user should be able to login to the website using their MyLearningSpace login credentials.
+3.1.2 When logged in, the user will have the option to select from a list of courses that the user has permission to add grades to. 
+3.1.3 Once a course is selected, a list of grading items will be displayed to select from (i.e., A1, A2,...).
+3.1.4 With an assignment selected, the user is directed to an upload page and prompted to upload a file containing grades.
+3.1.5 An input box on the upload page will also allow the user to type grades and marks for individual students without the need to upload a file.
+3.1.6 The user will finalize any grades uploaded and/or entered by pressing a 'submit' button.
+3.1.7 A report page will show the user any uploaded grades that have been submitted. Any errors in the submission will also be displayed.
+3.1.8 Should any errors arise in the submission, the report page will allow the user to either ignore the error (not upload the grade) or to go back to the upload page.
+3.1.9 The report page will then allow the user to return to their list of courses or to logout
+3.1.10 The system should run on standard web browsers (Internet Explorer, Mozilla Firefox, Google Chrome, Safari, etc.)
+
+3.2 Functional Requirements
+		
+3.2.1 If the Brightspace API cannot itentify the user, they will not be able to login and use the service.
+3.2.2 Similarly, if the user is identified but does not have permission to edit grades of any courses (determined by the Brightspace API), they will not be able to login and use the service.
+3.2.3 The website will only prompt the user for a grading item once they have selected a course. 
+3.2.4 similary, the website will only prompt the user for a file of grades after they have selected a course and a grading item, such that a file cannot be uploaded without a grading item associated.
+3.2.5 The user will only be allowed to submit grades to one course at a time.
+3.2.6 With concern to the auto grader file upload and submit process:
+
+3.2.6.1 The auto grader will accept only .txt files for the grades.
+3.2.6.2 The auto grader will only accept data in the following format:   !!! I don't actually know the format !!!
+3.2.6.3 If a necessary parameter for a grade is missing, that grade will not be accepted.
+3.2.6.4 For each individual grade, the auto grader will accept only grades for which the total grade is greater than or equal to the grade recieved. i.e. 45/23 is not a valid grade because the grade recieved is greater than the total grade.
+3.2.6.5 The auto grader will only accept grades for students that are currently enrolled in the course selected, using their StudentID and the Brightspace API to validate.
+
+3.2.7 Any error the the user any encounter above with the auto grader upload and submit process will be relayed to the user in the report page. 
+3.2.8 If the user wants to retry the upload process, any valid grades previously submitted will be rolled back and will need to be resubmitted by the user.
+3.2.9 Once the user decides to logout of the website, their session will be terminated and they will need to login again to access the service.		
+
+3.3 Performance Requirements
+
+3.3.1 The performance of the website must be reliable and fast. The transition between user submission the grade report should feel seamless.
+3.3.2 The limiting factor in the speed of the website should be the user's own upload speed and nothing else. !!! reword? or change? don't know !!!
+3.3.3 Any grades that have been submitted and accepted from the user must be immediately reflected on MyLearningSpace for both the user and the student recieving the grade.
+3.3.4 The Website must have an availability of at least 95% during any given school term. !!! made up number !!!
+3.3.5 The website must be able to handle multiple concurrent users any any given time. !!! make up a number here !!!
+	
+3.4 Security Requirements
+	
+3.4.1 Only those who have been given permission to edit grades will be allowed past the login page.
+3.4.2 No information about the contents of the site will be available to anyone who has not logged in. 
