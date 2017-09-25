@@ -22,10 +22,15 @@
 #   debug -- debug flag
 #   route -- the trusted url route 
 
+#PROD ID KzdkRI2k0kY0HpD7sLEQEg
+#PROD KEY loKNzhphkioMUnG-eKQGzA
+#DEV KEY 'BpBbSId5iAVG988lMvgj5g'
+#DEV ID 'rzQ2Fl48OyGpabNiVo5wYQ'
+
 app_config = {
-               'app_id': 'KzdkRI2k0kY0HpD7sLEQEg', # DEV KEY 'rzQ2Fl48OyGpabNiVo5wYQ',
-               'app_key': 'loKNzhphkioMUnG-eKQGzA',# DEV KEY 'BpBbSId5iAVG988lMvgj5g',
-               'host': 'www.somethingdumb.ca',
+               'app_id': 'KzdkRI2k0kY0HpD7sLEQEg',
+               'app_key': 'loKNzhphkioMUnG-eKQGzA',
+               'host': 'https://ezmarker.herokuapp.com',
                'port': '8080',
                'scheme':'http',
                'lms_host': 'wlutest.desire2learn.com',
