@@ -27,7 +27,7 @@ app_url = '{0}://{1}:{2}{3}'.format(app_config['scheme'], app_config['host'], ap
 def start():
 	return render_template('home.html')	
 
-@app.route("/login")
+@app.route("/login/")
 def login():
     aurl = app.config["app_context"].create_url_for_authentication(app_config["lms_host"], app_url)
     return redirect(aurl)
@@ -48,17 +48,21 @@ def showCourses():
 	except:
 		return redirect("/")
 
-@app.route('/documentation')
+@app.route('/documentation/')
 def showDocs():
 	return render_template('documentation.html')
 
-@app.route('/documentation/spmp')
+@app.route('/documentation/spmp/')
 def showSPMP():
 	return render_template('spmp.html')
 
 @app.route('/documentation/requirements')
 def showRequirements():
 	return render_template('requirements.html')
+
+@app.route('/logout/')
+def showLogout():
+	return render_template(LOGOUT_URL.format(host=user.uc.host))
 
 	
 

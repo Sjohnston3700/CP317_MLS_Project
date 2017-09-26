@@ -13,7 +13,7 @@
 		<div class="panel">
 			{% for gradeItem in course.grade_items %}
 			<a class="grade-link" href="{{ '/grades/{}/{}'.format(course.Id,gradeItem.Id)}}">{{ gradeItem.name }}</a>
-		{% endfor %}
+			{% endfor %}
 		</div>
 
 		{% endif %}

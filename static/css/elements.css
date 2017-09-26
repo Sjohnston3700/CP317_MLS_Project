@@ -5,15 +5,14 @@
 	padding: 10px;
 	margin: 10px;
 	font-size: 14px;
-	color: #444;
-	background: #eee;
-	border: 1px solid #ddd;
+	color: white;
+	background: #F2A900;
 	transition: 0.4s;
 }
 
 .btn:hover
 {	
-	background: #ddd;
+	background: #d89702;
 	cursor: pointer;
 }
 
@@ -45,21 +44,22 @@
 
 button.accordion 
 {
-    background-color: #eee;
-    color: #444;
+    background-color: white;
+    color: #6c459b;
     cursor: pointer;
     padding: 18px;
     width: 100%;
     text-align: left;
-    border: none;
     outline: none;
     transition: 0.4s;
-	border: 1px solid #ddd;
+	border: 2px solid #6c459b;
+	margin-bottom: 5px;
 }
 
 button.accordion.active, button.accordion:hover
 {
-    background-color: #ddd;
+    background-color: #6c459b;
+	color: white;
 }
 
 div.panel 
@@ -75,7 +75,7 @@ button.accordion:after
 {
     content: '\02795'; /* Unicode character for "plus" sign (+) */
     font-size: 13px;
-    color: #777;
+    color: #6c459b;
     float: right;
     margin-left: 5px;
 }
