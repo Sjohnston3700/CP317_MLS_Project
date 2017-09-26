@@ -1,0 +1,513 @@
+{% extends "index.html" %}
+
+{% block title %}
+	<title>ezMarking | Software Project Management Plan</title>
+{% endblock %}
+
+{% block content %}
+
+<a class="btn" href="/documentation/spmp/raw">View Raw HTML</a>
+<style>
+	.use-cases, td, th {
+		border: 1px solid black;
+		width: 700px;
+		border-collapse: collapse;
+	}
+</style>
+
+<h1>ezMarker - Software Project Management Plan</h1>
+<p>Version 1.0</p>
+<p>Last updated: September 25, 2017</p>
+<p>Sumeet Jhand, Sarah Johnston, Sophie Wang, Marko Mihailovic, Jose Romero, Jaenuz Gorospe</p>
+
+<h2>Table of Contents</h2>
+<ul>
+	<li><a href="#overview">1.0 Overview</a>  
+		<ul>
+			<li><a href="#summary">1.1 Project Summary</a></li>
+			<li><a href="#purpose">1.2 Purpose, Scope and Objectives</a></li>
+			<li><a href="#assumptions">1.3 Assumptions and Constraints</a></li>
+			<li><a href="#deliverables">1.4 Project Deliverables</a></li>
+			<li><a href="#schedule">1.5 Schedule Summary</a></li>
+		</ul>
+	</li>
+	<li><a href="#references">2.0 References</a></li>
+	<li><a href="#definitions">3.0 Definitions</a></li>
+	<li><a href="#organization">4.0 Project Organization</a>
+		<ul>
+			<li><a href="#external-structure">4.1 External Structure</a></li>
+			<li><a href="#internal-structure">4.2 Internal Structure</a></li>
+			<li><a href="#roles">4.3 Roles and Responsibilities</a></li>
+		</ul>
+	</li>
+	<li><a href="#management-plan">5.0 Management Process Plan</a>  
+		<ul>
+			<li><a href="#startup-plan">5.1 Project Start-Up Plan</a>
+				<ul>
+					<li><a href="#estimation-plan">5.1.1 Estimation Plan</a></li>
+					<li><a href="#staffing-plan">5.1.2 Staffing Plan</a></li>
+					<li><a href="#resource-plan">5.1.3 Resource Acquisition Plan</a></li>
+					<li><a href="#training-plan">5.1.4 Project Staff Training Plan</a></li>
+				</ul>
+			</li>
+			<li><a href="#work-plan">5.2 Work Plan</a>
+				<ul>
+					<li><a href="#work-activities">5.2.1 Work Activities</a></li>
+					<li><a href="#allocation">5.2.2 Schedule and Resource Allocation</a></li>
+				</ul>
+			</li>
+			<li><a href="#control-plan">5.3 Control Plan</a>
+				<ul>
+					<li><a href="#reqs-control-plan">5.3.1 Requirements Control Plan</a></li>
+					<li><a href="#schedule-control-plan">5.3.2 Schedule Control Plan</a></li>
+					<li><a href="#quality-control-plan">5.3.3 Quality Control Plan</a></li>
+					<li><a href="#reporting-plan">5.3.4 Reporting Plan</a></li>
+					<li><a href="#metrics-plan">5.3.5 Metrics Collection Plan</a></li>
+				</ul>
+			</li>
+			<li><a href="#risk-management-plan">5.4 Risk Management Plan</a></li>
+			<li><a href="#closeout-plan">5.5 Project Closeout Plan</a></li>
+		</ul>
+	</li>
+	<li><a href="#technical-plan">6.0 Technical Process Plan</a>
+		<ul>
+			<li><a href="#process-model">6.1 Process Model</a></li>
+			<li><a href="#methods">6.2 Methods, Tools and Techniques</a></li>
+			<li><a href="#infrastructure-plan">6.3 Infrastructure Plan</a></li>
+			<li><a href="#product-acceptance-plan">6.4 Product Acceptance Plan</a></li>
+		</ul>
+	</li>
+	<li><a href="#supporting-plan">7.0 Supporting Process Plan</a>
+		<ul>
+			<li><a href="#config-management-plan">7.1 Configuration Management Plan</a></li>
+			<li><a href="#verification-plan">7.2 Verification and Validation Plan</a></li>
+			<li><a href="#doc-plan">7.3 Documentation Plan</a></li>
+			<li><a href="#qa-plan">7.4 Quality Assurance Plan</a></li>
+			<li><a href="#audit-plan">7.5 Reviews and Audit Plan</a></li>
+			<li><a href="#resolution-plan">7.6 Problem Resolution Plan</a></li>
+			<li><a href="#subcontractor-management-plan">7.7 Subcontractor Management Plan</a></li>
+			<li><a href="#involvement-plan">7.8 Process Involvement Plan</a></li>
+		</ul>
+	</li>
+</ul>
+<h2 id="overview">1.0 Overview</h2>
+<p>
+	This Software Project Management Plan (SPMP) for ezMarker outlines the goals and deliverables. ezMarker will allow Wilfrid Laurier’s markers and instructors to upload a large quantity of feedback for students to the MLS site quickly and efficiently. Previously, there was no other way to provide feedback for students without individually entering it through the current MLS interface, and this can be time consuming. The frontend for this application will use HTML, CSS, and JavaScript/JQuery. The backend for ezMarker will be written in Python and make use of the Desire to Learn (D2L) API called Brightspace. The Brightspace API is versatile as it houses support for many different languages and has the same functions as a web browser.
+</p>
+
+<h3 id="summary">1.1 Project Summary</h3>
+<p>
+	This Software Project Management Plan (SPMP) gives an overview of
+	<ul>
+		<li>The purpose</li>
+		<li>Scope</li>
+		<li>Objectives of ezMarker</li>
+		<li>Assumptions and constraints</li>
+		<li>Project deliverables</li>
+		<li>Schedule summary</li>
+	</ul>
+</p>
+
+<h3 id="purpose">1.2 Purpose, Scope and Objectives</h3>
+<p>This document outlines ezMarker and its features and deliverables.</p>
+<p>
+	The main project objective is to implement a fully functioning program to be used across the Wilfrid Laurier University website (and possibly others using D2L's services) before December 2017. After the completion of the main project objectives, other functionality may be discussed and integrated into the ezMarker web platform. It will primarily be used by markers and instructors of the school. 
+</p>
+
+<h3 id="assumptions">1.3 Assumptions and Constraints</h3>
+<p><b>Assumptions</b></p>
+<p>
+	The ezMarker Team will use:
+	<ul>
+		<li>Brightspace API</li>
+		<li>Python language</li>	
+	</ul>
+	The Team will work on no budget and has enough experience to complete the ezMarker project.
+</p>
+<p><b>Constraints</b></p>
+<p>
+	Constraints include:
+	<ul>
+		<li>Completion of ezMarker by December</li>
+		<li>Weekly work period of 5 hours a week or more</li>
+	</ul>
+</p>
+
+<h3 id="deliverables">1.4 Project Deliverables</h3>
+<p><b>Software Deliverables</b></p>
+<p>The ezMarker team aims to deliver a fully functioning before December.</p>
+<p><b>Document Deliverables</b></p>
+<p>Documents will be delivered by the ezMarker team over the time of development, for the team and the client.</p>
+<p><b>Team Documents</b></p>
+<p>The following documents are required for the ezMarker project:
+	<ul>
+		<li>ezMarker Project Software Project Management Plan</li>
+		<li>ezMarker Project Requirements Document</li>
+	</ul>
+</p>
+<p><b>Client Documents</b></p>
+<p>The following documents will be given to the client:
+	<ul>
+		<li>ezMarker Project Software Project Management Plan</li>
+		<li>ezMarker Project Requirements Document</li>
+	</ul>
+</p>
+
+<h3 id="schedule">1.5 Schedule Summary</h3>
+<p>
+	Please refer to <a href="#process-model">Section 6.1</a> of the SPMP for a detailed schedule.
+</p>
+
+<h2 id="references">2.0 References</h2>
+<p>
+	<p><a href="https://bohr.wlu.ca/cp317/">CP317 Course Website</a></p>
+	<p>IEEE Std 1058-1998, IEEE Standard for Software Project Management Plans, IEEE 1998</p>
+	<p>MLS API Report by Jacob Harold</p>
+	<p>Domain site: <a href="https://ezmarker.herokuapp.com/"></a>https://ezmarker.herokuapp.com/</p>
+</p>
+
+<h2 id="definitions">3.0 Definitions</h2>
+<p>
+	<p>SPMP – Software Project Management Plan</p>
+	<p>Bright Space API – The Desire to Learn Application programming interface used by ezMarker</p>
+	<p>MLS – My Learning Space</p>
+	<p>D2L – Desire to Learn</p>
+</p>
+
+<h2 id="organization">4.0 Project Organization</h2>
+<p>All organizational aspects of the projects are recorded here. Internal and external entities and how they will collaborate with one another will be defined here.</p>
+
+<h3 id="external-structure">4.1 External Structure</h3>
+<p>The client for this project is David Brown. The team leader will communicate with said client via email or meeting and relay information to the rest of the team. </p>
+<p>Another external entity will be the MLS website and its affiliates. The team leader will be communicating with affiliates via email.</p>
+
+<h3 id="internal-structure">4.2 Internal Structure</h3>
+<img src="resources\map.png" alt="Internal Structure Map" style="width:888px;height:443px;">
+<p>
+	The internal structure of the team is based around four distinct divisions. Each division of the project team assigns a leader that will be representing said division. They are expected to attend regular meetings with other leaders to discuss progress in their division. The project leader represents the entire team and will be communicating with all external entities.
+</p>
+<p>Each division will be expected to organize regular meetings that all members of the division will attend.</p>
+<p>Communication with all members of the team and/or division will be done using Slack as the primary tool.</p>
+<p>Decisions will be made democratically where members will vote. Leaders' votes are worth the same as regular members.</p>
+
+<h3 id="roles">4.3 Roles and Responsibilities</h3>
+<table class="use-cases">
+  <tr>
+	<th>Role</th>
+	<th>Responsibilities</th> 
+  </tr>
+  <tr>
+	<td><center>Project Leader</center></td>
+	<td>
+		<ul>
+			<li>Attend regular meetings with other team leaders as well as meetings with assigned division</li>
+			<li>Lead communicator with client (David Brown)</li>
+			<li>Lead communicator with MLS affiliates</li>
+			<li>Help other team members to best of their knowledge</li>
+		</ul>
+	</td> 
+  </tr>
+  <tr>
+	<td><center>Team Leader</center></td>
+	<td>
+		<ul>
+			<li>Attend regular meetings with other team leaders as well as meetings with assigned division</li>
+			<li>Lead their division into executing tasks to the best of their ability</li>
+			<li>Organize teams to deliver work on time as expected</li>
+		</ul>
+	</td> 
+  </tr>
+  <tr>
+	<td><center>Front End Members</center></td>
+	<td>
+		<ul>
+			<li>Deliver working code as expressed in project guidelines</li>
+			<li>Create an appealing, user-friendly experience</li>
+			<li>Work with back end team to integrate all parts to be working as intended</li>
+		</ul>
+	</td> 
+  </tr>
+  <tr>
+	<td><center>Back End Members</center></td>
+	<td>
+		<ul>
+			<li>Deliver working code as expressed in project guidelines</li>
+			<li>Create an easy-to-navigate, working back end server</li>
+			<li>Work with front end team to integrate all parts to be working as intended</li>
+		</ul>
+	</td> 
+  </tr>
+  <tr>
+	<td><center>Documentation Members</center></td>
+	<td>
+		<ul>
+			<li>Document <b>all</b> code done by front end and back end teams</li>
+			<li>Organize all documentation to be easy navigable</li>
+			<li>Create a page that is user-friendly and easy to understand</li>
+		</ul>
+	</td> 
+  </tr>
+  <tr>
+	<td><center>Testing Members</center></td>
+	<td>
+		<ul>
+			<li>Test all code to be correctly working and functioning as intended</li>
+			<li>Notify other team members if work does not meet team standards</li>
+			<li>Document what has been tested and confirm that it is working</li>
+		</ul>
+	</td> 
+  </tr>
+</table>
+<p>In addition to this, all members are expected to:
+	<ul>
+		<li>Work with team to produce best possible result</li>
+		<li>Meet expected deadlines to deliver work</li>
+		<li>Attend regular meetings with rest of group members</li>
+	</ul>
+</p>
+
+<h2 id="management-plan">5.0 Management Process Plan</h2>
+<p>The project start-up plan, risk management plan, project work plan, project control plan and project closeout plan will be defined here.</p>
+
+<h3 id="startup-plan">5.1 Project Start-Up Plan</h3>
+<p>The resources to start the project will be defined here. This sub clause will include the estimation plan, staffing plan, resource acquisition plan and training plan.</p>
+
+<h4 id="estimation-plan">5.1.1 Estimation Plan</h4>
+<p>Will be created and updated as soon as discussed with all members of the team.</p>
+
+<h4 id="staffing-plan">5.1.2 Staffing Plan</h4>
+<p>The project team has a fixed staff that was made at the start of the project.</p>
+
+<h4 id="resource-plan">5.1.3 Resource Acquisition Plan</h4>
+<p>The project team has been given all required resources at the beginning of the project. All team members are expected to have:
+	<ul>
+		<li>A GitHub account that is in the project repository</li>
+		<li>A Slack account to communicate with project members</li>
+		<li>An ezEmployee account to record time spent on project</li>
+		<li>A computer to work on</li>
+		<li>A development tool to work on project</li>
+	</ul>
+</p>
+
+<h4 id="training-plan">5.1.4 Project Staff Training Plan</h4>
+<p>Project staff will be trained to work on project through regular attendance of class.</p>
+<p>GitHub training is to be held to teach members how to use this project repository platform.</p>
+
+<h3 id="work-plan">5.2 Work Plan</h3>
+<p>Work activities and the schedule and resources will be defined here.</p>
+
+<h4 id="work-activities">5.2.1 Work Activities</h4>
+<p>To be defined with project team.</p>
+
+<h4 id="allocation">5.2.2 Schedule and Resource Allocation</h4>
+<p>To be defined with project team.</p>
+
+<h3 id="control-plan">5.3 Control Plan</h3>
+<p>
+	The metrics, reporting mechanisms, and control procedures necessary to measure, report, and control the product requirements, the project schedule, budget, and resources, and the quality of work processes and work products will be defined here.
+</p>
+
+<h4 id="reqs-control-plan">5.3.1 Requirements Control Plan</h4>
+<p>All changes in requirements will call a team meeting to discuss all changes in guidelines, scope, and quality.</p>
+<p>Two main techniques include:
+	<ul>
+		<li>Traceability - Any change in the project can be directly traced back to the requirements plan</li>
+		<li>Impact Analysis -  Team will discuss impact of change</li>
+	</ul>
+</p>
+
+<h4 id="schedule-control-plan">5.3.2 Schedule Control Plan</h4>
+<p>
+	Each member of the team will make their own individual efforts to consult the project schedule and meet deadlines. Upon missing a deadline, the schedule will be updated accordingly through discussion among division members.
+</p>
+<p>Each team member will be expected to record time spent working on each part of the project and whether they will meet the deadline that is set on the schedule.</p>
+
+<h4 id="quality-control-plan">5.3.3 Quality Control Plan</h4>
+<p>
+	Each member of the team is expected to produce work that is correct and maintains the team’s standards of quality. To ensure this, the Testing team will be regularly testing code to be working as intended and take action if it does not meet team standards. They will be expected to notify the team that produced the fault to be corrected as quickly as possible.
+</p>
+
+<h4 id="reporting-plan">5.3.4 Reporting Plan</h4>
+<p>There will be 3 main reporting mechanisms that will be used by the project team.</p>
+<p>They are as follows:
+	<ul>
+		<li>Regular meetings: The team will regularly get together and reporting may be done verbally among group members</li>
+		<li>Slack: Reports can be done through the team’s main communication tool</li>
+		<li>Asana: Tickets can be made in Asana that will notify members that a report has been made and the details of said report</li>
+	</ul>
+</p>
+
+<h4 id="metrics-plan">5.3.5 Metrics Collection Plan</h4>
+<p>The website ezEmployee will be used to collect project metrics. Project members will be expected to log their time spent working through the website to be easily validated, analyzed, and reported.</p>
+
+<h3 id="risk-management-plan">5.4 Risk Management Plan</h3>
+<p>
+	Risk factors that the project will face includes work that does not meet the deadline due to class conflicts, external responsibilities, unforeseen circumstances. This will be constantly tracked and if a conflict is met, action will be taken including an attempt to have another team member take over to meet the deadline.
+</p>
+<p>Integration between front end and back end may not work as expected and will be met with a meeting between all members of both teams to discuss the necessary steps to take.</p>
+<p>Team members may be met with software malfunction and will be accommodated with working software.</p>
+<p>Code may break at any point and therefore will be reverted to the last working commit to not lose time debugging.</p>
+
+<h3 id="closeout-plan">5.5 Project Closeout Plan</h3>
+<p>Upon completion of the software project in December of 2017, the client will be given:
+	<ul>
+		<li>The final copy of the project</li>
+		<li>All documentation for the project</li>
+		<li>A log of all commits and events from September 2017 to December 2017</li>
+	</ul>
+</p>
+
+<h2 id="technical-plan">6.0 Technical Process Plan</h2>
+<p>
+	All programming based task timeline and strategies will be recorded in this section. This is a tentative model, and will be updated as the project progresses. The covered topics are process model, methods and techniques, as well as the infrastructure plan and plan for product acceptance.
+</p>
+
+<h3 id="process-model">6.1 Process Model</h3>
+<p>Below is the proposed timeline of the project and appropriate tasks:</p>
+<table class="use-cases">
+  <tr>
+	<th>Phase</th>
+	<th>Time Range</th> 
+	<th>Goals</th>
+  </tr>
+  <tr>
+	<td><center>Planning</center></td>
+	<td><center>2017/09/11 – 2017/09/21</center></td>
+	<td>
+		<ul>
+			<li>Develop strategy for project progression</li>
+			<li>Assign teams</li>
+			<li>Review existing code from previous term</li>
+		</ul>
+	</td> 
+  </tr>
+  <tr>
+	<td><center>Requirements</center></td>
+	<td><center>2017/09/21 – 2017/09/27</center></td>
+	<td>
+		<ul>
+			<li>Document project requirements</li>
+			<li>Familiarization with path of execution</li>
+			<li>Create documents (SPMP, Requirements)</li>
+			<li>Front end prototype</li>
+		</ul>
+	</td> 
+  </tr>
+  <tr>
+	<td><center>Specification</center></td>
+	<td><center>2017/09/27 – 2017/10/01</center></td>
+	<td>
+		<ul>
+			<li>Analyse user end requirements</li>
+			<li>Finalize project timeline</li>
+		</ul>
+	</td> 
+  </tr>
+  <tr>
+	<td><center>Design</center></td>
+	<td><center>2017/10/01 – 2017/10/11</center></td>
+	<td>
+		<ul>
+			<li>UML diagrams</li>
+			<li>Finalize frontend</li>
+			<li>Finalize backend structure</li>
+		</ul>
+	</td>
+  </tr>
+  <tr>
+	<td><center>Implementation</center></td>
+	<td><center>2017/10/11 – 2017/11/18</center></td>
+	<td>
+		<ul>
+			<li>Build functional prototype</li>
+			<li>Upload to test server</li>
+			<li>Gather client feedback</li>
+			<li>Ensure front end flow</li>
+		</ul>
+	</td>
+  </tr>
+  <tr>
+	<td><center>Integration</center></td>
+	<td><center>2017/11/18 – 2017/12/01</center></td>
+	<td>
+		<ul>
+			<li>Assemble project</li>
+			<li>Complete documentation</li>
+			<li>Focus group testing</li>
+		</ul>
+	</td> 
+  </tr>	  
+</table>
+<p>
+	Roles and tasks may be shifted to accommodate the student calendar and any unforeseen events. Team members will self document and self report their progress and issues they may encounter during development. There will be weekly meetings with group leaders to summarize the position of respective sections. Any task not completed during assigned time will be either shifted to the next phase or teams will be rebalanced for as per discussion of each case.
+</p>
+
+<h3 id="methods">6.2 Methods, Tools and Techniques</h3>
+<p>
+	The project is split up into two sections: front end and back end. They will be worked on within separate teams and stored in a Github repository. The leader of each section will internally work out the preferred strategy and framework.
+</p>
+<p>Front end (detailed description to be added as design phase approaches)
+	<ul>
+		<li>JavaScript</li>
+		<li>HTML/CSS</li>
+	</ul>
+</p>
+<p>Back end (detailed description to be added as design phase approaches)
+	<ul>
+		<li>Python</li>
+		<li>Brightspace API</li>
+	</ul>
+</p>
+<p>Additional tools used: Google Docs, Dropbox, MS Word.</p>
+
+<h3 id="infrastructure-plan">6.3 Infrastructure Plan</h3>
+<p>
+	The software is a companion app to the BrightSpace API. Prototypes at each checkpoint will also be uploaded to the test server, <a href="http://www.somethingdumb.ca/">www.somethingdumb.ca</a>, and transferred to Bohr upon completion. Additional resources may include but not limited to printers, drafting materials, and other University resources.
+</p>
+
+<h3 id="product-acceptance-plan">6.4 Product Acceptance Plan</h3>
+<p>
+	Working prototypes will be presented to the client at key intervals for assessment along with progress documentation. The client will interact with prototypes on a server, which will simulate the final product. Internal beta tests will also take place after each completed unit. 
+</p>
+
+<h2 id="supporting-plan">7.0 Supporting Process Plan</h2>
+
+<h3 id="config-management-plan">7.1 Configuration Management Plan</h3>
+<p>Not applicable.</p>
+
+<h3 id="verification-plan">7.2 Verification and Validation Plan</h3>
+<p>This section will be updated accordingly throughout the project lifecycle.</p>
+
+<h3 id="doc-plan">7.3 Documentation Plan</h3>
+<p>A separate Requirements Documentation is being developed.</p>
+<p>The documents that will be maintained and controlled are as follows:
+	<ul>
+		<li>Design document</li>
+		<li>Tickets log</li>
+		<li>QA log</li>
+		<li>Testing log</li>
+		<li>Client feedback</li>
+		<li>Interval reviews</li>
+	</ul>
+</p>
+
+<h3 id="qa-plan">7.4 Quality Assurance Plan</h3>
+<p>
+	A QA team will be dedicated to each stage of development. Members may be interchangeably assigned to tasks depending on the needs of unique cases. Multistage testing will take place, accompanied with unit testing logs.
+</p>
+
+<h3 id="audit-plan">7.5 Reviews and Audit Plan</h3>
+<p>
+	The team will be distributed prototypes that will be unit tested prior to client presentation. The team will also peer review code within their sections and resolve any immediate bugs, along with proper documentation. All features will be presented to the client for acceptance testing before finalization.
+</p>
+
+<h3 id="resolution-plan">7.6 Problem Resolution Plan</h3>
+<p>This section will be updated by Monday, September 25, 2017.</p>
+
+<h3 id="subcontractor-management-plan">7.7 Subcontractor Management Plan</h3>
+<p>Not applicable.</p>
+
+<h3 id="involvement-plan">7.8 Process Involvement Plan</h3>
+<p>This section will be updated as the project progresses.</p>
+
+{% endblock %}

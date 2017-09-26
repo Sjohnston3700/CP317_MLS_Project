@@ -1,0 +1,123 @@
+/* Vertical Nav */
+
+.vertical-nav 
+{
+	background-color: black;
+	margin: 0px;
+	padding: 0px;
+	width: 15%;
+	position: fixed;
+}
+
+.vertical-nav a
+{
+	text-decoration: none;
+}
+
+ul.vertical-nav 
+{
+	list-style-type: none;
+}
+
+.vertical-nav .item
+{
+	margin: 7px 25px;
+	
+}
+
+.vertical-nav .item a
+{
+	color: #F2A900;
+}
+
+.vertical-nav .brand
+{
+	font-size: 30px;
+	margin: 30px 25px 20px;
+}
+
+.vertical-nav .logo
+{
+	width: 25px;
+	margin-right: 5px;
+}
+
+.vertical-nav .brand a
+{
+	color: #558fed;
+}
+
+.vertical-nav .item-header
+{
+	font-size: 17px;
+	font-weight: bold;
+	margin: 10px 25px;
+	color: white;
+}
+
+.nav-section
+{
+	padding: 10px 0px;
+}
+
+.vertical-nav
+{
+	height: 100%;
+}
+
+
+/* Horizontal Nav */
+
+ul.horiz-nav 
+{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px 10%;
+    overflow: hidden;
+    background-color: #330072;
+}
+
+.horiz-nav li 
+{
+    float: left;
+}
+
+.horiz-nav li a 
+{
+    display: block;
+    color: white;
+    text-align: bottom;
+    padding: 34px 16px 30px 16px;
+    text-decoration: none;
+	border-bottom: 4px solid #F2A900;
+}
+
+.horiz-nav li.item a:hover 
+{
+    background-color: #2a005e;
+	border-bottom: 4px solid #d89702;
+	box-sizing: border-box;
+}
+
+.horiz-nav li.brand
+{
+	margin-right: 20px;
+	text-align: center;
+	margin: 23px 0px 0px;
+	
+}
+
+.horiz-nav .brand a
+{
+	display: inline;
+	font-size: 30px;
+	margin: 0px 50px 0px 12px;
+	padding: 0px;
+	border-bottom: 0px;
+}
+
+.horiz-nav .logo
+{
+	height: 30px;
+	display: inline;
+}

@@ -1,11 +1,14 @@
-<html>
-   <body>
-   
-      <form action = {{ url_for('set_grades',courseId=courseId,gradeItemId=gradeItemId) }} method = "POST" 
-         enctype = "multipart/form-data">
-         <input type = "file" name = "file" >
-         <input type = "submit" value="Upload Grades File">
+{% extends "index.html" %}
+
+{% block title %}
+	<title>ezGrading | Upload File</title>
+{% endblock %}
+
+{% block content %}
+	<h2>Upload a File</h2>
+	  <form action={{ url_for('set_grades',courseId=courseId,gradeItemId=gradeItemId) }} method="POST"
+         enctype="multipart/form-data">
+         	<input type="file" name="file" >
+	  		<button class="btn" type="submit">Upload Grades File</button>
       </form>
-      
-   </body>
-</html>
+{% endblock %}

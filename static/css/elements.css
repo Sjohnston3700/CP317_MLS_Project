@@ -1,0 +1,101 @@
+/* Buttons */
+
+.btn
+{
+	padding: 10px;
+	margin: 10px;
+	font-size: 14px;
+	color: white;
+	background: #F2A900;
+	transition: 0.4s;
+	border: 1px solid #F2A900;
+}
+
+.btn:hover
+{	
+	background: #d89702;
+	cursor: pointer;
+}
+
+.btn-success
+{
+	border: 1px solid #7dbf4a;
+	background: #8ed854;
+	color: white;
+}
+
+.btn-success:hover
+{
+	background: #7dbf4a;
+	border: 1px solid #7dbf4a;
+}
+
+.btn-error
+{
+	background: #d1554f;
+	color: white;
+	border: 1px solid #ad4641;
+}
+
+.btn-error:hover
+{
+	background: #ad4641;
+}
+
+.btn-xl
+{
+	text-decoration: none;
+	padding: 20px;
+	font-size: 20px;
+}
+
+a.btn 
+{
+	text-decoration: none;
+}
+/* Accordion */
+
+button.accordion 
+{
+    background-color: white;
+    color: #6c459b;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    transition: 0.4s;
+	border: 2px solid #6c459b;
+	margin-bottom: 5px;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+button.accordion.active, button.accordion:hover
+{
+    background-color: #6c459b;
+	color: white;
+}
+
+div.panel 
+{
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+button.accordion:after 
+{
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    float: right;
+    margin-left: 5px;
+}
+
+button.accordion.active:after 
+{
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+	color: white;
+}

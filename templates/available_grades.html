@@ -1,24 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Grades available for setting</title>
-</head>
-<body>
-    <ul id="navigation">
-    {% for course in user.courses %}
-        
-        {% if course.grade_items != [] %}
-        <li>{{course.name}}</li>
-        
-        <ul>
-        {% for gradeItem in course.grade_items %}
-        <li><a href="{{ '/grades/{}/{}'.format(course.Id,gradeItem.Id)}}">{{ gradeItem.name }}</a></li>
-        {% endfor %}
-        </ul>
-        
-        {% endif %}
-        
-    {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "index.html" %}
+
+{% block title %}
+	<title>ezMarking | Select Grade Item</title>
+{% endblock %}
+
+{% block content %}
+	<h2>Select a Grade Item</h2>
+	{% for course in user.courses %}
+		<button class="accordion">{{course.name}}</button>
+
+		{% if course.grade_items != [] %}
+		<div class="panel">
+			{% for gradeItem in course.grade_items %}
+			<a class="grade-link" href="{{ '/grades/{}/{}'.format(course.Id,gradeItem.Id)}}">{{ gradeItem.name }}</a>
+			{% endfor %}
+		</div>
+
+		{% endif %}
+
+	{% endfor %}
+{% endblock %}

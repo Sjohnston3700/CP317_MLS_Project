@@ -1,3 +1,4 @@
+import os
 from flask import Flask, redirect,request,render_template, url_for
 from werkzeug.utils import secure_filename
 from conf_basic import app_config
@@ -24,6 +25,10 @@ app_url = '{0}://{1}:{2}{3}'.format(app_config['scheme'], app_config['host'], ap
 
 @app.route("/")
 def start():
+	return render_template('home.html')	
+
+@app.route("/login/")
+def login():
     aurl = app.config["app_context"].create_url_for_authentication(app_config["lms_host"], app_url)
     return redirect(aurl)
 
@@ -38,11 +43,39 @@ def auth_token_handler():
 
 @app.route('/availableCourses/')
 def showCourses():
-    return render_template('available_grades.html', user=app.config['user'] )
+	try:
+		return render_template('available_grades.html', user=app.config['user'])
+	except:
+		return redirect("/")
 
+@app.route('/documentation/')
+def showDocs():
+	return render_template('documentation.html')
 
-@app.route('/grades/<courseId>/<gradeItemId>',methods = ['GET', 'POST'])
-def set_grades(courseId,gradeItemId):
+@app.route('/documentation/spmp/')
+def showSPMP():
+	return render_template('spmp.html')
+
+@app.route('/documentation/spmp/raw/')
+def showSPMPRaw():
+	return render_template('spmp_raw.html')
+
+@app.route('/documentation/requirements')
+def showRequirements():
+	return render_template('requirements.html')
+
+@app.route('/documentation/requirements/raw/')
+def showRequirementsRaw():
+	return render_template('requirements_raw.html')
+
+@app.route('/logout/')
+def showLogout():
+	return render_template(LOGOUT_URL.format(host=user.uc.host))
+
+	
+
+@app.route('/grades/<courseId>/<gradeItemId>', methods = ['GET', 'POST'])
+def set_grades(courseId, gradeItemId):
     try:
         user   = app.config['user']
         course = user.getCourse(courseId)
@@ -81,8 +114,9 @@ def set_grades(courseId,gradeItemId):
                 continue
             
     gradesUrl = VIEW_GRADES_URL.format(host=user.uc.host,gradeItemId=gradeItem.Id,courseId=course.Id)
-    logoutUrl  = LOGOUT_URL.format(host=user.uc.host)                     
+    logoutUrl = LOGOUT_URL.format(host=user.uc.host)                     
     return render_template("gradesUploaded.html",errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=gradeItem,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
 
 if __name__ == "__main__":
-    app.run(port=8080,debug=app_config["debug"])
+	port = int(os.environ.get("PORT", 8080))
+	app.run(host='0.0.0.0', port=port, debug=app_config["debug"])
