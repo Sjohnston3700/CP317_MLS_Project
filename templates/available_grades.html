@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 
 {% block title %}
-	<title>ezGrading | Select Grade Item</title>
+	<title>ezMarking | Select Grade Item</title>
 {% endblock %}
 
 {% block content %}
@@ -13,7 +13,7 @@
 		<div class="panel">
 			{% for gradeItem in course.grade_items %}
 			<a class="grade-link" href="{{ '/grades/{}/{}'.format(course.Id,gradeItem.Id)}}">{{ gradeItem.name }}</a>
-		{% endfor %}
+			{% endfor %}
 		</div>
 
 		{% endif %}

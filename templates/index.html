@@ -12,7 +12,8 @@
 		<link rel="stylesheet" href="/static/css/typography.css">
 		<link rel="stylesheet" href="/static/css/forms.css">
 		<link rel="stylesheet" href="/static/css/elements.css">
-
+		<link rel="stylesheet" href="/static/css/home.css">
+		
 		<!-- Fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 
@@ -22,13 +23,18 @@
 	<body>
 		<ul class="horiz-nav">
 			<li class="brand">
-				<a href="#home">
+				<a href="/">
 					ezMarking
 				</a>
 			</li>
-			<li class="item"><a href="#help">Help</a></li>
+			{% if user %}
+			<li class="item"><a href="/documentation">Docs</a></li>
 			<li class="item"><a href="#upload">Upload</a></li>
-			<li class="item"><a href="#logout">Logout</a></li>
+			<li class="item"><a href="/logout">Logout</a></li>
+			{% else %}
+			<li class="item"><a href="/documentation">Docs</a></li>
+			<li class="item"><a href="/login">Login</a></li>
+			{% endif %}
 		</ul>
 		<div class="page-content-horiz">
 			{% block content %}
