@@ -1,3 +1,5 @@
+
+
 # README #
 
 This repository contains the code written to bulk upload student grades and feedback to a Brighspace instance using the Brightspace API. It was written as part of a [directed studies](https://cloud.sagemath.com/projects/9501f241-b52e-43f8-9034-7292e8ee54ce/files/final_report/MLS_API_Report.pdf) at Wilfrid Laurier University in the Winter semester of 2017 by Harold Hodgins. A tutorial for how to use the API in general can be found [here](https://cloud.sagemath.com/projects/9501f241-b52e-43f8-9034-7292e8ee54ce/files/tutorial/BrightSpace_API.pdf) .
@@ -12,4 +14,6 @@ This repository contains the code written to bulk upload student grades and feed
 
 ### Who do I talk to? ###
 
-* Harold Hodgins - hodg4890 at mylaurier dot ca
+* Harold Hodgins - hodg4890 at mylaurier dot ca  
+
+
