@@ -7,7 +7,7 @@
 <ul>
 	<li><a href="#ListOfFigures">List of Figures</a></li>
 	<li>
-		<a href="#1.%20Introduction">1. Introduction</a>
+		<a href="#1.0%20Introduction">1.0 Introduction</a>
 		<ul>
 			<li>
 				<a href="#1.1%20Purpose">1.1 Purpose</a>
@@ -27,7 +27,7 @@
 		</ul>
 	</li>
 	<li>
-		<a href="#2.%20Overall%20Description" id="user-case-diagram">2. Overall Description</a>
+		<a href="#2.0%20Overall%20Description" id="user-case-diagram">2.0 Overall Description</a>
 		<ul>
 			<li>
 				<a href="#2.1%20Product%20Perspective">2.1 Product Perspective</a><br>
@@ -47,7 +47,7 @@
 		</ul>
 	</li>
 	<li>
-		<a href="#3.%20Software%20Requirements">3. Software Requirements</a><br>
+		<a href="#3.0%20Software%20Requirements">3.0 Software Requirements</a><br>
 		<ul>
 			<li>
 				<a href="#3.1%20User%20Interfaces">3.1 User Interfaces</a>
@@ -70,22 +70,21 @@
 <h2 id="ListOfFigures">List of Figures</h2>
 <h3>Use Case Diagram:</h3>
 <img id="use-case-diagram" src="/static/img/use_case_diagram.png">
-<h2 id="1. Introduction">1. Introduction</h2>
-	<p>Wilfrid Laurier University uses an online learning management system called MyLearningSpace (MLS), which is a rebranded version of a product called BrightSpace, created by Desire2Learn (D2L). This educational platform allows students and instructors to communicate, share resources, and keep track of student progress. A vital part of this system is the feature that allows instructors to give feedback on student work. Currently the feedback system on MLS is very tedious and time consuming especially when creating individual feedback for large class sizes. The aim of this project is to make the feedback interface on MLS more user friendly and efficient.</p>
+<h2 id="1.0 Introduction">1.0 Introduction</h2>
+	<p>Wilfrid Laurier University uses an online learning management system called MyLearningSpace (MLS), which is a rebranded version of a product called BrightSpace, created by Desire2Learn (D2L). This educational platform allows students and instructors to communicate, share resources, and keep track of student progress. A vital part of this system is a feature that allows instructors to give feedback on student work. Currently the feedback system on MLS is very tedious and time consuming especially when creating individual feedback for large class sizes. The aim of this project is to make the feedback interface on BrightSpace more user friendly and efficient.</p>
 <h3 id="1.1 Purpose">1.1 Purpose</h3>
 	<p>This document summarizes the goals and requirements of the ezGrader project. This includes the functions implemented, platforms used and etc. This document is created for developers as a basis for their work and for users looking to understand the functionality of this software.</p>
 <h3 id="1.2 Scope">1.2 Scope</h3>
-	<p>ezMarker is a web platform that adds extended functionality to the MLS platform by setting student grades and feedback using the BrightSpace API. The new functionality will leave behind the conventional feedback uploading techniques such as manual entry or through a Dropbox interface. The user will start by selecting the course and grade item, then upload a formatted text file. This text file will be parsed by the ezMarker backend and upload the students&rsquo; grades and feedback through the Brightspace API. The goal of implementing a new system of feedback and grading is to add improve the efficiency of uploading student grades and feedback. With this software, professors and T.As/I.As will no longer have to enter marks and feedback one-by-one, making the process integrated and complete.</p>
+	<p>ezMarker is a web platform that adds extended functionality to the MLS platform by setting student grades and feedback using the BrightSpace API. The new functionality will leave behind the conventional feedback uploading techniques such as manual entry or through a dropbox interface. The user (markers or professors) will start by selecting the course and grade item, then upload a formatted text file. This text file will be parsed by the ezMarker backend and uploaded to the students&rsquo; grades section with the feedback. The goal of implementing a new system of feedback and grading is to decrease time consumed by the current methods. With this software, professors and T.As/I.As will no longer have to enter marks and feedback one-by-one, making the process integrated and complete.</p>
 <h3 id="1.3 Definitions">1.3 Definitions</h3>
 	<p>API - Application Programming Interface</p>
 	<p>Platform - application/ environment used to develop the software</p>
-	<p><em>Filled out by anyone who thinks needs to put definitions for words they are using.</em></p>
 <h3 id="1.4 References">1.4 References</h3>
 	<p>IEEE. IEEE Std 830-1998 IEEE Recommended Practice for Software Requirements Specifications. IEEE Computer Society, 1998</p>
 	<p>&ldquo;MLS API Report&rdquo;, April 30th 2017, Harold Hodgins, Wilfrid Laurier University</p>
 <h3 id="1.5 Overview">1.5 Overview</h3>
-	<p>The remainder of the SRS explains in detail the details and plan of execution. Details include interfaces software platforms&nbsp; used, product design, functionality etc.&nbsp; The document is organized&nbsp; to mirror the layout of the IEEE Software Requirements Specifications document.</p>
-<h2 id="2. Overall Description">2. Overall Description</h2>
+	<p>The remainder of this document explains the details of interfaces software platforms&nbsp; used, product design, functionality etc.&nbsp; The document follows the&nbsp;  IEEE Software Requirements Specifications document standards.</p>
+<h2 id="2.0 Overall Description">2.0 Overall Description</h2>
 <h3 id="2.1 Product Perspective">2.1 Product Perspective</h3>
 	<p>ezMarker is a web-based application that allows users to set students&rsquo; grades in MLS through the use of the Brightspace API. Users will be able to set grades by uploading files from the Autograder or by manually inputting information into a webpage.</p>
 <h4>2.1.1 User Interfaces</h4>
@@ -124,7 +123,7 @@
 	<p>Development will be constrained by the capabilities of the Brightspace API.</p>
 <h3 id="2.5 Assumptions and Dependencies">2.5 Assumptions and Dependencies</h3>
 	<p>ezMarker is dependent on continued support for Brightspace API and the Autograder outputting correct files.</p>
-<h2 id="3. Software Requirements">3. Software Requirements</h2>
+<h2 id="3.0 Software Requirements">3.0 Software Requirements</h2>
 <h3 id="3.1 User Interfaces">3.1 User Interfaces</h3>
 	<p>3.1.1 The user signs into the website using their MLS login credentials</p>
 	<p>3.1.2 Once logged in, the user will be presented with a list of courses from the current term that the user has permission to set grades for. Courses should be sorted by course number.</p>
@@ -201,7 +200,7 @@
 	width: 80%;
 	border: 1px solid #330072;
 }
-	
+
 
 
 </style>
