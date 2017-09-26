@@ -88,7 +88,7 @@
 <h3 id="2.1 Product Perspective">2.1 Product Perspective</h3>
 	<p>ezMarker is a web-based application that allows users to set students&rsquo; grades in MLS through the use of the Brightspace API. Users will be able to set grades by uploading files from the Autograder or by manually inputting information into a webpage.</p>
 <h4>2.1.1 User Interfaces</h4>
-<ol>
+<ul>
 	<li>MLS Login Page</li>
 		<ul>
 			<li>User will sign into MLS to provide authentication for use of the Brightspace API</li>
@@ -111,12 +111,12 @@
 			<li>Options to return to Course List Page or Logout</li>
 		</ul>
 	</li>
-</ol>
+</ul>
 <h3 id="2.2 Product Functions">2.2 Product Functions</h3>
-<ol>
+<ul>
 	<li>Upload Autograder file to set grades and feedback in MLS for all students in a course</li>
 	<li>Manually input grades and feedback to be set in MLS for selected students in a course</li>
-</ol>
+</ul>
 <h3 id="2.3 User Characteristics">2.3 User Characteristics</h3>
 	<p>Users will be MLS users with permissions to set grades for students (i.e. professors and TAs). No technical experience is required for the use of ezMarker.</p>
 <h3 id="2.4 Constraints">2.4 Constraints</h3>
@@ -155,12 +155,12 @@
 	<li>The site needs to work on standard web browsers (Internet Explorer, Mozilla Firefox, Google Chrome, Safari, etc.)</li>
 </ul>
 <h3 id="3.2 Functional Requirements">3.2 Functional Requirements</h3>
-<p>3.2.1 Login. Occurs when users click the Login button on the Login page.</p>
+<h4>3.2.1 Login. Occurs when users click the Login button on the Login page.</h4>
 <ul>
 	<li>If the Brightspace API cannot identify the user, they will not be able to login and use the service. Similarly, if the user is identified but does not have permission to edit grades of any courses (determined by the Brightspace API), they will not be able to login and use the service.</li>
 	<li>Else, the user is brought to the Course List page</li>
 </ul>
-<p>3.2.2 Upload/parse file. Occurs once Upload has been clicked and the user has selected a file in the file dialog.</p>
+<h4>3.2.2 Upload/parse file. Occurs once Upload has been clicked and the user has selected a file in the file dialog.</h4>
 <ul>
 	<li>If the file is not a correctly formatted Autograder file, an error message is displayed and the file is not parsed.</li>
 	<li>If a necessary parameter for a grade is missing, that grade will not be accepted.</li>
@@ -168,30 +168,32 @@
 	<li>Grades will only be accepted for students that are currently enrolled in the selected course.</li>
 	<li>The results of the parsing will be relayed to the user on the Report page.</li>
 </ul>
-<p>3.2.3 Search students. Occurs when user types into search bar on Grade Item page.</p>
+<h4>3.2.3 Search students. Occurs when user types into search bar on Grade Item page.</h4>
 <ul>
 	<li>The search will be dynamic and will search students by name until a numeric character is entered, at which point student IDs are searched.</li>
 </ul>
-<p>3.2.4 Get manually input data. Occurs when user has clicked Set Grades.</p>
+<h4>3.2.4 Get manually input data. Occurs when user has clicked Set Grades.</h4>
 <ul>
 	<li>The data that has been input for the selected student(s) will be stored.</li>
 	<li>Only grades for which the total grade is greater than or equal to the grade received will be accepted (i.e. 45/23 is not a valid grade).</li>
 	<li>If no grade value has been entered for a student, the user will be prompted to choose if they want to go back and set a grade value or continue. If they continue, no grade will be set for the student.</li>
 	<li>Any unaccepted grades will be relayed to the user on the Report page.</li>
 </ul>
-	<p>3.2.5 Set grade and feedback data. Occurs once manually inputted data has been submitted or a formatted file has been uploaded.</p>
+<h4>3.2.5 Set grade and feedback data. Occurs once manually inputted data has been submitted or a formatted file has been uploaded.</h4>
 <ul>
 	<li>Brightspace API will handle the backend for uploading the students' grades and feedback.</li>
 </ul>
-	<p>3.2.6 Logout. Occurs when user clicks Logout.</p>
+<h4>3.2.6 Logout. Occurs when user clicks Logout.</h4>
 <ul>
 	<li>User&rsquo;s session will be terminated and they will need to login again to access the service.</li>
 </ul>
 <h3 id="3.3 Performance Requirements">3.3 Performance Requirements</h3>
-	<p>3.3.1 The site needs to be able to handle a file containing hundreds of records in a reasonable amount of time.</p>
-	<p>3.3.2 The website must be able to handle multiple concurrent users.</p>
+<ul>
+	<li>The site needs to be able to handle a file containing hundreds of records in a reasonable amount of time.</li>
+	<li>The website must be able to handle multiple concurrent users.</li>
+</ul>
 <h3 id="3.4 Security Requirements">3.4 Security Requirements</h3>
-	<p>3.4.1 Only those who have permission to set grades will be allowed past the login page.</p>
+	<ul><li>Only those who have permission to set grades will be allowed past the login page.</li></ul>
 
 <h2 id="appendix-a">Appendix A: Prototype</h3>
 <h3>Welcome Page</h3>
