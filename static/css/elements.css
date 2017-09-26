@@ -8,6 +8,7 @@
 	color: white;
 	background: #F2A900;
 	transition: 0.4s;
+	border: 1px solid #F2A900;
 }
 
 .btn:hover
@@ -26,6 +27,7 @@
 .btn-success:hover
 {
 	background: #7dbf4a;
+	border: 1px solid #7dbf4a;
 }
 
 .btn-error
@@ -40,6 +42,17 @@
 	background: #ad4641;
 }
 
+.btn-xl
+{
+	text-decoration: none;
+	padding: 20px;
+	font-size: 20px;
+}
+
+a.btn 
+{
+	text-decoration: none;
+}
 /* Accordion */
 
 button.accordion 
@@ -54,6 +67,8 @@ button.accordion
     transition: 0.4s;
 	border: 2px solid #6c459b;
 	margin-bottom: 5px;
+	font-weight: bold;
+	font-size: 15px;
 }
 
 button.accordion.active, button.accordion:hover
@@ -75,7 +90,6 @@ button.accordion:after
 {
     content: '\02795'; /* Unicode character for "plus" sign (+) */
     font-size: 13px;
-    color: #6c459b;
     float: right;
     margin-left: 5px;
 }
@@ -83,4 +97,5 @@ button.accordion:after
 button.accordion.active:after 
 {
     content: "\2796"; /* Unicode character for "minus" sign (-) */
+	color: white;
 }

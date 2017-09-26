@@ -56,9 +56,17 @@ def showDocs():
 def showSPMP():
 	return render_template('spmp.html')
 
+@app.route('/documentation/spmp/raw/')
+def showSPMPRaw():
+	return render_template('spmp_raw.html')
+
 @app.route('/documentation/requirements')
 def showRequirements():
 	return render_template('requirements.html')
+
+@app.route('/documentation/requirements/raw/')
+def showRequirementsRaw():
+	return render_template('requirements_raw.html')
 
 @app.route('/logout/')
 def showLogout():
