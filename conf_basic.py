@@ -30,9 +30,9 @@
 app_config = {
                'app_id': 'KzdkRI2k0kY0HpD7sLEQEg',
                'app_key': 'loKNzhphkioMUnG-eKQGzA',
-               'host': 'https://ezmarker.herokuapp.com',
-               'port': '8080',
-               'scheme':'http',
+               'host': 'ezmarker.herokuapp.com',
+               'port': '',
+               'scheme':'https',
                'lms_host': 'wlutest.desire2learn.com',
                'lms_port': '443',
                'encrypt_requests': True,
