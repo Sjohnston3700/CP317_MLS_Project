@@ -1,10 +1,17 @@
-#use-case-diagram
-{
-	height:  500px;
-}
-
 .prototype-img
 {
 	width: 80%;
 	border: 1px solid #330072;
+}
+
+table
+{
+	border-collapse: collapse;
+}
+
+table th,
+table td
+{
+	border: 1px solid black;
+	padding: 5px;
 }
