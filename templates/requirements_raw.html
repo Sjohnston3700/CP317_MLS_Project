@@ -1,7 +1,6 @@
 <h1>ezMarker - Software Requirements</h1>
-<p>Version 1.0</p>
-<p>Last updated: September 27, 2017</p>
-<p>Authors: Lucas Boulanger, Tyler Gwynn, Sarah Johnston, Mark Kokanovic, Troy Nechanicky, Deep Raithatha, Harjodh Singh</p>
+<p>Version 2.0</p>
+<p>Last updated: October 2, 2017</p>
 <h2>Table Of Contents</h2>
 <ul>
     <li>
@@ -79,17 +78,18 @@
 <h3 id="1.1 Purpose">1.1 Purpose</h3>
 <p>This document summarizes the goals and requirements of the ezMarker project. This includes the functions implemented, platforms used and etc. This document is created for developers as a basis for their work and for users looking to understand the functionality of this software.</p>
 <h3 id="1.2 Scope">1.2 Scope</h3>
-<p>ezMarker is a web platform that adds extended functionality to the MLS platform by setting student grades and feedback using the Brightspace API. The new functionality replaces the conventional feedback uploading techniques such as manual entry or through a dropbox interface. The user (markers or professors) starts by selecting the course and grade item, then uploads a formatted text file. This text file is parsed by the ezMarker backend and uploaded to the students&rsquo; grades section with the feedback. The goal of implementing a new system of feedback and grading is to decrease time consumed by the current methods. With this software, professors and T.As/I.As  no longer has to enter marks and feedback one-by-one, making the process integrated and complete.</p>
+<p>ezMarker is a web platform that adds extended functionality to the MLS platform by setting student grades and feedback using the Brightspace API. The new functionality replaces the conventional feedback uploading techniques such as manual entry or through a dropbox interface. The user (markers or professors) starts by selecting the course and grade item, then uploads a formatted text file. This text file is parsed by the ezMarker backend and uploaded to the students&rsquo; grades section with the feedback. The goal of implementing a new system of feedback and grading is to decrease time consumed by the current methods. With this software, professors and T.As/I.As  no longer have to enter marks and feedback one-by-one, making the process integrated and complete.</p>
+<p>No mobile version of the ezMarker site will be developed.</p>
 <h3 id="1.3 Definitions">1.3 Definitions</h3>
 <p id = "autograder">Autograder - A program used by Wilfrid Laurier computer science professors and TAs to mark programming assignments. The program outputs a file containing grades and feedback for the student assignments it has marked</p>
-<p id = "brightspace">Brightspace – A learning management system produced by D2L (EzMarker uses the <a href="http://docs.valence.desire2learn.com/reference.html">Brightspace API</a>)</p>
+<p id = "brightspace">Brightspace – A learning management system produced by D2L. ezMarker uses the <a href="http://docs.valence.desire2learn.com/reference.html">Brightspace API</a></p>
 <p id = "d2l">D2L – Desire2Learn, the creators of MLS</p>
 <p id = "mls">MLS – MyLearningSpace, the name of the Brightspace application that Wilfrid Laurier uses</p>
 <h3 id="1.4 References">1.4 References</h3>
 <p>IEEE. IEEE Std 830-1998 IEEE Recommended Practice for Software Requirements Specifications. IEEE Computer Society, 1998</p>
 <p>&ldquo;MLS API Report&rdquo;, April 30th 2017, Harold Hodgins, Wilfrid Laurier University</p>
 <h3 id="1.5 Overview">1.5 Overview</h3>
-<p>The remainder of this document explains the details of interfaces software platforms&nbsp; used, product design, functionality etc.&nbsp; The document follows the&nbsp;  IEEE Software Requirements Specifications document standards.</p>
+<p>The remainder of this document explains the details of interfaces software platforms used, product design, functionality etc. The document follows the IEEE Software Requirements Specifications document standards.</p>
 <h2 id="2. Overall Description">2. Overall Description</h2>
 <h3 id="2.1 Product Perspective">2.1 Product Perspective</h3>
 <p>ezMarker is a web-based application that allows users to set students&rsquo; grades and feedback in MLS through the use of the Brightspace API. Users are able to set grades and feedback by uploading files produced by the Autograder or by manually inputting information into a webpage.</p>
@@ -128,7 +128,7 @@
 <h3 id="2.5 Constraints">2.5 Constraints</h3>
 <p>Development is constrained by the capabilities of the Brightspace API.</p>
 <h3 id="2.6 Assumptions and Dependencies">2.6 Assumptions and Dependencies</h3>
-<p>ezMarker is dependent on continued support for Brightspace API and the Autograder outputting correct files.</p>
+<p>ezMarker is dependent on continued support for the Brightspace API and the Autograder outputting correct files.</p>
 <h2 id="3. Software Requirements">3. Software Requirements</h2>
 <h3 id="3.1 User Interfaces">3.1 User Interfaces</h3>
 <h4>3.1.1 Login Page</h4>
@@ -152,13 +152,13 @@
 </ul>
 <h4>3.1.4 Report Page</h4>
 <ul>
-    <li>A report page shows how many grades were successfully set. Any errors in the submission is also displayed.</li>
+    <li>A report page shows how many grades were successfully set. Any errors in the submission are also displayed.</li>
     <li>The report page has an Upload More Grades button, a Check Grades button (links to MLS page with all grades for that grade item), and a Logout button.</li>
 </ul>
 <h4>3.1.5 Additional Interfaces</h4>
 <ul>
     <li>There is a Logout button on the site&rsquo;s banner.</li>
-    <li>The site works on standard web browsers (Internet Explorer, Mozilla Firefox, Google Chrome, Safari, etc.).</li>
+    <li>The site works on standard web browsers (Internet Explorer, Mozilla Firefox, Google Chrome, Safari).</li>
 </ul>
 <h3 id="3.2 Functional Requirements">3.2 Functional Requirements</h3>
 <h4>3.2.1 Login. Occurs when users click the Login button on the Login page.</h4>
@@ -170,28 +170,28 @@
 <ul>
     <li>If the file is not a correctly formatted Autograder file, an error message is displayed and the file is not parsed.</li>
     <li>If a necessary parameter for a grade is missing, that grade is not accepted.</li>
-    <li>Only grades for which the total grade is greater than or equal to the grade received is accepted (i.e. 45/23 is not a valid grade). If the grade total is smaller than the grade received, the user is prompted to continue (and skip the student) or modify the total of the grade item (taken to corresponding MLS page).</li>
+    <li>Only grades for which the total grade is greater than or equal to the grade received are accepted (i.e. 45/23 is not a valid grade). If the grade total is smaller than the grade received, the user is prompted to continue (and skip the student) or modify the total of the grade item (taken to corresponding MLS page).</li>
     <li>Grades are only accepted for students that are currently enrolled in the selected course.</li>
-    <li>The results of the parsing is relayed to the user on the Report page.</li>
+    <li>The results of the parsing are relayed to the user on the Report page.</li>
 </ul>
 <h4>3.2.3 Search students. Occurs when user types into search bar on Grade Item page.</h4>
 <ul>
-    <li>The search is dynamic searches students by name until a numeric character is entered, at which point student IDs are searched.</li>
+    <li>The search dynamically searches students by name until a numeric character is entered, at which point student IDs are searched.</li>
 </ul>
 <h4>3.2.4 Get manually input data. Occurs when user has clicked Set Grades.</h4>
 <ul>
     <li>The data that has been input for the selected student(s) is stored.</li>
-    <li>Only grades for which the total grade is greater than or equal to the grade received is accepted (i.e. 45/23 is not a valid grade).</li>
+    <li>Only grades for which the total grade is greater than or equal to the grade received are accepted (i.e. 45/23 is not a valid grade).</li>
     <li>If no grade value has been entered for a student, the user is prompted to choose if they want to go back and set a grade value or continue. If they continue, no grade is set for the student.</li>
     <li>Any unaccepted grades are relayed to the user on the Report page.</li>
 </ul>
 <h4>3.2.5 Set grade and feedback data. Occurs once manually inputted data has been submitted or a formatted file has been uploaded.</h4>
 <ul>
-    <li>Brightspace API handles the backend for uploading and setting the students' grades and feedback.</li>
+    <li>The Brightspace API handles the backend for uploading and setting the students' grades and feedback.</li>
 </ul>
 <h4>3.2.6 Logout. Occurs when user clicks Logout.</h4>
 <ul>
-    <li>User&rsquo;s session is terminated and they must login again to access the service.</li>
+    <li>User&rsquo;s session is terminated and they are brought to the Login page.</li>
 </ul>
 <h3 id="3.3 Performance Requirements">3.3 Performance Requirements</h3>
 <ul>
@@ -206,10 +206,6 @@
 <h2 id="appendix-a">
     Appendix A: UI Prototypes
 </h2>
-<h3>Welcome Page</h3>
-<img class="prototype-img" src="/static/img/welcome.png">
-<h3>Documentation Page</h3>
-<img class="prototype-img" src="/static/img/docs.png">
 <h3>Course List Page</h3>
 <img class="prototype-img" src="/static/img/courses.png">
 <h3>Grade Item Page</h3>
@@ -218,5 +214,8 @@
 <img class="prototype-img" src="/static/img/report.png">
 <h2 id="Revision History">Revision History</h2>
 <h3>Version 1.0 - 09/27/2017</h3>
-<p>Authors: Tyler Gwynn,  Sarah Johnston, Lucas Boulanger, Troy Nechanicky, Deep Raithatha</p>
-<p>SQA: Harjodh Singh, Xiang Ke, Linda Zhang, Mark Kokanovic</p>
+<p>Authors: Lucas Boulanger, Tyler Gwynn, Sarah Johnston, Troy Nechanicky, Deep Raithatha</p>
+<p>SQA: Xiang Ke, Mark Kokanovic, Harjodh Singh, Linda Zhang</p>
+<h3>Version 2.0 - 10/02/2017</h3>
+<p>Authors: Lucas Boulanger, Tyler Gwynn, Sarah Johnston, Troy Nechanicky, Deep Raithatha</p>
+<p>SQA: Harjodh Singh</p>
