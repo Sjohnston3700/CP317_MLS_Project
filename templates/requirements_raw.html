@@ -75,7 +75,7 @@
 </ul>
 <h2 id="1. Introduction">1. Introduction</h2>
 <p>
-	 ezMarker is a web application that allows instructors to upload grades into MyLearningSpace with ease. <a href="https://mylearningspace.wlu.ca">MyLearningSpace</a> (MLS) is Laurier's online learning management system. It is a rebranded version of a product called <a href="https://www.d2l.com/products/learning-environment/">Brightspace</a>, created by <a href="https://www.d2l.com/products/learning-environment/">Desire2Learn</a> (D2L). This educational platform allows students and instructors to communicate, share resources, and keep track of student progress. A vital part of this system is the feature that allows instructors to set grades and give feedback on student work. The current feedback system on MLS is tedious and becomes very time consuming when inputting individual feedback for large classes. ezMarker will cut down on this time by automating grade and feedback upload with the use of the <a href="http://docs.valence.desire2learn.com/reference.html">Brightspace API.</a>
+	 ezMarker is a web application that allows instructors to upload grades into MyLearningSpace with ease. <a href="https://mylearningspace.wlu.ca">MyLearningSpace</a> (MLS) is Laurier's online learning management system. It is a rebranded version of a product called <a href="https://www.d2l.com/products/learning-environment/">Brightspace</a>, created by <a href="https://www.d2l.com/products/learning-environment/">Desire2Learn</a> (D2L). This educational platform allows students and instructors to communicate, share resources, and keep track of student progress. A vital part of this system is the feature that allows instructors to set grades and give feedback on student work. The current feedback system on MLS is tedious and becomes very time consuming when inputting individual feedback for large classes. ezMarker will cut down on this time by allowing bulk grade and feedback upload with the use of the <a href="http://docs.valence.desire2learn.com/reference.html">Brightspace API.</a>
 </p>
 <h3 id="1.1 Purpose">1.1 Purpose</h3>
 <p>
@@ -83,7 +83,8 @@
 </p>
 <h3 id="1.2 Scope">1.2 Scope</h3>
 <p>
-	ezMarker is a website that adds extended functionality to the MLS platform by providing an interface for setting student grades and feedback using the Brightspace API. The new functionality provides an improved implementation of the existing system, where grades and feedback have to be set individually for each student. Instructors and T.As can take hours to input grades and feedback through the current MLS interface. The software ezMarker provides an alternate user interface that reduces grade recording time down to minutes with batch file uploads. After providing authentication, the marker selects a grade item (ex. Midterm 1). The marker then uploads a delimitted file with the grades and feedback they want submitted to that grade item. ezMarker parses the file and makes use of the Brightspace API to batch upload the grades and feedback to MLS within seconds. The marker is brought to a report page where they can see a summary of errors and successes of the upload. Finally, they are given the option to do another upload or to logout.
+	ezMarker is a website that adds extended functionality to the MLS platform by providing an interface for setting student grades and feedback that is superior to the current MLS implementation. In the existing system feedback has to be set individually for each student. For courses with many students, inputting feedback for each student can take hours. ezMarker provides an alternate user interface that reduces grade recording time down to minutes by allowing users to upload a single file that contains both grades and feedback for any students the user wishes to mark.</p> 
+<p>After logging into ezMarker, the marker selects a course and a grade item (ex. Midterm 1). The marker then uploads a file with the grades and feedback they want submitted to that grade item. ezMarker parses the file and uses the Brightspace API to set the grades and feedback in MLS. Following this, the marker is brought to a report page where they can see the results of the upload. Finally, they are given the option to do another upload or to logout.
 </p>
 <p>Current MLS interface for uploading grades: </p>
 <img src="/static/img/current.png">
@@ -250,7 +251,7 @@
 <p>Authors: Lucas Boulanger, Tyler Gwynn, Sarah Johnston, Troy Nechanicky, Deep Raithatha</p>
 <p>SQA: Xiang Ke, Mark Kokanovic, Harjodh Singh, Linda Zhang</p>
 <h3>Version 2.0 - 10/02/2017</h3>
-<p>Authors: Tyler Gwynn, Troy Nechanicky, Deep Raithatha, Sarah Johnston</p>
+<p>Authors: Tyler Gwynn, Sarah Johnston, Troy Nechanicky, Deep Raithatha</p>
 <p>SQA: Harjodh Singh</p>
 <style>
 	img
