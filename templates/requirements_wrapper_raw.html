@@ -93,6 +93,54 @@
 <h3 id="2.6 Assumptions and Dependencies">2.6 Assumptions and Dependencies</h3>
 <p>ezMarker is dependent on continued support for the Brightspace API and the Autograder.</p>
 <h2 id="3. Software Requirements">3. Software Requirements</h2>
+<p>This section summarizes the API calls that Python wrapper makes and handles to support the features in Autograder. </p>
+
+<h3 id="3.1 User Login">3.1 User Login</h3>
+<p>Two function calls to retrieve user credential:</p>
+<p><pre>&#9;d2lauth.fashion_app_context(app_id=app_creds['app_id'], app_key=app_creds['app_key'])</pre></p>
+<p><pre>&#9;create_url_for_authentication(app_config["lms_host"], app_url)</pre></p>
+
+<h3 id="3.2 User Logout">3.2 User Logout</h3>
+<p>The following URL handles logout:</p>
+<p><pre>&#9;https://{host}/d2l/logout</pre></p>
+
+<h3 id="3.3 Check API Version">3.3 Check API Version</h3>
+<p>GET /d2l/api/(productCode)/versions/(version)</p>
+<p><pre>&#9;Determine if a specific product component supports a particular API version.</pre></p>
+
+<h3 id="3.4 Get Accessible List of Courses">3.4 Get Accessible List of Courses</h3>
+<p>GET /d2l/api/lp/(version)/enrollments/myenrollments/</p>
+<p><pre>&#9;Retrieve the list of all enrollments for the current user.</pre></p>
+<p>GET /d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/</p>
+<p><pre>&#9;Retrieve a list of all enrollments for the provided user.</pre></p>
+<p>GET /d2l/api/lp/(version)/roles/(roleId)</p>
+<p><pre>&#9;Retrieve a particular user role.</pre></p>
+
+<h3 id="3.5 Get Class List">3.5 Get Class List</h3>
+<p>GET /d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/</p>
+<p><pre>&#9;Retrieve the collection of users enrolled in the identified org unit.</pre></p>
+<p>GET /d2l/api/le/(version)/(orgUnitId)/classlist/</p>
+<p><pre>&#9;Retrieve the enrolled users in the classlist for an org unit.</pre></p>
+
+<h3 id="3.6 Retrieve Files From Dropbox">3.6 Retrieve Files From Dropbox</h3>
+<p>GET /d2l/api/le/(version)/(orgUnitId)/dropbox/categories/(categoryId)</p>
+<p><pre>&#9;Retrieve the information for a specific dropbox folder category.</pre></p>
+<p>GET /d2l/api/le/(version)/(orgUnitId)/dropbox/folders/(folderId)/attachments/(fileId)</p>
+<p><pre>&#9;Retrieve a file attachment (identified by file ID) from a specific dropbox folder.</pre></p>
+
+<h3 id="3.7 Get Grade Items">3.7 Get Grade Items</h3>
+<p>GET /d2l/api/le/(version)/(orgUnitId)/grades/</p>
+<p><pre>&#9;Retrieve all the current grade objects for a particular org unit.</pre></p>
+
+<h3 id="3.8 Set Specific Grade Item">3.8 Set Specific Grade Item</h3>
+<p>PUT /d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)</p>
+<p><pre>&#9;Update a specific grade object.</pre></p>
+<p>GET /d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/</p>
+<p><pre>&#9;Retrieve each user’s grade value for a particular grade object.</pre></p>
+
+<h3 id="3.9 Update Grade Items">3.9 Update Grade Items</h3>
+<p>PUT /d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)</p>
+<p><pre>&#9;Provide a specific grade value for a particular user.</pre></p>
 <h2 id="Revision History">Revision History</h2>
 <h3>Version 1.0 - 10/04/2017</h3>
 <p>Authors: </p>
