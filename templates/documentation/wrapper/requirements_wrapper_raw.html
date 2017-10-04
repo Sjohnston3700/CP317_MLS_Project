@@ -15,12 +15,6 @@
             <li>
                 <a href="#1.3%20Definitions">1.3 Definitions</a>
             </li>
-            <li>
-                <a href="#1.4%20References">1.4 References</a>
-            </li>
-            <li>
-                <a href="#1.5%20Overview">1.5 Overview</a>
-            </li>
         </ul>
     </li>
     <li>
@@ -30,13 +24,10 @@
                 <a href="#2.1%20Product%20Perspective">2.1 Product Perspective</a>
             </li>
             <li>
-                <a href="#2.2%20Product%20Functions">2.2 Product Functions</a>
+                <a href="#2.5%20Constraints">2.2 Constraints</a>
             </li>
             <li>
-                <a href="#2.5%20Constraints">2.5 Constraints</a>
-            </li>
-            <li>
-                <a href="#2.6%20Assumptions%20and%20Dependencies">2.6 Assumptions and Dependencies</a>
+                <a href="#2.6%20Assumptions%20and%20Dependencies">2.3 Assumptions and Dependencies</a>
             </li>
         </ul>
     </li>
@@ -59,16 +50,13 @@
                 <a href="#3.5%20Get%20Class%20List">3.5 Get Class List </a>
             </li>
             <li>
-                <a href="#3.6%20Retrieve%20Files%20From%20Dropbox">3.6 Retrieve Files From Dropbox</a>
+                <a href="#Get%20Grade%20Items">3.7 Get Grade Items</a>
             </li>
             <li>
-                <a href="#3.7%20Get%20Grade%20Items">3.7 Get Grade Items</a>
+                <a href="#Set%20Specific%20Grade%20Item">3.8 Set Specific Grade Item</a>
             </li>
             <li>
-                <a href="#3.8%20Set%20Specific%20Grade%20Item">3.8 Set Specific Grade Item</a>
-            </li>
-            <li>
-                <a href="#3.9%20Update%20Grade%20Items">3.9 Update Grade Items</a>
+                <a href="#Update%20Grade%20Items">3.9 Update Grade Items</a>
             </li>
         </ul>
     </li>
@@ -78,34 +66,36 @@
 </ul>
 <h2 id="1. Introduction">1. Introduction</h2>
 <p>
-    
-    The Brightspace API Wrapper is a Python library used to make calls to the Brightspace API. In essence, it allows developers to fetch and push information through the API in a much more friendly manner. Rather than directly making HTTP requests, developers can simply use the functions available in the library. The wrapper is being developed primarily for ezMarker.
-	 ezMarker is a web application that allows instructors to upload grades into MyLearningSpace with ease. <a href="#1.3%20Definitions">MyLearningSpace</a> (MLS) is Laurier's online learning management system. It is a rebranded version of a product called <a href="#1.3%20Definitions">Brightspace</a>, created by <a href="#1.3%20Definitions">Desire2Learn</a> (D2L). This educational platform allows students and instructors to communicate, share resources, and keep track of student progress. A vital part of this system is the feature that allows instructors to set grades and give feedback on student work. The current feedback system on MLS is tedious and becomes very time consuming when giving feedback for large classes, as users must set feedback individually for each student. ezMarker will cut down on this time by allowing bulk grade and feedback upload.
+    The <a href="#1.3%20Definitions">Brightspace API</a> Wrapper is a Python library used to make calls to the Brightspace API. In essence, it allows developers to fetch and push information through the API in a much more friendly manner. Rather than directly making HTTP requests, developers can simply use the functions available in the library. The wrapper is being developed primarily for ezMarker, a web application for uploading grades and feedback to a Brightspace environment.
 </p>
 <h3 id="1.1 Purpose">1.1 Purpose</h3>
 <p>
-The purpose of this document is to outline the requirements for building the Brightspace API Wrapper. It will touch on how the wrapper works, what functions are available, and how those functions should be used.
+The purpose of this document is to outline the requirements for building the Brightspace API Wrapper. It lists the API requests the wrapper will contain.
 </p>
 <h3 id="1.2 Scope">1.2 Scope</h3>
+<p>[explain what the wrapper is and what is does and why it is good in slightly more info than introduction]</p>
 <p>
-	ezMarker is a website that adds extended functionality to the MLS platform by providing an interface for setting student grades and feedback that is superior to the current MLS implementation. In the existing system feedback has to be set individually for each student. For courses with many students, inputting feedback for each student can take hours. ezMarker provides an alternate user interface that reduces grade recording time to minutes by allowing users to upload a single file that contains both grades and feedback for any students the user wishes to mark.</p> 
-<p>ezMarker also offers the capability to manually input grades and feedback for selected students, such that ezMarker can replace the current MLS website for all marking purposes.</p>
+The wrapper will only include the requests needed by ezMarker. The scope may later be increased, time-permitting, to include other key API requests, for the purpose of making the wrapper a useful resource for future development projects.
+</p> 
+
 <h3 id="1.3 Definitions">1.3 Definitions</h3>
-<p id="autograder">
-	Autograder - A program used by Wilfrid Laurier computer science professors and TAs to mark programming assignments. The program outputs a file containing grades and feedback for the student assignments it has marked.
-</p>
 <p>
-	<a href="https://www.d2l.com/products/learning-environment/">Brightspace</a>: A learning management system produced by Desire2Learn. The <a href="http://docs.valence.desire2learn.com/reference.html">Brightspace API</a> provides functionality for interacting with Brightspace environments.
+	<a href="https://www.d2l.com/products/learning-environment/">Brightspace</a>: A learning management system produced by Desire2Learn. It allows students and instructors to communicate, share resources, and keep track of student progress. A vital part of this system is the feature that allows instructors to set grades and give feedback on student work. The <a href="http://docs.valence.desire2learn.com/reference.html">Brightspace API</a> provides functionality for interacting with Brightspace environments.
 </p>
 <p>
 	<a href="https://www.d2l.com/products/learning-environment/">Desire to Learn (D2L)</a>: A Waterloo-based company that produces learning management software. They are the creators of Brightspace.</p>
-<h3 id="2.5 Constraints">2.5 Constraints</h3>
+<h2 id="2. Overall Description">2. Overall Description</h2>
+<h3 id="2.1 Product Perspective">2.1 Product Perspective</h3>
+<p>
+[basic diagram showing ezMarker interaction with wrapper (ex. Login_Request -> Wrapper)]
+</p>
+<h3 id="2.5 Constraints">2.2 Constraints</h3>
 <p>Development is constrained by a short, hard deadline.</p>
-<h3 id="2.6 Assumptions and Dependencies">2.6 Assumptions and Dependencies</h3>
+<h3 id="2.6 Assumptions and Dependencies">2.3 Assumptions and Dependencies</h3>
 <p>This project assumes that ezMarker will use the wrapper</p>
 <p>This project is dependent on continued support for the Brightspace API.</p>
 <h2 id="3. Software Requirements">3. Software Requirements</h2>
-<p>This section summarizes the API calls that Python wrapper makes and handles to support the features in Autograder. </p>
+<p>This section lists the API calls that the wrapper contains.</p>
 
 <h3 id="3.1 User Login">3.1 User Login</h3>
 <p>Two function calls to retrieve user credential:</p>
@@ -134,32 +124,20 @@ The purpose of this document is to outline the requirements for building the Bri
 <p>GET /d2l/api/le/(version)/(orgUnitId)/classlist/</p>
 <p><pre>&#9;Retrieve the enrolled users in the classlist for an org unit.</pre></p>
 
-<h3 id="3.6 Retrieve Files From Dropbox">3.6 Retrieve Files From Dropbox</h3>
-<p>GET /d2l/api/le/(version)/(orgUnitId)/dropbox/categories/(categoryId)</p>
-<p><pre>&#9;Retrieve the information for a specific dropbox folder category.</pre></p>
-<p>GET /d2l/api/le/(version)/(orgUnitId)/dropbox/folders/(folderId)/attachments/(fileId)</p>
-<p><pre>&#9;Retrieve a file attachment (identified by file ID) from a specific dropbox folder.</pre></p>
-
-<h3 id="3.7 Get Grade Items">3.7 Get Grade Items</h3>
+<h3 id="Get Grade Items">3.6 Get Grade Items</h3>
 <p>GET /d2l/api/le/(version)/(orgUnitId)/grades/</p>
 <p><pre>&#9;Retrieve all the current grade objects for a particular org unit.</pre></p>
 
-<h3 id="3.8 Set Specific Grade Item">3.8 Set Specific Grade Item</h3>
+<h3 id="Set Specific Grade Item">3.7 Set Specific Grade Item</h3>
 <p>PUT /d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)</p>
 <p><pre>&#9;Update a specific grade object.</pre></p>
 <p>GET /d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/</p>
 <p><pre>&#9;Retrieve each user’s grade value for a particular grade object.</pre></p>
 
-<h3 id="3.9 Update Grade Items">3.9 Update Grade Items</h3>
+<h3 id="Update Grade Items">3.8 Update Grade Items</h3>
 <p>PUT /d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)</p>
 <p><pre>&#9;Provide a specific grade value for a particular user.</pre></p>
 <h2 id="Revision History">Revision History</h2>
 <h3>Version 1.0 - 10/04/2017</h3>
-<p>Authors: </p>
-<p>SQA: </p>
-<style>
-	img
-	{
-		width: 800px;
-	}
-</style>
+<p>Authors: Sumeet Jhand, Xiang Ke, Troy Nechanicky</p>
+<p>SQA: Tyler Gwynn, Harold</p>
