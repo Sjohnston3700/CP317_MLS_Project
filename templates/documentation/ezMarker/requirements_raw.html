@@ -1,6 +1,6 @@
 <h1>ezMarker - Software Requirements</h1>
-<p>Version 2.0</p>
-<p>Last updated: October 2, 2017</p>
+<p>Version 3.0</p>
+<p>Last updated: October 4, 2017</p>
 <h2>Table Of Contents</h2>
 <ul>
     <li>
@@ -92,7 +92,10 @@
 <img src="/static/img/current.png">
 <h3 id="1.3 Definitions">1.3 Definitions</h3>
 <p id="autograder">
-	Autograder - A program used by Wilfrid Laurier computer science professors and TAs to mark programming assignments. The program outputs a file containing grades and feedback for the student assignments it has marked.
+	Autograder - A program used by Wilfrid Laurier computer science professors and TAs to mark programming assignments. The program outputs a formatted text file (.txt) containing grades and feedback for the student assignments it has marked.
+</p>
+<p id="formattedtext">
+	Autograder Formatted Text File - A formatted text (.txt) file created by the Autograder program containing grades and feedback for the student assignments it has marked. The format can also be reproduced by hand in any text editor for any assignment not supported by the Autograder.
 </p>
 <p>
 	<a href="https://www.d2l.com/products/learning-environment/">Brightspace</a>: A learning management system produced by Desire2Learn. The <a href="http://docs.valence.desire2learn.com/reference.html">Brightspace API</a> is used for authentication for entry into the ezMarker website and used to upload student grades in batches.
@@ -110,7 +113,7 @@
 <h2 id="2. Overall Description">2. Overall Description</h2>
 <h3 id="2.1 Product Perspective">2.1 Product Perspective</h3>
 <p>
-	ezMarker is a web-based application that allows users to set student grades and feedback in MLS through the use of the Brightspace API. Users are able to set grades and feedback by uploading files produced by the <a href="#1.3%20Definitions">Autograder</a> or by manually inputting information into a webpage. There will be no consideration for mobile usability.
+	ezMarker is a web-based application that allows users to set student grades and feedback in MLS through the use of the Brightspace API. Users are able to set grades and feedback by uploading <a href="#1.3%20Definitions">Autograder</a> formatted text files or by manually inputting information into a webpage. There will be no consideration for mobile usability.
 </p>
 <h4>2.1.1 User Interfaces</h4>
 <ul>
@@ -124,7 +127,7 @@
     <li>
         Grade Item Page
         <ul>
-            <li>User can upload an Autograder file.</li>
+            <li>User can upload an Autograder formatted text file.</li>
             <li>User can also search for students and manually input grades and feedback.</li>
         </ul>
     </li>
@@ -137,7 +140,7 @@
 </ul>
 <h3 id="2.2 Product Functions">2.2 Product Functions</h3>
 <ul>
-    <li>Upload an Autograder file to set grades and feedback in MLS for all students in a course.</li>
+    <li>Upload an Autograder formatted text file to set grades and feedback in MLS for all students in a course.</li>
     <li>Manually input grades and feedback to be set in MLS for selected students in a course.</li>
 </ul>
 <h3 id="2.3 Use Cases">2.3 Use Cases</h3>
@@ -164,8 +167,8 @@
 </ul>
 <h4>3.1.3 Grade Item Page</h4>
 <ul>
-    <li>A Choose File button opens a file dialog for selecting an Autograder file.</li>
-    <li>An Upload Grades File button uploads the file and sets the grades and feedback for the student listed in the Autograder file.</li>
+    <li>A Choose File button opens a file dialog for selecting an Autograder formatted text file.</li>
+    <li>An Upload Grades File button uploads the file and sets the grades and feedback for the student listed in the file.</li>
     <li>
 		A search bar appears below the above form, giving the user an option to set grades and feedback for individual students. Otherwise, the user can proceed.
     <li>
@@ -196,7 +199,7 @@
 <h4>3.2.2 Upload file</h4>
 <p>Occurs when the user has selected a file and submits the form.</p>
 <ul>
-    <li>If the file is not a correctly formatted Autograder file, an error message is displayed and no grades are uploaded.</li>
+    <li>If the file is not a correctly formatted Autograder text file, an error message is displayed and no grades are uploaded.</li>
     <li>If a necessary parameter for a grade is missing, that grade is not accepted.</li>
     <li>
 		Only grades for which the total grade is greater than or equal to the grade received are accepted (i.e. 45/23 is not a valid grade). If the grade total is smaller than the grade received, the user is prompted to continue (and skip the student) or modify the total of the grade item (taken to corresponding MLS page).</li>
@@ -261,6 +264,11 @@
 <p>- Removed some erroneous images from Appendix A</p>
 <p>Authors: Lucas Boulanger, Tyler Gwynn, Sarah Johnston, Mark Kokanovic, Troy Nechanicky</p>
 <p>SQA: Deep Raithatha, Harjodh Singh</p>
+<h3>Version 3.0 - 10/XX/2017</h3>
+<p>Revision Notes:</p>
+<p>- Generalized Autograder file format to .txt format.
+<p>Authors: Lucas Boulanger,</p>
+<p>SQA: </p>
 <style>
 	img
 	{
