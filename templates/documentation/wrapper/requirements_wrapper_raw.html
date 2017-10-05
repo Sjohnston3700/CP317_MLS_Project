@@ -63,24 +63,24 @@
 </ul>
 <h2 id="1. Introduction">1. Introduction</h2>
 <p>
-    The <a href="#1.3%20Definitions">Brightspace API</a> Wrapper is a Python library used to make calls to the Brightspace API. In essence, it allows developers to fetch and push information through the API in a much more friendly manner. Rather than directly making HTTP requests, developers can simply use the functions available in the library. The wrapper is being developed primarily for ezMarker, a web application for uploading grades and feedback to a Brightspace environment.
+    The <a href="#1.3%20Definitions">Brightspace API</a> Wrapper is a Python library used to make calls to the Brightspace API. In essence, it allows developers to fetch and push information through the API in a much more friendly manner. Rather than directly making HTTP requests, developers can simply use the functions available in the wrapper's library. This wrapper is being developed primarily for ezMarker, a web application for uploading grades and feedback to a Brightspace environment.
 </p>
 <h3 id="1.1 Purpose">1.1 Purpose</h3>
 <p>
-The purpose of this document is to outline the requirements for building the Brightspace API Wrapper. It lists the API requests the wrapper will contain.
+This document outlines the requirements of the Brightspace API Wrapper. It lists the API requests the wrapper contains.
 </p>
 <h3 id="1.2 Scope">1.2 Scope</h3>
-<p>The Brightspace API is accessed using HTTP requests. For applications like ezMarker, which have many API calls, it is nice to have the HTTP requests hidden  behind a wrapper. The wrapper takes Python arguments and returns Python objects, resulting in cleaner code because the application does not have to deal with complex HTTP requests and JSON objects.</p>
+<p>The Brightspace API is accessed using HTTP requests. For applications like ezMarker, which have many API calls, it is nice to have the HTTP requests hidden behind a wrapper. The wrapper takes Python arguments and returns Python objects, resulting in cleaner code because the application does not have to deal with complex HTTP requests and JSON objects.</p>
 <p>
 The wrapper currently only includes the requests needed by ezMarker. The scope may later be increased, time-permitting, to include other key API requests, for the purpose of making the wrapper a useful resource for future development projects.
 </p> 
 
 <h3 id="1.3 Definitions">1.3 Definitions</h3>
 <p>
-	<a href="https://www.d2l.com/products/learning-environment/">Brightspace</a>: A learning management system produced by Desire2Learn. It allows students and instructors to communicate, share resources, and keep track of student progress. A vital part of this system is the feature that allows instructors to set grades and give feedback on student work. The <a href="http://docs.valence.desire2learn.com/reference.html">Brightspace API</a> provides functionality for interacting with Brightspace environments.
+	<a href="https://www.d2l.com/products/learning-environment/" target = "_blank" >Brightspace</a>: A learning management system produced by Desire2Learn. It allows students and instructors to communicate, share resources, and keep track of student progress. A vital part of this system is the feature that allows instructors to set grades and give feedback on student work. The <a href="http://docs.valence.desire2learn.com/reference.html"target = "_blank">Brightspace API</a> provides functionality for interacting with Brightspace environments.
 </p>
 <p>
-	<a href="https://www.d2l.com/products/learning-environment/">Desire to Learn (D2L)</a>: A Waterloo-based company that produces learning management software. They are the creators of Brightspace.</p>
+	<a href="https://www.d2l.com/products/learning-environment/"target = "_blank">D2L</a>: A Waterloo-based company that produces learning management software. They are the creators of Brightspace.</p>
 
 <h2 id="2. Overall Description">2. Overall Description</h2>
 <h3 id="2.1 Product Perspective">2.1 Product Perspective</h3>
@@ -88,7 +88,7 @@ The wrapper currently only includes the requests needed by ezMarker. The scope m
 <h3 id="2.5 Constraints">2.2 Constraints</h3>
 <p>Development is constrained by a short, hard deadline.</p>
 <h3 id="2.6 Assumptions and Dependencies">2.3 Assumptions and Dependencies</h3>
-<p>This project assumes that ezMarker will use the wrapper</p>
+<p>This project assumes that ezMarker uses the wrapper.</p>
 <p>This project is dependent on continued support for the Brightspace API.</p>
 <h2 id="3. Software Requirements">3. Software Requirements</h2>
 
@@ -119,7 +119,7 @@ The wrapper currently only includes the requests needed by ezMarker. The scope m
 <p><pre>&#9;Provide a specific grade value for a particular user.</pre></p>
 
 <h3 id="User">3.7 User Object</h3>
-<p>The wrapper will have a User object that grabs the authentication token after the user logs in. There are no API requests associated with this requirement.</p>
+<p>The wrapper has a User object that grabs the authentication token after the user logs in. There are no API requests associated with this requirement.</p>
 
 <h2 id="Revision History">Revision History</h2>
 <h3>Version 1.0 - 10/05/2017</h3>
