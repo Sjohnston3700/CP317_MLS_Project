@@ -169,11 +169,8 @@
 <ul>
     <li>A Choose File button opens a file dialog for selecting an Autograder formatted text file.</li>
     <li>An Upload Grades File button uploads the file and sets the grades and feedback for the student listed in the file.</li>
-    <li>
-		A search bar appears below the above form, giving the user an option to set grades and feedback for individual students. Otherwise, the user can proceed.
-    <li>
-		Selecting a student returned by the search results adds Grade and Feedback input boxes (with the student's name and ID acting as a label above them) to the page. An X icon next to the student's ID removes the input boxes from the page.
-	</li>
+    <li>A search bar appears below the above form, giving the user an option to set grades and feedback manually for individual students. Otherwise, the user can proceed.</li>
+    <li>Selecting a student returned by the search results adds Grade and Feedback input boxes (with the student's name and ID acting as a label above them) to the page. An X icon next to the student's ID removes the input boxes from the page.</li>
     <li>There is a Select All button next to the search bar for quickly adding input boxes for all students.</li>
     <li>A Set Grades button sets grades and feedback using the manually input information.</li>
 </ul>
@@ -201,10 +198,9 @@
 <ul>
     <li>If the file is not a correctly formatted Autograder text file, an error message is displayed and no grades are uploaded.</li>
     <li>If a necessary parameter for a grade is missing, that grade is not accepted.</li>
-    <li>
-		Only grades for which the total grade is greater than or equal to the grade received are accepted (i.e. 45/23 is not a valid grade). If the grade total is smaller than the grade received, the user is prompted to continue (and skip the student) or modify the total of the grade item (taken to corresponding MLS page).</li>
-    <li>Grades are only accepted for students that are currently enrolled in the selected course.
-	</li>
+    <li>Only grades for which the total grade is greater than or equal to the grade received are accepted (i.e. 45/23 is not a valid grade). </li>
+	<li>should the grade total be smaller than the grade received, the user is prompted to continue (and skip the student) or modify the total of the grade item.</li>
+    <li>Grades are only accepted for students that are currently enrolled in the selected course.</li>
     <li>The results of the parsing are relayed to the user on the Report page.</li>
 </ul>
 <h4>3.2.3 Search students</h4>
@@ -213,13 +209,12 @@
     <li>The search dynamically filters students by name until a numeric character is entered, at which point student IDs are searched.</li>
 </ul>
 <h4>3.2.4 Get manually input data</h4>
-<p>Occurs when the user has clicked Set Grades.</p>
+<p>Occurs when the user has clicked Set Grades (for an individual student).</p>
 <ul>
     <li>The data that has been input for the selected student(s) is validated and uploaded to MLS through the Brightspace API.</li>
     <li>Only grades for which the total grade is greater than or equal to the grade received are accepted (i.e. 45/23 is not a valid grade).</li>
-    <li>
-		If no grade value has been entered for a student, the user is prompted to choose if they want to go back and set a grade value or continue. If they continue, no grade is set for the student.
-	</li>
+	<li>Should the total grade be smaller than the grade received, the user is prompted to continue (and skip the student) or modify the total of the grade item.</li>
+    <li>If no grade value has been entered for a student, the user is prompted to choose if they want to go back and set a grade value or continue. If they continue, no grade is set for the student.</li>
     <li>Any unaccepted grades are relayed to the user on the Report page.</li>
 </ul>
 <h4>3.2.5 Set grade and feedback data</h4>
