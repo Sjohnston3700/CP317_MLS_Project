@@ -1,0 +1,106 @@
+window.onload = function () {
+    var toc = "";
+    var level = 0;
+
+    document.getElementById("contents").innerHTML =
+        document.getElementById("contents").innerHTML.replace(
+            /<h([\d])>([^<]+)<\/h([\d])>/gi,
+            function (str, openLevel, titleText, closeLevel) {
+                if (openLevel != closeLevel) {
+                    return str;
+                }
+
+                if (openLevel > level) {
+                    toc += (new Array(openLevel - level + 1)).join("<ul>");
+                } else if (openLevel < level) {
+                    toc += (new Array(level - openLevel + 1)).join("</ul>");
+                }
+
+                level = parseInt(openLevel);
+
+                var anchor = titleText.replace(/ /g, "_");
+                toc += "<li><a href=\"#" + anchor + "\">" + titleText
+                    + "</a></li>";
+
+                return "<h" + openLevel + "><a name=\"" + anchor + "\">"
+                    + titleText + "</a></h" + closeLevel + ">";
+            }
+        );
+
+    if (level) {
+        toc += (new Array(level + 1)).join("</ul>");
+    }
+
+    document.getElementById("toc").innerHTML += toc;
+};
+
+
+
+<h1>ezMarker - Design</h1>
+<p>Version 1.0</p>
+<p>Last updated: October 16, 2017</p>
+
+<div id="toc">
+        <h2 class="nocount">Table of Contents</h2>
+</div>
+<div id="content">
+    <h2>Introduction</h2>
+    <p>
+        ezMarker is a web application that allows instructors to upload grades into MyLearningSpace with ease. MyLearningSpace (MLS) is Laurier's online learning management system. It is a rebranded version of a product called Brightspace, created by Desire2Learn (D2L).  ezMarker uses the Brightspace API to add assignment marks and feedback from the auto-grader to MyLearningSpace for each student in bulk.  ezMarker cuts down TA/IA workloads significantly, as a process that took several hours now takes less than 10 minutes using the software.  This document gives a brief outline of the structure of the software’s classes, objects, and the interactions between them.
+    </p>
+
+<h2>Package Descriptions</h2>
+<p>[see https://bohr.wlu.ca/cp317/notes/11_design.php]</p>
+<p>[diagram(s?) and brief description of each package?]</p>
+
+<h2>Program Flow</h2>
+<p>[diagram showing flow of program]</p>
+
+<h2>User Interface Design</h2>
+<p>[subsection for each page (see requirements doc). 1 line description of page. describe any special requirements (ex. sorting). describe elements of each page. describe what happens to the page after event. sub-subsection for popups that occur on each page? see http://partyall-docs.herokuapp.com/docs/partyall-design.html section 3 for a basic example]</p>
+    
+<h2>Class Design</h2>
+<p>[build from analysis class diagram. Need to add methods (include arguments and what is returned). Also need to add attribute type if not already described in analysis diagram.]</p>
+    
+<h2>Condition Checks and Error Handling</h2>
+<p>[descibe condition checks and error handling for methods that require them. look at 3.1, 3.2 in req. doc.]</p>
+    
+<h2 class="nocount">Revision History</h2>
+</div>
+<h3 class="nocount">Version 1.0 - 10/16/2017</h3>
+<p>Authors: </p>
+<p>SQA: </p>
+
+<style>
+	img 
+	{
+		width: 800px;
+	}
+    
+   body{counter-reset: section}
+   h2{counter-reset: sub-section}
+   h3{counter-reset: composite}
+   h4{counter-reset: detail}
+
+   h2:before{
+     counter-increment: section;
+     content: counter(section) ". ";
+   }
+   h3:before{
+     counter-increment: sub-section;
+     content: counter(section) "." counter(sub-section) " ";
+   }
+   h4:before{
+     counter-increment: composite;
+     content: counter(section) "." counter(sub-section) "." counter(composite) " ";
+   }
+   h5:before{
+     counter-increment: detail;
+     content: counter(section) "." counter(sub-section) "." counter(composite) "." counter(detail) " ";
+   }
+    h2.nocount:before,h3.nocount:before,h4.nocount:before{
+		content: none;
+		counter-increment: none;
+	}
+
+</style>
