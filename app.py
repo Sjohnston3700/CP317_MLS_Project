@@ -84,7 +84,7 @@ def set_grades(courseId, gradeItemId):
         return redirect('/availableCourses/')
         
     if request.method == 'GET':
-        return render_template('upload.html',courseId=courseId,gradeItemId=gradeItemId)
+        return render_template('pages/upload.html',courseId=courseId,gradeItemId=gradeItemId)
     
     elif request.method == 'POST':
         f = request.files['file']
@@ -97,7 +97,7 @@ def set_grades(courseId, gradeItemId):
                 if float(grade.maxValue) != gradeItem.maxPoints:
                     updateUrl = EDIT_GRADE_ITEM_URL.format(host=user.uc.host,gradeItemId=gradeItem.Id,courseId=course.Id)
                     message = 'Grade for {} is out of {}. The Max Points for {} is {}'.format(grade.studentName,grade.maxValue,gradeItem.name,gradeItem.maxPoints)
-                    return render_template("updateGradeItem.html",gradeUrl=updateUrl,message=message)
+                    return render_template("pages/updateGradeItem.html",gradeUrl=updateUrl,message=message)
                 
                 userId,gradeValue,PublicFeedback = grade.userId,grade.value,grade.public_feedback
                 gradeItem.setUserGrade(userId,courseId,gradeValue,PublicFeedback,PrivateFeedback='')
@@ -115,7 +115,7 @@ def set_grades(courseId, gradeItemId):
             
     gradesUrl = VIEW_GRADES_URL.format(host=user.uc.host,gradeItemId=gradeItem.Id,courseId=course.Id)
     logoutUrl = LOGOUT_URL.format(host=user.uc.host)                     
-    return render_template("gradesUploaded.html",errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=gradeItem,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
+    return render_template("pages/gradesUploaded.html",errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=gradeItem,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
 
 if __name__ == "__main__":
 	port = int(os.environ.get("PORT", 8080))

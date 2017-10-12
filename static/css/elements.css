@@ -11,6 +11,11 @@
 	border: 1px solid #F2A900;
 }
 
+.block
+{
+	display: block;
+}
+
 .btn:hover
 {	
 	background: #d89702;
@@ -52,6 +57,13 @@
 a.btn 
 {
 	text-decoration: none;
+}
+
+.btn-remove
+{
+	height: 30px;
+	width: 30px;
+	padding: 0px;
 }
 /* Accordion */
 
@@ -98,4 +110,12 @@ button.accordion.active:after
 {
     content: "\2796"; /* Unicode character for "minus" sign (-) */
 	color: white;
+}
+
+/* Other */
+
+hr
+{
+	color: #cfd2d6;
+	margin: 40px 0px;
 }

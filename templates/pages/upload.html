@@ -5,10 +5,44 @@
 {% endblock %}
 
 {% block content %}
+<h2>Automated Upload</h2>
+<div class="page-section">
 	<h2>Upload a File</h2>
 	  <form action={{ url_for('set_grades',courseId=courseId,gradeItemId=gradeItemId) }} method="POST"
          enctype="multipart/form-data">
-         	<input type="file" name="file" >
+         	<input type="file" name="file">
 	  		<button class="btn" type="submit">Upload Grades File</button>
       </form>
+</div>
+<h2>Manual Grade Input</h2>
+<div class="page-section">
+	
+	<form>
+		<h4>Search to add a student: </h4>
+		<input type="text" class="input" placeholder="Enter Student Name or ID...">
+		<button class="btn">Search</button>
+	</form>
+	<hr>
+	<!-- foreach student -->
+	<form>
+		<h3>John Doe<button class="btn btn-error btn-remove inline">x</button></h3>
+		<div class="form-group">
+			<label>Grade: </label>
+			<input type="text" placeholder="Grade out of /100">
+		</div>	
+		<textarea class="input" placeholder="Student feedback..." resize="false"></textarea>
+
+	</form>
+	<form>
+		<h3>Jane Doe<button class="btn btn-error btn-remove inline">x</button></h3>
+		<div class="form-group">
+			<label>Grade: </label>
+			<input type="text" placeholder="Grade out of /100">
+		</div>	
+		<textarea class="input" placeholder="Student feedback..." resize="false"></textarea>
+
+	</form>
+	
+	<button class="btn submit-btn">Upload grades to MLS</button>
+</div>
 {% endblock %}
