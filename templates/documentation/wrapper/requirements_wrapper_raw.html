@@ -1,6 +1,6 @@
 <h1>Brightspace API Wrapper - Software Requirements</h1>
-<p>Version 1.0</p>
-<p>Last updated: October 9, 2017</p>
+<p>Version 2.0</p>
+<p>Last updated: October 12, 2017</p>
 <h2>Table Of Contents</h2>
 <ul>
     <li>
@@ -92,8 +92,11 @@
 <p>This project is dependent on continued support for the Brightspace API.</p>
 <h2 id="3. Software Requirements">3. Software Requirements</h2>
 
-<p>This section lists the API calls that the wrapper contains.</p>
+<p>This section lists the classes and requests that the wrapper contains<p>
 
+<p>Host Contains API information, implements Get API Versions call. User contains user information, grabs the authentication token after the user logs in, also implements Get List of Accessible Courses. Course contains course information, implements Get Class List, Get Grade Items. Student containst student information. Grade Item contains grade item information, implements Set Specific Grade Item. Grade contains grade information, implements Set Grade</p>
+<p>[for requests, copy request from below - don't need to keep request description though]</p>
+    
 <h3 id="3.3 Check API Version">3.1 Get API Versions</h3>
 <p>GET <a href="http://docs.valence.desire2learn.com/res/apiprop.html#id3" target="_blank">/d2l/api/versions/</a></p>
 <p>
@@ -136,6 +139,9 @@
 <h2 id="Revision History">Revision History</h2>
 <h3>Version 1.0 - 10/09/2017</h3>
 <p>Authors: Sumeet Jhand, Xiang Ke, Troy Nechanicky</p>
+<p>SQA: Tyler Gwynn, Harold Hodgins</p>
+<h3>Version 2.0 - 10/12/2017</h3>
+<p>Authors: Troy Nechanicky, Amardeep Sarang</p>
 <p>SQA: Tyler Gwynn, Harold Hodgins</p>
 
 <style>
