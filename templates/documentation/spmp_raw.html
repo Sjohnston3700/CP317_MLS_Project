@@ -137,7 +137,7 @@
 </ul>
 <h2 id="overview">1. Overview</h2>
 <p>
-	 ezMarker is a web application that allows instructors to upload grades onto MyLearningSpace with ease. <a href="https://mylearningspace.wlu.ca">MyLearningSpace</a> (MLS) is Laurier's online learning management system. It is a rebranded version of <a href="https://www.d2l.com/products/learning-environment/">Brightspace</a>, created by <a href="https://www.d2l.com/products/learning-environment/">Desire2Learn</a> (D2L). This educational platform allows students and instructors to communicate, share resources, and keep track of academic progress. A vital part of this system is a feature that allows instructors to set grades and give feedback on student work. The current feedback system on MLS is tedious and becomes time consuming when giving feedback for large classes. ezMarker will cut down on this time by allowing bulk grade and feedback upload with the use of the <a href="http://docs.valence.desire2learn.com/reference.html">Brightspace API.</a>
+	 ezMarker is a web application that allows instructors to upload grades onto MyLearningSpace with ease. <a href="#mylearningspace">MyLearningSpace</a> (MLS) is Laurier's online learning management system. It is a rebranded version of <a href="#brightspace">Brightspace</a>, created by <a href="#desire2learn">Desire2Learn</a> (D2L). This educational platform allows students and instructors to communicate, share resources, and keep track of academic progress. A vital part of this system is a feature that allows instructors to set grades and give feedback on student work. The current feedback system on MLS is tedious and becomes time consuming when giving feedback for large classes. ezMarker will cut down on this time by allowing bulk grade and feedback upload with the use of the <a href="#brightspace">Brightspace API.</a>
 </p>
 
 <h3 id="purpose_scope">1.1 Purpose</h3>
@@ -148,7 +148,7 @@ The purpose of this document is to organize project deliverables and ensure that
 
 <h3 id="scope">1.2 Scope</h3>
 <p>
-	ezMarker is a website that adds extended functionality to the MLS platform by providing an interface for setting student grades and feedback that is superior to the current MLS implementation. In the existing system feedback has to be set individually for each student. For courses with many students, inputting feedback for each student can take hours. ezMarker provides an alternate user interface that reduces grade recording time to minutes by allowing users to upload a single file that contains both grades and feedback for any students the user wishes to mark.
+	ezMarker is a website that adds extended functionality to the MLS platform by providing an interface for setting student grades and feedback that is superior to the current MLS implementation. It is branched off of an existing projected completed by Harold Hodgins, which is being upgraded with extended features and improvements of previous functions to fit the new MLS platform smoothly. In the existing system feedback has to be set individually for each student. For courses with many students, inputting feedback for each student can take hours. ezMarker provides an alternate user interface that reduces grade recording time to minutes by allowing users to upload a single file that contains both grades and feedback for any students the user wishes to mark.
 </p> 
 <p>ezMarker also offers the capability to manually input grades and feedback for selected students, such that ezMarker can replace the current MLS website for all marking purposes.</p>
 
@@ -165,23 +165,27 @@ The purpose of this document is to organize project deliverables and ensure that
 
 <h3 id="deliverables">1.4 Project Deliverables</h3>
 <h4 id="software_del">1.4.1 Software Deliverables</h4>
-<p>The ezMarker team aims to deliver a fully functioning product before December 2017.</p>
+<p>The ezMarker team aims to deliver a fully functioning product before December 2017. Its aspects are as follows:
+
+    <ul>
+        <li>Two wrappers: Python and PHP</li>
+        <li>TWo version of the website: Python and PHP</li>
+    </ul>
+    
+    For more information, please refer to the Requirements Document.
+</p>
     <h4 id="document_del">1.4.2 Document Deliverables</h4>
 <p>
-    The following documents are required for the ezMarker project:
+    In additon to the software itself, the following documents are required for the ezMarker project:
     <ul>
         <li>Software Project Management Plan</li>
         <li>Software Requirements Document</li>
         <li>Analysis Document</li>
         <li>Design Document</li>
-    </ul>
-</p>
-<p>
-    The following documents will be presented to the client:
-    <ul>
         <li>ezMarker Project Software Project Management Plan</li>
         <li>ezMarker Software Requirements Document</li>
         <li>Brightspace API Wrapper Requirements Document</li>
+
     </ul>
 </p>
 
@@ -294,7 +298,7 @@ The purpose of this document is to organize project deliverables and ensure that
 <p>
     <a href="https://bohr.wlu.ca/cp317/">CP317 course website</a>
 </p>
-<p><a
+<p id="testsite"><a
       href="https://ezmarker.herokuapp.com/">ezMarker test website</a></p>
 <p>IEEE Std 1058-1998, IEEE Standard for Software Project Management Plans, IEEE 1998</p>
 <p>“MLS API Report”, April 30th 2017, Harold Hodgins, Wilfrid Laurier University</p>
@@ -306,9 +310,9 @@ The purpose of this document is to organize project deliverables and ensure that
 <p id="brightspace">
 	<a href="https://www.d2l.com/products/learning-environment/">Brightspace</a>: A learning management system produced by Desire2Learn. The <a href="http://docs.valence.desire2learn.com/reference.html">Brightspace API</a> is used for authentication to enter the ezMarker website, and required for batch uploading of grades.
 </p>
-<p>
+<p id="desire2learn">
 	<a href="https://www.d2l.com/products/learning-environment/">Desire2Learn (D2L)</a>: A Waterloo-based company that produces learning management software. They are the creators of Brightspace.</p>
-<p>
+<p id="mylearningspace">
 	<a href="https://mylearningspace.wlu.ca">MyLearningSpace (MLS)</a>: Laurier's online learning management system for students and professors. This software is a rebranded version of Brightspace.
 </p>
 <p>SPMP – Software Project Management Plan</p>
@@ -819,14 +823,15 @@ The internal structure of the team is based around five distinct divisions: fron
         <li>Apache: A web server with support for PHP, Python3.x, and Flask</li>
         <li>Brightspace API</li>
         <li>PHP 5.4</li>
-	    <li>Python 3.6</li>        
+	    <li>Python 3.6</li>
+        <li>Flask</li>
     </ul>
 </p>
 <p>Miscellaneous tools to be used: Google Docs, Dropbox, MS Word.</p>
 
 <h3 id="infrastructure-plan">6.3 Infrastructure Plan</h3>
 <p>
-    The software is a companion application to <a href="https://www.d2l.com/products/learning-environment/">Brightspace</a>. At key checkpoints, prototypes are uploaded to the test server <a href="https://ezmarker.herokuapp.com/">https://ezmarker.herokuapp.com/</a>, and transferred to <a href="#bohr">Bohr</a> upon completion. Additional resources may include but are not limited to printers, drafting materials, and other University resources.
+    The software is a companion application to <a href="#brightspace">Brightspace</a>. At key checkpoints, prototypes are uploaded to the <a href="https://ezmarker.herokuapp.com/">test server</a>, and transferred to <a href="#bohr">Bohr</a> upon completion. It is to be supported by the Flask framework for the Python verions. Additional resources may include but are not limited to printers, drafting materials, and other University resources.
 </p>
 
 <h3 id="product-acceptance-plan">6.4 Product Acceptance Plan</h3>
