@@ -25,7 +25,7 @@ app_url = '{0}://{1}:{2}{3}'.format(app_config['scheme'], app_config['host'], ap
 
 @app.route("/")
 def start():
-	return render_template('home.html')	
+	return render_template('pages/home.html')	
 
 @app.route("/login/")
 def login():
@@ -44,29 +44,29 @@ def auth_token_handler():
 @app.route('/availableCourses/')
 def showCourses():
 	try:
-		return render_template('available_grades.html', user=app.config['user'])
+		return render_template('pages/available_grades.html', user=app.config['user'])
 	except:
 		return redirect("/")
 
 @app.route('/documentation/')
 def showDocs():
-	return render_template('documentation.html')
+	return render_template('pages/documentation.html')
 
 @app.route('/documentation/spmp/')
 def showSPMP():
-	return render_template('spmp.html')
+	return render_template('pages/spmp.html')
 
 @app.route('/documentation/spmp/raw/')
 def showSPMPRaw():
-	return render_template('spmp_raw.html')
+	return render_template('documentation/spmp_raw.html')
 
 @app.route('/documentation/requirements')
 def showRequirements():
-	return render_template('requirements.html')
+	return render_template('pages/requirements.html')
 
 @app.route('/documentation/requirements/raw/')
 def showRequirementsRaw():
-	return render_template('requirements_raw.html')
+	return render_template('documentation/ezmarker/requirements_raw.html')
 
 @app.route('/logout/')
 def showLogout():
