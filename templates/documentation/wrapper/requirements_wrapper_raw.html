@@ -35,22 +35,22 @@
         <a href="#3.%20Software%20Requirements">3. Software Requirements</a>
         <ul>
             <li>
-                <a href="#3.3%20Check%20API%20Version">3.1 Get API Versions</a>
+                <a href="#3.1%20Host">3.1 Host</a>
             </li>
             <li>
-                <a href="#3.4%20Get%20Accessible%20List%20of%20Courses">3.2 Get List of Accessible Courses</a>
+                <a href="#3.2%20User">3.2 User</a>
             </li>
             <li>
-                <a href="#3.5%20Get%20Class%20List">3.3 Get Class List </a>
+                <a href="#3.3%20Course">3.3 Course </a>
             </li>
             <li>
-                <a href="#Get%20Grade%20Items">3.4 Get Grade Items</a>
+                <a href="#3.4%20Student">3.4 Student</a>
             </li>
             <li>
-                <a href="#Set%20Specific%20Grade%20Item">3.5 Set Specific Grade Item</a>
+                <a href="#3.5%20Grade Item">3.5 Grade Item</a>
             </li>
             <li>
-                <a href="#Update%20Grade%20Items">3.6 Set Grade</a>
+                <a href="#3.6%20Grade">3.6 Set Grade</a>
             </li>
             <li>
                 <a href="#User">3.7 User Object</a>
@@ -97,40 +97,70 @@
 <p>Host Contains API information, implements Get API Versions call. User contains user information, grabs the authentication token after the user logs in, also implements Get List of Accessible Courses. Course contains course information, implements Get Class List, Get Grade Items. Student containst student information. Grade Item contains grade item information, implements Set Specific Grade Item. Grade contains grade information, implements Set Grade</p>
 <p>[for requests, copy request from below - don't need to keep request description though]</p>
     
-<h3 id="3.3 Check API Version">3.1 Get API Versions</h3>
-<p>GET <a href="http://docs.valence.desire2learn.com/res/apiprop.html#id3" target="_blank">/d2l/api/versions/</a></p>
+<h3 id="3.1 Host">3.1 Host </h3>
+<p>- Host Contains API information</p>
+<p> -Implements Get API Versions (GET  <a href="http://docs.valence.desire2learn.com/res/apiprop.html#id3" target="_blank">/d2l/api/versions/</a>).</p>
 <p>
-    <pre>&#9;Retrieve all supported versions for all product components.</pre>
+	<h4>   Parameters </h4>
+        
+	<h4>   Returns </h4>
+
+	
 </p>
 
-<h3 id="3.4 Get Accessible List of Courses">3.2 Get List of Accessible Courses</h3>
-<p>GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#actions" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/</a></p>
+<h3 id="3.2 User">3.2 User</h3>
+
 <p>
-    <pre>&#9;Retrieve the list of all enrollments for the current user.</pre>
+    - Contains user information, stores the authentication token
+</p>
+<p>- Implements Get List of Accessible Courses (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#actions" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/</a>)</p>
+<p>
+	<h4>   Parameters </h4>
+        
+	<h4>   Returns </h4>
 </p>
 
-<h3 id="3.5 Get Class List">3.3 Get Class List</h3>
-<p>GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#actions" target="_blank">/d2l/api/le/(version)/(orgUnitId)/classlist/</a></p>
+<h3 id="3.3 Course">3.3 Course </h3>
 <p>
-    <pre>&#9;Retrieve the enrolled users in the classlist for an org unit.</pre>
+    - Contains course information 
+</p>
+<p>- Implements Get Class List (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#actions" target="_blank">/d2l/api/le/(version)/(orgUnitId)/classlist/</a>)</p>
+
+<p>
+	<h4>   Parameters </h4>
+        
+	<h4>   Returns </h4>
+</p>
+<p>- Implements Get Grade Items (GET<a href="http://docs.valence.desire2learn.com/res/grade.html?highlight=d2l%20api%20le%20version%20orgunitid%20grades#actions" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a>)</p>
+
+<p>
+	<h4>   Parameters </h4>
+        
+	<h4>   Returns </h4>
 </p>
 
-<h3 id="Get Grade Items">3.4 Get Grade Items</h3>
-<p>GET <a href="http://docs.valence.desire2learn.com/res/grade.html?highlight=d2l%20api%20le%20version%20orgunitid%20grades#actions" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a></p>
+
+<h3 id="3.4 Student">3.4 Student</h3>
+<p>GET </p>
 <p>
-    <pre>&#9;Retrieve all the current grade objects for a particular org unit.</pre>
+- Contains student information.
 </p>
 
-<h3 id="Set Specific Grade Item">3.5 Set Specific Grade Item</h3>
-<p>PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#actions" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)</a></p>
+
+<h3 id="3.5 Grade Item">3.5 Grade Item</h3>
+<p>- Implements Set Specific Grade Item (PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#actions" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)</a>)</p>
 <p>
-    <pre>&#9;Update a specific grade object.</pre>
+	<h4>   Parameters </h4>
+        
+	<h4>   Returns </h4>
 </p>
 
-<h3 id="Update Grade Items">3.6 Set Grade</h3>
-<p>PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#id3" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)</a></p>
+<h3 id="3.6 Grade">3.6 Grade</h3>
+<p>- Implements Set Grade (PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#id3" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)</a>)</p>
 <p>
-    <pre>&#9;Provide a specific grade value for a particular user.</pre>
+    <h4>   Parameters </h4>
+        
+	<h4>   Returns </h4>
 </p>
 
 <h3 id="User">3.7 User Object</h3>
