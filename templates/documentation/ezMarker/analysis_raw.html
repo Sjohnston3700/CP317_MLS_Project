@@ -22,7 +22,7 @@
 
         <h2 id="introduction">1. Introduction</h2>
         <p>
-            ezMarker is a web application that allows markers to bulk upload grades and feedback from formatted text files into a Brightspace environment. This document outlines the structure of ezMarker’s classes and objects, along with the interactions between them.
+            ezMarker is a web application that allows Wilfrid Laurier markers and professors to bulk upload grades and feedback from formatted text files into MyLearningSpace with the help of the Brightspace API supported by D2L. The purpose of ezMarker is to solve the issues and inefficiencies with manually uploading student grades and feedback through the current MyLearningSpace interface. On average, it can take markers a few hours to manually upload grades for one class. Marking time is cut down to minutes with the use of ezMarker's bulk file upload. This document outlines the structure of the classes and objects for the ezMarker application, along with the interactions between them.
         </p>
 
         <hr>
@@ -33,11 +33,35 @@
 <p>[diagram showing relationship between objects]</p>
         <h3 id="entity_objects">2.2 Entity Objects</h3>
         <ul>
-            <li>[object] - [description]</li>
+			<li>Host - Host information from config file.</li>
+			<li>Credentials - Stores user credentials.</li>
+			<li>User - Stores information about logged in user.</li>
+			<li>Course - Stores information about a course.</li>
+			<li>Student - Stores information about a student.</li>
+			<li>GradeItem - Stores information about a grade item. Abstract Class. Implimented by specific grade item type.</li>
+			<li>Grade - Stores information about a specific grade. Abstract Class. Implimented by specific grade type.</li>
         </ul>
 
         <h3 id="boundary_objects">2.3 Boundary Objects</h3>
+			<ul>
+				<li>LoginView - Where user signs in with MLS credentials and receives Brightspace API token.</li>
+				<li>AvailableGradeItemsView - Where user selects a course and the grade item that they have permission to upload grades to.</li>
+				<li>UploadFileView - Where user can upload a file for bulk grade submission.</li>
+				<li>ManualGradingView - Where user can search for students and manually input grades and feedback.</li>
+				<li>ReportView - Where user will be shown how many grades were successfully set and if any errors occurred.</li>
+				<li>LogoutView - Where user signs out.</li>
+			</ul>
         <h3 id="control_objects">2.4 Control Objects</h3>
+			<ul>
+				<li>LoginController - Coordinates retrieval of Brightspace token and updating User object.</li>
+				<li>AvailableGradeItemsController - Coordinates the retrieval and displaying of Course and GradeItem objects the user has permission to upload grades to.</li>
+				<li>UploadFileValidationController - Coordinates form validation for uploading a file.</li>
+				<li>ParseUploadedFileController - Coordinates file parsing prior to grade upload.</li>
+				<li>ManualGradingValidationController - Coordinates form validation for manual grade input.</li>
+				<li>ParseManualGradingController - Coordinates manaul input parsing prior to grade upload.</li>
+				<li>UploadGradesController - Coordinates uploading grades through API and updating GradeItem object.</li>
+				<li>LogoutController - Coordinates signing out user and updating User object.</li>
+			</ul>
 
         <h2 id="state_diagram">3. Class Diagrams</h2>
 <p>[define classes, show relationships when applicable, only need attributes, not methods]</p>
