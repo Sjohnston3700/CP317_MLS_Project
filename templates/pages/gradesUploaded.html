@@ -15,14 +15,26 @@
     	{% endfor %}
     </ul>
 	{% endif %}
-    <br>
-    <a class="btn" href="{{ url_for('showCourses') }}"> Upload more grades</a>
-	</br>
-    <br>
-    <a class="btn" href="{{ gradesUrl }}" target="_blank"> Check Grades</a>
-    </br>
-	<br>
-    <a class="btn" href="{{ logoutUrl }}"> Logout </a>
+    <a class="btn btn-block" href="{{ url_for('showCourses') }}">Upload more grades</a><br>
+    <a class="btn btn-block" href="{{ gradesUrl }}" target="_blank">Check Grades</a><br>
+    <a class="btn btn-block" href="{{ logoutUrl }}">Logout</a><br>
 	</br>
 </div>
+<button id="open-modal">Open Modal</button>
+<div id="error-modal" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+			<span class="close">&times;</span>
+			<h2>No Grade Set For John Doe</h2>
+		</div>
+		<div class="modal-body">
+			<p>No grade was set for <strong>John Doe</strong> during your upload. Go back and set their grade?</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn">Set grade</button>
+			<button class="btn btn-error">Skip</button>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="/static/js/error-modal.js"></script>
 {% endblock %}

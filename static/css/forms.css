@@ -39,7 +39,7 @@ input, textarea
 
 form h3, form h4
 {
-	padding: 10px;
+	padding-left: 10px;
 }
 
 .form-group label
