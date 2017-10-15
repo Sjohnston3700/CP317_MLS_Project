@@ -1,78 +1,67 @@
+<script src="../../../static/js/toc-generator.js"></script>
+
         <h1>ezMarker - Analysis</h1>
         <p>Version 1.0</p>
 <p>Last updated: October x, 2017</p>
 
-        <h2>Table of Contents</h2>
-        <ul>
-            <li><a href="#introduction">1. Introduction</a></li>
-            <li><a href="#object_classification">2. Object Classification</a>
-                <ul>
-                    <li><a href="#bce_diagram">2.1 Objects Diagrams</a></li>
-                    <li><a href="#entity_objects">2.2 Entity Objects</a></li>
-                    <li><a href="#boundary_objects">2.3 Boundary Objects</a></li>
-                    <li><a href="#control_objects">2.4 Control Objects</a></li>
-                </ul>
-            </li>
-            <li><a href="#diagrams">3. Class Diagrams</a>
-            </li>
-            <li>
-        <a href="#revision-history">Revision History</a>
-    </li>
-        </ul>
+        <div id="toc">
+			<h2>Table of Contents</h2>
+		</div>
 
-        <h2 id="introduction">1. Introduction</h2>
+        <h2>Introduction</h2>
         <p>
             ezMarker is a web application that allows Wilfrid Laurier markers and professors to bulk upload grades and feedback from formatted text files into MyLearningSpace with the help of the Brightspace API supported by D2L. The purpose of ezMarker is to solve the issues and inefficiencies with manually uploading student grades and feedback through the current MyLearningSpace interface. On average, it can take markers a few hours to manually upload grades for one class. Marking time is cut down to minutes with the use of ezMarker's bulk file upload. This document outlines the structure of the classes and objects for the ezMarker application, along with the interactions between them.
         </p>
 
         <hr>
 
-        <h2 id="object_classification">2. Object Classification</h2>
+        <h2>Object Classification</h2>
 
-<h3 id="bce_diagram">2.1 Objects Diagram</h3>
-<p>[diagram showing relationship between objects]</p>
-        <h3 id="entity_objects">2.2 Entity Objects</h3>
+		<h3>Object Diagram</h3>
+		<img src="../../../static/img/object_diagram.png" alt="ezMarker Object Diagram">
+		
+        <h3>Entity Objects</h3>
         <ul>
-			<li>Host - Host information from config file.</li>
-			<li>Credentials - Stores user credentials.</li>
+			<li>Host - Stores host information from config file.</li>
 			<li>User - Stores information about logged in user.</li>
 			<li>Course - Stores information about a course.</li>
 			<li>Student - Stores information about a student.</li>
-			<li>GradeItem - Stores information about a grade item. Abstract Class. Implimented by specific grade item type.</li>
-			<li>Grade - Stores information about a specific grade. Abstract Class. Implimented by specific grade type.</li>
+			<li>GradeItem - Stores information about a grade item. Abstract Class. Implemented by specific grade item type.</li>
+			<li>Grade - Stores information about a specific grade. Abstract Class. Implemented by specific grade type.</li>
         </ul>
 
-        <h3 id="boundary_objects">2.3 Boundary Objects</h3>
+        <h3>Boundary Objects</h3>
 			<ul>
 				<li>LoginView - Where user signs in with MLS credentials and receives Brightspace API token.</li>
-				<li>AvailableGradeItemsView - Where user selects a course and the grade item that they have permission to upload grades to.</li>
-				<li>UploadFileView - Where user can upload a file for bulk grade submission.</li>
-				<li>ManualGradingView - Where user can search for students and manually input grades and feedback.</li>
-				<li>ReportView - Where user will be shown how many grades were successfully set and if any errors occurred.</li>
 				<li>LogoutView - Where user signs out.</li>
+				<li>CourseListView - Where user gets a list of courses that they have permission to upload grades to.</li>
+				<li>SearchStudentsView - Where user can search for students.</li>
+				<li>AvailableGradeItemsView - Where user selects a grade item of a course that they have permission to upload grades to.</li>
+				<li>GradingView - Where user can either manually input grades or upload a file for bulk grade submission.</li>
+				<li>ReportView - Where user will be shown how many grades were successfully set and if any errors occurred.</li>
 			</ul>
-        <h3 id="control_objects">2.4 Control Objects</h3>
+			
+        <h3>Control Objects</h3>
 			<ul>
 				<li>LoginController - Coordinates retrieval of Brightspace token and updating User object.</li>
-				<li>AvailableGradeItemsController - Coordinates the retrieval and displaying of Course and GradeItem objects the user has permission to upload grades to.</li>
-				<li>UploadFileValidationController - Coordinates form validation for uploading a file.</li>
-				<li>ParseUploadedFileController - Coordinates file parsing prior to grade upload.</li>
-				<li>ManualGradingValidationController - Coordinates form validation for manual grade input.</li>
-				<li>ParseManualGradingController - Coordinates manaul input parsing prior to grade upload.</li>
-				<li>UploadGradesController - Coordinates uploading grades through API and updating GradeItem object.</li>
 				<li>LogoutController - Coordinates signing out user and updating User object.</li>
+				<li>CourseListController - Coordinates the retrieval of Courses that the user has permission to upload grades to.</li>
+				<li>SearchStudentsController - Coordinates searching of students by name or student ID.</li>
+				<li>AvailableGradeItemsController - Coordinates the retrieval of a course's GradeItems that the user has permission to upload grades to.</li>
+				<li>GradingController - Coordinates parsing, validating and uploading of a students' grades and updating GradeItem object.</li>
 			</ul>
 
-        <h2 id="state_diagram">3. Class Diagrams</h2>
-<p>[define classes, show relationships when applicable, only need attributes, not methods]</p>
+        <h2>Class Diagram</h2>
+		<img src="../../../static/img/wrapper_analysis_class_diagram.jpg" alt="ezMarker Class Diagram">
 
-<h2 id="revision-history">Revision History</h2>
-<h3>Version 1.0 - 10/0x/2017</h3>
-<p>Authors: Sumeet Jhand, Shuaib, Troy Nechanicky, Amardeep Sarang</p>
+<h2 id="toc_exclude">Revision History</h2>
+<h3 id="toc_exclude">Version 1.0 - 10/0x/2017</h3>
+
+<p>Authors: Sumeet Jhand, Shuaib Reeyaz, Troy Nechanicky, Amardeep Sarang, Sarah Johnston</p>
 <p>SQA: Harold Hodgins</p>
 <style>
 	img 
 	{
-		width: 800px;
+		width: 1100px;
 	}
 </style>
