@@ -16,6 +16,11 @@
 	display: block;
 }
 
+.btn
+{
+	margin: 0px;
+}
+
 .btn:hover
 {	
 	background: #d89702;
@@ -25,14 +30,14 @@
 .btn-success
 {
 	border: 1px solid #7dbf4a;
-	background: #8ed854;
+	background: #7dba5e;
 	color: white;
 }
 
 .btn-success:hover
 {
-	background: #7dbf4a;
-	border: 1px solid #7dbf4a;
+	background: #73ad56;
+	border: 1px solid #73ad56;
 }
 
 .btn-error
@@ -40,7 +45,6 @@
 	background: #d1554f;
 	color: white;
 	border: 1px solid #ad4641;
-
 	margin: 0px;
 }
 
@@ -162,6 +166,16 @@ button.accordion.active:after
 	margin-left: 0px;
 }
 
+.modal-body, .modal-header, .modal-footer
+{
+	padding: 15px 20px;
+}
+
+.modal-body
+{
+	padding-bottom: 30px;
+}
+
 /* Add Animation */
 @-webkit-keyframes animatetop 
 {
@@ -175,7 +189,8 @@ button.accordion.active:after
     to {top:0; opacity:1}
 }
 
-.close {
+.close 
+{
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -189,12 +204,6 @@ button.accordion.active:after
     cursor: pointer;
 }
 
-.modal-body {padding: 2px 16px;}
-
-.modal-footer, .modal-header 
-{
-    padding: 2px 16px;
-}
 
 /* Other */
 

@@ -5,6 +5,11 @@ form
 	display: block;
 }
 
+.form-wide
+{
+	width: 60%;
+}
+
 
 textarea 
 {
@@ -82,5 +87,10 @@ textarea.input
 .btn.submit-btn
 {
 	margin-top: 50px !important;
+}
+
+.form-checkbox
+{
+	margin-top: 5px;
 }
 
