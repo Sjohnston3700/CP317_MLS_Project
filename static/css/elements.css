@@ -69,6 +69,8 @@
 	text-decoration: none;
 	padding: 20px;
 	font-size: 20px;
+	display: inline-block;
+	margin: 10px;
 }
 
 a.btn 

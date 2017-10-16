@@ -68,6 +68,14 @@ def showRequirements():
 def showRequirementsRaw():
 	return render_template('documentation/ezmarker/requirements_raw.html')
 
+@app.route('/documentation/analysis')
+def showAnalysis():
+	return render_template('pages/analysis.html')
+
+@app.route('/documentation/analysis/raw')
+def showAnalysisRaw():
+	return render_template('documentation/ezmarker/analysis_raw.html')
+
 @app.route('/logout/')
 def showLogout():
 	return render_template(LOGOUT_URL.format(host=user.uc.host))
