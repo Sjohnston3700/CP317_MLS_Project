@@ -20,7 +20,6 @@ window.onload = function() {
 		i5 = 0;
 	toc = toc.appendChild(document.createElement("ul"));
 	for (var i = 0; i < document.body.childNodes.length; ++i) {
-		console.log(tagName);
 		var node = document.body.childNodes[i];
 		var tagName = node.nodeName.toLowerCase();
 		if (node.id != "toc_exclude") {
