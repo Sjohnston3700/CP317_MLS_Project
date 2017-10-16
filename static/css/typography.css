@@ -15,3 +15,8 @@ h1.page-title
 {
 	text-decoration: underline;
 }
+
+.mini
+{
+	font-size: 13px;
+}

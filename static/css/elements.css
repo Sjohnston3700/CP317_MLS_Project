@@ -11,6 +11,16 @@
 	border: 1px solid #F2A900;
 }
 
+.block
+{
+	display: block;
+}
+
+.btn
+{
+	margin: 0px;
+}
+
 .btn:hover
 {	
 	background: #d89702;
@@ -20,14 +30,14 @@
 .btn-success
 {
 	border: 1px solid #7dbf4a;
-	background: #8ed854;
+	background: #7dba5e;
 	color: white;
 }
 
 .btn-success:hover
 {
-	background: #7dbf4a;
-	border: 1px solid #7dbf4a;
+	background: #73ad56;
+	border: 1px solid #73ad56;
 }
 
 .btn-error
@@ -35,6 +45,12 @@
 	background: #d1554f;
 	color: white;
 	border: 1px solid #ad4641;
+	margin: 0px;
+}
+
+.btn-remove 
+{
+	float: right;
 }
 
 .btn-error:hover
@@ -42,16 +58,31 @@
 	background: #ad4641;
 }
 
+.btn-block
+{
+	display: inline-block;
+	margin: 5px 0px;
+}
+
 .btn-xl
 {
 	text-decoration: none;
 	padding: 20px;
 	font-size: 20px;
+	display: inline-block;
+	margin: 10px;
 }
 
 a.btn 
 {
 	text-decoration: none;
+}
+
+.btn-remove
+{
+	height: 30px;
+	width: 30px;
+	padding: 0px;
 }
 /* Accordion */
 
@@ -98,4 +129,88 @@ button.accordion.active:after
 {
     content: "\2796"; /* Unicode character for "minus" sign (-) */
 	color: white;
+}
+
+/* Modal */
+
+.modal 
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content 
+{
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+.modal-content .btn
+{
+	margin-left: 0px;
+}
+
+.modal-body, .modal-header, .modal-footer
+{
+	padding: 15px 20px;
+}
+
+.modal-body
+{
+	padding-bottom: 30px;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop 
+{
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop 
+{
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+.close 
+{
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus 
+{
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* Other */
+
+hr
+{
+	color: #cfd2d6;
+	margin: 40px 0px;
 }
