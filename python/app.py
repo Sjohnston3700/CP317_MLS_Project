@@ -21,7 +21,7 @@ app = Flask(__name__)
 app.config["app_context"] = d2lauth.fashion_app_context(app_id=app_config['app_id'], app_key=app_config['app_key'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-app_url = 'https://ezmarker.herokuapp.com/token'
+app_url = '{0}://{1}:{2}{3}'.format(app_config['scheme'], app_config['host'], app_config['port'], app_config["route"])
 
 @app.route("/")
 def start():
