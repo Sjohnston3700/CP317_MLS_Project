@@ -16,7 +16,8 @@ table td
 	padding: 5px;
 }
 
-img 
+img
 {
 	width: 800px;
+	height: auto;
 }
