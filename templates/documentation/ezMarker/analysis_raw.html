@@ -26,12 +26,12 @@
 
 <h3>Entity Objects</h3>
 <ul>
-	<li>Host - Stores host information from config file.</li>
+	<!--<li>Host - Stores host information from config file.</li>-->
 	<li>User - Stores information about logged in user.</li>
 	<li>Course - Stores information about a course.</li>
 	<li>Student - Stores information about a student.</li>
-	<li>GradeItem - Stores information about a grade item. Abstract Class. Implemented by specific grade item type.</li>
-	<li>Grade - Stores information about a specific grade. Abstract Class. Implemented by specific grade type.</li>
+	<li>GradeItem - Stores information about a grade item. Implemented by specific grade item type.</li>
+	<li>Grade - Stores information about a specific grade. Implemented by specific grade type.</li>
 </ul>
 
 <h3>Boundary Objects</h3>
@@ -42,8 +42,8 @@
 	<li>SearchStudentsView - Where user can search for students.</li>
 	<li>AvailableGradeItemsView - Where user selects a grade item of a course that they have permission to upload grades to.</li>
 	<li>ChangeGradeTotalView - Where user can change the grade total for a grade item.</li>
-	<li>IndividualGradingView - Where user can change the grade for an individual student's grade item.</li>
-	<li>BulkGradingView - Where user can either manually input grades or upload a file for bulk grade submission.</li>
+	<li>ManualGradingView - Where user can manually input grades for a set of students.</li>
+	<li>BulkGradingView - Where user can upload a file for bulk grade submission.</li>
 	<li>ReportView - Where user will be shown how many grades were successfully set and if any errors occurred.</li>
 </ul>
 	
@@ -59,13 +59,13 @@
 </ul>
 
 <h2>Class Diagram</h2>
-<img src="../../../static/img/wrapper_analysis_class_diagram.jpg" alt="ezMarker Class Diagram">
+<p>Refer to the Section 3 of the analysis document for the Brightspace API Python Wrapper.</p>
 
 <h2 id="toc_exclude">Revision History</h2>
 <h3 id="toc_exclude">Version 1.0 - 10/16/2017</h3>
 
-<p>Authors: Sumeet Jhand, Shuaib Reeyaz, Troy Nechanicky, Amardeep Sarang, Sarah Johnston</p>
-<p>SQA: Harold Hodgins</p>
+<p>Authors: Sumeet Jhand, Shuaib Reeyaz, Sarah Johnston</p>
+<p>SQA: Harold Hodgins, Troy Nechanicky</p>
 <style>
 	img 
 	{
