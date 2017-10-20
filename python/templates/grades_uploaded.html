@@ -1,4 +1,4 @@
-{% extends "pages/index.html" %}
+{% extends "index.html" %}
 
 {% block title %}
 	<title>ezMarking | Grades Uploaded</title>
@@ -15,7 +15,7 @@
     	{% endfor %}
     </ul>
 	{% endif %}
-    <a class="btn btn-block" href="{{ url_for('showCourses') }}">Upload more grades</a><br>
+    <a class="btn btn-block" href="{{ url_for('show_courses') }}">Upload more grades</a><br>
     <a class="btn btn-block" href="{{ gradesUrl }}" target="_blank">Check Grades</a><br>
     <a class="btn btn-block" href="{{ logoutUrl }}">Logout</a><br>
 	</br>

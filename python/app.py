@@ -1,5 +1,5 @@
 import os
-from flask import Flask, redirect,request,render_template, url_for
+from flask import Flask, redirect, request, render_template, url_for
 from werkzeug.utils import secure_filename
 from conf_basic import app_config
 import requests
@@ -11,7 +11,7 @@ from Grade import parse_grades
 
 EDIT_GRADE_ITEM_URL = 'https://{host}/d2l/lms/grades/admin/manage/item_props_newedit.d2l?objectId={gradeItemId}&gradesArea=1&ou={courseId}'
 VIEW_GRADES_URL     = 'https://{host}/d2l/lms/grades/admin/enter/grade_item_edit.d2l?objectId={gradeItemId}&ou={courseId}'
-LOGOUT_URL            = 'https://{host}/d2l/logout'
+LOGOUT_URL          = 'https://{host}/d2l/logout'
 
 UPLOAD_FOLDER = './Uploaded_Files'
 ALLOWED_EXTENSIONS = set(['txt','dat'])
@@ -25,7 +25,7 @@ app_url = '{0}://{1}:{2}{3}'.format(app_config['scheme'], app_config['host'], ap
 
 @app.route("/")
 def start():
-	return render_template('pages/home.html')	
+	return render_template('home.html')	
 
 @app.route("/login/")
 def login():
@@ -42,42 +42,46 @@ def auth_token_handler():
     return redirect('/availableCourses/')
 
 @app.route('/availableCourses/')
-def showCourses():
+def show_courses():
 	try:
-		return render_template('pages/available_grades.html', user=app.config['user'])
+		return render_template('available_grades.html', user=app.config['user'])
 	except:
 		return redirect("/")
 
 @app.route('/documentation/')
-def showDocs():
-	return render_template('pages/documentation.html')
+def show_docs():
+	return render_template('documentation.html')
 
 @app.route('/documentation/spmp/')
-def showSPMP():
-	return render_template('pages/spmp.html')
-
-@app.route('/documentation/spmp/raw/')
-def showSPMPRaw():
-	return render_template('documentation/spmp_raw.html')
+def show_spmp():
+	return render_template('spmp.html')
 
 @app.route('/documentation/requirements')
-def showRequirements():
-	return render_template('pages/requirements.html')
+def show_requirements():
+	return render_template('requirements.html')
 
-@app.route('/documentation/requirements/raw/')
-def showRequirementsRaw():
-	return render_template('documentation/ezmarker/requirements_raw.html')
+@app.route('/documentation/requirements/wrapper')
+def show_requirements_wrapper():
+	return render_template('requirements_wrapper.html')
 
 @app.route('/documentation/analysis')
-def showAnalysis():
-	return render_template('pages/analysis.html')
+def show_analysis():
+	return render_template('analysis.html')
 
-@app.route('/documentation/analysis/raw')
-def showAnalysisRaw():
-	return render_template('documentation/ezmarker/analysis_raw.html')
+@app.route('/documentation/analysis/wrapper')
+def show_analysis_wrapper():
+	return render_template('analysis_wrapper.html')
+
+@app.route('/documentation/design')
+def show_design():
+	return render_template('design.html')
+
+@app.route('/documentation/design/wrapper')
+def show_design_wrapper():
+	return render_template('design_wrapper.html')
 
 @app.route('/logout/')
-def showLogout():
+def show_logout():
 	return render_template(LOGOUT_URL.format(host=user.uc.host))
 
 	
@@ -92,7 +96,7 @@ def set_grades(courseId, gradeItemId):
         return redirect('/availableCourses/')
         
     if request.method == 'GET':
-        return render_template('pages/upload.html',courseId=courseId,gradeItemId=gradeItemId)
+        return render_template('upload.html',courseId=courseId,gradeItemId=gradeItemId)
     
     elif request.method == 'POST':
         f = request.files['file']
@@ -105,7 +109,7 @@ def set_grades(courseId, gradeItemId):
                 if float(grade.maxValue) != gradeItem.maxPoints:
                     updateUrl = EDIT_GRADE_ITEM_URL.format(host=user.uc.host,gradeItemId=gradeItem.Id,courseId=course.Id)
                     message = 'Grade for {} is out of {}. The Max Points for {} is {}'.format(grade.studentName,grade.maxValue,gradeItem.name,gradeItem.maxPoints)
-                    return render_template("pages/updateGradeItem.html",gradeUrl=updateUrl,message=message)
+                    return render_template("update_grade_item.html",gradeUrl=updateUrl,message=message)
                 
                 userId,gradeValue,PublicFeedback = grade.userId,grade.value,grade.public_feedback
                 gradeItem.setUserGrade(userId,courseId,gradeValue,PublicFeedback,PrivateFeedback='')
@@ -123,7 +127,7 @@ def set_grades(courseId, gradeItemId):
             
     gradesUrl = VIEW_GRADES_URL.format(host=user.uc.host,gradeItemId=gradeItem.Id,courseId=course.Id)
     logoutUrl = LOGOUT_URL.format(host=user.uc.host)                     
-    return render_template("pages/gradesUploaded.html",errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=gradeItem,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
+    return render_template("grades_uploaded.html",errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=gradeItem,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
 
 if __name__ == "__main__":
 	port = int(os.environ.get("PORT", 8080))
