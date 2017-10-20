@@ -2,8 +2,8 @@
  * Dynamic Table of Contents script
  * By Matt Whitlock <http://www.whitsoftdev.com/>, edited by Sumeet Jhand
  * Usage: Table of Contents heading must be in a div named "toc".
-		  Create headings as you normally would. Don't include the section number. Script handles that.
-		  Any heading you don't want in the TOC must be in a div named "toc_exclude".
+ *		  Create headings as you normally would. Don't include the section number. Script handles that.
+ *		  Any heading you don't want in the TOC must be in a div named "toc_exclude".
  */
 
 function createLink(href, innerHTML) {
@@ -31,21 +31,21 @@ window.onload = function() {
 				node.id = "section" + section;
 				toc.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(document.createElement("li")).appendChild(createLink("#section" + section, node.innerHTML));
 			} else if (tagName == "h4") {
-				++i4;
+				++i4, i5 = 0;
 				if (i4 == 1) toc.lastChild.lastChild.lastChild.appendChild(document.createElement("ul"));
 				var section = i2 + "." + i3 + "." + i4;
 				node.insertBefore(document.createTextNode(section + ". "), node.firstChild);
 				node.id = "section" + section;
 				toc.lastChild.lastChild.lastChild.lastChild.appendChild(document.createElement("li")).appendChild(createLink("#section" + section, node.innerHTML));
 			} else if (tagName == "h3") {
-				++i3, i4 = 0;
+				++i3, i4 = 0, i5 = 0;
 				if (i3 == 1) toc.lastChild.appendChild(document.createElement("ul"));
 				var section = i2 + "." + i3;
 				node.insertBefore(document.createTextNode(section + ". "), node.firstChild);
 				node.id = "section" + section;
 				toc.lastChild.lastChild.appendChild(document.createElement("li")).appendChild(createLink("#section" + section, node.innerHTML));
 			} else if (tagName == "h2") {
-				++i2, i3 = 0, i4 = 0;
+				++i2, i3 = 0, i4 = 0, i5 = 0;
 				var section = i2;
 				node.insertBefore(document.createTextNode(section + ". "), node.firstChild);
 				node.id = "section" + section;
