@@ -40,6 +40,141 @@
 		<p>[diagram showing flow of program]</p>
 
 		<h2>User Interface Design - Xiang Ke</h2>
+        <h3>Login Page</h3>
+        <p>The login page is the MyBrightSpace page shown above</p>
+        <img class="prototype-img" src="/static/img/MyBrightSpace.png" />
+        <h3>Course List Page</h3>
+        <p> This page has the list of courses and grade items the user has access to modify.</p>
+        <img class="prototype-img" src="/static/img/courses.png" />
+        <table border = "1">
+            <col width = "200">
+            <col width = "200">
+            <col width = "400">
+            <tr>
+                <th align = "left">Field</th>
+                <th align = "left">Type</th>
+                <th align = "left">Description</th>
+            </tr>
+            <tr>
+                <td>Each Course</td>
+                <td>Collapsible</td>
+                <td>After a particular course is clicked, it shows the details of the grade items available to be modified by the user</td>
+            </tr>
+            <tr>
+                <td>Grade Item</td>
+                <td>Hyperlink</td>
+                <td>Enters upload grade page for that particular item</td>
+            </tr>
+        </table>
+        <h3>Upload Grade Page</h3>
+        <img class="prototype-img" src="/static/img/automated_upload.png" />
+        <img class="prototype-img" src="/static/img/manual_inputs.png" />
+        <table border = "1">
+            <col width = "200">
+            <col width = "200">
+            <col width = "400">
+            <tr>
+                <th align = "left">Field</th>
+                <th align = "left">Type</th>
+                <th align = "left">Description</th>
+            </tr>
+            <tr>
+                <td>Browse Button</td>
+                <td>Button</td>
+                <td>Allows user to choose a grade file in txt format from a file dialog box</td>
+            </tr>
+            <tr>
+                <td>Upload Grade Button</td>
+                <td>Button</td>
+                <td>Updates marks and feedback for students usig the Grade File</td>
+            </tr>
+            <tr>
+                <td>Search Input Field</td>
+                <td>Input Field</td>
+                <td>User can enter student name or ID</td>
+            </tr>
+            <tr>
+                <td>Search Button</td>
+                <td>Button</td>
+                <td>Look for student in database, if exists add to list their names, otherwise do nothing</td>
+            </tr>
+            <tr>
+                <td>Select All Check Box</td>
+                <td>Check Box</td>
+                <td>Quickly adds all the students</td>
+            </tr>
+            <tr>
+                <td>Delete Button</td>
+                <td>Button</td>
+                <td>Delete this particular student entry</td>
+            </tr>
+            <tr>
+                <td>Grade Field</td>
+                <td>Input Field</td>
+                <td>Allow user enter a grade for a student</td>
+            </tr>
+            <tr>
+                <td>Comment Field</td>
+                <td>Input Field</td>
+                <td>Allow user enter feedback for a student</td>
+            </tr>
+        </table>
+        <h3>Popup Window: Change Grade Item Total</h3>
+        <img class="prototype-img" src="/static/img/change_grades.png" />
+        <table border = "1">
+            <col width = "200">
+            <col width = "200">
+            <col width = "400">
+            <tr>
+                <th align = "left">Field</th>
+                <th align = "left">Type</th>
+                <th align = "left">Description</th>
+            </tr>
+            <tr>
+                <td>Update Mark Text Field</td>
+                <td>Text Field</td>
+                <td>Accepts a numeric user input</td>
+            </tr>
+            <tr>
+                <td>Update Total Button</td>
+                <td>Button</td>
+                <td>Changes the total maximum mark to number in the text field</td>
+            </tr>
+            <tr>
+                <td>Cancel Button</td>
+                <td>Button</td>
+                <td>Exits popup window</td>
+            </tr>
+        </table>
+        <h3>Report Page</h3>
+        <img class="prototype-img" src="/static/img/report_page.png" />
+        <table border = "1">
+            <col width = "200">
+            <col width = "200">
+            <col width = "400">
+            <tr>
+                <th align = "left">Field</th>
+                <th align = "left">Type</th>
+                <th align = "left">Description</th>
+            </tr>
+            <tr>
+                <td>Upload More Grades</td>
+                <td>Button</td>
+                <td>Returns to Course List Page</td>
+            </tr>
+            <tr>
+                <td>Check Grades Button</td>
+                <td>Button</td>
+                <td>Links to MyLearningSpace all grades page</td>
+            </tr>
+            <tr>
+                <td>Logout Button</td>
+                <td>Button</td>
+                <td>Go to Logout Page</td>
+            </tr>
+        </table>
+        <h3>Logout Page</h3>
+        <p>Logout page for MyBrightSpace</p>
 		<p>[subsection for each page (see requirements doc). 1 line description of page. describe any special requirements (ex. sorting). describe elements of each page. describe what happens to the page after event. sub-subsection for popups that occur on each page? see http://partyall-docs.herokuapp.com/docs/partyall-design.html section 3 for a basic example]</p>
 
 		<h2>Detailed Design</h2>
@@ -114,5 +249,10 @@
 			list-style: none;
 		}
 	</style>
+    <style>
+        img {
+            width: 800px;
+        }
+    </style>
 </html>
 
