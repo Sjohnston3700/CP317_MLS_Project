@@ -1,258 +1,255 @@
 <html>
 	<head>
-		<title>ezMarker - Design</title>
-	</head>
-	<body>
-		<script src="../../../static/js/toc_generator.js"></script>
-		<h1>ezMarker - Design</h1>
-		<p>Version 1.0</p>
-		<p>Last updated: October 16, 2017</p>
+    <title>ezMarker - Design</title>
+</head>
 
-		<div id="toc">
-			<h2>Table of Contents</h2>
-		</div>
+<body>
+    <script src="../static/js/toc_generator.js"></script>
+    <h1>ezMarker - Design</h1>
+    <p>Version 1.0</p>
+    <p>Last updated: October 23, 2017</p>
 
-		<h2>Introduction</h2>
-		<p>
-			ezMarker is a web application that allows markers to bulk set grades and feedback in a Brightspace environment. This document describes all of the design details needed to implement ezMarker.
-		</p>
+    <div id="toc">
+        <h2>Table of Contents</h2>
+    </div>
 
-		<h2>Packages - Hind</h2> 
-		<p>ezMarker use <a href="https://www.d2l.com/products/learning-environment/" target="_blank">Brightspace</a>  wrapper, and it has two backend versions, which are <a href="http://php.net/manual/en/intro-whatis.php" target="_blank">PHP </a>version and <a href="https://www.python.org/" target="_blank">Python</a>version. The backend in the PHP version  used <a href="https://aws.amazon.com/" target="_blank">AWS</a> (Amazon Web Services) and <a href="https://www.apache.org/" target="_blank">Apache</a>.  The backend in the Python version used <a href="http://flask.pocoo.org/" target="_blank">Flask</a>.
-		</p>
+    <h2>Introduction</h2>
+    <p>
+        ezMarker is a web application that allows markers to bulk set grades and feedback in a Brightspace environment. This document describes all of the design details needed to implement ezMarker.
+    </p>
 
-		<img class="prototype-img" src="/static/img/Packages.png" />
+    <h2>Packages - Hind</h2>
 
-		<ul>
-			<li><a href="http://ezmarker.herokuapp.com" target="_blank"><b>ezMarker</b></a>: a web-based application that allows users to set student grades and feedback in MLS through the use of the Brightspace.</li>
-			<li><a href="https://www.d2l.com/products/learning-environment/" target="_blank"><b>Brightspace</b></a>: a learning management system (LMS) produced by Desire2Learn (D2L).</li>
-			<li><a href="http://php.net/manual/en/intro-whatis.php" target="_blank"><b>PHP</b></a> (Hypertext Preprocessor): is a server-side scripting language that executes on the server.</li>
-			<li><a href="https://www.python.org/" target="_blank"><b>Python</b></a> : is a high-level programming language.</li>
-			<li><a href="https://www.python.org/" target="_blank"><b>AWS</b></a> (Amazon Web Services): is a secure cloud services platform that offering database storage and compute power.</li>
-			<li><a href="https://www.apache.org/" target="_blank"><b>Apache</b></a>: is to develop an open-source HTTP server.</li>
-			<li><a href="http://flask.pocoo.org/" target="_blank"><b>Flask</b></a>: is a micro web framework written in Python.</li>
+    <img class=img src="../static/img/Packages.png">
 
-		</ul>
+    <ul>
+        <li><b>ezMarker UI</b></li>
+        <li><b>ezMarker Backend</b></li>
+        <li><b>Brightspace Wrapper</b></li>
+        <li><a href="http://php.net" target="_blank"><b>PHP</b></a>: A server-side scripting language that executes on the server.</li>
+        <li><a href="https://aws.amazon.com/" target="_blank"><b>AWS</b></a> (Amazon Web Services): A secure cloud services platform that offers database storage and computing power.</li>
+        <li><a href="http://httpd.apache.org/" target="_blank"><b>Apache</b></a>: An HTTP server application.</li>
+        <li><a href="http://flask.pocoo.org/" target="_blank"><b>Flask</b></a>: A Python microframework with a built-in development server and debugger.</li>
+    </ul>
 
 
 
-		<h2>Program Flow - Troy/TBD</h2>
-		<p>[diagram showing flow of program]</p>
+    <h2>Program Flow - Troy/TBD</h2>
+    <p>[diagram showing flow of program]</p>
 
-		<h2>User Interface Design - Xiang Ke</h2>
-        <h3>Login Page</h3>
-        <p>The login page is the MyBrightSpace page shown above</p>
-        <img class="prototype-img" src="/static/img/MyBrightSpace.png" />
-        <h3>Course List Page</h3>
-        <p> This page has the list of courses and grade items the user has access to modify.</p>
-        <img class="prototype-img" src="/static/img/courses.png" />
-        <table border = "1">
-            <col width = "200">
-            <col width = "200">
-            <col width = "400">
-            <tr>
-                <th align = "left">Field</th>
-                <th align = "left">Type</th>
-                <th align = "left">Description</th>
-            </tr>
-            <tr>
-                <td>Each Course</td>
-                <td>Collapsible</td>
-                <td>After a particular course is clicked, it shows the details of the grade items available to be modified by the user</td>
-            </tr>
-            <tr>
-                <td>Grade Item</td>
-                <td>Hyperlink</td>
-                <td>Enters upload grade page for that particular item</td>
-            </tr>
-        </table>
-        <h3>Upload Grade Page</h3>
-        <img class="prototype-img" src="/static/img/automated_upload.png" />
-        <img class="prototype-img" src="/static/img/manual_inputs.png" />
-        <table border = "1">
-            <col width = "200">
-            <col width = "200">
-            <col width = "400">
-            <tr>
-                <th align = "left">Field</th>
-                <th align = "left">Type</th>
-                <th align = "left">Description</th>
-            </tr>
-            <tr>
-                <td>Browse Button</td>
-                <td>Button</td>
-                <td>Allows user to choose a grade file in txt format from a file dialog box</td>
-            </tr>
-            <tr>
-                <td>Upload Grade Button</td>
-                <td>Button</td>
-                <td>Updates marks and feedback for students usig the Grade File</td>
-            </tr>
-            <tr>
-                <td>Search Input Field</td>
-                <td>Input Field</td>
-                <td>User can enter student name or ID</td>
-            </tr>
-            <tr>
-                <td>Search Button</td>
-                <td>Button</td>
-                <td>Look for student in database, if exists add to list their names, otherwise do nothing</td>
-            </tr>
-            <tr>
-                <td>Select All Check Box</td>
-                <td>Check Box</td>
-                <td>Quickly adds all the students</td>
-            </tr>
-            <tr>
-                <td>Delete Button</td>
-                <td>Button</td>
-                <td>Delete this particular student entry</td>
-            </tr>
-            <tr>
-                <td>Grade Field</td>
-                <td>Input Field</td>
-                <td>Allow user enter a grade for a student</td>
-            </tr>
-            <tr>
-                <td>Comment Field</td>
-                <td>Input Field</td>
-                <td>Allow user enter feedback for a student</td>
-            </tr>
-        </table>
-        <h3>Popup Window: Change Grade Item Total</h3>
-        <img class="prototype-img" src="/static/img/change_grades.png" />
-        <table border = "1">
-            <col width = "200">
-            <col width = "200">
-            <col width = "400">
-            <tr>
-                <th align = "left">Field</th>
-                <th align = "left">Type</th>
-                <th align = "left">Description</th>
-            </tr>
-            <tr>
-                <td>Update Mark Text Field</td>
-                <td>Text Field</td>
-                <td>Accepts a numeric user input</td>
-            </tr>
-            <tr>
-                <td>Update Total Button</td>
-                <td>Button</td>
-                <td>Changes the total maximum mark to number in the text field</td>
-            </tr>
-            <tr>
-                <td>Cancel Button</td>
-                <td>Button</td>
-                <td>Exits popup window</td>
-            </tr>
-        </table>
-        <h3>Report Page</h3>
-        <img class="prototype-img" src="/static/img/report_page.png" />
-        <table border = "1">
-            <col width = "200">
-            <col width = "200">
-            <col width = "400">
-            <tr>
-                <th align = "left">Field</th>
-                <th align = "left">Type</th>
-                <th align = "left">Description</th>
-            </tr>
-            <tr>
-                <td>Upload More Grades</td>
-                <td>Button</td>
-                <td>Returns to Course List Page</td>
-            </tr>
-            <tr>
-                <td>Check Grades Button</td>
-                <td>Button</td>
-                <td>Links to MyLearningSpace all grades page</td>
-            </tr>
-            <tr>
-                <td>Logout Button</td>
-                <td>Button</td>
-                <td>Go to Logout Page</td>
-            </tr>
-        </table>
-        <h3>Logout Page</h3>
-        <p>Logout page for MyBrightSpace</p>
-		<p>[subsection for each page (see requirements doc). 1 line description of page. describe any special requirements (ex. sorting). describe elements of each page. describe what happens to the page after event. sub-subsection for popups that occur on each page? see http://partyall-docs.herokuapp.com/docs/partyall-design.html section 3 for a basic example]</p>
+    <h2>User Interface Design - Xiang Ke</h2>
+    <h3>Login Page</h3>
+    <p>The login page is the BrightSpace page shown below. Brightspace takes care of generating the page and handling input.</p>
+    <img class="prototype-img" src="/static/img/MyBrightSpace.png" />
+    <h3>Course List Page</h3>
+    <p> This page has the list of courses and grade items the user has access to modify.</p>
+    <img class="prototype-img" src="/static/img/courses.png" />
+    <table border="1">
+        <col width="200">
+        <col width="200">
+        <col width="400">
+        <tr>
+            <th align="left">Field</th>
+            <th align="left">Type</th>
+            <th align="left">Description</th>
+        </tr>
+        <tr>
+            <td>Each Course</td>
+            <td>Collapsible</td>
+            <td>After a particular course is clicked, it shows the details of the grade items available to be modified by the user</td>
+        </tr>
+        <tr>
+            <td>Grade Item</td>
+            <td>Hyperlink</td>
+            <td>Enters upload grade page for that particular item</td>
+        </tr>
+    </table>
+    <h3>Upload Grade Page</h3>
+    <img class="prototype-img" src="/static/img/automated_upload.png" />
+    <img class="prototype-img" src="/static/img/manual_inputs.png" />
+    <table border="1">
+        <col width="200">
+        <col width="200">
+        <col width="400">
+        <tr>
+            <th align="left">Field</th>
+            <th align="left">Type</th>
+            <th align="left">Description</th>
+        </tr>
+        <tr>
+            <td>Browse Button</td>
+            <td>Button</td>
+            <td>Allows user to choose a grade file in txt format from a file dialog box</td>
+        </tr>
+        <tr>
+            <td>Upload Grade Button</td>
+            <td>Button</td>
+            <td>Updates marks and feedback for students using the Grade File</td>
+        </tr>
+        <tr>
+            <td>Search Input Field</td>
+            <td>Input Field</td>
+            <td>User can enter student name or ID</td>
+        </tr>
+        <tr>
+            <td>Search Button</td>
+            <td>Button</td>
+            <td>Look for student in database. If they exist the student is appended to the list of students to manually set grades for</td>
+        </tr>
+        <tr>
+            <td>Select All Check Box</td>
+            <td>Check Box</td>
+            <td>Quickly adds all of the students in the course</td>
+        </tr>
+        <tr>
+            <td>Delete Button</td>
+            <td>Button</td>
+            <td>Delete this particular student entry</td>
+        </tr>
+        <tr>
+            <td>Grade Field</td>
+            <td>Input Field</td>
+            <td>Input for student's grade</td>
+        </tr>
+        <tr>
+            <td>Comment Field</td>
+            <td>Input Field</td>
+            <td>Input for feedback for student</td>
+        </tr>
+    </table>
+    <h3>Popup Window: Change Grade Item Total</h3>
+    <img class="prototype-img" src="/static/img/change_grades.png" />
+    <table border="1">
+        <col width="200">
+        <col width="200">
+        <col width="400">
+        <tr>
+            <th align="left">Field</th>
+            <th align="left">Type</th>
+            <th align="left">Description</th>
+        </tr>
+        <tr>
+            <td>Update Mark Text Field</td>
+            <td>Text Field</td>
+            <td>Accepts a numeric user input</td>
+        </tr>
+        <tr>
+            <td>Update Total Button</td>
+            <td>Button</td>
+            <td>Changes the total maximum mark to the number in the text field</td>
+        </tr>
+        <tr>
+            <td>Cancel Button</td>
+            <td>Button</td>
+            <td>Closes popup window</td>
+        </tr>
+    </table>
+    <h3>Report Page</h3>
+    <img class="prototype-img" src="/static/img/report_page.png" />
+    <table border="1">
+        <col width="200">
+        <col width="200">
+        <col width="400">
+        <tr>
+            <th align="left">Field</th>
+            <th align="left">Type</th>
+            <th align="left">Description</th>
+        </tr>
+        <tr>
+            <td>Upload More Grades</td>
+            <td>Button</td>
+            <td>Returns user to Course List Page</td>
+        </tr>
+        <tr>
+            <td>Check Grades Button</td>
+            <td>Button</td>
+            <td>Links to Brightspace Instance page with all of the grades for the current grade item</td>
+        </tr>
+        <tr>
+            <td>Logout Button</td>
+            <td>Button</td>
+            <td>Go to Logout Page</td>
+        </tr>
+    </table>
+    <h3>Logout Page</h3>
+    <p>Logout page for MyBrightSpace</p>
 
-		<h2>Detailed Design</h2>
-		<h3>Classes - Weibin</h3>
-		<h4>Class Diagram</h4>
-		<p>[build from analysis class diagram. Need to add methods (include arguments and what is returned). Also need to add attribute type if not already described in analysis diagram.]</p>
-		<h4>Class Details</h4>
-		<p>[Describe methods (what purpose is, error handling, condition checks).]</p>
-		<h3>Services - Michelle</h3>
-		<h4>Service Diagrams</h4>
-		<p>[diagram for each service. Something like http://partyall-docs.herokuapp.com/docs/partyall-design.html 2.1.6, but may or may not draw lines between services]</p>
-		<h4>Service Details</h4>
-		<p>[Describe methods (what purpose is, error handling, condition checks) for services. May make sense to intergrate with diagrams i.e. not be its own section]</p>
 
-		<h2>Web Architecture</h2>
-		<h3>Backend</h3>
-		<h4>Python</h4>
-		<p>
-			<a href="https://www.python.org/">Python</a> is the scripting language that is being used to make the backend for the Python version of ezMarker. <a href="http://flask.pocoo.org/">Flask</a>, a Python microframework with a built-in development server and debugger, is being used to make this web application. To host the Python project, <a href="https://dashboard.heroku.com/apps">Herokuapp</a> app will be used because of its support for Flask Apps.
-		</p>
+    <h2>Detailed Design</h2>
+    <h3>Classes - Weibin</h3>
+    <h4>Class Diagram</h4>
+    <p>[build from analysis class diagram. Need to add methods (include arguments and what is returned). Also need to add attribute type if not already described in analysis diagram.]</p>
+    <h4>Class Details</h4>
+    <p>[Describe methods (what purpose is, error handling, condition checks).]</p>
+    <h3>Services - Michelle</h3>
+    <h4>Service Diagrams</h4>
+    <p>[diagram for each service. Something like http://partyall-docs.herokuapp.com/docs/partyall-design.html 2.1.6, but may or may not draw lines between services]</p>
+    <h4>Service Details</h4>
+    <p>[Describe methods (what purpose is, error handling, condition checks) for services. May make sense to intergrate with diagrams i.e. not be its own section]</p>
 
-		<h4>PHP</h4>
-		<p>
-			<a href="http://php.net/manual/en/intro-whatis.php">PHP </a>(Hypertext Preprocessor) is a server-side scripting langauge, meaning it is executed by the server. It is used for the  backend in the PHP version of ezMarker. For this project, an <a href="https://aws.amazon.com/">AWS</a> (Amazon Web Services) Ubuntu server is being used to host the PHP website. Ubuntu supports <a href="https://www.apache.org/">Apache</a> which is an open-source HTTP Server that can serve websites such as those with a PHP backend.
-		</p>
-		<p>
+    <h2>Web Architecture</h2>
+    <h3>Backend</h3>
+    <h4>Python</h4>
+    <p>
+        <a href="https://www.python.org/">Python</a> is the scripting language that is being used to make the backend for the Python version of ezMarker. <a href="http://flask.pocoo.org/">Flask</a>, a Python microframework with a built-in development server and debugger, is being used to make this web application. To host the Python project, <a href="https://dashboard.heroku.com/apps">Herokuapp</a> app will be used because of its support for Flask Apps.
+    </p>
 
-		</p>
+    <h4>PHP</h4>
+    <p>
+        <a href="http://php.net/manual/en/intro-whatis.php">PHP </a>(Hypertext Preprocessor) is a server-side scripting langauge, meaning it is executed by the server. It is used for the backend in the PHP version of ezMarker. For this project, an <a href="https://aws.amazon.com/">AWS</a> (Amazon Web Services) Ubuntu server is being used to host the PHP website. Ubuntu supports <a href="https://www.apache.org/">Apache</a> which is an open-source HTTP Server that can serve websites such as those with a PHP backend.
+    </p>
+    <p>
 
-		<h2>Project Structure</h2>
-		
-		<h3>Python Structure</h3>
-		<ul id="file-structure">
-			<li>/static</li>
-			<li>/js</li>
-			<li>/css</li>
-			<li>/templates</li>
-			<ul id="file-structure">
-				<li>index.html</li>
-				<li>home.html</li>
-				<li>available_grades.html</li>
-				<li>upload.html</li>
-				<li>update_grade_item.html</li>
-				<li>report.html</li>
-			</ul>
-		</ul>
-		<h3>PHP Structure</h3>
-		<ul id="file-structure">
-			<li>/static</li>
-			<li>/js</li>
-			<li>/css</li>
-			<li>/templates</li>
-			<ul id="file-structure">
-				<li>index.php</li>
-				<li>home.php</li>
-				<li>available_grades.php</li>
-				<li>upload.php</li>
-				<li>update_grade_item.php</li>
-				<li>report.php</li>
-			</ul>
-		</ul>
-		
+    </p>
 
-		<h2 id="toc_exclude">Revision History</h2>
-		<h3 id="toc_exclude">Version 1.0 - 10/16/2017</h3>
-		<p>Authors: </p>
-		<p>SQA: </p>
-	</body>
-	<style>
-		#file-structure 
-		{
-			list-style: none;
-		}
-	</style>
-    <style>
-        img {
-            width: 800px;
-        }
-    </style>
+    <h2>Project Structure</h2>
+
+    <h3>Python Structure</h3>
+    <ul id="file-structure">
+        <li>/static</li>
+        <li>/js</li>
+        <li>/css</li>
+        <li>/templates</li>
+        <ul id="file-structure">
+            <li>index.html</li>
+            <li>home.html</li>
+            <li>available_grades.html</li>
+            <li>upload.html</li>
+            <li>update_grade_item.html</li>
+            <li>report.html</li>
+        </ul>
+    </ul>
+    <h3>PHP Structure</h3>
+    <ul id="file-structure">
+        <li>/static</li>
+        <li>/js</li>
+        <li>/css</li>
+        <li>/templates</li>
+        <ul id="file-structure">
+            <li>index.php</li>
+            <li>home.php</li>
+            <li>available_grades.php</li>
+            <li>upload.php</li>
+            <li>update_grade_item.php</li>
+            <li>report.php</li>
+        </ul>
+    </ul>
+
+
+    <h2 id="toc_exclude">Revision History</h2>
+    <h3 id="toc_exclude">Version 1.0 - 10/16/2017</h3>
+    <p>Authors: </p>
+    <p>SQA: </p>
+</body>
+<style>
+    #file-structure {
+        list-style: none;
+    }
+</style>
+<style>
+    img {
+        width: 800px;
+    }
+</style>
 </html>
 
