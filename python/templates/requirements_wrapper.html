@@ -1,171 +1,170 @@
 <html>
-	<head>
-		<title>Brightspace API Wrapper - Software Requirements</title>
-	</head>
-	<h1>Brightspace API Wrapper - Software Requirements</h1>
-	<p>Version 2.0</p>
-	<p>Last updated: October 14, 2017</p>
-	<h2>Table Of Contents</h2>
-	<ul>
-		<li>
-			<a href="#1.%20Introduction">1. Introduction</a>
-			<ul>
-				<li>
-					<a href="#1.1%20Purpose">1.1 Purpose</a>
-				</li>
-				<li>
-					<a href="#1.2%20Scope">1.2 Scope</a>
-				</li>
-				<li>
-					<a href="#1.3%20Definitions">1.3 Definitions</a>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a href="#2.%20Overall%20Description">2. Overall Description</a>
-			<ul>
-				<li>
-					<a href="#2.1%20Product%20Perspective">2.1 Product Perspective</a>
-				</li>
-				<li>
-					<a href="#2.5%20Constraints">2.2 Constraints</a>
-				</li>
-				<li>
-					<a href="#2.6%20Assumptions%20and%20Dependencies">2.3 Assumptions and Dependencies</a>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a href="#3.%20Software%20Requirements">3. Software Requirements</a>
-			<ul>
-				<li>
-					<a href="#3.1%20Host">3.1 Host</a>
-				</li>
-				<li>
-					<a href="#3.2%20User">3.2 User</a>
-				</li>
-				<li>
-					<a href="#3.3%20Course">3.3 Course </a>
-				</li>
-				<li>
-					<a href="#3.4%20Student">3.4 Student</a>
-				</li>
-				<li>
-					<a href="#3.5%20Grade Item">3.5 Grade Item</a>
-				</li>
-				<li>
-					<a href="#3.6%20Grade">3.6 Set Grade</a>
-				</li>
-				<li>
-					<a href="#User">3.7 User Object</a>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a href="#Revision%20History">Revision History</a>
-		</li>
-	</ul>
-	<h2 id="1. Introduction">1. Introduction</h2>
-	<p>
-		The <a href="#1.3%20Definitions">Brightspace</a> API Wrapper is a library used to make calls to the Brightspace API. In essence, it allows developers to fetch and push information through the API in a friendly manner. Rather than directly making HTTP requests, developers can simply use the functions available in the wrapper's library. This wrapper is being developed primarily for ezMarker, a web application for uploading grades and feedback to a Brightspace environment. PHP and Python versions of the wrapper are being developed to support the corresponding versions of ezMarker.
-	</p>
-	<h3 id="1.1 Purpose">1.1 Purpose</h3>
-	<p>
-		This document outlines the requirements of the Brightspace API Wrapper. It lists the API requests the wrapper contains.
-	</p>
-	<h3 id="1.2 Scope">1.2 Scope</h3>
-	<p>The Brightspace API is accessed using HTTP requests. For applications like ezMarker, which have many API calls, it is nice to have the HTTP requests hidden behind a wrapper. The wrapper takes Python/PHP arguments and returns Python/PHP objects, resulting in cleaner code because the application does not have to deal with complex HTTP requests and JSON objects.</p>
-	<p>
-		The wrapper currently only includes the requests needed by ezMarker. The scope may later be increased, time-permitting, to include other key API requests, for the purpose of making the wrapper a useful resource for future development projects.
-	</p>
 
-	<h3 id="1.3 Definitions">1.3 Definitions</h3>
-	<p>
-		<a href="https://www.d2l.com/products/learning-environment/" target="_blank">Brightspace</a>: A learning management system produced by D2L. It allows students and instructors to communicate, share resources, and keep track of student progress. A vital part of this system is the feature that allows instructors to set grades and give feedback on student work. The <a href="http://docs.valence.desire2learn.com/reference.html" target="_blank">Brightspace API</a> provides functionality for interacting with Brightspace environments.
-	</p>
-	<p>
-		<a href="https://www.d2l.com/products/learning-environment/" target="_blank">D2L</a>: A Waterloo-based company that produces learning management software. They are the creators of Brightspace.</p>
+<head>
+    <title>Brightspace API Wrapper - Software Requirements</title>
+</head>
+<h1>Brightspace API Wrapper - Software Requirements</h1>
+<p>Version 2.0</p>
+<p>Last updated: October 14, 2017</p>
+<h2>Table Of Contents</h2>
+<ul>
+    <li>
+        <a href="#1.%20Introduction">1. Introduction</a>
+        <ul>
+            <li>
+                <a href="#1.1%20Purpose">1.1 Purpose</a>
+            </li>
+            <li>
+                <a href="#1.2%20Scope">1.2 Scope</a>
+            </li>
+            <li>
+                <a href="#1.3%20Definitions">1.3 Definitions</a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#2.%20Overall%20Description">2. Overall Description</a>
+        <ul>
+            <li>
+                <a href="#2.1%20Product%20Perspective">2.1 Product Perspective</a>
+            </li>
+            <li>
+                <a href="#2.5%20Constraints">2.2 Constraints</a>
+            </li>
+            <li>
+                <a href="#2.6%20Assumptions%20and%20Dependencies">2.3 Assumptions and Dependencies</a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#3.%20Software%20Requirements">3. Software Requirements</a>
+        <ul>
+            <li>
+                <a href="#3.1%20Host">3.1 Host</a>
+            </li>
+            <li>
+                <a href="#3.2%20User">3.2 User</a>
+            </li>
+            <li>
+                <a href="#3.3%20Course">3.3 Course </a>
+            </li>
+            <li>
+                <a href="#3.4%20Student">3.4 Student</a>
+            </li>
+            <li>
+                <a href="#3.5%20Grade Item">3.5 Grade Item</a>
+            </li>
+            <li>
+                <a href="#3.6%20Grade">3.6 Set Grade</a>
+            </li>
+            <li>
+                <a href="#User">3.7 User Object</a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#Revision%20History">Revision History</a>
+    </li>
+</ul>
+<h2 id="1. Introduction">1. Introduction</h2>
+<p>
+    The <a href="#1.3%20Definitions">Brightspace</a> API Wrapper is a library used to make calls to the Brightspace API. In essence, it allows developers to fetch and push information through the API in a friendly manner. Rather than directly making HTTP requests, developers can simply use the functions available in the wrapper's library. This wrapper is being developed primarily for ezMarker, a web application for uploading grades and feedback to a Brightspace environment. PHP and Python versions of the wrapper are being developed to support the corresponding versions of ezMarker.
+</p>
+<h3 id="1.1 Purpose">1.1 Purpose</h3>
+<p>
+    This document outlines the requirements of the Brightspace API Wrapper. It lists the API requests the wrapper contains.
+</p>
+<h3 id="1.2 Scope">1.2 Scope</h3>
+<p>The Brightspace API is accessed using HTTP requests. For applications like ezMarker, which have many API calls, it is nice to have the HTTP requests hidden behind a wrapper. The wrapper takes Python/PHP arguments and returns Python/PHP objects, resulting in cleaner code because the application does not have to deal with complex HTTP requests and JSON objects.</p>
+<p>
+    The wrapper currently only includes the requests needed by ezMarker. The scope may later be increased, time-permitting, to include other key API requests, for the purpose of making the wrapper a useful resource for future development projects.
+</p>
 
-	<h2 id="2. Overall Description">2. Overall Description</h2>
-	<h3 id="2.1 Product Perspective">2.1 Product Perspective</h3>
-	<img id="process-flow-diagram" src="/static/img/process_flow.png">
-	<h3 id="2.5 Constraints">2.2 Constraints</h3>
-	<p>Development is constrained by a short, hard deadline.</p>
-	<h3 id="2.6 Assumptions and Dependencies">2.3 Assumptions and Dependencies</h3>
-	<p>This project assumes that ezMarker uses the wrapper.</p>
-	<p>This project is dependent on continued support for the Brightspace API.</p>
-	<h2 id="3. Software Requirements">3. Software Requirements</h2>
+<h3 id="1.3 Definitions">1.3 Definitions</h3>
+<p>
+    <a href="https://www.d2l.com/products/learning-environment/" target="_blank">Brightspace</a>: A learning management system produced by D2L. It allows students and instructors to communicate, share resources, and keep track of student progress. A vital part of this system is the feature that allows instructors to set grades and give feedback on student work. The <a href="http://docs.valence.desire2learn.com/reference.html" target="_blank">Brightspace API</a> provides functionality for interacting with Brightspace environments.
+</p>
+<p>
+    <a href="https://www.d2l.com/products/learning-environment/" target="_blank">D2L</a>: A Waterloo-based company that produces learning management software. They are the creators of Brightspace.</p>
 
-	<p>This section lists the classes and requests that the wrapper contains. Parameters and return objects have been specified in cases where the wrapper implementation of a request has significantly different input and output objects in comparison to the request.
-	</p>
+<h2 id="2. Overall Description">2. Overall Description</h2>
+<h3 id="2.1 Product Perspective">2.1 Product Perspective</h3>
+<img id="process-flow-diagram" src="/static/img/process_flow.png">
+<h3 id="2.5 Constraints">2.2 Constraints</h3>
+<p>Development is constrained by a short, hard deadline.</p>
+<h3 id="2.6 Assumptions and Dependencies">2.3 Assumptions and Dependencies</h3>
+<p>This project assumes that ezMarker uses the wrapper.</p>
+<p>This project is dependent on continued support for the Brightspace API.</p>
+<h2 id="3. Software Requirements">3. Software Requirements</h2>
 
-	<h3 id="3.1 Host">3.1 Host </h3>
-	<ul>
-		<li>Host Contains API information</li>
-		<li>Implements Get API Versions (GET <a href="http://docs.valence.desire2learn.com/res/apiprop.html#get--d2l-api-versions-" target="_blank">/d2l/api/versions/</a>).</li>
-	</ul>
+<p>This section lists the classes and requests that the wrapper contains. Parameters and return objects have been specified in cases where the wrapper implementation of a request has significantly different input and output objects in comparison to the request.
+</p>
 
-	<h3 id="3.2 User">3.2 User</h3>
-	<ul>
-		<li>
-			Contains user information
-		</li>
-		<li>Stores the authentication token</li>
+<h3 id="3.1 Host">3.1 Host </h3>
+<ul>
+    <li>Host Contains API information</li>
+    <li>Implements Get API Versions (GET <a href="http://docs.valence.desire2learn.com/res/apiprop.html#get--d2l-api-versions-" target="_blank">/d2l/api/versions/</a>).</li>
+</ul>
 
-		<li>Implements Get List of Accessible Courses (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/</a>)
-			<h4> Parameters </h4>
-			<p>List of permissions</p>
+<h3 id="3.2 User">3.2 User</h3>
+<ul>
+    <li>
+        Contains user information
+    </li>
+    <li>Stores the authentication token</li>
+    <li>Filters courses by given permissions</li>
+    
+    <li>Implements Who Am I (GET <a href="http://docs.valence.desire2learn.com/res/user.html#get--d2l-api-lp-(version)-users-whoami" target="_blank">/d2l/api/lp/(version)/users/whoami</a></li>
+    <li>Implements Get List of Accessible Courses (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/</a>)
+    </li>
+    <li>Implements Get Enrollments in OrgUnit (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-(orgUnitId)" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/(orgUnitId)</a>)</li>
+    
+</ul>
 
-			<h4> Returns </h4>
-			<p>A list of classes that the user has the specified permissions for, sorted by permission</p>
-		</li>
-	</ul>
+<h3 id="3.3 Course">3.3 Course </h3>
+<ul>
+    <li>Contains course information</li>
+    
+    <li>Implements Get Course Enrollments (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-orgUnits-(orgUnitId)-users-" target="_blank">/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/</a>)</li>
 
-	<h3 id="3.3 Course">3.3 Course </h3>
-	<ul>
-		<li>Contains course information</li>
+    <li>Implements Get Grade Items (GET<a href="http://docs.valence.desire2learn.com/res/grade.html#get--d2l-api-le-(version)-(orgUnitId)-grades-" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a>)</li>
+</ul>
 
-		<li>Implements Get Class List (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-le-(version)-(orgUnitId)-classlist-" target="_blank">/d2l/api/le/(version)/(orgUnitId)/classlist/</a>)</li>
-
-		<li>Implements Get Grade Items (GET<a href="http://docs.valence.desire2learn.com/res/grade.html#get--d2l-api-le-(version)-(orgUnitId)-grades-" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a>)</li>
-		
-		<li>Implements Get Enrollments in OrgUnit (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-(orgUnitId)" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/(orgUnitId)</a>)</li>
-	</ul>
-
-	<h3 id="3.4 Student">3.4 Student</h3>
-	<ul>
-		<li>
-			Contains student information
-		</li>
-	</ul>
+<h3 id="3.4 Student">3.4 Student</h3>
+<ul>
+    <li>
+        Contains student information
+    </li>
+</ul>
 
 
-	<h3 id="3.5 Grade Item">3.5 Grade Item</h3>
-	<ul>
-		<li>Implements Set Specific Grade Item (PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)</a>)</li>
-	</ul>
+<h3 id="3.5 Grade Item">3.5 Grade Item</h3>
+<ul>
+    <li>Implements Set Specific Grade Item (PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)</a>)</li>
+</ul>
 
-	<h3 id="3.6 Grade">3.6 Grade</h3>
-	<ul>
-		<li>Implements Set Grade (PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)-values-(userId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)</a>)</li>
-	</ul>
+<h3 id="3.6 Grade">3.6 Grade</h3>
+<ul>
+    <li>Implements Set Grade (PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)-values-(userId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)</a>)</li>
+</ul>
 
 
-	<h2 id="Revision History">Revision History</h2>
-	<h3>Version 1.0 - 10/09/2017</h3>
-	<p>Authors: Sumeet Jhand, Xiang Ke, Troy Nechanicky</p>
-	<p>SQA: Tyler Gwynn, Harold Hodgins</p>
-	<h3>Version 2.0 - 10/14/2017</h3>
-	<p>- Added that both PHP and Python versions are being developed</p>
-	<p>- Added additional detail to section 3</p>
-	<p>- Various small grammar changes</p>
-	<p>Authors: Troy Nechanicky, Amardeep Sarang</p>
-	<p>SQA: Tyler Gwynn, Harold Hodgins</p>
+<h2 id="Revision History">Revision History</h2>
+<h3>Version 1.0 - 10/09/2017</h3>
+<p>Authors: Sumeet Jhand, Xiang Ke, Troy Nechanicky</p>
+<p>SQA: Tyler Gwynn, Harold Hodgins</p>
+<h3>Version 2.0 - 10/14/2017</h3>
+<p>- Added that both PHP and Python versions are being developed</p>
+<p>- Added additional detail to section 3</p>
+<p>- Various small grammar changes</p>
+<p>Authors: Troy Nechanicky, Amardeep Sarang</p>
+<p>SQA: Tyler Gwynn, Harold Hodgins</p>
 
-	<style>
-		img {
-			width: 800px;
-		}
+<style>
+    img {
+        width: 800px;
+    }
 
-	</style>
+</style>
+
 </html>
