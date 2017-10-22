@@ -192,7 +192,57 @@
             <h4>Service Diagrams</h4>
             <p>[diagram for each service. Something like http://partyall-docs.herokuapp.com/docs/partyall-design.html 2.1.6, but may or may not draw lines between services]</p>
             <h4>Service Details</h4>
-            <p>[Describe methods (what purpose is, error handling, condition checks) for services. May make sense to intergrate with diagrams i.e. not be its own section]</p>
+            <p> This section describes the services and the steps required for input to output using high level pseudocode. 
+                    This pseudocode can be expanded on and translated into actual code at the implementation stage. 
+                    
+                    </p>
+                    <p>login(user: User)</p>
+                    <ol>
+                        <li> User enters username and password</li>
+                        <li> System checks if username and password are valid</li>
+                        <li> If password matches, assigns authentication token and redirects user to availableCourses page</li>
+                        <li> If password does not match, return error and redirect to login page </li>
+                    </ol>
+        
+                    <p>logout(user: User)</p>
+                    <ol>
+                    <li>Redirects user to logout page when logout is pressed</li>
+                    </ol>
+        
+                    <p>getCourses(user: User): Course</p>
+                    <ol>
+                        <li>Returns available courses based off of user</li>
+                        <li>If no courses, stay on the same page</li>
+                    </ol>
+        
+                    <p>searchStudents(student: Student): GradeItem</p>
+                    <ol>
+                        <li>Retrieve student information based off ID or name of student </li>
+                        <li>If retrieval is null, return error  </li>
+                    </ol>
+                    
+                    <p> getCourseGrades(courseid: CourseiD): GradeItem </p>
+                    <ol>
+                    <li>Returns specific course based on course ID and number of grades in the course</li>
+                    <li>If retrieval is null, return error </li>
+                    </ol>
+                    
+                    <p> modifyGradeTotal(user: User, course: Course)</p>
+                    <ol>
+                    <li> User enters grade data for a specific item </li>
+                    <li> If grade data is valid, set grade </li>
+                    <li> Grade is valid if total grade is greater than or equal to the grade received </li>
+                    <li> If grade is invalid, ie if received grade is greater than the total, the user is prompted to continue or modify the total of the grade item </li>                <li> If no grade value has been entered, user is prompted to go back to set a grade value, or to continue. </li>
+                    <li>If continue, no grade is set for the student </li>
+                    </ol> 
+        
+                    <p>setGradeFileData(user: User, course: Course, file: File)</p>
+                    <ol>
+                        <li>User uploads a single file that contains both grades and feedback for any student the user wishes to mark</li>
+                        <li>If file is not formatted correctly, returns error message</li>
+                        <li>If parameters for grade are missing, grade is disregarded</li>
+                        <li>If valid, system parses, validates and uploads student grades and updates the grades</li>
+                    </ol>
             
             
             <h2>Project Structure</h2>
