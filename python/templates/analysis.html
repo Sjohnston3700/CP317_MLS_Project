@@ -3,11 +3,11 @@
 		<title>ezMarker - Analysis</title>
 	</head>
 	<body>
-		<script src="../static/js/toc_generator.js"></script>
+		<script src="../../../static/js/toc_generator.js"></script>
 
 		<h1>ezMarker - Analysis</h1>
-		<p>Version 2.0</p>
-		<p>Last updated: October 22, 2017</p>
+		<p>Version 2.0 - In progress</p>
+		<p>Last updated: October 18, 2017</p>
 
 		<div id="toc">
 			<h2>Table of Contents</h2>
@@ -23,10 +23,11 @@
 		<h2>Object Classification</h2>
 
 		<h3>Object Diagram</h3>
-		<img src="../static/img/object_diagram.png" alt="ezMarker Object Diagram">
+		<img src="../../../static/img/object_diagram.png" alt="ezMarker Object Diagram">
 
 		<h3>Entity Objects</h3>
 		<ul>
+			<!--<li>Host - Stores host information from config file.</li>-->
 			<li>User - Stores information about logged in user, including the user's identity and permissions.</li>
 			<li>Course - Stores information about a course, which may consist the course identification code, professor, registerated students, and course content.</li>
 			<li>Student - Stores information about a student, specifically their coursework and grades. </li>
@@ -37,6 +38,7 @@
 		<h3>Boundary Objects</h3>
 		<ul>
 			<li>LoginView - Where user signs in with MLS credentials and receives Brightspace API token.</li>
+			<li>LogoutView - Where user signs out. The user is also presented with the choice to log back in with a link back to the LoginView.</li>
 			<li>CourseListView - Where user gets a list of courses that they have permission to manage grades.</li>
 			<li>SearchStudentsView - Where user can search for students. The search functions are either by name or student identificaton number.</li>
 			<li>AvailableGradeItemsView - Where user selects a grade item of a course that they have permission to upload grades to.</li>
@@ -48,16 +50,17 @@
 
 		<h3>Control Objects</h3>
 		<ul>
-			<li>LoginController - Handles logging in and out. Retrieves the Brightspace token and updates the User object.</li>
+			<li>LoginController - Allows retrieval of Brightspace token and updating User object.</li>
+			<li>LogoutController - Allows control the user's signout process and updating User object.</li>
 			<li>CourseListController - Allows retrieval of courses that the user has permission to upload grades to.</li>
 			<li>SearchStudentsController - Allows searching of students by name or student ID.</li>
 			<li>AvailableGradeItemsController - Allows retrieval of a course's GradeItems that the user has permission to upload grades to.</li>
 			<li>ChangeGradeTotalController - Allows changing of the grade total of a grade item and updating GradeItem object.</li>
-			<li>GradingController - Handles parsing, validating and uploading of students' grades and updating GradeItem object.</li>
+			<li>GradingController - Allows operate parsing, validating and uploading of students' grades and updating GradeItem object.</li>
 		</ul>
 
 		<h2>Class Diagram</h2>
-		<p>Please refer to Section 3 of the analysis document for the Brightspace API Python Wrapper.</p>
+		<p>Please refer to the Section 3 of the analysis document for the Brightspace API Python Wrapper.</p>
 
 		<h2 id="toc_exclude">Revision History</h2>
 		<h3 id="toc_exclude">Version 1.0 - 10/16/2017</h3>
@@ -65,15 +68,11 @@
 		<p>Authors: Sumeet Jhand, Shuaib Reeyaz, Sarah Johnston</p>
 		<p>SQA: Harold Hodgins, Troy Nechanicky</p>
 
-		<h3 id="toc_exclude">Version 2.0 - 10/22/2017</h3>
-		<h4 id="toc_exclude">Revision Notes</h4>
-		<ul>
-			<li>Removed the use of "coordinates"</li>
-			<li>Added object description details</li>
-			<li>Removed LogoutView (user is brought back to LoginView on logout)
-		</ul>	
-		<p>Authors: Sumeet Jhand</p>
-		<p>SQA: Sophie Wang, Pirajeev Prabaharan</p>
+		<h3 id="toc_exclude">Version 2.0 - 10/??/2017</h3>
+		<p>Removed the use of "coordinate"</p>
+		<p>Added object description details</p>
+		<p>Authors: </p>
+		<p>SQA: Sophie Wang</p>
 
 
 	</body>
