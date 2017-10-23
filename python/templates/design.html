@@ -16,22 +16,22 @@
 
     <h2>Introduction</h2>
     <p>
-        ezMarker is a web application that allows instructors at Wilfrid Laurier University to bulk upload grades and feedback into MyLearningSpace,with the integration of the Brightspace API supported by D2L. The goal of ezMarker is to solve the issues regarding inefficient manual grade uploading and and feedback through the current MyLearningSpace interface. On average, it can take markers a few hours to physically upload grades for one class. Marking time is cut down to minutes with the use of ezMarker's bulk file uploading features.</p>
+        ezMarker is a web application that allows instructors at Wilfrid Laurier University to bulk upload grades and feedback into MyLearningSpace, with the integration of the Brightspace API supported by D2L. The goal of ezMarker is to solve the issues regarding inefficient manual grade uploading through the current MyLearningSpace interface. On average, it can take markers a few hours to manually upload grades for one class. Marking time is cut down to minutes with the use of ezMarker's bulk file uploading.</p>
     <p>This documement describes the packages, front-end, back-end, and project structure of ezMarker.</p>
 
     <h2>Packages</h2>
-    <p>There are PHP and Python versions of ezMarker. Both versions use corresponding versions of the Brightspace API Wrapper to communicate with the Brightspace Instance. The differences between the PHP and Python versions of ezMarker are described in the following two sections.</p>
+    <p>There are PHP and Python versions of ezMarker. Both versions use corresponding versions of the Brightspace API Wrapper. The differences between the PHP and Python versions of ezMarker are described in the following two sections.</p>
 
     <h3>PHP</h3>
 
     <p>
 
-        <a href="http://php.net/manual/en/intro-whatis.php">PHP </a>(Hypertext Preprocessor) is a server-side scripting langauge, meaning it is executed by the server. It is being used for ezMarker's back-end. For this project, an <a href="https://aws.amazon.com/">AWS</a> (Amazon Web Services) Ubuntu server is being used to host the PHP website. Ubuntu supports <a href="https://www.apache.org/">Apache</a> which is an open-source HTTP Server that can serve websites with a PHP backend.
+        <a href="http://php.net/manual/en/intro-whatis.php">PHP </a>(Hypertext Preprocessor) is a server-side scripting langauge, meaning it is executed by the server. It is used for ezMarker's PHP version. For this project, an <a href="https://aws.amazon.com/">AWS</a> (Amazon Web Services) Ubuntu server hosts the PHP website. Ubuntu supports <a href="https://www.apache.org/">Apache</a>, an open-source HTTP Server that can serve websites with a PHP backend.
 
     </p>
     <h3>Python</h3>
     <p>
-        <a href="https://www.python.org/">Python</a> is the scripting language that is being used to for ezMarker's back-end. <a href="http://flask.pocoo.org/">Flask</a>, a Python microframework with a built-in development server and debugger, is being used to make this web application. To host the Python project, <a href="https://dashboard.heroku.com/apps">Herokuapp</a> app will be used because of its support for Flask Apps.
+        <a href="https://www.python.org/">Python</a> is the scripting language being used for ezMarker's Python version. <a href="http://flask.pocoo.org/">Flask</a>, a Python microframework with a built-in development server and debugger, is used to make this web application. To host the Python project, <a href="https://dashboard.heroku.com/apps">Herokuapp</a> is used because of its support for Flask Apps.
 
     </p>
 
@@ -56,13 +56,13 @@
         </tr>
         <tr>
             <td>Course (Sorted by Course ID)</td>
-            <td>Collapsible</td>
+            <td>Accordion</td>
             <td>After clicking the course, it shows the available grade items in the course to be modified by the user</td>
         </tr>
         <tr>
             <td>Grade Item</td>
             <td>Hyperlink</td>
-            <td>Enters upload grade page for the grade item</td>
+            <td>Redirects user to upload grade page for that grade item</td>
         </tr>
     </table>
     <h3>Upload Grade Page</h3>
@@ -84,7 +84,7 @@
         <tr>
             <td>Choose File Button</td>
             <td>Button</td>
-            <td>File dialog shows up allowing user to choose a Grade File</td>
+            <td>File dialog opens, allowing user to choose a <a href="http://ezmarker.herokuapp.com/documentation/requirements#1.3%20Definitions">Grade File</a></td>
         </tr>
         <tr>
             <td>Delete Button (X)</td>
@@ -94,35 +94,37 @@
         <tr>
             <td>Upload Grade File Button</td>
             <td>Button</td>
-            <td>Updates marks and feedback for students using a <a href="http://ezmarker.herokuapp.com/documentation/requirements#1.3%20Definitions">grade file</a></td>
+            <td>Updates marks and feedback for students using a Grade File</td>
         </tr>
         <tr>
-            <td>Upload Grades to [Brightspace Instance] Button</td>
+            <td>Upload Grades Button</td>
             <td>Button</td>
-            <td>Updates students' grades for the Grade Item to the Brightspace Instance. List of students and grades is created. Prompts user to update grade item total if grade value > grade item total. Prompts user to cancel operation and set a value if a grade input field is empty or contains non-numerical input</td>
+            <td>Updates students' grades for the Grade Item. List of students and grades is created. Prompts user to update grade item total if grade value > grade item total. Prompts user to cancel operation and set a value if a grade input field is empty or contains non-numerical input.</td>
         </tr>
         <tr>
-            <td>Select All Check Box</td>
+            <td>Select-all Check Box</td>
             <td>Check Box</td>
-            <td>Adds all students enrolled in the course</td>
+            <td>Populates the page with manual input sections for every student in that course.</td>
         </tr>
         <tr>
             <td>Search Input Field</td>
             <td>Input Field</td>
-            <td>Dynamic search bar that changes its dropdown list of candidates everytime user types. Search for student name when user enters a letter first, otherwise searches for student ID</td>
+            <td>	
+				Dynamic search that changes its dropdown list of candidates everytime user types. Searches by student name when user enters a letter first, otherwise searches by student ID.
+			</td>
         </tr>
         <tr>
             <td>Grade Field</td>
             <td>Input Field</td>
-            <td>Manually inputs student's grade</td>
+            <td>Allows user to manually input a student's grade</td>
         </tr>
         <tr>
             <td>Comment Field</td>
             <td>Input Field</td>
-            <td>Manually inputs feedback for student</td>
+            <td>Allows user to manually input a student's feedback</td>
         </tr>
     </table>
-    <h3>Change Grade Item Total (Pop up Window)</h3>
+    <h3>Change Grade Item Total (Pop-up Window)</h3>
     <img class="prototype-img" src="../static/img/change_total_grade.png" />
     <table border="1">
         <col width="200">
@@ -136,12 +138,12 @@
         <tr>
             <td>Close Button</td>
             <td>Button</td>
-            <td>Closes popup window</td>
+            <td>Closes pop-up window</td>
         </tr>
         <tr>
             <td>Update Total Button</td>
             <td>Button</td>
-            <td>Changes the total maximum mark to user input in the text field</td>
+            <td>Changes the total maximum mark of that grade item</td>
         </tr>
         <tr>
             <td>Update Mark Text Field</td>
@@ -149,7 +151,7 @@
             <td>Allows user to enter a numeric value</td>
         </tr>
     </table>
-    <h3>Change Student Grade (Pop up Window)</h3>
+    <h3>Change Student Grade (Pop-up Window)</h3>
     <img class="prototype-img" src="../static/img/change_student_grade.png">
     <table border="1">
         <col width="200">
@@ -163,17 +165,17 @@
         <tr>
             <td>Close Button (X)</td>
             <td>Button</td>
-            <td>Closes popup window</td>
+            <td>Closes pop-up window</td>
         </tr>
         <tr>
             <td>Set Grade Button</td>
             <td>Button</td>
-            <td></td>
+            <td>Sets student grade</td>
         </tr>
         <tr>
             <td>Skip Button</td>
             <td>Button</td>
-            <td></td>
+            <td>Closes pop-up window</td>
         </tr>
     </table>
     <h3>Report Page</h3>
@@ -215,13 +217,13 @@
 
     <h2>Detailed Design</h2>
 
-    <p> This section describes the back-end controllers and functions using high-level pseudocode.
+    <p> This section describes the back-end controllers and functions.
 
         <h3>login()</h3>
         <ol>
-            <li>Redirect user to Brightspace login page</li>
-            <li>Create user object</li>
-            <li>Redirect to Available Courses page</li>
+            <li>Redirects user to Brightspace login page</li>
+            <li>Creates user object</li>
+            <li>Redirects to Available Courses page</li>
         </ol>
 
         <h3>logout()</h3>
@@ -230,60 +232,67 @@
             <li>User has to return to ezMarker root in order to login again</li>
         </ol>
 
-        <h3> modifyGradeTotal(gradeItem, total)</h3>
+        <h3> modify_grade_total(GradeItem, total)</h3>
         <ol>
             <li>Grade item total is updated</li>
         </ol>
 
-        <h3>setGradesFileData(file, gradeItem)</h3>
+        <h3>set_grades_file_data(file, GradeItem)</h3>
         <ol>
-            <li>Parse file. Disregard grade if parameters are missing from record. Record which grades were not set</li>
-            <li>Create grade object for valid grades</li>
-            <li>Set grades</li>
-            <li>Redirect user to Report page</li>
+			<li>Parses user's uploaded file</li>
+			<li>Does not set grades with missing parameters</li>
+			<li>Keeps track of grades that were not set (reports these errors to the user later)</li>
+            <li>Creates grade object for valid grades</li>
+            <li>Sets grades</li>
+            <li>Redirects user to Report page</li>
         </ol>
 
-        <h3>setGradesManualData(grades[student, value], gradeItem)</h3>
+        <h3>set_grades_manual_data(grades[student, value], GradeItem)</h3>
         <ol>
-            <li>Create grade objects</li>
-            <li>Set grades</li>
-            <li>Redirect user to Report page</li>
+            <li>Creates grade objects</li>
+            <li>Sets grades</li>
+            <li>Redirects user to Report page</li>
         </ol>
 
         <h2>Project Structure</h2>
-
+		<h3>Python Version</h3>
         <ul id="file-structure">
-            <li>/static</li>
-            <ul id="file-structure">
-                <li>/js</li>
-                <ul id="file-structure">
-                    <li>accordion</li>
-                    <li>modal</li>
-                </ul>
-                <li>/css</li>
-                <ul id="file-structure">
-                    <li>elements</li>
-                    <li>forms</li>
-                    <li>home</li>
-                    <li>main</li>
-                    <li>nav</li>
-                    <li>page-content</li>
-                    <li>typography</li>
-                </ul>
-                <li>/templates</li>
-                <ul id="file-structure">
-                    <li>index</li>
-                    <li>home</li>
-                    <li>available_grades</li>
-                    <li>upload</li>
-                    <li>update_grade_item</li>
-                    <li>report</li>
-                </ul>
-            </ul>
-            <li>/Brightspace API Wrapper</li>
-            <li>/app</li>
-            <li>/conf_basic</li>
-            <li>/requirements.txt</li>
+			<li>app.py</li>
+			<li>/templates</li>
+				<ul id="file-structure">
+					<li>index.html</li>
+					<li>upload.html</li>
+					<li>available_grades.html</li>
+					<li>home.html</li>
+					<li>report.html</li>
+					<li>update_grade_item.html</li>
+				</ul>
+			<li>/static</li>
+			<ul id="file-structure">
+				<li>/js</li>
+				<li>/css</li>
+				<li>/img</li>
+			</ul>
+        </ul>
+	
+		<h3>PHP Version</h3>
+        <ul id="file-structure">
+			<li>app.php</li>
+			<li>/templates</li>
+				<ul id="file-structure">
+					<li>index.php</li>
+					<li>upload.php</li>
+					<li>available_grades.php</li>
+					<li>home.php</li>
+					<li>report.php</li>
+					<li>update_grade_item.php</li>
+				</ul>
+			<li>/static</li>
+			<ul id="file-structure">
+				<li>/js</li>
+				<li>/css</li>
+				<li>/img</li>
+			</ul>
         </ul>
 
         <h2 id="toc_exclude">Revision History</h2>
@@ -292,14 +301,16 @@
         <p>SQA: Zac Macdonald, Pirajeev Prabaharan</p>
 </body>
 <style>
-    #file-structure {
+    #file-structure 
+	{
         list-style: none;
     }
-</style>
-<style>
-    img {
-        width: 800px;
-    }
+	img 
+	{
+		width: 50%;
+		margin: 20px 0px;
+		
+	}
 </style>
 
 </html>
