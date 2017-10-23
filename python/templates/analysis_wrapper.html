@@ -5,7 +5,7 @@
 	<body>
 		<h1>Brightspace API Python Wrapper - Analysis</h1>
 		<p>Version 1.0</p>
-		<p>Last updated: October x, 2017</p>
+		<p>Last updated: October 23, 2017</p>
 
 		<div id="toc">
 			<h2>Table of Contents</h2>
@@ -13,8 +13,9 @@
 
 		<h2>Introduction</h2>
 		<p>
-			[Purpose of this document and brief, brief description of ezMarker]
-		</p>
+      	  The Brightspace API Wrapper is a library used to make calls to the Brightspace API. It allows developers to fetch and push information through the API in a friendly manner. Rather than directly making HTTP requests, developers can simply use the functions available in the wrapper's library. This wrapper is being developed primarily for ezMarker, a web application for uploading grades and feedback to a Brightspace environment. PHP and Python versions of the wrapper are being developed to support the corresponding versions of ezMarker. This document outlines the structure of the classes and objects for the Brightspace API Wrapper application.
+    	</p>
+
 
 		<h2>Object Classification</h2>
 		<h3>Objects Diagram</h3>
@@ -22,32 +23,28 @@
 
 		<h3>Entity Objects</h3>
 		<ul>
-			<li>Host - Stores host information from config file.</li>
-			<li>Credentials - Stores user credentials </li>
-			<li>User - Stores user information</li>
-			<li>Course - Stores information about a course.</li>
-			<li>Student - Stores information about a student.</li>
-			<li>Grade Item - Stores information about a grade item. Abstract Class. Implemented by specific grade item type</li>
-			<li>Numeric Grade Item </li>
-			<li>Grade - Stores information about a specific grade. Abstract Class. Implemented by specific grade type</li>
-			<li>Numeric Grade - Stores information about a numeric grade </li>
+			<li>User - Stores information about logged in user, including the user's identity and permissions.</li>
+			<li>Course - Stores information about a course, which may consist the course identification code, professor, registerated students, and course content.</li>
+			<li>Student - Stores information about a student, specifically their coursework and grades. </li>
+			<li>GradeItem - Stores information about a grade item's parameters, including the outline and grading type. Implemented by specific grade item type.</li>
+			<li>Grade - Stores information about a specific grade, unique to the grade item's grading scale. Implemented by specific grade type.</li>
 		</ul>
-
+		
 		<h3>Boundary Objects</h3>
-		<p>Wrapper doesn't have any boundary objects specifically. Calling appication is the boundary object(s).</p>
+		<p>The Brightspace API Wrapper does not have any boundary objects specifically. Calling appication is the boundary object(s).</p>
 
 		<h3>Control Objects</h3>
 		<ul>
-			<li> API - Interacts with Brightspace server</li>
+			<li>API - Interacts with Brightspace server</li>
 		</ul>
 
 		<h2>Class Diagram</h2>
 		<img src="/static/img/wrapper_analysis_class_diagram.jpg">
 
 		<h2 id="toc_exclude">Revision History</h2>
-		<h3 id="toc_exclude">Version 1.0 - 10/0x/2017</h3>
+		<h3 id="toc_exclude">Version 1.0 - 10/23/2017</h3>
 
-		<p>Authors: </p>
+		<p>Authors: Sarah Johnston, Troy Nechanicky</p>
 		<p>SQA: </p>
 	
 	</body>
