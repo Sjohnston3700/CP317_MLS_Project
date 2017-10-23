@@ -47,10 +47,9 @@
             <h2>User Interface Design - Xiang Ke</h2>
             <h3>Login Page</h3>
             <p>The login page is the BrightSpace page shown below. Brightspace takes care of generating the page and handling input.</p>
-            <img class="prototype-img" src="/static/img/MyBrightSpace.png" />
             <h3>Course List Page</h3>
             <p> This page has the list of courses and grade items the user has access to modify.</p>
-            <img class="prototype-img" src="/static/img/courses.png" />
+            <img class="prototype-img" src="../static/img/course_list.png" />
             <table border="1">
                 <col width="200">
                     <col width="200">
@@ -61,19 +60,18 @@
                                 <th align="left">Description</th>
                             </tr>
                             <tr>
-                                <td>Each Course</td>
+                                <td>Course (Sorted by Course ID)</td>
                                 <td>Collapsible</td>
-                                <td>After a particular course is clicked, it shows the details of the grade items available to be modified by the user</td>
+                                <td>After clicking the course, it shows the available grade items in the course to be modified by the user</td>
                             </tr>
                             <tr>
                                 <td>Grade Item</td>
                                 <td>Hyperlink</td>
-                                <td>Enters upload grade page for that particular item</td>
+                                <td>Enters upload grade page for the <a href= "http://ezmarker.herokuapp.com/documentation/requirements#1.3%20Definitions">grade file</a></td>
                             </tr>
                             </table>
             <h3>Upload Grade Page</h3>
-            <img class="prototype-img" src="/static/img/automated_upload.png" />
-            <img class="prototype-img" src="/static/img/manual_inputs.png" />
+            <img class="prototype-img" src="../static/img/upload_grade.png" />
             <table border="1">
                 <col width="200">
                     <col width="200">
@@ -84,48 +82,53 @@
                                 <th align="left">Description</th>
                             </tr>
                             <tr>
-                                <td>Browse Button</td>
+                                <td>Change Grade Item Total Button</td>
                                 <td>Button</td>
-                                <td>Allows user to choose a grade file in txt format from a file dialog box</td>
+                                <td>Opens pop up window (See next subsection)</td>
                             </tr>
                             <tr>
-                                <td>Upload Grade Button</td>
+                                <td>Choose File Button</td>
+                                <td>Button</td>
+                                <td>File dialog shows up allowing user to choose a Grade File</td>
+                            </tr>
+                            <tr>
+                                <td>Delete Button (X)</td>
+                                <td>Button</td>
+                                <td>Deletes the student entry it refers to</td>
+                            </tr>
+                            <tr>
+                                <td>Upload Grade File Button</td>
                                 <td>Button</td>
                                 <td>Updates marks and feedback for students using the Grade File</td>
                             </tr>
                             <tr>
-                                <td>Search Input Field</td>
-                                <td>Input Field</td>
-                                <td>User can enter student name or ID</td>
-                            </tr>
-                            <tr>
-                                <td>Search Button</td>
+                                <td>Upload Grades to MLS Button</td>
                                 <td>Button</td>
-                                <td>Look for student in database. If they exist the student is appended to the list of students to manually set grades for</td>
+                                <td>Updates students'grades for the Grade Item on MLS</td>
                             </tr>
                             <tr>
                                 <td>Select All Check Box</td>
                                 <td>Check Box</td>
-                                <td>Quickly adds all of the students in the course</td>
+                                <td>Adds all students enrolled in the course</td>
                             </tr>
                             <tr>
-                                <td>Delete Button</td>
-                                <td>Button</td>
-                                <td>Delete this particular student entry</td>
+                                <td>Search Input Field</td>
+                                <td>Input Field</td>
+                                <td>Dynamic search bar that changes its dropdown list of candidates everytime user types. Search for student name when user enters a letter first, otherwise searches for student ID</td>
                             </tr>
                             <tr>
                                 <td>Grade Field</td>
                                 <td>Input Field</td>
-                                <td>Input for student's grade</td>
+                                <td>Manually inputs student's grade</td>
                             </tr>
                             <tr>
                                 <td>Comment Field</td>
                                 <td>Input Field</td>
-                                <td>Input for feedback for student</td>
+                                <td>Manually inputs feedback for student</td>
                             </tr>
-                            </table>
-            <h3>Popup Window: Change Grade Item Total</h3>
-            <img class="prototype-img" src="/static/img/change_grades.png" />
+            </table>
+            <h3>Change Grade Item Total (Pop up Window)</h3>
+            <img class="prototype-img" src="../static/img/change_total_grade.png" />
             <table border="1">
                 <col width="200">
                     <col width="200">
@@ -136,23 +139,23 @@
                                 <th align="left">Description</th>
                             </tr>
                             <tr>
-                                <td>Update Mark Text Field</td>
-                                <td>Text Field</td>
-                                <td>Accepts a numeric user input</td>
+                                <td>Close Button</td>
+                                <td>Button</td>
+                                <td>Closes popup window</td>
                             </tr>
                             <tr>
                                 <td>Update Total Button</td>
                                 <td>Button</td>
-                                <td>Changes the total maximum mark to the number in the text field</td>
+                                <td>Changes the total maximum mark to user input in the text field</td>
                             </tr>
                             <tr>
-                                <td>Cancel Button</td>
-                                <td>Button</td>
-                                <td>Closes popup window</td>
+                                <td>Update Mark Text Field</td>
+                                <td>Text Field</td>
+                                <td>Allows user to enter a numeric value</td>
                             </tr>
                             </table>
-            <h3>Report Page</h3>
-            <img class="prototype-img" src="/static/img/report_page.png" />
+            <h3>Change Student Grade (Pop up Window)</h3>
+            <img class="prototype-img" src="../static/img/change_student_grade.png" />
             <table border="1">
                 <col width="200">
                     <col width="200">
@@ -163,23 +166,50 @@
                                 <th align="left">Description</th>
                             </tr>
                             <tr>
-                                <td>Upload More Grades</td>
+                                <td>Close Button (X)</td>
                                 <td>Button</td>
-                                <td>Returns user to Course List Page</td>
+                                <td>Closes popup window</td>
+                            </tr>
+                            <tr>
+                                <td>Set Grade Button</td>
+                                <td>Button</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Skip Button</td>
+                                <td>Button</td>
+                                <td></td>
+                            </tr>
+            </table>
+            <h3>Report Page</h3>
+            <img class="prototype-img" src="../static/img/report_page.png" height:auto width:auto />
+            <table border="1">
+                <col width="200">
+                    <col width="200">
+                        <col width="400">
+                            <tr>
+                                <th align="left">Field</th>
+                                <th align="left">Type</th>
+                                <th align="left">Description</th>
                             </tr>
                             <tr>
                                 <td>Check Grades Button</td>
                                 <td>Button</td>
-                                <td>Links to Brightspace Instance page with all of the grades for the current grade item</td>
+                                <td>Links to Brightspace page with all of students'grades for the current grade item</td>
                             </tr>
                             <tr>
                                 <td>Logout Button</td>
                                 <td>Button</td>
                                 <td>Go to Logout Page</td>
                             </tr>
+                            <tr>
+                                <td>Upload More Grades</td>
+                                <td>Button</td>
+                                <td>Returns user to Course List Page</td>
+                            </tr>
                             </table>
             <h3>Logout Page</h3>
-            <p>Logout page for MyBrightSpace</p>
+            <p>Return to login page for MyBrightSpace.</p>
             
             <h2>Detailed Design</h2>
             <h3>Service Diagrams</h3>
