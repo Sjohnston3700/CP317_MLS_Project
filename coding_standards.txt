@@ -1,0 +1,32 @@
+// General
+
+tabbing: 4 spaces, not 2 please
+snake_case for all methods and variable names (except frontend - camelCase)
+
+// Frontend 
+
+Jquery: 
+	use jquery only 
+	camelCase ex: myFunction (myVar, myVar2)
+	no query in html files, all in files located under static/js
+	separate js files for different function/logic
+	function brackets as follows: 
+	
+	function () {
+		// JQUery code here with tab indent (where 1 tab is 
+	}
+	
+CSS 
+	All ids and classes use dashes, NO UNDERSCORES
+	
+	#example-id
+	{
+		display: block;
+	}
+	
+	.example-class:hover
+	{
+		cursor: pointer;
+	}
+	
+
