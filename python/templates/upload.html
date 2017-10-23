@@ -6,7 +6,7 @@
 
 {% block content %}
 <h1>CS123 - Test Course - Lab Report 1</h1>
-<h2>Total students: <strong>80</strong></h2>
+<!--<h2>Total students: <strong>80</strong></h2>-->
 <h2>Out of: <strong>150</strong> marks</h2>
 <button class="btn inline" id="open-change-total">Change grade item total</button>
 <hr>
@@ -16,6 +16,7 @@
 	  <form action={{ url_for('set_grades',courseId=courseId,gradeItemId=gradeItemId) }} method="POST"
          enctype="multipart/form-data">
          	<input type="file" name="file">
+          <p></p>
 	  		<button class="btn" type="submit">Upload Grades File</button>
       </form>
 </div>
@@ -26,7 +27,7 @@
 		
 		<input type="text" class="input" placeholder="Enter Student Name or ID...">
 		
-		<button class="btn">Search</button>
+		<!--<button class="btn">Search</button>-->
 		<div class="form-checkbox">
 			<input type="checkbox">
 			<label class="mini">Select all</label>
