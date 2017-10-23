@@ -347,7 +347,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+get_grade_items(): GradeItem",
+											"text": "+getGradeItems(): GradeItem",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -376,7 +376,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+get_grade_item(id): GradeItem",
+											"text": "+getGradeItem(id): GradeItem",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2168,7 +2168,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "«constructor»+__init__(context, user_permissions[] : int, host): void",
+											"text": "«constructor»+__init__(context, user_permissions[] : String, host): void",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2197,7 +2197,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+get_courses(): Course",
+											"text": "+getCourses(): Course",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2226,7 +2226,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+get_course(id): Course",
+											"text": "+getCourse(id): Course",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2255,7 +2255,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+get_name(): String",
+											"text": "+getName(): String",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2284,7 +2284,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+get_id(): int",
+											"text": "+getId(): int",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2313,7 +2313,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+get_context(): app_context",
+											"text": "+getContext(): app_context",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -5586,9 +5586,9 @@
 							"left": 64,
 							"top": 608,
 							"width": 441,
-							"height": 133,
+							"height": 129,
 							"autoResize": false,
-							"text": "Constructor calls api.getWhoAmI.\nConstructor also initialize list of courses user has access to (list is attribute). Requires call to api.get_user_enrollments.\nIf a list of permissions is passed, only courses where the user has one of the given permissions will be added to the list. This requires a call to api.get_user_enrollment in addition to the call to api.get_user_enrollments. This is because get_user_enrollment retrieves the permission that the user has in the course (get_user_enrollments does not).",
+							"text": "Constructor calls api.getWhoAmI.\nConstructor also initialize list of courses user has access to (list is attribute). Requires call to api.getUserEnrollments.\nIf a list of permissions is passed, only courses where the user has one of the given permissions will be added to the list. This requires a call to api.getUserEnrollment in addition to the call to api.getUserEnrollments. This is because getUserEnrollment retrieves the permission that the user has in the course (getUserEnrollments does not).",
 							"wordWrap": true
 						},
 						{
@@ -5752,7 +5752,7 @@
 							"width": 384,
 							"height": 38,
 							"autoResize": false,
-							"text": "Operation parameter types have been specified where the type is not obvious",
+							"text": "Oeration parameter types have been specified where the type is not obvious",
 							"wordWrap": true
 						},
 						{
@@ -5817,7 +5817,7 @@
 											"containerExtending": false,
 											"left": 69,
 											"top": 159,
-											"width": 437.35986328125,
+											"width": 390.9013671875,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
@@ -5889,7 +5889,7 @@
 									"containerExtending": false,
 									"left": 64,
 									"top": 152,
-									"width": 447.35986328125,
+									"width": 400.9013671875,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -5935,7 +5935,7 @@
 											"containerExtending": false,
 											"left": 69,
 											"top": 182,
-											"width": 437.35986328125,
+											"width": 390.9013671875,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
@@ -5964,11 +5964,40 @@
 											"containerExtending": false,
 											"left": 69,
 											"top": 197,
-											"width": 437.35986328125,
+											"width": 390.9013671875,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
 											"text": "+lms_host: String",
+											"horizontalAlignment": 0,
+											"verticalAlignment": 5,
+											"wordWrap": false
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFfR5NudoIXQCk=",
+											"_parent": {
+												"$ref": "AAAAAAFfR5G0J39sngs="
+											},
+											"model": {
+												"$ref": "AAAAAAFfR5NuPoIC1VU="
+											},
+											"visible": true,
+											"enabled": true,
+											"lineColor": "#000000",
+											"fillColor": "#ffffff",
+											"fontColor": "#000000",
+											"font": "Arial;13;0",
+											"showShadow": true,
+											"containerChangeable": false,
+											"containerExtending": false,
+											"left": 69,
+											"top": 212,
+											"width": 390.9013671875,
+											"height": 13,
+											"autoResize": false,
+											"underline": false,
+											"text": "+scheme",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -5992,8 +6021,8 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 69,
-											"top": 212,
-											"width": 437.35986328125,
+											"top": 227,
+											"width": 390.9013671875,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
@@ -6014,8 +6043,8 @@
 									"containerExtending": false,
 									"left": 64,
 									"top": 177,
-									"width": 447.35986328125,
-									"height": 53,
+									"width": 400.9013671875,
+									"height": 68,
 									"autoResize": false
 								},
 								{
@@ -6047,12 +6076,12 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 69,
-											"top": 235,
-											"width": 437.35986328125,
+											"top": 250,
+											"width": 390.9013671875,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "«constructor»+__init__(lms_host, protocol = \"http\", versions    = NULL): void",
+											"text": "«constructor»+__init__(lms_host, scheme, versions   = NULL): void",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -6068,8 +6097,8 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 64,
-									"top": 230,
-									"width": 447.35986328125,
+									"top": 245,
+									"width": 400.9013671875,
 									"height": 23,
 									"autoResize": false
 								},
@@ -6133,7 +6162,7 @@
 							"containerExtending": false,
 							"left": 64,
 							"top": 152,
-							"width": 447.35986328125,
+							"width": 400.9013671875,
 							"height": 129,
 							"autoResize": false,
 							"stereotypeDisplay": "label",
@@ -6178,13 +6207,37 @@
 							"showShadow": true,
 							"containerChangeable": false,
 							"containerExtending": false,
-							"left": 536,
-							"top": 216,
-							"width": 185,
+							"left": 472,
+							"top": 160,
+							"width": 209,
 							"height": 57,
 							"autoResize": false,
 							"text": "If no argument is passed for versions, then constructor calls api.getApiVersions",
 							"wordWrap": true
+						},
+						{
+							"_type": "UMLNoteLinkView",
+							"_id": "AAAAAAFfR5n/9IXYIEM=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"visible": true,
+							"enabled": true,
+							"lineColor": "#000000",
+							"fillColor": "#ffffff",
+							"fontColor": "#000000",
+							"font": "Arial;13;0",
+							"showShadow": true,
+							"containerChangeable": false,
+							"containerExtending": false,
+							"head": {
+								"$ref": "AAAAAAFfR5G0J39mi8o="
+							},
+							"tail": {
+								"$ref": "AAAAAAFfR5ky5YWvBHo="
+							},
+							"lineStyle": 1,
+							"points": "471:197;465:198"
 						},
 						{
 							"_type": "UMLAssociationView",
@@ -6214,8 +6267,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 262,
-									"top": 320,
+									"left": 248,
+									"top": 321,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -6248,8 +6301,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 247,
-									"top": 319,
+									"left": 233,
+									"top": 321,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -6282,8 +6335,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 291,
-									"top": 323,
+									"left": 277,
+									"top": 322,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -6316,8 +6369,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 260,
-									"top": 341,
+									"left": 248,
+									"top": 343,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -6350,8 +6403,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 247,
-									"top": 338,
+									"left": 234,
+									"top": 340,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -6384,8 +6437,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 278,
-									"top": 348,
+									"left": 266,
+									"top": 347,
 									"width": 19.5126953125,
 									"height": 13,
 									"autoResize": false,
@@ -6419,8 +6472,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 263,
-									"top": 299,
+									"left": 248,
+									"top": 300,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -6453,8 +6506,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 250,
-									"top": 300,
+									"left": 234,
+									"top": 303,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -6487,8 +6540,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 288,
-									"top": 297,
+									"left": 272,
+									"top": 296,
 									"width": 7.22998046875,
 									"height": 13,
 									"autoResize": false,
@@ -6569,7 +6622,7 @@
 								"$ref": "AAAAAAFe7mrX0eNnW9s="
 							},
 							"lineStyle": 1,
-							"points": "273:375;281:281",
+							"points": "263:375;263:281",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -6608,98 +6661,6 @@
 							"headQualifiersCompartment": {
 								"$ref": "AAAAAAFfR77VGaCGAwE="
 							}
-						},
-						{
-							"_type": "UMLTextView",
-							"_id": "AAAAAAFfR/dPaaUq7Cc=",
-							"_parent": {
-								"$ref": "AAAAAAFF+qBtyKM79qY="
-							},
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"left": 560,
-							"top": 32,
-							"width": 304,
-							"height": 48,
-							"autoResize": false,
-							"wordWrap": true
-						},
-						{
-							"_type": "UMLNoteView",
-							"_id": "AAAAAAFfR/e5Oab6Gw8=",
-							"_parent": {
-								"$ref": "AAAAAAFF+qBtyKM79qY="
-							},
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"left": 520,
-							"top": 24,
-							"width": 352,
-							"height": 40,
-							"autoResize": false,
-							"text": "This diagram uses the Python constructor __init__(). For the PHP wrapper, the constructor is __construct()",
-							"wordWrap": true
-						},
-						{
-							"_type": "UMLNoteView",
-							"_id": "AAAAAAFfR/zir63eIo4=",
-							"_parent": {
-								"$ref": "AAAAAAFF+qBtyKM79qY="
-							},
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"left": 520,
-							"top": 80,
-							"width": 344,
-							"height": 51,
-							"autoResize": false,
-							"text": "It is possible to get back to the User object (and thus the Host object as well) from every class except OrgMember",
-							"wordWrap": true
-						},
-						{
-							"_type": "UMLNoteLinkView",
-							"_id": "AAAAAAFfSAd8PLpysrw=",
-							"_parent": {
-								"$ref": "AAAAAAFF+qBtyKM79qY="
-							},
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"head": {
-								"$ref": "AAAAAAFfR5G0J39mi8o="
-							},
-							"tail": {
-								"$ref": "AAAAAAFfR5ky5YWvBHo="
-							},
-							"lineStyle": 1,
-							"points": "535:236;511:234"
 						}
 					]
 				},
@@ -6719,7 +6680,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFe7RqkI5wIGnw="
 							},
-							"name": "get_api_versions",
+							"name": "getApiVersions",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -6750,8 +6711,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFe7RqkI5wIGnw="
 							},
-							"name": "get_api_version",
-							"visibility": "private",
+							"name": "getApiVersion",
+							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
 							"parameters": [
@@ -6797,7 +6758,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFe7RqkI5wIGnw="
 							},
-							"name": "get_who_am_i",
+							"name": "getWhoAmI",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -6812,6 +6773,7 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
+									"type": "",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -6839,11 +6801,58 @@
 						},
 						{
 							"_type": "UMLOperation",
+							"_id": "AAAAAAFfQPfrt8sgLqg=",
+							"_parent": {
+								"$ref": "AAAAAAFe7RqkI5wIGnw="
+							},
+							"name": "getCourses",
+							"visibility": "public",
+							"isStatic": false,
+							"isLeaf": false,
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFfQPggrMtFPSU=",
+									"_parent": {
+										"$ref": "AAAAAAFfQPfrt8sgLqg="
+									},
+									"name": "user",
+									"visibility": "public",
+									"isStatic": false,
+									"isLeaf": false,
+									"type": "",
+									"isReadOnly": false,
+									"isOrdered": false,
+									"isUnique": false,
+									"direction": "in"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFfQPggrMtGouo=",
+									"_parent": {
+										"$ref": "AAAAAAFfQPfrt8sgLqg="
+									},
+									"visibility": "public",
+									"isStatic": false,
+									"isLeaf": false,
+									"type": "JSON",
+									"isReadOnly": false,
+									"isOrdered": false,
+									"isUnique": false,
+									"direction": "return"
+								}
+							],
+							"concurrency": "sequential",
+							"isQuery": false,
+							"isAbstract": false
+						},
+						{
+							"_type": "UMLOperation",
 							"_id": "AAAAAAFfQPghZMt2b28=",
 							"_parent": {
 								"$ref": "AAAAAAFe7RqkI5wIGnw="
 							},
-							"name": "put_grade",
+							"name": "setGrade",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -6858,6 +6867,7 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
+									"type": "",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -6889,7 +6899,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFe7RqkI5wIGnw="
 							},
-							"name": "get_course_members",
+							"name": "getStudents",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -6904,6 +6914,7 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
+									"type": "",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -6935,7 +6946,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFe7RqkI5wIGnw="
 							},
-							"name": "get_user_enrollments",
+							"name": "getUserEnrollments",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -6950,6 +6961,7 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
+									"type": "",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -6981,7 +6993,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFe7RqkI5wIGnw="
 							},
-							"name": "get_user_enrollment",
+							"name": "getUserEnrollment",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -6996,6 +7008,7 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
+									"type": "",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -7011,6 +7024,7 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
+									"type": "",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -7026,116 +7040,6 @@
 									"isStatic": false,
 									"isLeaf": false,
 									"type": "JSON",
-									"isReadOnly": false,
-									"isOrdered": false,
-									"isUnique": false,
-									"direction": "return"
-								}
-							],
-							"concurrency": "sequential",
-							"isQuery": false,
-							"isAbstract": false
-						},
-						{
-							"_type": "UMLOperation",
-							"_id": "AAAAAAFfSAHCv7CxsuE=",
-							"_parent": {
-								"$ref": "AAAAAAFe7RqkI5wIGnw="
-							},
-							"name": "get_grade_items",
-							"visibility": "public",
-							"isStatic": false,
-							"isLeaf": false,
-							"parameters": [
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFfSAJmHbC45sY=",
-									"_parent": {
-										"$ref": "AAAAAAFfSAHCv7CxsuE="
-									},
-									"name": "course",
-									"visibility": "public",
-									"isStatic": false,
-									"isLeaf": false,
-									"type": "",
-									"isReadOnly": false,
-									"isOrdered": false,
-									"isUnique": false,
-									"direction": "in"
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFfSAJmHrC5h2s=",
-									"_parent": {
-										"$ref": "AAAAAAFfSAHCv7CxsuE="
-									},
-									"visibility": "public",
-									"isStatic": false,
-									"isLeaf": false,
-									"type": "JSON",
-									"isReadOnly": false,
-									"isOrdered": false,
-									"isUnique": false,
-									"direction": "return"
-								}
-							],
-							"concurrency": "sequential",
-							"isQuery": false,
-							"isAbstract": false
-						},
-						{
-							"_type": "UMLOperation",
-							"_id": "AAAAAAFfSAJmvLC8l0A=",
-							"_parent": {
-								"$ref": "AAAAAAFe7RqkI5wIGnw="
-							},
-							"name": "put_grade_item",
-							"visibility": "public",
-							"isStatic": false,
-							"isLeaf": false,
-							"parameters": [
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFfSALnQLDDsNA=",
-									"_parent": {
-										"$ref": "AAAAAAFfSAJmvLC8l0A="
-									},
-									"name": "grade_item",
-									"visibility": "public",
-									"isStatic": false,
-									"isLeaf": false,
-									"type": "",
-									"isReadOnly": false,
-									"isOrdered": false,
-									"isUnique": false,
-									"direction": "in"
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFfSALnQbDEy9o=",
-									"_parent": {
-										"$ref": "AAAAAAFfSAJmvLC8l0A="
-									},
-									"name": "params",
-									"visibility": "public",
-									"isStatic": false,
-									"isLeaf": false,
-									"type": "JSON",
-									"isReadOnly": false,
-									"isOrdered": false,
-									"isUnique": false,
-									"direction": "in"
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFfSALnQbDF5OY=",
-									"_parent": {
-										"$ref": "AAAAAAFfSAJmvLC8l0A="
-									},
-									"visibility": "public",
-									"isStatic": false,
-									"isLeaf": false,
-									"type": "void",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -7404,7 +7308,6 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
-									"type": "",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -7620,7 +7523,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFe7SpWxccM8rw="
 							},
-							"name": "get_grade_items",
+							"name": "getGradeItems",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -7653,7 +7556,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFe7SpWxccM8rw="
 							},
-							"name": "get_grade_item",
+							"name": "getGradeItem",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -7668,6 +7571,7 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
+									"type": "",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -8714,6 +8618,7 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
+									"type": "",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -8729,7 +8634,7 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
-									"type": "int",
+									"type": "String",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -8760,6 +8665,7 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
+									"type": "",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -8776,7 +8682,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFe7mrHRuNavqQ="
 							},
-							"name": "get_courses",
+							"name": "getCourses",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -8809,7 +8715,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFe7mrHRuNavqQ="
 							},
-							"name": "get_course",
+							"name": "getCourse",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -8824,6 +8730,7 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
+									"type": "",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -8857,7 +8764,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFe7mrHRuNavqQ="
 							},
-							"name": "get_name",
+							"name": "getName",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -8888,7 +8795,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFe7mrHRuNavqQ="
 							},
-							"name": "get_id",
+							"name": "getId",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -8919,7 +8826,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFe7mrHRuNavqQ="
 							},
-							"name": "get_context",
+							"name": "getContext",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -9631,6 +9538,24 @@
 						},
 						{
 							"_type": "UMLAttribute",
+							"_id": "AAAAAAFfR5NuPoIC1VU=",
+							"_parent": {
+								"$ref": "AAAAAAFfR5G0Jn9kcyU="
+							},
+							"name": "scheme",
+							"visibility": "public",
+							"isStatic": false,
+							"isLeaf": false,
+							"type": "",
+							"isReadOnly": false,
+							"isOrdered": false,
+							"isUnique": false,
+							"isDerived": false,
+							"aggregation": "none",
+							"isID": false
+						},
+						{
+							"_type": "UMLAttribute",
 							"_id": "AAAAAAFfR5I9m4CGpAA=",
 							"_parent": {
 								"$ref": "AAAAAAFfR5G0Jn9kcyU="
@@ -9682,14 +9607,13 @@
 									"_parent": {
 										"$ref": "AAAAAAFfR5K9BYFl8xs="
 									},
-									"name": "protocol",
+									"name": "scheme",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
-									"defaultValue": "\"http\"",
 									"direction": "in"
 								},
 								{
@@ -9698,7 +9622,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFfR5K9BYFl8xs="
 									},
-									"name": "versions   ",
+									"name": "versions  ",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -9791,7 +9715,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 43,
-											"top": 107,
+											"top": 35,
 											"width": 367,
 											"height": 13,
 											"autoResize": false,
@@ -9817,7 +9741,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 43,
-											"top": 122,
+											"top": 50,
 											"width": 367,
 											"height": 13,
 											"autoResize": false,
@@ -9843,7 +9767,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": -994,
-											"top": -650,
+											"top": -794,
 											"width": 73.67724609375,
 											"height": 13,
 											"autoResize": false,
@@ -9869,7 +9793,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": -994,
-											"top": -650,
+											"top": -794,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -9889,7 +9813,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 38,
-									"top": 102,
+									"top": 30,
 									"width": 377,
 									"height": 38,
 									"autoResize": false,
@@ -9925,7 +9849,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 38,
-									"top": 140,
+									"top": 68,
 									"width": 377,
 									"height": 10,
 									"autoResize": false
@@ -9959,12 +9883,12 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 43,
-											"top": 155,
+											"top": 83,
 											"width": 367,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+get_api_versions(): JSON",
+											"text": "+getApiVersions(): JSON",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -9988,12 +9912,12 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 43,
-											"top": 170,
+											"top": 98,
 											"width": 367,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "-get_api_version(productCode: String): String",
+											"text": "+getApiVersion(productCode: String): String",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -10017,12 +9941,41 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 43,
-											"top": 185,
+											"top": 113,
 											"width": 367,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+get_who_am_i(user): JSON",
+											"text": "+getWhoAmI(user): JSON",
+											"horizontalAlignment": 0,
+											"verticalAlignment": 5,
+											"wordWrap": false
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFfR6vWJNIUfxw=",
+											"_parent": {
+												"$ref": "AAAAAAFfR6vWJNIQku8="
+											},
+											"model": {
+												"$ref": "AAAAAAFfQPfrt8sgLqg="
+											},
+											"visible": true,
+											"enabled": true,
+											"lineColor": "#000000",
+											"fillColor": "#ffffff",
+											"fontColor": "#000000",
+											"font": "Arial;13;0",
+											"showShadow": true,
+											"containerChangeable": false,
+											"containerExtending": false,
+											"left": 43,
+											"top": 128,
+											"width": 367,
+											"height": 13,
+											"autoResize": false,
+											"underline": false,
+											"text": "+getCourses(user): JSON",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -10046,12 +9999,12 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 43,
-											"top": 200,
+											"top": 143,
 											"width": 367,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+put_grade(grade): void",
+											"text": "+setGrade(grade): void",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -10075,12 +10028,12 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 43,
-											"top": 215,
+											"top": 158,
 											"width": 367,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+get_course_members(course): JSON",
+											"text": "+getStudents(course): JSON",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -10104,12 +10057,12 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 43,
-											"top": 230,
+											"top": 173,
 											"width": 367,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+get_user_enrollments(user): JSON",
+											"text": "+getUserEnrollments(user): JSON",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -10133,70 +10086,12 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 43,
-											"top": 245,
+											"top": 188,
 											"width": 367,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+get_user_enrollment(user, course_id): JSON",
-											"horizontalAlignment": 0,
-											"verticalAlignment": 5,
-											"wordWrap": false
-										},
-										{
-											"_type": "UMLOperationView",
-											"_id": "AAAAAAFfSAHC/LC0VZA=",
-											"_parent": {
-												"$ref": "AAAAAAFfR6vWJNIQku8="
-											},
-											"model": {
-												"$ref": "AAAAAAFfSAHCv7CxsuE="
-											},
-											"visible": true,
-											"enabled": true,
-											"lineColor": "#000000",
-											"fillColor": "#ffffff",
-											"fontColor": "#000000",
-											"font": "Arial;13;0",
-											"showShadow": true,
-											"containerChangeable": false,
-											"containerExtending": false,
-											"left": 43,
-											"top": 260,
-											"width": 367,
-											"height": 13,
-											"autoResize": false,
-											"underline": false,
-											"text": "+get_grade_items(course): JSON",
-											"horizontalAlignment": 0,
-											"verticalAlignment": 5,
-											"wordWrap": false
-										},
-										{
-											"_type": "UMLOperationView",
-											"_id": "AAAAAAFfSAJm4bC//kU=",
-											"_parent": {
-												"$ref": "AAAAAAFfR6vWJNIQku8="
-											},
-											"model": {
-												"$ref": "AAAAAAFfSAJmvLC8l0A="
-											},
-											"visible": true,
-											"enabled": true,
-											"lineColor": "#000000",
-											"fillColor": "#ffffff",
-											"fontColor": "#000000",
-											"font": "Arial;13;0",
-											"showShadow": true,
-											"containerChangeable": false,
-											"containerExtending": false,
-											"left": 43,
-											"top": 275,
-											"width": 367,
-											"height": 13,
-											"autoResize": false,
-											"underline": false,
-											"text": "+put_grade_item(grade_item, params: JSON): void",
+											"text": "+getUserEnrollment(user, course_id): JSON",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -10220,7 +10115,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 43,
-											"top": 290,
+											"top": 203,
 											"width": 367,
 											"height": 13,
 											"autoResize": false,
@@ -10249,7 +10144,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 43,
-											"top": 305,
+											"top": 218,
 											"width": 367,
 											"height": 13,
 											"autoResize": false,
@@ -10278,7 +10173,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 43,
-											"top": 320,
+											"top": 233,
 											"width": 367,
 											"height": 13,
 											"autoResize": false,
@@ -10307,7 +10202,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 43,
-											"top": 335,
+											"top": 248,
 											"width": 367,
 											"height": 13,
 											"autoResize": false,
@@ -10328,9 +10223,9 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 38,
-									"top": 150,
+									"top": 78,
 									"width": 377,
-									"height": 203,
+									"height": 188,
 									"autoResize": false
 								},
 								{
@@ -10352,7 +10247,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": -210,
-									"top": -26,
+									"top": -98,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -10376,7 +10271,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": -210,
-									"top": -26,
+									"top": -98,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -10392,9 +10287,9 @@
 							"containerChangeable": true,
 							"containerExtending": false,
 							"left": 38,
-							"top": 102,
+							"top": 30,
 							"width": 377,
-							"height": 251,
+							"height": 249,
 							"autoResize": false,
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
@@ -10439,7 +10334,7 @@
 							"containerChangeable": false,
 							"containerExtending": false,
 							"left": 438,
-							"top": 262,
+							"top": 190,
 							"width": 347,
 							"height": 59,
 							"autoResize": false,
@@ -10462,11 +10357,11 @@
 							"containerChangeable": false,
 							"containerExtending": false,
 							"left": 448,
-							"top": 144,
+							"top": 72,
 							"width": 337,
 							"height": 51,
 							"autoResize": false,
-							"text": "get_api_version gets latest version for given product (needed for API request)",
+							"text": "getApiVersion gets latest version for given product (needed for API request)",
 							"wordWrap": true
 						},
 						{
@@ -10491,7 +10386,7 @@
 								"$ref": "AAAAAAFfR6vWJNIfTUE="
 							},
 							"lineStyle": 1,
-							"points": "437:262;415:258"
+							"points": "437:190;415:186"
 						},
 						{
 							"_type": "UMLNoteLinkView",
@@ -10515,30 +10410,7 @@
 								"$ref": "AAAAAAFfR6vWJNIggGM="
 							},
 							"lineStyle": 1,
-							"points": "447:168;416:168;415:168"
-						},
-						{
-							"_type": "UMLNoteView",
-							"_id": "AAAAAAFfSAiaD1u6FTo=",
-							"_parent": {
-								"$ref": "AAAAAAFfR6vFlpNvTH4="
-							},
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"left": 40,
-							"top": 32,
-							"width": 384,
-							"height": 38,
-							"autoResize": false,
-							"text": "Operation parameter types have been specified where the type is not obvious",
-							"wordWrap": true
+							"points": "447:96;416:96;415:96"
 						}
 					]
 				}

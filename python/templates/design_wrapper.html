@@ -1,67 +1,57 @@
 <html>
-	<head>
-		<title>Wrapper - Design</title>
-	</head>
-	<body>
-		<script src="../../../static/js/toc_generator.js"></script>
-		<h1>Brightspace API Python Wrapper - Design</h1>
-		<p>Version 1.0</p>
-		<p>Last updated: October x, 2017</p>
 
-		<div id="toc">
-			<h2>Table of Contents</h2>
-		</div>
+<head>
+    <title>Brightspace API Wrapper - Design</title>
+</head>
 
-		<h2>Introduction</h2>
-		<p>
-			The Brightspace API Wrapper is a library used to make calls to the Brightspace API, which supports the Python and PHP versions of ezMarker. The functions in the wrapper's library will be used rather than directly making HTTP requests. This will allow developers to fetch and push information through the API in a friendly manner. The wrapper is being developed primarily for ezMarker, which allows for uploading grades and feedback to a Brightspace environment. 
+<body>
+    <script src="../static/js/toc_generator.js"></script>
+    <h1>Brightspace API Python Wrapper - Design</h1>
+    <p>Version 1.0</p>
+    <p>Last updated: October 23, 2017</p>
 
+    <div id="toc">
+        <h2>Table of Contents</h2>
+    </div>
 
-		</p>
+    <h2>Introduction</h2>
+    <p>
+        The Brightspace API Wrapper is a library used to make calls to the Brightspace API. It allows developers to fetch and push information through the API in a friendly manner. Rather than directly making HTTP requests, developers can simply use the functions available in the wrapper's library. This wrapper is being developed primarily for ezMarker, a web application for uploading grades and feedback to a Brightspace environment. PHP and Python versions of the wrapper are being developed to support the corresponding versions of ezMarker.
+    </p>
+    <p>This document describes the design of the wrapper's classes and functions, along with providing helpful reference information.</p>
 
-		<h2>Technology - Troy/Harold</h2>
-		<p>[mention PHP, Python versions, Brightspace API instructions]</p>
+    <h2>Class Design</h2>
+    <img src="../static/img/wrapper_design_class_diagram.jpg">
 
-		<h2>Class Design</h2>
-		<h3>Diagrams - Mohamed</h3>
-		<p>[build from analysis class diagram. Need to add methods (include arguments and what is returned). Also need to add attribute type if not already described in analysis diagram.]</p>
+    <h2>API Functions</h2>
+    <h3>Diagram</h3>
+    <img src="../static/img/wrapper_design_api_file.jpg">
 
-		<h3>Detailed Description - Ben</h3>
-		<p>[Describe methods (what purpose is, error handling, condition checks, request to use). still tbd in requirements document]</p>
+    <h3>API Reference</h3>
+    <ul>
+        <li>get_api_versions: Implements GET <a href="http://docs.valence.desire2learn.com/res/apiprop.html#get--d2l-api-versions-" target="_blank">/d2l/api/versions/</a></li>
+        <li>get_who_am_i: Implements GET <a href="http://docs.valence.desire2learn.com/res/user.html#get--d2l-api-lp-(version)-users-whoami" target="_blank">/d2l/api/lp/(version)/users/whoami</a></li>
+        <li>put_grade: Implements PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)-values-(userId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)</a></li>
+        <li>get_course_members: Implements GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-orgUnits-(orgUnitId)-users-" target="_blank">/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/</a></li>
+        <li>get_user_enrollments: Implements GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/</a></li>
+        <li>get_user_enrollment: Implements GET<a href="http://docs.valence.desire2learn.com/res/grade.html#get--d2l-api-le-(version)-(orgUnitId)-grades-" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a></li>
+        <li>get_grade_items: Implements GET<a href="http://docs.valence.desire2learn.com/res/grade.html#get--d2l-api-le-(version)-(orgUnitId)-grades-" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a></li>
+        <li>put_grade_item: Implements PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)</a></li>
+    </ul>
 
-		<h2>Project Structure</h2>
-		<h3>Python Structure</h3>
-		<ul id="file-structure">
-			<li>API.py</li>
-			<li>/static</li>
-			<ul id="file-structure">
-				<li>User.py</li>
-				<li>Course.py</li>
-				<li>GradeItem.py</li>
-				<li>Grade.py</li>
-			</ul>
-		</ul>
-		<h3>PHP Structure</h3>
-		<ul id="file-structure">
-			<li>API.php</li>
-			<li>/static</li>
-			<ul id="file-structure">
-				<li>User.php</li>
-				<li>Course.php</li>
-				<li>GradeItem.php</li>
-				<li>Grade.php</li>
-			</ul>
-		</ul>
-		<h2 id="toc_exclude">Revision History</h2>
-		<h3 id="toc_exclude">Version 1.0 - 10/x/2017</h3>
+    <h4>Python Specific</h4>
+    <ul>
+        <li>>Uses <a href="http://docs.python-requests.org/en/latest/" target="_blank">Requests</a> library</li>
+        <li>Brightspace example code: <a href="https://github.com/Brightspace/sample-valence-general-python" target="_blank">https://github.com/Brightspace/sample-valence-general-python</a></li>
+    </ul>
 
-		<p>Authors: </p>
-		<p>SQA: Yi Ling Pang</p>
-	</body>
-	<style>
-		#file-structure 
-		{
-			list-style: none;
-		}
-	</style>
+    <h4>PHP Specific</h4>
+
+    <h2 id="toc_exclude">Revision History</h2>
+    <h3 id="toc_exclude">Version 1.0 - 10/23/2017</h3>
+
+    <p>Authors: Troy Nechanicky</p>
+    <p>SQA: Harold Hodgins, Yi Ling Pang</p>
+</body>
+
 </html>
