@@ -109,7 +109,7 @@ def set_grades(courseId, gradeItemId):
                 if float(grade.maxValue) != gradeItem.maxPoints:
                     updateUrl = EDIT_GRADE_ITEM_URL.format(host=user.uc.host,gradeItemId=gradeItem.Id,courseId=course.Id)
                     message = 'Grade for {} is out of {}. The Max Points for {} is {}'.format(grade.studentName,grade.maxValue,gradeItem.name,gradeItem.maxPoints)
-                    return render_template("update_grade_item.html",gradeUrl=updateUrl,message=message)
+                    #return render_template("update_grade_item.html",gradeUrl=updateUrl,message=message)
                 
                 userId,gradeValue,PublicFeedback = grade.userId,grade.value,grade.public_feedback
                 gradeItem.setUserGrade(userId,courseId,gradeValue,PublicFeedback,PrivateFeedback='')
