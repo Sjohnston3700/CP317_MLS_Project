@@ -197,6 +197,7 @@
         <ol>
             <li>Redirects user to Brightspace login page</li>
             <li>Creates user object</li>
+            <li>Sorts course list in ascending order by course name</li>
             <li>Redirects to Available Courses page</li>
         </ol>
 
@@ -208,6 +209,7 @@
 
         <h3> modify_grade_total(GradeItem, total)</h3>
         <ol>
+            <li>Grade must be greater or equal to 0</li>
             <li>Grade item total is updated</li>
         </ol>
 
@@ -216,6 +218,7 @@
 			<li>Parses user's uploaded file</li>
 			<li>Does not set grades with missing parameters</li>
 			<li>Keeps track of grades that were not set (reports these errors to the user later)</li>
+            <li>Grade must be greater or equal to 0</li>
             <li>Creates grade object for valid grades</li>
             <li>Sets grades</li>
             <li>Redirects user to Report page</li>
@@ -224,6 +227,7 @@
         <h3>set_grades_manual_data(grades[student, value], GradeItem)</h3>
         <ol>
             <li>Creates grade objects</li>
+            <li>Grade must be greater or equal to 0</li>
             <li>Sets grades</li>
             <li>Redirects user to Report page</li>
         </ol>
