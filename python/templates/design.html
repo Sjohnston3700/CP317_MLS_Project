@@ -213,23 +213,27 @@
             <li>Grade item total is updated</li>
         </ol>
 
-        <h3>set_grades_file_data(file, GradeItem)</h3>
+        <h3>set_grades_manual_data(grades[student, value], GradeItem)</h3>
         <ol>
-			<li>Parses user's uploaded file</li>
-			<li>Does not set grades with missing parameters</li>
-			<li>Keeps track of grades that were not set (reports these errors to the user later)</li>
-            <li>Grade must be greater or equal to 0</li>
-            <li>Creates grade object for valid grades</li>
+            <li>Creates JSON object and sends to error_checking</li>
+            <li>If error_checking succeeds, creates grade object</li>
             <li>Sets grades</li>
             <li>Redirects user to Report page</li>
         </ol>
 
-        <h3>set_grades_manual_data(grades[student, value], GradeItem)</h3>
+        <h3>parse_file(file)</h3>
         <ol>
-            <li>Creates grade objects</li>
-            <li>Grade must be greater or equal to 0</li>
-            <li>Sets grades</li>
-            <li>Redirects user to Report page</li>
+            <li>Parses users uploaded file</li>
+            <li>Create JSON Object and sends to error_checking</li>
+            <li>If error_checking succeeds, creates grade object for valid grades</li>
+            <li>redirects to user report page</li>
+        </ol>
+
+        <h3>error_checking(JSON Object)</h3>
+        <ol>
+            <li>Does not set grades with missing parameters</li>
+            <li>Keeps tracks of grades that were not set or have errors in</li>
+            <li>If passes error checking, return JSON object to the function that called error checking</li>
         </ol>
 
         <h2>Project Structure</h2>
