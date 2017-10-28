@@ -6,6 +6,7 @@
 
 {% block content %}
 <div class="page-section">
+	<h1>Upload Complete</h1>
 	<h3>{{ '{} of {} grades uploaded successfully for {} - {}'.format(successful_grades,grades|length,course.name,gradeItem.name ) }} </h3>
 	{% if errors != [] %}
 	<h3> Errors </h3>
@@ -15,32 +16,22 @@
     	{% endfor %}
     </ul>
 	{% endif %}
-    <a class="btn btn-block" href="{{ url_for('show_courses') }}">Upload more grades</a><br>
-    <a class="btn btn-block" href="{{ gradesUrl }}" target="_blank">Check Grades</a><br>
-    <a class="btn btn-block" href="{{ logoutUrl }}">Logout</a><br>
-	</br>
-</div>
-<button id="open-modal">Open Modal</button>
-<div id="error-modal" class="modal">
-	<div class="modal-content">
-		<div class="modal-header">
-			<span class="close">&times;</span>
-			<h2>No Grade Set For John Doe</h2>
-		</div>
-		<div class="modal-body">
-			<p>No grade was set for <strong>John Doe</strong> during your upload. Go back and set their grade?</p>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-success">Set grade</button>
-			<button class="btn btn-error">Skip</button>
-		</div>
-	</div>
+	<hr>
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Grade</th>
+		</tr>
+		<tr>
+			<td>John Smith</td>
+			<td>50</td>
+		</tr>
+		<tr>
+			<td>Susan Smith</td>
+			<td>90</td>
+		</tr>
+	</table> 
 </div>
 <script>
-	window.onload = function () 
-	{
-		displayModal("error-modal", "open-modal");
-	}
-	
 </script>
 {% endblock %}

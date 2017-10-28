@@ -24,6 +24,7 @@
 .btn:hover
 {	
 	background: #d89702;
+	border-color: #d89702;
 	cursor: pointer;
 }
 
@@ -84,6 +85,7 @@ a.btn
 	width: 30px;
 	padding: 0px;
 }
+
 /* Accordion */
 
 button.accordion 
@@ -176,6 +178,39 @@ button.accordion.active:after
 .modal-body
 {
 	padding-bottom: 30px;
+}
+
+.modal-warning
+{
+	border: 1px solid #d89702;
+	background: #f7da99;
+	color: #d89702;
+
+}
+
+.modal-error
+{
+	border: 1px solid #ad4641;
+	background: #f49c97;
+	color: #ad4641;
+}
+
+.modal-error strong
+{
+	color: #ad4641;
+}
+
+.modal-warning, .modal-error, .modal-success
+{
+	width: 100%;
+	margin: 0px;
+	padding: 10px;
+	text-align: center;
+}
+
+.modal-warning strong
+{
+	color: #d89702;
 }
 
 /* Add Animation */

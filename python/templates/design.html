@@ -247,11 +247,11 @@
 
     <h3 id="JSON">JSON Specifications</h3>
     <p>The design of the JSON objects that ezMarker creates.</p>
-    
+
     <h4>User JSON (used in <i>login</i> controller, <i>Available Courses</i> and <i>Grade Item</i> pages)</h4>
-    
+
     <h4>Grades JSON (used in <i>parse_grade</i> and <i>set_grades</i> functions, <i>Grade Item</i> page)</h4>
-    
+
     <h4>Grade Error JSON (used in <i>error_checking</i> and <i>set_grades</i> functions, <i>Grade Item</i> and <i>Report</i> pages)</h4>
 
     <h3>HTTP Status Codes</h3>
@@ -267,6 +267,7 @@
     <p>404 - Not Found</p>
 
     <h2>Project Structure</h2>
+    <h3>Python Structure</h3>
     <ul id="file-structure">
         <li>app.py</li>
         <li>/templates</li>
@@ -274,8 +275,7 @@
             <li>index.html</li>
             <li>upload.html</li>
             <li>available_grades.html</li>
-            <li>home.html</li>
-            <li>report.html</li>
+            <li>grades_uploaded.html</li>
         </ul>
         <li>/static</li>
         <ul id="file-structure">
@@ -287,12 +287,45 @@
                 <li>forms.css</li>
                 <li>home.css</li>
                 <li>nav.css</li>
+                <li>tables.css</li>
                 <li>page_content.css</li>
                 <li>typography.css</li>
             </ul>
         </ul>
     </ul>
-    * Note: PHP version will have .php extensions instead of .html and .py extensions
+    <h3>PHP Structure</h3>
+    <ul id="file-structure">
+        <li>/wrapper</li>
+        <ul id="file-structure">
+            <li>/obj</li>
+        </ul>
+        <li>/root</li>
+        <ul id="file-structure">
+            <li>index.php</li>
+        </ul>
+        <li>/views</li>
+        <ul id="file-structure">
+            <li>index.php</li>
+            <li>upload.php</li>
+            <li>available_grades.php</li>
+            <li>grades_uploaded.php</li>
+        </ul>
+        <li>/static</li>
+        <ul id="file-structure">
+            <li>/js</li>
+            <li>/img</li>
+            <li>/css</li>
+            <ul id="file-structure">
+                <li>elements.css</li>
+                <li>forms.css</li>
+                <li>home.css</li>
+                <li>nav.css</li>
+                <li>tables.css</li>
+                <li>page_content.css</li>
+                <li>typography.css</li>
+            </ul>
+        </ul>
+    </ul>
 
     <h2 id="toc_exclude">Revision History</h2>
     <h3 id="toc_exclude">Version 1.0 - 10/23/2017</h3>
@@ -318,6 +351,7 @@
         margin: 20px 0px;
 
     }
+
 </style>
 
 </html>

@@ -25,7 +25,7 @@ app_url = '{0}://{1}:{2}{3}'.format(app_config['scheme'], app_config['host'], ap
 
 @app.route("/")
 def start():
-	return render_template('home.html')	
+    return redirect('/login')
 
 @app.route("/login/")
 def login():
@@ -39,9 +39,9 @@ def auth_token_handler():
     # store the user context's
     user = User(uc)
     app.config['user'] = user
-    return redirect('/availableCourses/')
+    return redirect('/courses/')
 
-@app.route('/availableCourses/')
+@app.route('/courses/')
 def show_courses():
 	try:
 		return render_template('available_grades.html', user=app.config['user'])
@@ -93,7 +93,7 @@ def set_grades(courseId, gradeItemId):
         course = user.getCourse(courseId)
         gradeItem = course.getGradeItem(gradeItemId)
     except:
-        return redirect('/availableCourses/')
+        return redirect('/courses/')
         
     if request.method == 'GET':
         return render_template('upload.html',courseId=courseId,gradeItemId=gradeItemId)

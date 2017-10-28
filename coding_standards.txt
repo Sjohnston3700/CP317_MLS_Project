@@ -7,13 +7,14 @@ snake_case for all methods and variable names (except frontend - camelCase)
 
 Jquery: 
 	use jquery only 
+	single quotes ' not "
 	camelCase ex: myFunction (myVar, myVar2)
 	no query in html files, all in files located under static/js
 	separate js files for different function/logic
 	function brackets as follows: 
 	
 	function () {
-		// JQUery code here with tab indent (where 1 tab is 
+		// JQuery code here with tab indent (where 1 tab is 
 	}
 	
 CSS 

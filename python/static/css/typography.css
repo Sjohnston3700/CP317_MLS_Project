@@ -20,3 +20,13 @@ h1.page-title
 {
 	font-size: 13px;
 }
+
+.text-error, .text-error strong
+{
+	color: #ad4641;
+}
+
+.text-warning, .text-warning strong
+{
+	color: #d89702;
+}

@@ -65,6 +65,21 @@ ul.vertical-nav
 	height: 100%;
 }
 
+.name-section
+{
+	float: right !important;
+	margin-top: 25px;
+}
+
+.name-section span
+{
+	color: white;
+	margin-right: 15px;
+}
+
+.name-section .btn
+{
+}
 
 /* Horizontal Nav */
 
@@ -77,12 +92,12 @@ ul.horiz-nav
     background-color: #330072;
 }
 
-.horiz-nav li 
+.horiz-nav li
 {
     float: left;
 }
 
-.horiz-nav li a 
+.horiz-nav li a
 {
     display: block;
     color: white;
