@@ -7,8 +7,8 @@
 <body>
     <script src="../static/js/toc_generator.js"></script>
     <h1>ezMarker - Design</h1>
-    <p>Version 1.0</p>
-    <p>Last updated: October 23, 2017</p>
+    <p>Version 2.0</p>
+    <p>Last updated: xxxxxxx, 2017</p>
 
     <div id="toc">
         <h2>Table of Contents</h2>
@@ -40,6 +40,7 @@
     <img class="prototype-img" src="../static/img/Packages.png">
 
     <h2>User Interface Design</h2>
+    <p>This section describes the front-end of ezMarker. See <a href="#JSON">JSON Specifications</a> for the design of the JSON objects.</p>
     <h3>Login Page</h3>
     <p>Brightspace takes care of generating the page and handling input.</p>
     <h3>Course List Page</h3>
@@ -109,9 +110,9 @@
         <tr>
             <td>Search Input Field</td>
             <td>Input Field</td>
-            <td>	
-				Dynamic search that changes its dropdown list of candidates everytime user types. Searches by student name when user enters a letter first, otherwise searches by student ID. User can only add a student who exists in the database
-			</td>
+            <td>
+                Dynamic search that changes its dropdown list of candidates everytime user types. Searches by student name when user enters a letter first, otherwise searches by student ID. User can only add a student who exists in the database
+            </td>
         </tr>
         <tr>
             <td>Grade Field</td>
@@ -153,9 +154,9 @@
         </tr>
     </table>
     <h3>Report Page</h3>
-    
+
     <p>Reports which students' grades were not set successfully.</p>
-    
+
     <img class="prototype-img" src="../static/img/report_page.png" height:auto width:auto />
     <table border="1">
         <col width="200">
@@ -191,95 +192,132 @@
 
     <h2>Detailed Design</h2>
 
-    <p> This section describes the back-end controllers and functions.
+    <p>This section describes the back-end implementation of ezMarker.</p>
 
-        <h3>login()</h3>
-        <ol>
-            <li>Redirects user to Brightspace login page</li>
-            <li>Creates user object</li>
-            <li>Sorts course list in ascending order by course name</li>
-            <li>Redirects to Available Courses page</li>
-        </ol>
+    <h3>Functions</h3>
 
-        <h3>logout()</h3>
-        <ol>
-            <li>Redirects user to Brightspace logout page</li>
-            <li>User has to return to ezMarker root in order to login again</li>
-        </ol>
+    <p>This section gives a high-level description of the back-end functions.</p>
 
-        <h3> modify_grade_total(GradeItem, total)</h3>
-        <ol>
-            <li>Grade must be greater or equal to 0</li>
-            <li>Grade item total is updated</li>
-        </ol>
+    <h4>login()</h4>
+    <ol>
+        <li>Redirects user to Brightspace login page</li>
+        <li>Creates user object</li>
+        <li>Sorts course list in ascending order by course name</li>
+        <li>Redirects to Available Courses page, passing JSON containing User information (including all attributes of User)</li>
+    </ol>
 
-        <h3>set_grades_manual_data(grades[student, value], GradeItem)</h3>
-        <ol>
-            <li>Creates JSON object and sends to error_checking</li>
-            <li>If error_checking succeeds, creates grade object</li>
-            <li>Sets grades</li>
-            <li>Redirects user to Report page</li>
-        </ol>
+    <h4>logout()</h4>
+    <ol>
+        <li>Redirects user to Brightspace logout page</li>
+        <li>User has to return to ezMarker root in order to login again</li>
+    </ol>
 
-        <h3>parse_file(file)</h3>
-        <ol>
-            <li>Parses users uploaded file</li>
-            <li>Create JSON Object and sends to error_checking</li>
-            <li>If error_checking succeeds, creates grade object for valid grades</li>
-            <li>redirects to user report page</li>
-        </ol>
+    <h4> modify_grade_max(GradeItem, max)</h4>
+    <ol>
+        <li>Checks that max is greater than or equal to 0</li>
+        <li>If valid, grade item total is updated</li>
 
-        <h3>error_checking(JSON Object)</h3>
-        <ol>
-            <li>Does not set grades with missing parameters</li>
-            <li>Keeps tracks of grades that were not set or have errors in</li>
-            <li>If passes error checking, return JSON object to the function that called error checking</li>
-        </ol>
+    </ol>
 
-        <h2>Project Structure</h2>
+    <h4>set_grades(students and grades JSON, GradeItem)</h4>
+    <ol>
+        <li>Assumes that error checking has already been done</li>
+        <li>Creates grade objects from JSON</li>
+        <li>Searches for student in course to associate with grade</li>
+        <li>Uploads grades</li>
+        <li>Tracks exceptions from Brightspace API wrapper in JSON</li>
+        <li>Remove grades from grade list that caused exception</li>
+        <li>Returns JSON of errors/warnings (if applicable)</li>
+    </ol>
+
+    <h4>parse_file(file)</h4>
+    <ol>
+        <li>Parses uploaded file</li>
+        <li>Creates and returns JSON with student and grade information</li>
+    </ol>
+
+    <h4>error_checking(JSON, GradeItem)</h4>
+    <ol>
+        <li>Checks grade values in JSON</li>
+        <li>If grade value > max grade, add item to JSON warning list specifying grade, student, and msg</li>
+        <li>If grade value &lt 0, add item to JSON error list specifying grade, student, and msg</li>
+        <li>If student not in course, add item to JSON error list specifying grade, student, and msg</li>
+        <li>Return JSON if applicable</li>
+    </ol>
+
+    <h3 id="JSON">JSON Specifications</h3>
+    <p>The design of the JSON objects that ezMarker creates.</p>
+    
+    <h4>User JSON (used in <i>login</i> controller, <i>Available Courses</i> and <i>Grade Item</i> pages)</h4>
+    
+    <h4>Grades JSON (used in <i>parse_grade</i> and <i>set_grades</i> functions, <i>Grade Item</i> page)</h4>
+    
+    <h4>Grade Error JSON (used in <i>error_checking</i> and <i>set_grades</i> functions, <i>Grade Item</i> and <i>Report</i> pages)</h4>
+
+    <h3>HTTP Status Codes</h3>
+
+    <p>All functions need to return one of the following status codes (excluding functions that redirect to a webpage).</p>
+
+    <h4>Sucess Codes</h4>
+    <p>200 - OK</p>
+
+    <h4>Error Codes</h4>
+    <p>400 - Bad Request</p>
+    <p>403 - Forbidden</p>
+    <p>404 - Not Found</p>
+
+    <h2>Project Structure</h2>
+    <ul id="file-structure">
+        <li>app.py</li>
+        <li>/templates</li>
         <ul id="file-structure">
-			<li>app.py</li>
-			<li>/templates</li>
-				<ul id="file-structure">
-					<li>index.html</li>
-					<li>upload.html</li>
-					<li>available_grades.html</li>
-					<li>home.html</li>
-					<li>report.html</li>
-				</ul>
-			<li>/static</li>
-			<ul id="file-structure">
-				<li>/js</li>
-				<li>/img</li>
-				<li>/css</li>
-				<ul id="file-structure">
-					<li>elements.css</li>
-					<li>forms.css</li>
-					<li>home.css</li>
-					<li>nav.css</li>
-					<li>page_content.css</li>
-					<li>typography.css</li>
-				</ul>
-			</ul>
+            <li>index.html</li>
+            <li>upload.html</li>
+            <li>available_grades.html</li>
+            <li>home.html</li>
+            <li>report.html</li>
         </ul>
-		* Note: PHP version will have .php extensions instead of .html and .py extensions
+        <li>/static</li>
+        <ul id="file-structure">
+            <li>/js</li>
+            <li>/img</li>
+            <li>/css</li>
+            <ul id="file-structure">
+                <li>elements.css</li>
+                <li>forms.css</li>
+                <li>home.css</li>
+                <li>nav.css</li>
+                <li>page_content.css</li>
+                <li>typography.css</li>
+            </ul>
+        </ul>
+    </ul>
+    * Note: PHP version will have .php extensions instead of .html and .py extensions
 
-        <h2 id="toc_exclude">Revision History</h2>
-        <h3 id="toc_exclude">Version 1.0 - 10/23/2017</h3>
-        <p>Authors: Sarah Johnston, Xiang Ke, Weibin Ma, Troy Nechanicky, Michelle Wong, Hind Althabi</p>
-        <p>SQA: Zac Macdonald, Pirajeev Prabaharan</p>
+    <h2 id="toc_exclude">Revision History</h2>
+    <h3 id="toc_exclude">Version 1.0 - 10/23/2017</h3>
+    <p>Authors: Sarah Johnston, Xiang Ke, Weibin Ma, Troy Nechanicky, Michelle Wong, Hind Althabi</p>
+    <p>SQA: Zac Macdonald, Pirajeev Prabaharan</p>
+    <h3 id="toc_exclude">Version 2.0 - xx/xx/2017</h3>
+    <p>- Revised UI design</p>
+    <p>- Revised Project Flow diagram</p>
+    <p>- Revised Project Structure</p>
+    <p>- Revised function descriptions</p>
+    <p>- Added HTTP Status Codes section</p>
+    <p>- Added JSON Specifications section</p>
+    <p>Authors: Sarah Johnston, Xiang Ke, Weibin Ma, Troy Nechanicky, Michelle Wong</p>
+    <p>SQA: </p>
 </body>
 <style>
-    #file-structure 
-	{
+    #file-structure {
         list-style: none;
     }
-	img 
-	{
-		width: 50%;
-		margin: 20px 0px;
-		
-	}
+
+    img {
+        width: 50%;
+        margin: 20px 0px;
+
+    }
 </style>
 
 </html>
