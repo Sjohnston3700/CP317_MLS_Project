@@ -7,7 +7,7 @@ form
 
 .form-wide
 {
-	width: 60%;
+	width: 100%;
 }
 
 
@@ -42,7 +42,7 @@ input, textarea
 	border: 1px solid #9e9696;
 }
 
-form h3, form h4
+form h3, form h4, form p
 {
 	padding-left: 10px;
 }

@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="/static/css/elements.css">
 		<link rel="stylesheet" href="/static/css/home.css">
 		<link rel="stylesheet" href="/static/css/docs.css">
+		<link rel="stylesheet" href="/static/css/tables.css">
 		
 		<!-- Fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
@@ -31,14 +32,12 @@
 					ezMarker
 				</a>
 			</li>
-			{% if user %}
-			<!--<li class="item"><a href="/documentation">Docs</a></li>
-			<li class="item"><a href="#upload">Upload</a></li>-->
-			<li class="item"><a href="/logout">Logout</a></li>
-			{% else %}
-			<!--<li class="item"><a href="/documentation">Docs</a></li>-->
-			<li class="item"><a href="/login">Login</a></li>
-			{% endif %}
+			<li class="item"><a href="/courses">Courses</a></li>
+			<li class="item"><a href="#">Help</a></li>
+			<li class="name-section">
+			    <span>Welcome, David Brown</span>
+				<button onclick="window.location.href='/logout'" class="btn">Logout</button>
+			</li>
 		</ul>
 		<div class="page-content-horiz">
 			{% block content %}
