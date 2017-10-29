@@ -1,4 +1,6 @@
+import csv # To handle csv files
 from api_functions import getRoute,putRoute
+from Grade import Grade
 
 gradeItemsRoute = '/d2l/api/le/(version)/(orgUnitId)/grades/'
 gradeItemRoute  = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
@@ -67,3 +69,61 @@ def setGradeItems(uc,courseId,gradeId,newGrades,apiVersion=1.22):
                 raise RuntimeError('Failed to set grade for {}. Request returned status code : {}, text : {}'.format(new_grade["ValenceId"],grade_put.status_code,grade_put.text) )
     
     return
+
+def parse_grades( grades_text ):
+    '''
+    Function to turn a raw string of user formatted grades into a list of Grade Items
+    
+    Preconditions:
+        grades_text (str) : The raw string to parse
+    Postconditions:
+        Returns a list of Grade Objects
+        
+    Expected Format :
+    #----------------------------------------#
+    userID (int)
+    User Name
+    Feedback (multiline preformatted)
+    Total: x(int) / y(int)
+
+    #----------------------------------------#
+    Next userId etc
+    '''
+    grades = []
+    all_feedback = re.findall(FEEDBACK_PATTERN, grades_text, re.DOTALL|re.MULTILINE)
+    for feedback in all_feedback:
+        student_name = feedback[1].strip()
+        studentId = feedback[0].strip()
+        public_feedback = feedback[2]
+        grade_value = feedback[3] if feedback[3] != '' else '0'
+        out_of       = feedback[4] if feedback[4] != '' else 0 
+		
+        grade = Grade(studentId,grade_value,out_of,student_name,public_feedback)
+        grades.append(grade)
+		
+    return grades
+    
+
+	
+def parse_grades_csv( csv_file ):
+	'''
+	Parses Grade objects from a CSV file in the format
+		student_name, mls_id, grade, comment
+	Note: If csv is not opened in binary mode, errors may occur
+	Preconditions:
+		csv_file - The csv file to read from (file opened with 'rb')
+	Postconditions:
+		returns
+		grades - A list of Grade objects corresponding to the data read from the CSV
+	'''
+	assert type(csv) is file, "Not a valid csv file"  # Check if csv is an instance of a file object
+	
+	try:
+		reader = csv.reader(csv_file, delimiter=',', quotechar='"')
+		for line in reader:
+			grade = Grade(line[1], int(line[2]), int(line[3]), line[0], line[4])
+			grades.append(grade)
+	except:
+		raise IOError("Invalid csv format")
+	
+	return grades

@@ -1,12 +1,12 @@
-import os
+import os, sys, requests
+import d2lvalence.auth as d2lauth
+
 from flask import Flask, redirect, request, render_template, url_for
 from werkzeug.utils import secure_filename
 from conf_basic import app_config
-import requests
-import d2lvalence.auth as d2lauth
-import sys
+
 from User import User
-from Grade import parse_grades
+from grade_functions import parse_grades
 
 
 EDIT_GRADE_ITEM_URL = 'https://{host}/d2l/lms/grades/admin/manage/item_props_newedit.d2l?objectId={gradeItemId}&gradesArea=1&ou={courseId}'
@@ -82,9 +82,12 @@ def show_design_wrapper():
 
 @app.route('/logout/')
 def show_logout():
-	return render_template(LOGOUT_URL.format(host=user.uc.host))
+	return redirect('/')
+	if 'user' in app_config:
+		return render_template(LOGOUT_URL.format(host=app_config['user'].uc.host))
+	else:
+		return redirect('/') # TODO maybe logout/general error page? "user not found"
 
-	
 
 @app.route('/grades/<courseId>/<gradeItemId>', methods = ['GET', 'POST'])
 def set_grades(courseId, gradeItemId):
@@ -94,7 +97,7 @@ def set_grades(courseId, gradeItemId):
         gradeItem = course.getGradeItem(gradeItemId)
     except:
         return redirect('/courses/')
-        
+    
     if request.method == 'GET':
         return render_template('upload.html',courseId=courseId,gradeItemId=gradeItemId)
     
@@ -114,7 +117,7 @@ def set_grades(courseId, gradeItemId):
                 userId,gradeValue,PublicFeedback = grade.userId,grade.value,grade.public_feedback
                 gradeItem.setUserGrade(userId,courseId,gradeValue,PublicFeedback,PrivateFeedback='')
                 successful_grades += 1
-                
+            
             except RuntimeError as e:
                 error = str(e)
                 errors.append(error)
@@ -124,9 +127,9 @@ def set_grades(courseId, gradeItemId):
                 error = '{} for {}'.format(e,grade.studentName)
                 errors.append( error )
                 continue
-            
+    
     gradesUrl = VIEW_GRADES_URL.format(host=user.uc.host,gradeItemId=gradeItem.Id,courseId=course.Id)
-    logoutUrl = LOGOUT_URL.format(host=user.uc.host)                     
+    logoutUrl = LOGOUT_URL.format(host=user.uc.host)
     return render_template("grades_uploaded.html",errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=gradeItem,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
 
 if __name__ == "__main__":
