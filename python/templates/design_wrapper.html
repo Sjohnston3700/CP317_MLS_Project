@@ -6,9 +6,9 @@
 
 <body>
     <script src="../../static/js/toc_generator.js"></script>
-    <h1>Brightspace API Python Wrapper - Design</h1>
-    <p>Version 1.0</p>
-    <p>Last updated: October 23, 2017</p>
+    <h1>Brightspace API Wrapper - Design</h1>
+    <p>Version 2.0</p>
+    <p>Last updated: xxxxxx, 2017</p>
 
     <div id="toc">
         <h2>Table of Contents</h2>
@@ -22,10 +22,20 @@
 
     <h2>Class Design</h2>
     <img src="../../static/img/wrapper_design_class_diagram.jpg">
+    <b>Additional Comments:</b>
+    <ul>
+        <li>Trigger exceptions on error</li>
+        <li>See the documentation linked in the following section for the specifications of the JSON objects that will be passed as parameters</li>
+    </ul>
 
     <h2>API Functions</h2>
     <h3>Diagram</h3>
     <img src="../../static/img/wrapper_design_api_file.jpg">
+
+    <b>Additional Comments:</b>
+    <ul>
+        <li>Trigger exceptions on error</li>
+    </ul>
 
     <h3>API Reference</h3>
     <ul>
@@ -46,12 +56,24 @@
     </ul>
 
     <h4>PHP Specific</h4>
+    <ul>
+        <li>Uses <a href="http://requests.ryanmccue.info" target="_blank">Requests</a> library</li>
+        <li>Brightspace example code: <a href="https://github.com/Brightspace/valence-sdk-php/tree/master/samples/BasicSample" target="_blank">https://github.com/Brightspace/valence-sdk-php/tree/master/samples/BasicSample</a></li>
+    </ul>
 
     <h2 id="toc_exclude">Revision History</h2>
     <h3 id="toc_exclude">Version 1.0 - 10/23/2017</h3>
-
     <p>Authors: Troy Nechanicky</p>
     <p>SQA: Harold Hodgins, Yi Ling Pang</p>
+    <h3 id="toc_exclude">Version 2.0 - xx/xx/2017</h3>
+    <p>-Added PHP specific information</p>
+    <p>- Made User subclass of OrgMember</p>
+    <p>- Renamed some attributes to match Brightspace naming</p>
+    <p>- Added additional notes</p>
+    <p>- Added Additional Comments sections</p>
+    <p>- Specified error handling</p>
+    <p>Authors: Sumeet Jhand, Troy Nechanicky</p>
+    <p>SQA: Yi Ling Pang</p>
 </body>
 
 </html>
