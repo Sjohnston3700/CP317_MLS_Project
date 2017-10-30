@@ -1,6 +1,8 @@
 import csv # To handle csv files
 from api_functions import getRoute,putRoute
 from Grade import Grade
+import re,sys
+from Grade import FEEDBACK_PATTERN
 
 gradeItemsRoute = '/d2l/api/le/(version)/(orgUnitId)/grades/'
 gradeItemRoute  = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
