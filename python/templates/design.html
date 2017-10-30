@@ -41,10 +41,18 @@
 
     <h2>User Interface Design</h2>
     <p>This section describes the front-end of ezMarker. See <a href="#JSON">JSON Specifications</a> for the design of the JSON objects.</p>
+    
+        <b>Additional Notes:</b>
+    <ul>
+        <li>User will be redirected back to login if they are missing credentials at any point</li>
+        <li>User will be notified if they do not have permission to carry out their requested action</li>
+    </ul>
+    
     <h3>Login Page</h3>
     <p>Brightspace takes care of generating the page and handling input.</p>
-    <h3>Course List Page</h3>
+    <h3>Course List Page(User JSON)</h3>
     <p> This page has the list of courses and grade items the user has access to modify.</p>
+    <p>User will be notified if they do not have permission to set grades for any courses.</p>
     <img class="prototype-img" src="../static/img/course_list.png" />
     <table border="1">
         <col width="200">
@@ -66,7 +74,7 @@
             <td>Redirects user to upload grade page for the grade item</td>
         </tr>
     </table>
-    <h3>Upload Grade Page</h3>
+    <h3>Upload Grade Page(User JSON)</h3>
     <img class="prototype-img" src="../static/img/upload_grade.png">
     <table border="1">
         <col width="200">
@@ -153,7 +161,7 @@
             <td>Allows user to enter a numeric value</td>
         </tr>
     </table>
-    <h3>Report Page</h3>
+    <h3>Report Page(Grades JSON, Grade Error JSON)</h3>
 
     <p>Reports which students' grades were not set successfully.</p>
 
@@ -212,31 +220,29 @@
         <li>User has to return to ezMarker root in order to login again</li>
     </ol>
 
-    <h4> modify_grade_max(GradeItem, max)</h4>
+    <h4> modify_grade_max(grade_item_id, max)</h4>
     <ol>
         <li>Checks that max is greater than or equal to 0</li>
         <li>If valid, grade item total is updated</li>
-
     </ol>
 
-    <h4>set_grades(students and grades JSON, GradeItem)</h4>
+    <h4>set_grades(Grades JSON, grade_item_id)</h4>
     <ol>
         <li>Assumes that error checking has already been done</li>
         <li>Creates grade objects from JSON</li>
-        <li>Searches for student in course to associate with grade</li>
         <li>Uploads grades</li>
         <li>Tracks exceptions from Brightspace API wrapper in JSON</li>
-        <li>Remove grades from grade list that caused exception</li>
-        <li>Returns JSON of errors/warnings (if applicable)</li>
+        <li>Remove grades from grade list and students and grades JSON that caused exception</li>
+        <li>Redirects to Report page, passes JSON of grades and students, JSON of errors/warnings (if applicable)</li>
     </ol>
 
-    <h4>parse_file(file)</h4>
+    <h4>parse_file()</h4>
     <ol>
         <li>Parses uploaded file</li>
         <li>Creates and returns JSON with student and grade information</li>
     </ol>
 
-    <h4>error_checking(JSON, GradeItem)</h4>
+    <h4>error_checking(Grades JSON, grade_item_id)</h4>
     <ol>
         <li>Checks grade values in JSON</li>
         <li>If grade value > max grade, add item to JSON warning list specifying grade, student, and msg</li>
@@ -250,9 +256,9 @@
 
     <h4>User JSON (used in <i>login</i> controller, <i>Available Courses</i> and <i>Grade Item</i> pages)</h4>
 
-    <h4>Grades JSON (used in <i>parse_grade</i> and <i>set_grades</i> functions, <i>Grade Item</i> page)</h4>
+    <h4>Grades JSON (used in <i>parse_grade</i> function and <i>set_grades</i> controller, <i>Grade Item</i> and <i>Report</i> pages)</h4>
 
-    <h4>Grade Error JSON (used in <i>error_checking</i> and <i>set_grades</i> functions, <i>Grade Item</i> and <i>Report</i> pages)</h4>
+    <h4>Grade Error JSON (used in <i>error_checking</i> function and <i>set_grades</i> controller, <i>Grade Item</i> and <i>Report</i> pages)</h4>
 
     <h3>HTTP Status Codes</h3>
 
@@ -265,6 +271,9 @@
     <p>400 - Bad Request</p>
     <p>403 - Forbidden</p>
     <p>404 - Not Found</p>
+    
+    <h3>Grade File Format</h3>
+    <p>The grade file is a csv with the format <b>student_name</b>, <b>mls_id</b>, <b>grade</b>, <b>comment</b></p>
 
     <h2>Project Structure</h2>
     <h3>Python Structure</h3>
@@ -338,6 +347,7 @@
     <p>- Revised function descriptions</p>
     <p>- Added HTTP Status Codes section</p>
     <p>- Added JSON Specifications section</p>
+    <p>- Specified grade file format</p>
     <p>Authors: Sarah Johnston, Xiang Ke, Weibin Ma, Troy Nechanicky, Michelle Wong</p>
     <p>SQA: </p>
 </body>
