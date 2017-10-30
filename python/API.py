@@ -192,5 +192,5 @@ def getCourseMember(uc,courseId,host,name = ""):
         return : Course Member for given course
     '''
     r = getRoute(uc,GET_COURSE_MEMBERS,{'version': host.get_api_version('lp'),'orgUnitId':courseId})
-    checkRequest(r,"Unable to download Course Members for {} (Id:{})".format(name,courseId),debug)
+    checkRequest(r,"Unable to download Course Members for {} (Id:{})".format(name,courseId))
     return r.json()['items']
