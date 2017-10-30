@@ -2,9 +2,10 @@ import requests
 
 SUCCESS = 200
 API_ROUTE = '/d2l/api/versions/'
-GET_CLASSES_ROUTE = '/d2l/api/lp/(version)/enrollments/myenrollments/'
-GET_GRADES_ROUTE  = '/d2l/api/le/(version)/(orgUnitId)/grades/'
-SET_GRADE_ROUTE   = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)'
+GET_CLASSES_ROUTE  = '/d2l/api/lp/(version)/enrollments/myenrollments/'
+GET_GRADES_ROUTE   = '/d2l/api/le/(version)/(orgUnitId)/grades/'
+SET_GRADE_ROUTE    = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)'
+GET_COURSE_MEMBERS = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/'
 
 class ValenceAPI(object):
     '''
@@ -158,3 +159,23 @@ def checkRequest(r,err_message,debug=True):
             exception_message += 'Request returned status code : {}, text : {}'.format(r.status_code,r.text) if debug else ""
             raise  RuntimeError( exception_message )
         return
+
+
+def getApiVersions(host,scheme='http',debug=True):
+    '''
+    Function to return the API versions available with this system
+
+    Postconditions:
+        host : The lms server we are connecting to
+        scheme : http or https (dafault http)
+        debug - do failed requests print the code and text on failing or just a message (default=True)
+
+    Postconditions:
+        return :
+             r.json() json file contain all the supported versions
+        Throws a RuntimeError if status code is not 200 
+    '''
+    r = requests.get('{}://{}/{}'.format(scheme,host,API_ROUTE))
+    checkRequest(r,"Unable todownload API versions",debug)
+    return r.json()
+
