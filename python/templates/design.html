@@ -69,9 +69,24 @@
             <td>After clicking the course, it shows the available grade items to be modified by the user</td>
         </tr>
         <tr>
+            <td>Logout</td>
+            <td>Button</td>
+            <td>Redirects to Logout screen</td>
+        </tr>
+        <tr>
+            <td>Courses</td>
+            <td>Hyperlink</td>
+            <td>Redirects user to select a grade item page</td>
+        </tr>
+        <tr>
             <td>Grade Item</td>
             <td>Hyperlink</td>
             <td>Redirects user to upload grade page for the grade item</td>
+        </tr>
+        <tr>
+            <td>Help</td>
+            <td>Hyperlink</td>
+            <td>Shows pop up window of how to use ezMarker</td>
         </tr>
     </table>
     <h3>Upload Grade Page(User JSON)</h3>
@@ -86,9 +101,9 @@
             <th align="left">Description</th>
         </tr>
         <tr>
-            <td>Change Grade Item Total Button</td>
+            <td>Change Grade Maximum Value</td>
             <td>Button</td>
-            <td>Opens pop up window (see next subsection)</td>
+            <td>Opens pop up window to change maximum mark(See next section)</a></td>
         </tr>
         <tr>
             <td>Choose File Button</td>
@@ -99,6 +114,11 @@
             <td>Delete Button (X)</td>
             <td>Button</td>
             <td>Deletes the student entry it refers to</td>
+        </tr>
+        <tr>
+            <td>See Error Handling Modal Button</td>
+            <td>Button</td>
+            <td>Pop up window showing the error inputs and allows user to change it (See following section)</td>
         </tr>
         <tr>
             <td>Upload Grade File Button</td>
@@ -117,19 +137,19 @@
         </tr>
         <tr>
             <td>Search Input Field</td>
-            <td>Input Field</td>
+            <td>Text Field</td>
             <td>
                 Dynamic search that changes its dropdown list of candidates everytime user types. Searches by student name when user enters a letter first, otherwise searches by student ID. User can only add a student who exists in the database
             </td>
         </tr>
         <tr>
             <td>Grade Field</td>
-            <td>Input Field</td>
+            <td>Text Field</td>
             <td>Allows user to manually input a student's grade, checks if user enters a value that is less than or equal to maximum grade value</td>
         </tr>
         <tr>
             <td>Comment Field</td>
-            <td>Input Field</td>
+            <td>Text Field</td>
             <td>Allows user to manually input a student's feedback</td>
         </tr>
     </table>
@@ -161,36 +181,60 @@
             <td>Allows user to enter a numeric value</td>
         </tr>
     </table>
-    <h3>Report Page(Grades JSON, Grade Error JSON)</h3>
-
-    <p>Reports which students' grades were not set successfully.</p>
-
-    <img class="prototype-img" src="../static/img/report_page.png" height:auto width:auto />
+    <h3>Error Handling Model (Pop-up Window)</h3>
+    <p>Pops up when See Error Handling Model Button is clicked.</p>
+    <img class="prototype-img" src="../static/img/error_model.png" />
     <table border="1">
         <col width="200">
-        <col width="200">
-        <col width="400">
-        <tr>
-            <th align="left">Field</th>
-            <th align="left">Type</th>
-            <th align="left">Description</th>
-        </tr>
-        <tr>
-            <td>Check Grades Button</td>
-            <td>Button</td>
-            <td>Links to Brightspace page with all of students' grades for the current grade item</td>
-        </tr>
-        <tr>
-            <td>Logout Button</td>
-            <td>Button</td>
-            <td>Go to Logout Page</td>
-        </tr>
-        <tr>
-            <td>Upload More Grades</td>
-            <td>Button</td>
-            <td>Returns user to Course List Page</td>
-        </tr>
-    </table>
+            <col width="200">
+                <col width="400">
+                    <tr>
+                        <th align="left">Field</th>
+                        <th align="left">Type</th>
+                        <th align="left">Description</th>
+                    </tr>
+                    <tr>
+                        <td>Close Button (X)</td>
+                        <td>Button</td>
+                        <td>Closes pop-up window</td>
+                    </tr>
+                    <tr>
+                        <td>Re-upload Button</td>
+                        <td>Button</td>
+                        <td>Updates grade and feedbacks of each student listed above</td>
+                    </tr>
+                    <tr>
+                        <td>Cancel Upload Button</td>
+                        <td>Button</td>
+                        <td>Cancels upload</td>
+                    </tr>
+                    <tr>
+                        <td>Update Total Button</td>
+                        <td>Button</td>
+                        <td>Changes the total maximum mark of that grade item</td>
+                    </tr>
+                    <tr>
+                        <td>Grade Field</td>
+                        <td>Text Field</td>
+                        <td>Allows user to manually input a student's grade, checks if user enters a value that is less than or equal to maximum grade value</td>
+                    </tr>
+                    <tr>
+                        <td>Comment Field</td>
+                        <td>Text Field</td>
+                        <td>Allows user to manually input a student's feedback</td>
+                    </tr>
+                    <tr>
+                        <td>Update Mark Text Field</td>
+                        <td>Text Field</td>
+                        <td>Allows user to enter a numeric value</td>
+                    </tr>
+                    </table>
+    <h3>Report Page(Grades JSON, Grade Error JSON)</h3>
+
+    <p>Reports which students' grades that are set successfully and not successfully</p>
+
+    <img class="prototype-img" src="../static/img/report_page.png" height:auto width:auto />
+    
     <h3>Logout Page</h3>
     <p>Brightspace generates logout page and handles logout.</p>
 
