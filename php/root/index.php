@@ -7,18 +7,18 @@
 
 	/******************************* All of the D2L code should go here *********************************/
 	// Skip this part if we already have a valid user context
-	if(!isset($_SESSION['context']) || strlen($_SESSION['context']->getUserId()) > 0) {
-		$app_context = new D2LAppContext($config['appId'], $config['appKey']);
-		$_SESSION['context'] = $app_context->createUserContext($config['lms_host'], $config['lms_port'], true); // Get context
+	if(!isset($_SESSION['user_context']) || strlen($_SESSION['user_context']->getUserId()) > 0) {
+		$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
 	
 		// TODO: This gives error "invalid x_target", HOWEVER it seems that the user is authenticated when revisiting the page
 		$app_url = "${config['scheme']}://${config['host']}:${config['port']}${config['route']}"; // $_SERVER['REQUEST_URI']
 
 		// Get URL for authentication; this takes a callback address
-		$url = $app_context->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
+		$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
 
 		// Redirect to D2L authentication page; user will be redirected back here after
-//		header('Location: ' . $url);
+		header('Location: ' . $url);
+		die();
 	}
 	/****************************************************************************************************/
 
@@ -87,8 +87,4 @@
 	<script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/accordion.js"></script>
 	<script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/modal.js"></script>
 </html>
-
-
-
-
 
