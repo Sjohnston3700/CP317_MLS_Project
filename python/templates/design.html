@@ -25,14 +25,20 @@
     <h3>PHP</h3>
 
     <p>
-        <a href="http://php.net/manual/en/intro-whatis.php">PHP </a>(Hypertext Preprocessor) is a server-side scripting langauge, meaning it is executed by the server. It is used for ezMarker's PHP version. For this project, an <a href="https://aws.amazon.com/">AWS</a> (Amazon Web Services) Ubuntu server hosts the PHP website. Ubuntu supports <a href="https://www.apache.org/">Apache</a>, an open-source HTTP Server that can serve websites with a PHP backend.
-
+        <a href="http://php.net/manual/en/intro-whatis.php">PHP </a>(Hypertext Preprocessor) is a server-side scripting langauge. It is used for ezMarker's PHP version. For this project, an <a href="https://aws.amazon.com/">AWS</a> (Amazon Web Services) Ubuntu server hosts the PHP website. Ubuntu supports <a href="https://www.apache.org/">Apache</a>, an open-source HTTP Server that can serve web applications with backends such as PHP.
     </p>
+	<p>
+		PHP is being used as the language for one of the ezMarker versions at the request of the client. This is a good choice for the backend because the project is simple to host
+		on Apache, the Brightspace API has PHP support, and it is not a steep learning curve for the members of the group that do not have previous knowledge of PHP. There is minimal cost for hosting the PHP web application, and no cost to use the language PHP. 
+	</p>
     <h3>Python</h3>
     <p>
         <a href="https://www.python.org/">Python</a> is the scripting language being used for ezMarker's Python version. <a href="http://flask.pocoo.org/">Flask</a>, a Python microframework with a built-in development server and debugger, is used to make this web application. To host the Python project, <a href="https://dashboard.heroku.com/apps">Herokuapp</a> is used because of its support for Flask Apps.
-
     </p>
+	<p>
+		Python is being used as the language for the other version of ezMarker at the request of the client. This is also a good choice for backend because the project was already 
+		started in this language by Harold Hodgins, the Brightspace API has some Python support, and many group members already have Python experience. There is currently no cost to host the Python web application, and no cost to use the language Python. 
+	</p>
 
     <h3>Package Diagram</h3>
 
@@ -276,14 +282,23 @@
     <p>The design of the JSON objects that ezMarker creates.</p>
 
     <h4>User JSON (used in <i>login</i> controller, <i>Available Courses</i> and <i>Grade Item</i> pages)</h4>
+	<p>{ name: String, id: int, org_id: int, role: int, courses: [ Array of Course objects] }</p>
 
     <h4>Grades JSON (used in <i>parse_grade</i> function and <i>set_grades</i> controller, <i>Grade Item</i> and <i>Report</i> pages)</h4>
+	<p> { grades: [ { org_member_id: int, id: int, value: float, max_points: float } ] }</p>
 
     <h4>Grade Error JSON (used in <i>error_checking</i> function and <i>set_grades</i> controller, <i>Grade Item</i> and <i>Report</i> pages)</h4>
+	<p>{ errors: [ { id: String, msg: String } ] }</p>
+	<p>{ 'errors': [ { 'id': '12345', 'msg': 'Grade item can not be negative' }, { 'id': '45678', 'msg': 'No grade entered' } ] }</p>
+	<p> 
+		When this JSON is returned to the frontend from the controller, it is the frontend's responsibility to display 'msg' above the appropriate input for 
+		the student with 'id'. The error messages are for used to inform the user of parsing errors. They are prompted to fix these errors and re-submit their 
+		grades to upload. 
+	</p>
 
     <h3>HTTP Status Codes</h3>
 
-    <p>All functions need to return one of the following status codes (excluding functions that redirect to a webpage).</p>
+    <p>All functions need to return one of the following status codes.</p>
 
     <h4>Sucess Codes</h4>
     <p>200 - OK</p>
