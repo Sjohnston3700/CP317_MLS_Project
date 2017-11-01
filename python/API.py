@@ -161,7 +161,7 @@ def checkRequest(r,err_message,debug=True):
         return
 
 
-def getApiVersions(host,scheme='http'):
+def get_api_versions(host):
     '''
     Function to return the API versions available with this system
 
@@ -171,14 +171,14 @@ def getApiVersions(host,scheme='http'):
 
     Postconditions:
         return :
-             r.json() json file contain all the supported versions
+             r.json() - json file contain all the supported versions
         Throws a RuntimeError if status code is not 200 
     '''
-    r = requests.get('{}://{}/{}'.format(scheme,host,API_ROUTE))
+    r = requests.get('{}//{}/{}'.format(host.get_protocol(),host.get_lms_host(),API_ROUTE))
     checkRequest(r,"Unable todownload API versions")
     return r.json()
 
-def getCourseMember(uc,courseId,host,name = ""):
+def get_course_member(course):
     '''
     Function will return courses members for given course
 
@@ -189,8 +189,10 @@ def getCourseMember(uc,courseId,host,name = ""):
         name (str) : The course name used for error messages (optional) 
 
     Preconditions:
-        return : Course Member for given course
+        return :
+            r.josn()['items'] - Course Member for given course 
     '''
-    r = getRoute(uc,GET_COURSE_MEMBERS,{'version': host.get_api_version('lp'),'orgUnitId':courseId})
-    checkRequest(r,"Unable to download Course Members for {} (Id:{})".format(name,courseId))
+    host = course.get_user().get_host()
+    r = getRoute(course.get_user().get_context(),GET_COURSE_MEMBERS,{'version': host.get_api_version('lp'),'orgUnitId':course.get_id()})
+    checkRequest(r,"Unable to download Course Members for {} (Id:{})".format(course.get_name(),courseId))
     return r.json()['items']
