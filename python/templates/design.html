@@ -55,7 +55,6 @@
     <b>Additional Notes:</b>
     <ul>
         <li>The user will be notified if they do not have permission to set grades for any courses.</li>
-        <li>A message appears if no grade items are available for the course.</li>
     </ul>
 
     <img class="prototype-img" src="../static/img/course_list.png" />
@@ -106,9 +105,9 @@
             <th align="left">Description</th>
         </tr>
         <tr>
-            <td>Change Grade Maximum Value Button</td>
+            <td>Update Maximum Button</td>
             <td>Button</td>
-            <td>Opens pop up window to change maximum mark (See next section)</a>
+            <td>Updates grade item maximum value</a>
             </td>
         </tr>
         <tr>
@@ -153,33 +152,10 @@
             <td>Text Field</td>
             <td>Allows user to manually input a student's feedback</td>
         </tr>
-    </table>
-    <h3>Change Grade Item Total (Pop-up Window)</h3>
-    <p>Pops up when Change Grade Maximum Value button (from previous subsection) is clicked.</p>
-    <img class="prototype-img" src="../static/img/change_total_grade.png" />
-    <table border="1">
-        <col width="200">
-        <col width="200">
-        <col width="400">
         <tr>
-            <th align="left">Field</th>
-            <th align="left">Type</th>
-            <th align="left">Description</th>
-        </tr>
-        <tr>
-            <td>Close Button</td>
-            <td>Button</td>
-            <td>Closes pop-up window</td>
-        </tr>
-        <tr>
-            <td>Update Total Button</td>
-            <td>Button</td>
-            <td>Changes the total maximum mark of that grade item</td>
-        </tr>
-        <tr>
-            <td>Update Mark Text Field</td>
+            <td>Update Maximum Text Field</td>
             <td>Text Field</td>
-            <td>Allows user to enter a numeric value</td>
+            <td>Allows user to enter a numeric value for updating the maximum value</td>
         </tr>
     </table>
     <h3>Error Handling Modal</h3>
@@ -225,9 +201,9 @@
             <td>Allows user to manually input a student's feedback</td>
         </tr>
         <tr>
-            <td>Update Mark Text Field</td>
+            <td>Update Maximum Text Field</td>
             <td>Text Field</td>
-            <td>Allows user to enter a numeric value</td>
+            <td>Allows user to enter a numeric value for updating the maximum value</td>
         </tr>
     </table>
     <h3>Report Page(Grades JSON, Grade Error JSON)</h3>
@@ -406,6 +382,7 @@
         margin: 20px 0px;
 
     }
+
 </style>
 
 </html>
