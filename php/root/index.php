@@ -49,7 +49,7 @@
 	<head>
 		<title>ezMarker</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-		
+		<link rel="shortcut icon" type="image/png" href="<?=$PATH_TO_STATIC?>/img/logo.png"/>
 		<!-- JQuery -->
 		<script src="<?=$PATH_TO_STATIC?>/js/jquery-3.2.1.min.js"></script>
 		
@@ -70,6 +70,7 @@
 	</head>
 	<body>
 		<ul class="horiz-nav">
+			<img id="logo" src="<?=$PATH_TO_STATIC?>/img/logo.png">
 			<li class="brand">
 				<a href="/">
 					ezMarker

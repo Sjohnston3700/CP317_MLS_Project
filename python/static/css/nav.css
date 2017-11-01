@@ -83,6 +83,14 @@ ul.vertical-nav
 
 /* Horizontal Nav */
 
+img#logo 
+{
+	width: 50px;
+	margin: 20px 10px;
+	border-radius: 50%;
+	float: left;
+}
+
 ul.horiz-nav 
 {
     list-style-type: none;
