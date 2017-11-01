@@ -12,7 +12,7 @@
 	
 		// TODO: This gives error "invalid x_target", HOWEVER it seems that the user is authenticated when revisiting the page
 		$app_url = "${config['scheme']}://${config['host']}:${config['port']}${config['route']}"; // $_SERVER['REQUEST_URI']
-
+		
 		// Get URL for authentication; this takes a callback address
 		$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
 
@@ -28,7 +28,7 @@
 
     switch ($page)
     {
-		case "uploaded":
+		case "grades_uploaded":
             $contents = "../views/grades_upload.php";
             break;
         case "upload":
@@ -44,6 +44,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<title>ezMarker</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 		
 		<!-- JQuery -->
