@@ -8,7 +8,7 @@
     <script src="../static/js/toc_generator.js"></script>
     <h1>ezMarker - Design</h1>
     <p>Version 2.0</p>
-    <p>Last updated: xxxxxxx, 2017</p>
+    <p>Last updated: November 1, 2017</p>
 
     <div id="toc">
         <h2>Table of Contents</h2>
@@ -25,7 +25,6 @@
     <h3>PHP</h3>
 
     <p>
-
         <a href="http://php.net/manual/en/intro-whatis.php">PHP </a>(Hypertext Preprocessor) is a server-side scripting langauge, meaning it is executed by the server. It is used for ezMarker's PHP version. For this project, an <a href="https://aws.amazon.com/">AWS</a> (Amazon Web Services) Ubuntu server hosts the PHP website. Ubuntu supports <a href="https://www.apache.org/">Apache</a>, an open-source HTTP Server that can serve websites with a PHP backend.
 
     </p>
@@ -41,18 +40,24 @@
 
     <h2>User Interface Design</h2>
     <p>This section describes the front-end of ezMarker. See <a href="#JSON">JSON Specifications</a> for the design of the JSON objects.</p>
-    
-        <b>Additional Notes:</b>
+
+    <b>Additional Notes:</b>
     <ul>
         <li>User will be redirected back to login if they are missing credentials at any point</li>
         <li>User will be notified if they do not have permission to carry out their requested action</li>
     </ul>
-    
+
     <h3>Login Page</h3>
     <p>Brightspace takes care of generating the page and handling input.</p>
     <h3>Course List Page(User JSON)</h3>
     <p> This page has the list of courses and grade items the user has access to modify.</p>
-    <p>User will be notified if they do not have permission to set grades for any courses.</p>
+
+    <b>Additional Notes:</b>
+    <ul>
+        <li>The user will be notified if they do not have permission to set grades for any courses.</li>
+        <li>A message appears if no grade items are available for the course.</li>
+    </ul>
+
     <img class="prototype-img" src="../static/img/course_list.png" />
     <table border="1">
         <col width="200">
@@ -101,9 +106,10 @@
             <th align="left">Description</th>
         </tr>
         <tr>
-            <td>Change Grade Maximum Value</td>
+            <td>Change grade maximum value</td>
             <td>Button</td>
-            <td>Opens pop up window to change maximum mark(See next section)</a></td>
+            <td>Opens pop up window to change maximum mark (See next section)</a>
+            </td>
         </tr>
         <tr>
             <td>Choose File Button</td>
@@ -116,11 +122,6 @@
             <td>Deletes the student entry it refers to</td>
         </tr>
         <tr>
-            <td>See Error Handling Modal Button</td>
-            <td>Button</td>
-            <td>Pop up window showing the error inputs and allows user to change it (See following section)</td>
-        </tr>
-        <tr>
             <td>Upload Grade File Button</td>
             <td>Button</td>
             <td>Updates marks and feedback for students using a Grade File</td>
@@ -128,7 +129,7 @@
         <tr>
             <td>Upload Grades Button</td>
             <td>Button</td>
-            <td>Updates students' grades for the Grade Item. List of students and grades is created. Prompts user to update grade item total when grade value > grade item total. Prompts user to cancel operation and set a different value if grade input field is empty or contains non-numerical input</td>
+            <td>Updates students' grades for the Grade Item. List of students and grades is created. See the Program Flow diagram in section 4 for the functions the UI calls for this action. The Error Handling Modal is launched if there are user input errors (see the following section). </td>
         </tr>
         <tr>
             <td>Select-all Check Box</td>
@@ -139,13 +140,13 @@
             <td>Search Input Field</td>
             <td>Text Field</td>
             <td>
-                Dynamic search that changes its dropdown list of candidates everytime user types. Searches by student name when user enters a letter first, otherwise searches by student ID. User can only add a student who exists in the database
+                Dynamic search that changes its dropdown list of candidates everytime user types. Searches by student name when user enters a letter first, otherwise searches by student ID. Users can only search students that are enrolled in the course
             </td>
         </tr>
         <tr>
             <td>Grade Field</td>
             <td>Text Field</td>
-            <td>Allows user to manually input a student's grade, checks if user enters a value that is less than or equal to maximum grade value</td>
+            <td>Allows user to manually input a student's grade</td>
         </tr>
         <tr>
             <td>Comment Field</td>
@@ -154,7 +155,7 @@
         </tr>
     </table>
     <h3>Change Grade Item Total (Pop-up Window)</h3>
-    <p>Pops up when Change Grade Item Total Button (From previous subsection) is clicked.</p>
+    <p>Pops up when Change Grade Maximum Value button (from previous subsection) is clicked.</p>
     <img class="prototype-img" src="../static/img/change_total_grade.png" />
     <table border="1">
         <col width="200">
@@ -181,60 +182,60 @@
             <td>Allows user to enter a numeric value</td>
         </tr>
     </table>
-    <h3>Error Handling Model (Pop-up Window)</h3>
-    <p>Pops up when See Error Handling Model Button is clicked.</p>
+    <h3>Error Handling Modal</h3>
+    <p>Appears if there are errors with user input.</p>
     <img class="prototype-img" src="../static/img/error_model.png" />
     <table border="1">
         <col width="200">
-            <col width="200">
-                <col width="400">
-                    <tr>
-                        <th align="left">Field</th>
-                        <th align="left">Type</th>
-                        <th align="left">Description</th>
-                    </tr>
-                    <tr>
-                        <td>Close Button (X)</td>
-                        <td>Button</td>
-                        <td>Closes pop-up window</td>
-                    </tr>
-                    <tr>
-                        <td>Re-upload Button</td>
-                        <td>Button</td>
-                        <td>Updates grade and feedbacks of each student listed above</td>
-                    </tr>
-                    <tr>
-                        <td>Cancel Upload Button</td>
-                        <td>Button</td>
-                        <td>Cancels upload</td>
-                    </tr>
-                    <tr>
-                        <td>Update Total Button</td>
-                        <td>Button</td>
-                        <td>Changes the total maximum mark of that grade item</td>
-                    </tr>
-                    <tr>
-                        <td>Grade Field</td>
-                        <td>Text Field</td>
-                        <td>Allows user to manually input a student's grade, checks if user enters a value that is less than or equal to maximum grade value</td>
-                    </tr>
-                    <tr>
-                        <td>Comment Field</td>
-                        <td>Text Field</td>
-                        <td>Allows user to manually input a student's feedback</td>
-                    </tr>
-                    <tr>
-                        <td>Update Mark Text Field</td>
-                        <td>Text Field</td>
-                        <td>Allows user to enter a numeric value</td>
-                    </tr>
-                    </table>
+        <col width="200">
+        <col width="400">
+        <tr>
+            <th align="left">Field</th>
+            <th align="left">Type</th>
+            <th align="left">Description</th>
+        </tr>
+        <tr>
+            <td>Close Button (X)</td>
+            <td>Button</td>
+            <td>Closes pop-up window</td>
+        </tr>
+        <tr>
+            <td>Re-upload Button</td>
+            <td>Button</td>
+            <td>Updates grade and feedbacks of each student listed above</td>
+        </tr>
+        <tr>
+            <td>Cancel Upload Button</td>
+            <td>Button</td>
+            <td>Cancels upload</td>
+        </tr>
+        <tr>
+            <td>Update Total Button</td>
+            <td>Button</td>
+            <td>Changes the total maximum mark of that grade item</td>
+        </tr>
+        <tr>
+            <td>Grade Field</td>
+            <td>Text Field</td>
+            <td>Allows user to manually input a student's grade</td>
+        </tr>
+        <tr>
+            <td>Comment Field</td>
+            <td>Text Field</td>
+            <td>Allows user to manually input a student's feedback</td>
+        </tr>
+        <tr>
+            <td>Update Mark Text Field</td>
+            <td>Text Field</td>
+            <td>Allows user to enter a numeric value</td>
+        </tr>
+    </table>
     <h3>Report Page(Grades JSON, Grade Error JSON)</h3>
 
     <p>Reports which students' grades that are set successfully and not successfully</p>
 
     <img class="prototype-img" src="../static/img/report_page.png" height:auto width:auto />
-    
+
     <h3>Logout Page</h3>
     <p>Brightspace generates logout page and handles logout.</p>
 
@@ -315,9 +316,9 @@
     <p>400 - Bad Request</p>
     <p>403 - Forbidden</p>
     <p>404 - Not Found</p>
-    
+
     <h3>Grade File Format</h3>
-    <p>The grade file is a csv with the format <b>student_name</b>, <b>mls_id</b>, <b>grade</b>, <b>comment</b></p>
+    <p>The grade file is a csv with the format <b>student_name</b>, <b>brightspace_id</b>, <b>grade</b>, <b>comment</b></p>
 
     <h2>Project Structure</h2>
     <h3>Python Structure</h3>
@@ -384,7 +385,7 @@
     <h3 id="toc_exclude">Version 1.0 - 10/23/2017</h3>
     <p>Authors: Sarah Johnston, Xiang Ke, Weibin Ma, Troy Nechanicky, Michelle Wong, Hind Althabi</p>
     <p>SQA: Zac Macdonald, Pirajeev Prabaharan</p>
-    <h3 id="toc_exclude">Version 2.0 - xx/xx/2017</h3>
+    <h3 id="toc_exclude">Version 2.0 - 11/01/2017</h3>
     <p>- Revised UI design</p>
     <p>- Revised Project Flow diagram</p>
     <p>- Revised Project Structure</p>
@@ -393,7 +394,7 @@
     <p>- Added JSON Specifications section</p>
     <p>- Specified grade file format</p>
     <p>Authors: Sarah Johnston, Xiang Ke, Weibin Ma, Troy Nechanicky, Michelle Wong</p>
-    <p>SQA: </p>
+    <p>SQA: Troy Nechanicky</p>
 </body>
 <style>
     #file-structure {
@@ -401,11 +402,10 @@
     }
 
     img {
-        width: 50%;
+        width: 65%;
         margin: 20px 0px;
 
     }
-
 </style>
 
 </html>
