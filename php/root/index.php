@@ -86,8 +86,8 @@
 			<?php require_once($contents); ?>
 		</div>
 	</body>
-	<!-- JS Files -->
 	
+	<!-- JS Files -->
 	<script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/accordion.js"></script>
 	<script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/modal.js"></script>
 </html>

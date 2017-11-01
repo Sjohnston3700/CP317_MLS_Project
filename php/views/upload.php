@@ -27,23 +27,21 @@
 	</form>
 	<hr>
 	<!-- foreach student -->
-	<form>
-		<h3>John Doe<button class="btn btn-error btn-remove inline">x</button></h3>
+	<form id="student-1">
+		<h3>John Doe<button type="button" class="btn btn-error btn-remove inline remove-student" id="remove-1">x</button></h3>
 		<div class="form-group">
 			<label>Grade: </label>
 			<input type="text" placeholder="Grade out of /100">
 		</div>	
 		<textarea class="input" placeholder="Student feedback..." resize="false"></textarea>
-
 	</form>
-	<form>
-		<h3>Jane Doe<button class="btn btn-error btn-remove inline">x</button></h3>
+	<form id="student-2">
+		<h3>Jane Doe<button type="button" class="btn btn-error btn-remove inline remove-student" id="remove-2">x</button></h3>
 		<div class="form-group">
 			<label>Grade: </label>
 			<input type="text" placeholder="Grade out of /100">
 		</div>	
 		<textarea class="input" placeholder="Student feedback..." resize="false"></textarea>
-
 	</form>
 	<button class="btn submit-btn">Upload grades to MLS</button>
 </div>
@@ -73,7 +71,6 @@
 			<hr>
 		</div>
 		<div class="modal-body">
-			
 			<form class="form-wide">
 				<p class="modal-warning"><strong>WARNING: </strong>Grade greater than the <strong>maximum grade value</strong></p>
 				<h3>John Doe, 1234567<button class="btn btn-error btn-remove inline">x</button></h3>
@@ -99,7 +96,7 @@
 		</div>
 	</div>
 </div>
-
+<script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/manual_input.js"></script>
 <script>
 	window.onload = function () 
 	{
