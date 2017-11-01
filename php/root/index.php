@@ -29,7 +29,10 @@
     switch ($page)
     {
 		case "grades_uploaded":
-            $contents = "../views/grades_upload.php";
+            $contents = "../views/grades_uploaded.php";
+            break;
+		case "available_grades":
+            $contents = "../views/available_grades.php";
             break;
         case "upload":
             $contents = "../views/upload.php";
