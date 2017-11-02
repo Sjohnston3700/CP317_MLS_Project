@@ -2,10 +2,13 @@ import requests
 
 SUCCESS = 200
 API_ROUTE = '/d2l/api/versions/'
-GET_CLASSES_ROUTE  = '/d2l/api/lp/(version)/enrollments/myenrollments/'
-GET_GRADES_ROUTE   = '/d2l/api/le/(version)/(orgUnitId)/grades/'
-SET_GRADE_ROUTE    = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)'
-GET_COURSE_MEMBERS = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/'
+GET_CLASSES_ROUTE    = '/d2l/api/lp/(version)/enrollments/myenrollments/'
+GET_GRADES_ROUTE     = '/d2l/api/le/(version)/(orgUnitId)/grades/'
+SET_GRADE_ROUTE      = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)'
+GET_COURSE_MEMBERS   = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/'
+GET_USER_ENROLLMENTS = '/d2l/api/lp/(version)/enrollments/myenrollments/'
+GET_USER_ENROLLMENT  = '/d2l/api/le/(version)/(orgUnitId)/grades/'
+GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
 
 class ValenceAPI(object):
     '''
@@ -165,7 +168,7 @@ def get_api_versions(host):
     '''
     Function to return the API versions available with this system
 
-    Postconditions:
+    Preconditions:
         host : The lms server we are connecting to
         scheme : http or https (dafault http)
 
@@ -175,24 +178,70 @@ def get_api_versions(host):
         Throws a RuntimeError if status code is not 200 
     '''
     r = requests.get('{}//{}/{}'.format(host.get_protocol(),host.get_lms_host(),API_ROUTE))
-    checkRequest(r,"Unable todownload API versions")
+    checkRequest(r,"Unable to download API versions")
     return r.json()
 
 def get_course_member(course):
     '''
     Function will return courses members for given course
 
-    Postconditions:
+    Preconditions:
         host : the lms server we are connecting to
         uc : Usercontext to make the call with
         courseId (str or int) : the course Id to get the course members from
         name (str) : The course name used for error messages (optional) 
 
-    Preconditions:
+    Postconditions:
         return :
-            r.josn()['items'] - Course Member for given course 
+            r.json()['items'] - Course Member for given course 
     '''
     host = course.get_user().get_host()
     r = getRoute(course.get_user().get_context(),GET_COURSE_MEMBERS,{'version': host.get_api_version('lp'),'orgUnitId':course.get_id()})
-    checkRequest(r,"Unable to download Course Members for {} (Id:{})".format(course.get_name(),courseId))
+    checkRequest(r,"Unable to download Course Members for {} (Id:{})".format(course.get_name(),course.get_id()))
     return r.json()['items']
+
+def get_user_enrollments(user):
+    '''
+    Function will return the list of all enrollments for the current user
+
+    Preconditions:
+        user: The current user to which we are getting enrollments for
+
+    Postconditions:
+        return:
+            r.json - json file containing all enrollments for the current user
+    '''
+    r = getRoute(user.get_context(), GET_USER_ENROLLMENTS, {'version': user.get_host().get_api_version('lp')})
+    checkRequest(r, 'Unable to retrieve current user enrollments')
+    return r.json()
+
+def get_user_enrollment(user, course_id):
+    '''
+    Function will retrieve all the current grade objects for a particular course id
+
+    Preconditions:
+        user: The current user 
+        course_id: Integer ID of a given course
+
+    Postconditions:
+        return:
+            r.json() - a json array of grade objects blocks.
+    '''
+    r = getRoute(user.get_context(),GET_USER_ENROLLMENT,{'version': user.get_host().get_api_version('le'),'orgUnitId': course_id})
+    checkRequest(r, 'Unable to get user enrollment for course_id {}'.format(course_id))
+    return r.json()
+
+def get_who_am_i(user):
+    '''
+    Function retrieves the current user context's user information
+
+    Preconditions:
+        user: the current user
+        
+    Postconditions:
+        return:
+            r.json() - json file containing user data of the current user
+    '''
+    r = getRoute(user.get_context(), GET_WHO_AM_I,{'version': user.get_host().get_api_version('lp')})
+    checkRequest(r, 'Unable to get who am i')
+    return r.json()
