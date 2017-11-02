@@ -100,7 +100,7 @@ def updateRoute(route,params):
     '''
     Function to update api route by replace (...) with the appropriate value
     
-    Preconditions:
+    Preconditions: 
     route - the route from the valence docs (eg. '/d2l/api/le/(version)/(orgUnitId)/grades/')
     params - dictionary of replacement values (eg {'version':1.22,'orgUnitId':23456})
 
@@ -113,21 +113,22 @@ def updateRoute(route,params):
 
             
 def getRoute(uc, route, params):
-        ''' 
-        Function to test api routes
+    ''' 
+    Function to test api routes
         
-        Preconditions :
+    Preconditions :
         uc - the user context
         route - api route copied from valence docs
         params - dictionary of parameters - keys = what to replace
 
+    Postconditions
         Returns :
-        request result 
-        '''    
-        route = updateRoute(route,params)
+            request result 
+    '''    
+    route = updateRoute(route,params)
         
-        url = uc.create_authenticated_url(route,method='GET')
-        return requests.get(url)
+    url = uc.create_authenticated_url(route,method='GET')
+    return requests.get(url)
 
 def putRoute(uc, route, params,data):
     ''' 
@@ -145,24 +146,83 @@ def putRoute(uc, route, params,data):
     route = updateRoute(route,params)
     
     url = uc.create_authenticated_url(route,method='PUT')
-    return requests.put(url,json=data)        
-
-    
+    return requests.put(url,json=data)           
     
 def checkRequest(r,err_message,debug=True):
-        '''
-        Function to test if a request was valid.
-        Preconditions:
-            r : the request object to test
-            err_message : The error message to display
-            debug  : Do we also display the status code and text?
-        '''
-        if r.status_code != SUCCESS:
-            exception_message = err_message
-            exception_message += 'Request returned status code : {}, text : {}'.format(r.status_code,r.text) if debug else ""
-            raise  RuntimeError( exception_message )
-        return
+    '''
+    Function to test if a request was valid.
+    Preconditions:
+        r : the request object to test
+        err_message : The error message to display
+        debug  : Do we also display the status code and text?
+    '''
+    if r.status_code != SUCCESS:
+        exception_message = err_message
+        exception_message += 'Request returned status code : {}, text : {}'.format(r.status_code,r.text) if debug else ""
+        raise  RuntimeError( exception_message )
+    return
 
+def update_route(route,params):
+    '''
+    Function to update api route by replace (...) with the appropriate value
+    
+    Preconditions: 
+        route: the route from the valence docs (eg. '/d2l/api/le/(version)/(orgUnitId)/grades/')
+        params: dictionary of replacement values (eg {'version':1.22,'orgUnitId':23456})
+
+    Postconditions:
+        Returns new route - Does not check for missed values
+    '''
+    for key in params:
+        route = route.replace("({})".format( key ), str(params[key]) )
+    return route
+
+def get_route(user, route, params):
+    ''' 
+    Function to test api routes
+        
+    Preconditions :
+        user: the user that is sending the request
+        route: api route copied from valence doc
+        params: dictionary of parameters - keys = what to replace
+
+    Postconditions
+        Returns :
+            request result 
+    '''    
+    route = update_route(route,params)    
+    url = user.get_context().create_authenticated_url(route,method='GET')
+    return requests.get(url)
+
+def put_route(user, route, params, data):
+    ''' 
+    Function to test api routes
+    
+    Preconditions :
+        user: the user that is sending the request
+        route: api route copied from valence docs
+        params: dictionary of parameters - keys = what to replace
+        data: python dictionary of json data to send
+
+    Postconditions:
+        Returns :
+            request result 
+    '''    
+    route = update_route(route,params)
+    url = user.get_context().create_authenticated_url(route,method='PUT')
+    return requests.put(url,json=data)
+
+def check_request(request):
+    '''
+    Function to test if a request was valid.
+
+    Preconditions:
+        r : the request object to test
+    '''
+    if r.status_code != SUCCESS:
+        exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
+        raise  RuntimeError( exception_message )
+    return    
 
 def get_api_versions(host):
     '''
@@ -178,7 +238,7 @@ def get_api_versions(host):
         Throws a RuntimeError if status code is not 200 
     '''
     r = requests.get('{}//{}/{}'.format(host.get_protocol(),host.get_lms_host(),API_ROUTE))
-    checkRequest(r,"Unable to download API versions")
+    checkRequest(r)
     return r.json()
 
 def get_course_member(course):
@@ -196,8 +256,8 @@ def get_course_member(course):
             r.json()['items'] - Course Member for given course 
     '''
     host = course.get_user().get_host()
-    r = getRoute(course.get_user().get_context(),GET_COURSE_MEMBERS,{'version': host.get_api_version('lp'),'orgUnitId':course.get_id()})
-    checkRequest(r,"Unable to download Course Members for {} (Id:{})".format(course.get_name(),course.get_id()))
+    r = get_route(course.get_user(),GET_COURSE_MEMBERS,{'version': host.get_api_version('lp'),'orgUnitId':course.get_id()})
+    check_request(r)
     return r.json()['items']
 
 def get_user_enrollments(user):
@@ -211,8 +271,8 @@ def get_user_enrollments(user):
         return:
             r.json - json file containing all enrollments for the current user
     '''
-    r = getRoute(user.get_context(), GET_USER_ENROLLMENTS, {'version': user.get_host().get_api_version('lp')})
-    checkRequest(r, 'Unable to retrieve current user enrollments')
+    r = get_route(user, GET_USER_ENROLLMENTS, {'version': user.get_host().get_api_version('lp')})
+    check_request(r)
     return r.json()
 
 def get_user_enrollment(user, course_id):
@@ -227,8 +287,8 @@ def get_user_enrollment(user, course_id):
         return:
             r.json() - a json array of grade objects blocks.
     '''
-    r = getRoute(user.get_context(),GET_USER_ENROLLMENT,{'version': user.get_host().get_api_version('le'),'orgUnitId': course_id})
-    checkRequest(r, 'Unable to get user enrollment for course_id {}'.format(course_id))
+    r = get_route(user,GET_USER_ENROLLMENT,{'version': user.get_host().get_api_version('le'),'orgUnitId': course_id})
+    check_request(r)
     return r.json()
 
 def get_who_am_i(user):
@@ -242,6 +302,6 @@ def get_who_am_i(user):
         return:
             r.json() - json file containing user data of the current user
     '''
-    r = getRoute(user.get_context(), GET_WHO_AM_I,{'version': user.get_host().get_api_version('lp')})
-    checkRequest(r, 'Unable to get who am i')
+    r = get_route(user, GET_WHO_AM_I,{'version': user.get_host().get_api_version('lp')})
+    check_request(r)
     return r.json()
