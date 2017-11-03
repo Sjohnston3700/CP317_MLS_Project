@@ -162,6 +162,74 @@ def checkRequest(r,err_message,debug=True):
         raise  RuntimeError( exception_message )
     return
 
+<<<<<<< HEAD
+=======
+#********************************************************************************************************************************
+# TODO: OLD CODE ENDS HERE 
+#********************************************************************************************************************************
+
+
+def get_grade_items(uc, course_id):
+    '''
+    Returns grades associated with the a given user context and course id number
+
+    Preconditions:
+        uc : Usercontext to make the call with
+        course_id (str or int) : the course Id to get the grade items for.
+    '''
+    # get latest installed version of the API
+    product_code = 'lp'
+    version =  [item['LatestVersion'] for item in get_api_versions(uc) if item['ProductCode'] == product_code][0]
+    # Make request to get grades
+    r = get_route(uc, GET_GRADES_ROUTE, {'version': version, 'orgUnitId': course_id })
+    # Check if request went through
+    check_request(r, "Unable to download Grade Items for course (Id:{})".format(course_id))
+    return r.json()
+
+def put_grade_item(self, uc, course_id, grade_item_id):
+    '''
+    Uses a PUT request to set multiple grade entries in Brightspace using JSON
+    
+    Preconditions :
+        uc : Usercontext to make the call with
+        course_id (int or str) : Valence Course Id number
+        grade_item_id (int or str ) : Valence Grade Item Id
+        grade_data (dict ) : JSON grade data to send
+    Postconditions:
+        Brightspace grade data will be changed for student with id user_id
+    '''
+    # get latest installed version of the API
+    product_code = 'lp'
+    version =  [item['LatestVersion'] for item in get_api_versions(uc) if item['ProductCode'] == product_code][0]
+    route_params = {'version': version, 'orgUnitId': course_id, 'gradeObjectId': grade_item_id}
+    r = put_route(uc, SET_GRADES_ROUTE, route_params, grade_data)
+    check_request(r, "Unable to set grade for course {}".format(course_id))
+    return
+
+def put_grade(self, us, user_id, course_id, grade_item_id, grade_data):
+    '''
+    Uses a PUT request to set a single grade entry for user 
+	with ID = user_id in Brightspace using JSON
+    
+    Preconditions :
+        uc : Usercontext to make the call with
+        user_id (int or str) : Valence User Id of student
+        course_id (int or str) : Valence Course Id number
+        grade_item_id (int or str ) : Valence Grade Item Id
+        grade_data (dict ) : JSON grade data to send
+    Postconditions:
+        Brightspace grade data will be changed for student with id user_id
+    '''
+    # get latest installed version of the API
+    product_code = 'lp'
+    version =  [item['LatestVersion'] for item in get_api_versions(uc) if item['ProductCode'] == product_code][0]
+    route_params = {'version': version, 'orgUnitId': course_id, 'gradeObjectId': grade_item_id, 'userId': user_id}
+	# Attempt to set the user's grade
+    r = put_route(uc, SET_GRADE_ROUTE, route_params, grade_data)
+    check_request(r, "Unable to set grade for user {}".format(user_id))
+    return
+
+>>>>>>> c545c44... Added set/put functions for grade items
 def update_route(route,params):
     '''
     Function to update api route by replace (...) with the appropriate value
