@@ -6,6 +6,7 @@ snake_case for all methods and variable names (except frontend - camelCase)
 // Frontend 
 
 Jquery: 
+	please see http://usejsdoc.org/howto-es2015-modules.html for documentation standards
 	use jquery only 
 	single quotes ' not "
 	camelCase ex: myFunction (myVar, myVar2)
