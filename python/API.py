@@ -162,8 +162,6 @@ def checkRequest(r,err_message,debug=True):
         raise  RuntimeError( exception_message )
     return
 
-<<<<<<< HEAD
-=======
 #********************************************************************************************************************************
 # TODO: OLD CODE ENDS HERE 
 #********************************************************************************************************************************
@@ -229,7 +227,6 @@ def put_grade(self, us, user_id, course_id, grade_item_id, grade_data):
     check_request(r, "Unable to set grade for user {}".format(user_id))
     return
 
->>>>>>> c545c44... Added set/put functions for grade items
 def update_route(route,params):
     '''
     Function to update api route by replace (...) with the appropriate value
