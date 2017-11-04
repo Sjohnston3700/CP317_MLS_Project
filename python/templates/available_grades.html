@@ -5,18 +5,21 @@
 {% endblock %}
 
 {% block content %}
-	<h2>Select a Grade Item</h2>
-	{% for course in user.get_courses() %}
-		<button class="accordion">{{course.get_name()}}</button>
-
-		{% if course.get_grade_items() != [] %}
-		<div class="panel">
-			{% for grade_item in course.get_grade_items() %}
-			<a class="grade-link" href="{{ '/grades/{}/{}'.format(course.get_id(),grade_item.get_id())}}">{{ grade_item.get_name() }}</a>
-			{% endfor %}
-		</div>
-
-		{% endif %}
-
-	{% endfor %}
+	{% if user.get_courses() != [] %}
+		<h2>Select a Grade Item</h2>
+		{% for course in user.get_courses() %}
+			<button class="accordion">{{course.get_name()}}</button>
+			<div class="panel">
+				{% if course.get_grade_items() != [] %}
+					{% for grade_item in course.get_grade_items() %}
+						<a class="grade-link" href="{{ '/grades/{}/{}'.format(course.get_id(),grade_item.get_id())}}">{{ grade_item.get_name() }}</a>
+					{% endfor %}
+				{% else %}
+					<a>No grade items available.</a>
+				{% endif %}
+			</div>
+		{% endfor %}
+	{% else %}
+		<a>This user is not enrolled as a TA in any courses.</a>
+	{% endif %}
 {% endblock %}
