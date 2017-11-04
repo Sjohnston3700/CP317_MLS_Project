@@ -38,6 +38,7 @@ function error_checking($grades, $grade_item_id)
 		{
 			$errors[] = array ( 
 				'id' => $g['id'],
+				'value' => $g['value'],
 				'name' => $g['name'],
 				'comment' => $g['comment'],
 				'msg' => 'Missing grade',
@@ -48,6 +49,7 @@ function error_checking($grades, $grade_item_id)
 		{
 			$errors[] = array ( 
 				'id' => $g['id'],
+				'value' => $g['value'],
 				'name' => $g['name'],
 				'comment' => $g['comment'],
 				'msg' => 'Grade must be a number',
@@ -58,6 +60,7 @@ function error_checking($grades, $grade_item_id)
 		{
 			$errors[] = array ( 
 				'id' => $g['id'],
+				'value' => $g['value'],
 				'name' => $g['name'],
 				'comment' => $g['comment'],
 				'msg' => 'Grade cannot be negative',
@@ -68,6 +71,7 @@ function error_checking($grades, $grade_item_id)
 		{
 			$errors[] = array ( 
 				'id' => $g['id'],
+				'value' => $g['value'],
 				'name' => $g['name'],
 				'comment' => $g['comment'],
 				'msg' => 'Grade is more than the grade maximum',

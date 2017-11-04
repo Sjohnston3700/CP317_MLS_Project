@@ -60,17 +60,6 @@
 		</div>
 	</div>
 </div>
-
-<form class="form-wide hidden" id="modal-form-template">
-	<p class="modal-warning"><strong>WARNING: </strong>Grade greater than the <strong>maximum grade value</strong></p>
-	<h3>John Doe, 1234567<button class="btn btn-error btn-remove inline">x</button></h3>
-	<div class="form-group">
-		<label>Grade: </label>
-		<input type="text" placeholder="Grade out of /100" value="70">
-	</div>	
-	<textarea class="input" placeholder="Student feedback..." resize="false">Good job on A1!</textarea>
-</form>
-
 <div id="error-message-modal" class="modal">
 	<div class="modal-content">
 		<div class="modal-header">
@@ -82,16 +71,6 @@
 			<hr>
 		</div>
 		<div class="modal-body">
-		
-			<form class="form-wide">
-				<p class="modal-error"><strong>ERROR: </strong>Missing grade entry</strong></p>
-				<h3>Jane Doe, 1234565<button class="btn btn-error btn-remove inline">x</button></h3>
-				<div class="form-group">
-					<label>Grade: </label>
-					<input type="text" placeholder="Grade out of /100">
-				</div>	
-				<textarea class="input" placeholder="Student feedback..." resize="false">You need to put more effort in!</textarea>
-			</form>
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-success">Re-Upload</button>
@@ -99,6 +78,17 @@
 		</div>
 	</div>
 </div>
+<!-- Template HTML -->
+<p class="modal-warning modal-warning-template hidden"></p>
+<p class="modal-error modal-error-template hidden"></p>
+<form class="form-wide hidden" id="modal-form-template">
+	<h3><div id="name" class="inline"></div><button class="btn btn-error btn-remove inline">x</button></h3>
+	<div class="form-group">
+		<label>Grade: </label>
+		<input type="text" name="grade" id="grade" placeholder="Enter grade">
+	</div>	
+	<textarea class="input" name="comment" id="comment" placeholder="Student feedback..." resize="false"></textarea>
+</form>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/manual_input.js"></script>
 <script>
 	
@@ -110,13 +100,6 @@
 	
 	
 	function sendToErrorChecking(data) {   
-		console.log('here');
-//		$(".hide-warning").remove();
-//		var fields = ['first', 'last', 'email','password', 'company', 'timezone', 'dept'];
-//		for (i = 0; i < fields.length; i ++)
-//		{
-//			$("#" + fields[i]).css({"border-color": "rgb(223, 232, 241)", "border-width": "1px"});
-//		}
 		var formData = {
 			grades: data
 		}
@@ -128,9 +111,39 @@
 			dataType    : 'json', 
 			encode      : true,
 			success     : function(data) {
-							console.log(data);
+							if (isNaN(data)) {
+								console.log(data)
+								for (var i = 0; i < data.length; i++) {
+									var errorForm = $('#modal-form-template').clone();
+									var formId = 'error-form-' + data[i].id;
+									var error;
+									var msg;
+								
+									errorForm.find('#name').text(data[i].name + ', ' + data[i].id);
+									errorForm.attr('id', formId);
+									errorForm.appendTo('.modal-body');
+									errorForm.removeClass('hidden');
+									errorForm.removeClass('modal-form-template');
+									errorForm.find('#comment').text(data[i].comment);
+									errorForm.find('#grade').val(data[i].value);
+									
+									if (data[i].type == 0) {
+										error = $('.modal-warning-template').clone();
+										error.removeClass('modal-warning-template');
+										msg = '<strong>WARNING: </strong> ';
+									} 
+									else if (data[i].type == 1) {
+										error = $('.modal-error-template').clone();
+										error.removeClass('modal-error-template');
+										msg = '<strong>ERROR: </strong> ';
+									}
+									
+									error.html(msg + data[i].msg);
+									error.removeClass('hidden');
+									error.insertBefore(errorForm);
+								}
+							}
 							showModalWithoutClose('error-message-modal');
-							var errorForm = $('#modal-form-template');
 						}
 			});
 	}	
