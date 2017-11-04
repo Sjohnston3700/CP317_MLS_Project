@@ -1,4 +1,4 @@
-function displayModal(modalId, btnId) {
+function showModalOnBtnClick(modalId, btnId) {
 	
 	var modal = $('#' + modalId);
 	var btn = $('#' + btnId);
@@ -15,6 +15,17 @@ function displayModal(modalId, btnId) {
 		if (event.target.id == modalId) {
 			modal.css('display', 'none');
 		}
+	});
+}
+
+function showModalWithoutClose(modalId) {
+	// Show modal
+	var modal = $('#' + modalId);
+	modal.css('display', 'block');
+	
+	// Close only if close button is clicked
+	$('.close').click(function() {
+		modal.css('display', 'none');
 	});
 }
 

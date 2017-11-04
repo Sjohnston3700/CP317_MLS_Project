@@ -138,3 +138,4 @@ def parse_grades_csv( csv_file ):
         raise IOError("Invalid csv format")
     
     return grades
+

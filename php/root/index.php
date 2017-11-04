@@ -1,5 +1,5 @@
 <?php
-    require_once "config.php";
+    require_once 'config.php';
 	require_once $config['libpath'] . '/D2LAppContextFactory.php';
 	
 	ob_start();
@@ -10,8 +10,8 @@
 //	if(!isset($_SESSION['user_context']) || strlen($_SESSION['user_context']->getUserId()) > 0) {
 //		$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
 //	
-//		// TODO: This gives error "invalid x_target", HOWEVER it seems that the user is authenticated when revisiting the page
-//		$app_url = "${config['scheme']}://${config['host']}:${config['port']}${config['route']}"; // $_SERVER['REQUEST_URI']
+//		// TODO: This gives error 'invalid x_target', HOWEVER it seems that the user is authenticated when revisiting the page
+//		$app_url = '${config['scheme']}://${config['host']}:${config['port']}${config['route']}'; // $_SERVER['REQUEST_URI']
 //		
 //		// Get URL for authentication; this takes a callback address
 //		$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
@@ -22,23 +22,23 @@
 //	}
 	/****************************************************************************************************/
 
-	$PATH_TO_STATIC = "../../python/static";
-    $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : "home";
+	$PATH_TO_STATIC = '../../python/static';
+    $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'home';
 
 
     switch ($page)
     {
-		case "grades_uploaded":
-            $contents = "../views/grades_uploaded.php";
+		case 'grades_uploaded':
+            $contents = '../views/grades_uploaded.php';
             break;
-		case "available_grades":
-            $contents = "../views/available_grades.php";
+		case 'available_grades':
+            $contents = '../views/available_grades.php';
             break;
-        case "upload":
-            $contents = "../views/upload.php";
+        case 'upload':
+            $contents = '../views/upload.php';
             break;
         default:
-            $contents = "../views/available_grades.php";
+            $contents = '../views/available_grades.php';
             break;
     }
 	

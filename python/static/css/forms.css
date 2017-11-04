@@ -10,7 +10,6 @@ form
 	width: 100%;
 }
 
-
 textarea 
 {
 	resize: none;
@@ -93,4 +92,10 @@ textarea.input
 {
 	margin-top: 5px;
 }
+
+.form-template
+{
+	display: none;
+}
+
 
