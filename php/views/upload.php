@@ -7,7 +7,7 @@
 <h2>Automated Upload</h2>
 <div class="page-section">
 	<h2>Upload a File</h2>
-	  <form id="upload-automated" action="actions/upload_automated.php" method="POST" enctype="multipart/form-data" target="upload-target">
+	  <form id="upload-automated" action="actions/file_parse.php" method="POST" enctype="multipart/form-data" target="upload-target">
          	<input type="file" name="file" id="file">
           <p></p>
 	  		<button class="btn" type="submit">Upload Grades File</button>
@@ -61,7 +61,7 @@
 	</div>
 </div>
 
-<form class="form-wide form-template" id="modal-form-template">
+<form class="form-wide hidden" id="modal-form-template">
 	<p class="modal-warning"><strong>WARNING: </strong>Grade greater than the <strong>maximum grade value</strong></p>
 	<h3>John Doe, 1234567<button class="btn btn-error btn-remove inline">x</button></h3>
 	<div class="form-group">
@@ -103,80 +103,36 @@
 <script>
 	
 	$('#upload-target').on('load', function(){
-    	showModalWithoutClose('error-message-modal');
 		var result = $(this).contents().find('body').html();
 		var grades = JSON.parse(result);
-		console.log(grades);
+		sendToErrorChecking(grades);
 	});
 	
 	
-	$("#register-form").submit(function(event) {   
+	function sendToErrorChecking(data) {   
+		console.log('here');
 //		$(".hide-warning").remove();
 //		var fields = ['first', 'last', 'email','password', 'company', 'timezone', 'dept'];
 //		for (i = 0; i < fields.length; i ++)
 //		{
 //			$("#" + fields[i]).css({"border-color": "rgb(223, 232, 241)", "border-width": "1px"});
 //		}
-
-		var formData = 
-		{
-			'first'     : $('input[name=first]').val(),
-			'last'      : $('input[name=last]').val(),
-			'company'   : $('input[name=company]').val(),
-			'dept'      : $('input[name=dept]').val(),
-			'position'  : $('input[name=position]').val(),
-			'email'     : $('input[name=email]').val(),
-			'password'  : $('input[name=password]').val(),
-			'timezone'  : $('#timezone').val()
-
-		};
+		var formData = {
+			grades: data
+		}
 
 		$.ajax({
 			type        : 'POST', 
-			url         : 'webapp/upload_automated.php', 
+			url         : 'actions/error_checking.php', 
 			data        : formData, 
 			dataType    : 'json', 
 			encode      : true,
-			success     : function(data)
-						{
-							if (data['errors'] == 0 && data['empty'] == 0)
-							{
-								window.location = "webapp/index.php";
-							}
-							else
-							{
-								$('html, body').animate({ scrollTop: 0 }, 'slow');
-								if (data['empty'] == 1)
-								{
-									 $("<div>\
-									<div class='alert alert-danger error hide-warning' style='text-align: center'>\
-									  <button type='button' class='close' data-dismiss='alert'>&times;</button>\
-									  <strong>All fields are required</strong>\
-									</div>\
-								  </div>").insertAfter("#title");
-								}
-							}
-
-							/*if (data['error'] == 1 || data['empty'] == 1)
-							{ 
-								for (i = 0; i < data['red'].length; i++)
-								{
-									$("#" + data['red'][i]).css({"color": "#db6a6a", "border-width": "1px"});
-								}
-							}*/
-							for (i = 0; i < data['errors'].length; i++)
-							{
-								$("<div>\
-									<div class='alert alert-danger error hide-warning'  style='text-align: center'>\
-									  <button type='button' class='close' data-dismiss='alert'>&times;</button>\
-									  <strong>" + data['errors'][i] + "</strong>\
-									</div>\
-								  </div>").insertAfter("#title");
-							}
+			success     : function(data) {
+							console.log(data);
+							showModalWithoutClose('error-message-modal');
+							var errorForm = $('#modal-form-template');
 						}
-
 			});
-			event.preventDefault();
-		});	
+	}	
 	
 </script>

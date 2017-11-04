@@ -253,7 +253,7 @@
         <li>If valid, grade item total is updated</li>
     </ol>
 
-    <h4>set_grades(Grades JSON, grade_item_id)</h4>
+    <h4>set_grades(JSON grades, grade_item_id)</h4>
     <ol>
         <li>Assumes that error checking has already been done</li>
         <li>Creates grade objects from JSON</li>
@@ -263,13 +263,13 @@
         <li>Redirects to Report page, passes JSON of grades and students, JSON of errors/warnings (if applicable)</li>
     </ol>
 
-    <h4>parse_file()</h4>
+    <h4>parse_file(File Object)</h4>
     <ol>
         <li>Parses uploaded file</li>
         <li>Creates and returns JSON with student and grade information</li>
     </ol>
 
-    <h4>error_checking(Grades JSON, grade_item_id)</h4>
+    <h4>error_checking(JSON grades, grade_item_id)</h4>
     <ol>
         <li>Checks grade values in JSON</li>
         <li>If grade value > max grade, add item to JSON warning list specifying grade, student, and msg</li>

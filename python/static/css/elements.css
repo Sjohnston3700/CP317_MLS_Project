@@ -249,3 +249,8 @@ hr
 	color: #cfd2d6;
 	margin: 40px 0px;
 }
+
+.hidden
+{
+	display: none;
+}
