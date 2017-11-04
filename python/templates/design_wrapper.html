@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <script src="../../static/js/toc_generator.js"></script>
+    <script src="../static/js/toc_generator.js"></script>
     <h1>Brightspace API Wrapper - Design</h1>
     <p>Version 2.0</p>
     <p>Last updated: xxxxxx, 2017</p>
@@ -21,7 +21,7 @@
     <p>This document describes the design of the wrapper's classes and functions, along with providing helpful reference information.</p>
 
     <h2>Class Design</h2>
-    <img src="../../static/img/wrapper_design_class_diagram.jpg">
+    <img src="../static/img/wrapper_design_class_diagram.jpg">
     <b>Additional Comments:</b>
     <ul>
         <li>Trigger exceptions on error</li>
@@ -30,11 +30,12 @@
 
     <h2>API Functions</h2>
     <h3>Diagram</h3>
-    <img src="../../static/img/wrapper_design_api_file.jpg">
-
+    <img src="../static/img/wrapper_design_api_file.jpg">
+    
+    <br>
     <b>Additional Comments:</b>
     <ul>
-        <li>Trigger exceptions on error</li>
+        <li>Trigger exceptions on error. Use response message as error message</li>
     </ul>
 
     <h3>API Reference</h3>
@@ -43,8 +44,7 @@
         <li>get_who_am_i: Implements GET <a href="http://docs.valence.desire2learn.com/res/user.html#get--d2l-api-lp-(version)-users-whoami" target="_blank">/d2l/api/lp/(version)/users/whoami</a></li>
         <li>put_grade: Implements PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)-values-(userId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)</a></li>
         <li>get_course_members: Implements GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-orgUnits-(orgUnitId)-users-" target="_blank">/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/</a></li>
-        <li>get_user_enrollments: Implements GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/</a></li>
-        <li>get_user_enrollment: Implements GET<a href="http://docs.valence.desire2learn.com/res/grade.html#get--d2l-api-le-(version)-(orgUnitId)-grades-" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a></li>
+        <li>get_user_enrollments: Implements GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-users-(userId)-orgUnits-" target="_blank">/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/</a></li>
         <li>get_grade_items: Implements GET<a href="http://docs.valence.desire2learn.com/res/grade.html#get--d2l-api-le-(version)-(orgUnitId)-grades-" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a></li>
         <li>put_grade_item: Implements PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)</a></li>
     </ul>
@@ -73,6 +73,8 @@
     <p>- Added additional notes</p>
     <p>- Added Additional Comments sections</p>
     <p>- Specified error handling</p>
+    <p>- Changed request for getting user enrollments</p>
+    <p>- Changed param type for _route functions</p>
     <p>Authors: Sumeet Jhand, Troy Nechanicky</p>
     <p>SQA: Yi Ling Pang</p>
 </body>
