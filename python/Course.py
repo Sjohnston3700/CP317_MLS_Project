@@ -1,4 +1,4 @@
-from NumericGradeItem import NumericGradeItem
+from GradeItem import NumericGradeItem
 from OrgMember import OrgMember
 import API
 
