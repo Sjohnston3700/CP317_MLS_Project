@@ -4,10 +4,13 @@ class Host(object):
     """
     Host class
     """
-    def __init__(self, lms_host, protocol="http", versions=[]):
+    def __init__(self, lms_host, protocol="http", versions=NULL):
         self._lms_host = lms_host
         self._protocol = protocol
-        self._versions = API.get_api_versions(self)
+		if versions = NULL:
+		    self._versions = API.get_api_versions(self)
+		else
+		    self._versions = versions
 
     def get_protocol(self):
         return self._protocol
