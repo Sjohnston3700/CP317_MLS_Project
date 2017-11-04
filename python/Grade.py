@@ -25,7 +25,7 @@ class Grade(object):
         self.private_feedback = private_feedback'''
 
     def upload_grade():
-        
+        return
 
     def get_comment():
         return self.comment

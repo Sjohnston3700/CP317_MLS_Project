@@ -2,7 +2,6 @@ import requests
 
 SUCCESS = 200
 API_ROUTE = '/d2l/api/versions/'
-GET_CLASSES_ROUTE    = '/d2l/api/lp/(version)/enrollments/myenrollments/'
 GET_GRADES_ROUTE     = '/d2l/api/le/(version)/(orgUnitId)/grades/'
 SET_GRADE_ROUTE      = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)'
 GET_COURSE_MEMBERS   = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/'
@@ -11,41 +10,38 @@ GET_USER_ENROLLMENT  = '/d2l/api/le/(version)/(orgUnitId)/grades/'
 GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
 
 
-def get_grade_items(uc, course_id):
+def get_grade_items(course):
     '''
     Returns grades associated with the a given user context and course id number
 
     Preconditions:
-        uc : Usercontext to make the call with
-        course_id (str or int) : the course Id to get the grade items for.
+        course (Course object) : the course to get the grade items for.
     '''
     # get latest installed version of the API
     product_code = 'lp'
-    version =  [item['LatestVersion'] for item in get_api_versions(uc) if item['ProductCode'] == product_code][0]
+    version =  [item['LatestVersion'] for item in get_api_versions(course.get_user().get_host()) if item['ProductCode'] == product_code][0]
     # Make request to get grades
-    r = get_route(uc, GET_GRADES_ROUTE, {'version': version, 'orgUnitId': course_id })
+    r = get_route(course.get_user(), GET_GRADES_ROUTE, {'version': version, 'orgUnitId': course.get_id() })
     # Check if request went through
-    check_request(r, "Unable to download Grade Items for course (Id:{})".format(course_id))
+    check_request(r)
     return r.json()
 
-def put_grade_item(self, uc, course_id, grade_item_id):
+def put_grade_item(self, grade_item, params):
     '''
     Uses a PUT request to set multiple grade entries in Brightspace using JSON
     
     Preconditions :
-        uc : Usercontext to make the call with
-        course_id (int or str) : Valence Course Id number
-        grade_item_id (int or str ) : Valence Grade Item Id
-        grade_data (dict ) : JSON grade data to send
+        grade_item (GradeItem object) : The grade_item to change grade data for
+        params (json) : JSON grade data to send
     Postconditions:
         Brightspace grade data will be changed for student with id user_id
     '''
     # get latest installed version of the API
     product_code = 'lp'
-    version =  [item['LatestVersion'] for item in get_api_versions(uc) if item['ProductCode'] == product_code][0]
-    route_params = {'version': version, 'orgUnitId': course_id, 'gradeObjectId': grade_item_id}
-    r = put_route(uc, SET_GRADES_ROUTE, route_params, grade_data)
-    check_request(r, "Unable to set grade for course {}".format(course_id))
+    version =  [item['LatestVersion'] for item in get_api_versions(grade_item.get_user().get_host()) if item['ProductCode'] == product_code][0]
+    route_params = {'version': version, 'orgUnitId': grade_item.get_course().get_id(), 'gradeObjectId': grade_item.get_id()}
+    r = put_route(grade_item.get_user(), SET_GRADES_ROUTE, route_params, params)
+    check_request(r)
     return
 
 def put_grade(self, us, user_id, course_id, grade_item_id, grade_data):
@@ -68,7 +64,7 @@ def put_grade(self, us, user_id, course_id, grade_item_id, grade_data):
     route_params = {'version': version, 'orgUnitId': course_id, 'gradeObjectId': grade_item_id, 'userId': user_id}
 	# Attempt to set the user's grade
     r = put_route(uc, SET_GRADE_ROUTE, route_params, grade_data)
-    check_request(r, "Unable to set grade for user {}".format(user_id))
+    check_request(r)
     return
 
 def update_route(route,params):
@@ -126,9 +122,9 @@ def check_request(request):
     Function to test if a request was valid.
 
     Preconditions:
-        r : the request object to test
+        request : the request object to test
     '''
-    if r.status_code != SUCCESS:
+    if request.status_code != SUCCESS:
         exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
         raise  RuntimeError( exception_message )
     return    
@@ -146,11 +142,11 @@ def get_api_versions(host):
              r.json() - json file contain all the supported versions
         Throws a RuntimeError if status code is not 200 
     '''
-    r = requests.get('{}//{}/{}'.format(host.get_protocol(),host.get_lms_host(),API_ROUTE))
+    r = requests.get('{}://{}/{}'.format(host.get_protocol(),host.get_lms_host(),API_ROUTE))
     check_request(r)
     return r.json()
 
-def get_course_member(course):
+def get_course_members(course):
     '''
     Function will return courses members for given course
 
@@ -167,7 +163,7 @@ def get_course_member(course):
     host = course.get_user().get_host()
     r = get_route(course.get_user(),GET_COURSE_MEMBERS,{'version': host.get_api_version('lp'),'orgUnitId':course.get_id()})
     check_request(r)
-    return r.json()['items']
+    return r.json()['Items']
 
 def get_user_enrollments(user):
     '''
@@ -182,7 +178,7 @@ def get_user_enrollments(user):
     '''
     r = get_route(user, GET_USER_ENROLLMENTS, {'version': user.get_host().get_api_version('lp')})
     check_request(r)
-    return r.json()
+    return [item for item in r.json()["Items"] if item['OrgUnit']['Type']['Code'] == 'Course Offering']
 
 def get_user_enrollment(user, course_id):
     '''

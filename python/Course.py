@@ -1,4 +1,5 @@
-from GradeItem import GradeItem
+from NumericGradeItem import NumericGradeItem
+from OrgMember import OrgMember
 import API
 
 class Course(object):
@@ -9,25 +10,30 @@ class Course(object):
     def __init__(self,user,course_params):
         """
         user (user object) - info about user
-        course_params (json) - info about course (Enrollment.OrgUnitInfo) 
-
-
+        course_params (json) - info about course (Enrollment.MyOrgUnitInfo) 
         """
-        
-        self.name = course_params["name"]
-        self.id = course_params["Id"]
-        self.user_role = course_params["Role"]["Name"]
-
+        self._name      = course_params['OrgUnit']['Name']
+        self._id        = course_params['OrgUnit']['Id']
+        self._user_role = course_params['Access']['ClasslistRoleName']
         self._user = user
-        
+        self._grade_items = self._get_grade_items()
+        self._members = [OrgMember(member) for member in API.get_course_members(self)]
+
+    def _get_grade_items(self):
+        items = []
+        for item in API.get_grade_items(self):
+            if item['GradeType'] == 'Numeric':
+                items.append(NumericGradeItem(self, item))
+        return items
 
     def get_grade_items(self):
-
-        return
+        return self._grade_items
 
     def get_grade_item(self,id):
-
-        return
+        try:
+            return [grade_item for grade_item in self._grade_items if str(grade_item.get_id()) == str(id)][0]
+        except:
+            return None
     
     def get_name(self):
         """
@@ -35,7 +41,7 @@ class Course(object):
         PostCondition:
             return self.name - current course name
         """
-        return self.name
+        return self._name
 
     def get_id(self):
         """
@@ -43,7 +49,7 @@ class Course(object):
         PostCondition:
             reutrn self.id - Id for the current course
     """
-        return self.id
+        return self._id
 
     def get_user_role(self):
         """
@@ -51,15 +57,16 @@ class Course(object):
         PostCondition:
             reutrn self.user_role - user role for current course
         """
+        return self._user_role
 
-        return self.user_role
-
-    def get_members(self,role):
-
-        return 
+    def get_members(self,role=[]):
+        return self._members
 
     def get_member(self,org_id):
-        return
+        try:
+            return [member for member in self._members if str(member.get_org_id()) == str(org_id)][0]
+        except:
+            return None
 
     def get_user(self):
         """

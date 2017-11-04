@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 from conf_basic import app_config
 
 from User import User
+from Host import Host
 from grade_functions import parse_grades
 
 
@@ -35,9 +36,9 @@ def login():
 @app.route(app_config["route"])
 def auth_token_handler():
     uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
-
+    host = Host(app_config['lms_host'])
     # store the user context's
-    user = User(uc)
+    user = User(uc, host)
     app.config['user'] = user
     return redirect('/courses/')
 
@@ -82,24 +83,22 @@ def show_design_wrapper():
 
 @app.route('/logout/')
 def show_logout():
-	return redirect('/')
-	if 'user' in app_config:
-		return render_template(LOGOUT_URL.format(host=app_config['user'].uc.host))
+	if 'user' in app.config:
+		return redirect(LOGOUT_URL.format(host=app_config['lms_host']))
 	else:
 		return redirect('/') # TODO maybe logout/general error page? "user not found"
-
 
 @app.route('/grades/<courseId>/<gradeItemId>', methods = ['GET', 'POST'])
 def set_grades(courseId, gradeItemId):
     try:
         user   = app.config['user']
-        course = user.getCourse(courseId)
-        gradeItem = course.getGradeItem(gradeItemId)
+        course = user.get_course(courseId)
+        grade_item = course.get_grade_item(gradeItemId)
     except:
         return redirect('/courses/')
     
     if request.method == 'GET':
-        return render_template('upload.html',courseId=courseId,gradeItemId=gradeItemId)
+        return render_template('upload.html',user=user,course=course,grade_item=grade_item)
     
     elif request.method == 'POST':
         f = request.files['file']
@@ -109,9 +108,9 @@ def set_grades(courseId, gradeItemId):
         successful_grades = 0
         for grade in grades:
             try:
-                if float(grade.maxValue) != gradeItem.maxPoints:
-                    updateUrl = EDIT_GRADE_ITEM_URL.format(host=user.uc.host,gradeItemId=gradeItem.Id,courseId=course.Id)
-                    message = 'Grade for {} is out of {}. The Max Points for {} is {}'.format(grade.studentName,grade.maxValue,gradeItem.name,gradeItem.maxPoints)
+                if float(grade.maxValue) != grade_item.maxPoints:
+                    updateUrl = EDIT_GRADE_ITEM_URL.format(host=user.uc.host,gradeItemId=grade_item.get_id(),courseId=course.get_id())
+                    message = 'Grade for {} is out of {}. The Max Points for {} is {}'.format(grade.studentName,grade.maxValue,grade_item.name,grade_item.maxPoints)
                     #return render_template("update_grade_item.html",gradeUrl=updateUrl,message=message)
                 
                 userId,gradeValue,PublicFeedback = grade.userId,grade.value,grade.public_feedback
@@ -128,9 +127,9 @@ def set_grades(courseId, gradeItemId):
                 errors.append( error )
                 continue
     
-    gradesUrl = VIEW_GRADES_URL.format(host=user.uc.host,gradeItemId=gradeItem.Id,courseId=course.Id)
-    logoutUrl = LOGOUT_URL.format(host=user.uc.host)
-    return render_template("grades_uploaded.html",errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=gradeItem,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
+    gradesUrl = VIEW_GRADES_URL.format(host=user.get_host().get_lms_host(),gradeItemId=grade_item.Id,courseId=course.Id)
+    logoutUrl = LOGOUT_URL.format(host=user.get_host().get_lms_host())
+    return render_template("grades_uploaded.html",user=user,errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=grade_item,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
 
 if __name__ == "__main__":
 	port = int(os.environ.get("PORT", 8080))
