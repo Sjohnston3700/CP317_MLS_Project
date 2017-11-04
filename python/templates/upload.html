@@ -16,7 +16,10 @@
 	<h2>Upload a File</h2>
 	  <form action={{ url_for('set_grades',courseId=courseId,gradeItemId=gradeItemId) }} method="POST"
          enctype="multipart/form-data">
-         	<input type="file" name="file">
+         	<label id="file" class="custom-file-upload-btn">
+				<i class="fa fa-cloud-upload"></i> Upload File
+			</label>
+			<input id="file" type="file"/>
           <p></p>
 	  		<button class="btn" type="submit">Upload Grades File</button>
       </form>
@@ -170,5 +173,6 @@
 			$("#members").focus();
 		}
 	}
+	
 </script>
 {% endblock %}
