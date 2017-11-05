@@ -50,7 +50,6 @@ function updateGlobalGrades(grades) {
  * @param {Array} grades - Array of grade objects to check
  * @return {Integer} Index of found grade item with student id 'id'
  */
-
 function findGrade(id, grades) {
 	for (var i = 0; i < grades.length; i++) {
 		if (String(grades[i].id) == String(id)) {
@@ -66,7 +65,6 @@ function findGrade(id, grades) {
  * returned from error_checking.php
  * @param {Array} data - array of JSON grade objects to send for error checking 
  */
-
 function sendToErrorChecking(data) { 
 	// Clear all previous forms and error messages
 	$('.error-form').remove();
@@ -88,7 +86,7 @@ function sendToErrorChecking(data) {
 		success     : function(data) {
 						if (isNaN(data)) {
 							for (var i = 0; i < data.length; i++) {
-								var errorForm = $('.templates .modal-form-template').clone();
+								var errorForm = $('.templates .modal-form-template').clone(true, true);
 								var formId = 'error-form-' + data[i].id;
 								var error;
 								var msg;
@@ -104,12 +102,12 @@ function sendToErrorChecking(data) {
 								errorForm.find('.remove-student-error').attr('id', 'remove-' + data[i].id);
 
 								if (data[i].type == 0) {
-									error = $('.templates .modal-warning-template').clone();
+									error = $('.templates .modal-warning-template').clone(true, true);
 									error.removeClass('modal-warning-template');
 									msg = '<strong>WARNING: </strong> ';
 								} 
 								else if (data[i].type == 1) {
-									error = $('.templates .modal-error-template').clone();
+									error = $('.templates .modal-error-template').clone(true, true);
 									error.removeClass('modal-error-template');
 									msg = '<strong>ERROR: </strong> ';
 								}
@@ -142,10 +140,8 @@ $('.remove-student').click(function() {
  * Listener for clicking remove student button (red x) on error modal
  */
 $('.remove-student-error').click(function() {
-	console.log('here');
 	var id = $(this).attr('id');
 	id = id.slice(7);
-	console.log(id);
 	$('#error-form-' + id).remove();
 });
 
@@ -184,7 +180,7 @@ $('#cancel-upload').click(function() {
  * makes array of JSON objects
  */
 $('#manual-upload').click(function() {
-	var forms = $('.upload-form');
+	var forms = $('#manual-grade-input .upload-form');
 	var grades = [];
 	for (var i = 0; i < forms.length; i++) {
 		var grade = {};

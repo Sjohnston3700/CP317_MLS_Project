@@ -25,7 +25,8 @@
 		</div>
 	</form>
 	<hr>
-	<!-- foreach student -->
+	<div id="manual-grade-input">
+	<!-- foreach student
 	<form class="upload-form" id="student-1">
 		<h3><div id="name" class="inline">John Doe</div><button type="button" class="btn btn-error btn-remove inline remove-student" id="remove-1">x</button></h3>
 		<div class="form-group">
@@ -41,7 +42,8 @@
 			<input id="grade" name="grade" type="text" placeholder="Grade">
 		</div>	
 		<textarea id="comment" name="comment" class="input" placeholder="Student feedback..." resize="false"></textarea>
-	</form>
+	</form> -->
+	</div>
 	<button type="button" id="manual-upload" class="btn submit-btn">Upload grades to MLS</button>
 </div>
 <div id="error-message-modal" class="modal">
@@ -74,11 +76,29 @@
 		</div>	
 		<textarea class="input" name="comment" id="comment" placeholder="Student feedback..." resize="false"></textarea>
 	</form>
+	<form class="upload-form upload-form-template hidden">
+		<h3><div id="name" class="inline"></div><button type="button" class="btn btn-error btn-remove inline remove-student">x</button></h3>
+		<div class="form-group">
+			<label>Grade: </label>
+			<input id="grade" name="grade" type="text" placeholder="Enter grade...">
+		</div>	
+		<textarea id="comment" name="comment" class="input" placeholder="Student feedback..." resize="false"></textarea>
+	</form>
 </div>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/upload.js"></script>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/jquery.easy-autocomplete.js"></script>
 <script>
-	
+	function formExists(id) {
+		var forms = $('#manual-grade-input .upload-form');
+		var grades = [];
+		for (var i = 0; i < forms.length; i++) {
+			if (forms[i].id.slice(8) == id) {
+				return true;
+			}
+		return false;
+		}
+	}
+		
 	var options = {
 		data: [],
 		getValue: "name",
@@ -101,9 +121,22 @@
 				callback: function() {}
 			},
 			onClickEvent: function() {
-				var form = document.createElement("form");
-				form.innerHTML = "<h3>" + $("#members").getSelectedItemData().name + "<button class=\"btn btn-error btn-remove inline\">x</button></h3> <div class=\"form-group\"> <label>Grade: </label> <input type=\"text\" placeholder=\"Grade out of /{{grade_item.get_max()}}\"></div><textarea class=\"input\" placeholder=\"Student feedback...\" resize=\"false\"></textarea>";
-				document.getElementById("manual-grade-input").appendChild(form);
+				var name = $("#members").getSelectedItemData().name;
+				var id = $("#members").getSelectedItemData().id;
+				
+				// Only make grade form if one doesn't exist for that student yet
+				if (!formExists(id)) {
+					
+					var form = $('.templates .upload-form-template').clone(true, true);
+
+					form.removeClass('upload-form-template');
+					form.removeClass('hidden');
+					form.find('#name').text(name);
+					form.find('.remove-student').attr('id', 'remove-' + id);
+					form.attr('id', 'student-' + id);
+
+					$("#manual-grade-input").append(form);
+				}
 			}
 		},
 		template: {

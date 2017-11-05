@@ -1,5 +1,5 @@
 /* Upload Button */
-input {
+input[type="file"] {
     display: block;
     visibility: hidden;
     width: 0;
