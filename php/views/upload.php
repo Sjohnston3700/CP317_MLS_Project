@@ -44,21 +44,6 @@
 	</form>
 	<button type="button" id="manual-upload" class="btn submit-btn">Upload grades to MLS</button>
 </div>
-<div id="change-total-modal" class="modal">
-	<div class="modal-content">
-		<div class="modal-header">
-			<span class="close">&times;</span>
-			<h3>Change grade item total</h3>
-		</div>
-		<div class="modal-body">
-			<input type="text" class="input" placeholder="Grade item now out of...">
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-success">Update total</button>
-			<button class="btn btn-error">Cancel</button>
-		</div>
-	</div>
-</div>
 <div id="error-message-modal" class="modal">
 	<div class="modal-content">
 		<div class="modal-header">
@@ -72,20 +57,22 @@
 		<div class="modal-body">
 		</div>
 		<div class="modal-footer">
-			<button class="btn btn-success">Re-Upload</button>
-			<button class="btn btn-error">Cancel Upload</button>
+			<button id="resubmit" class="btn btn-success">Re-Upload</button>
+			<button id="cancel-upload" class="btn btn-error">Cancel Upload</button>
 		</div>
 	</div>
 </div>
 <!-- Template HTML -->
-<p class="modal-warning modal-warning-template hidden"></p>
-<p class="modal-error modal-error-template hidden"></p>
-<form class="form-wide hidden" id="modal-form-template">
-	<h3><div id="name" class="inline"></div><button class="btn btn-error btn-remove inline">x</button></h3>
-	<div class="form-group">
-		<label>Grade: </label>
-		<input type="text" name="grade" id="grade" placeholder="Enter grade">
-	</div>	
-	<textarea class="input" name="comment" id="comment" placeholder="Student feedback..." resize="false"></textarea>
-</form>
+<div class="templates">
+	<p class="modal-warning modal-warning-template hidden"></p>
+	<p class="modal-error modal-error-template hidden"></p>
+	<form class="modal-form-template form-wide hidden" id="modal-form-template">
+		<h3><div id="name" class="inline"></div><button class="btn btn-error btn-remove inline">x</button></h3>
+		<div class="form-group">
+			<label>Grade: </label>
+			<input type="text" name="grade" id="grade" placeholder="Enter grade">
+		</div>	
+		<textarea class="input" name="comment" id="comment" placeholder="Student feedback..." resize="false"></textarea>
+	</form>
+</div>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/upload.js"></script>

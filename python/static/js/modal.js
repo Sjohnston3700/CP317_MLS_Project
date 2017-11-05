@@ -29,3 +29,8 @@ function showModalWithoutClose(modalId) {
 	});
 }
 
+function closeModal(modalId) {
+	var modal = $('#' + modalId);
+	modal.css('display', 'none');
+}
+
