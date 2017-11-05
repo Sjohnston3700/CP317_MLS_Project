@@ -1,10 +1,30 @@
+/*
+	 Automated upload and manual upload JS functions
+	 Author: Sarah Johnston
+	 Usage: Controller used with upload.html. Functions and listeners used 
+			  to populate error checking modal, send JSON grade object to error_checking.php, 
+			  and display error messages
+ */
+
 var globalGrades = [];
+
+/**
+ * Listener for iframe loading. Required to upload and parse file without 
+ * page reloading. parse_file.php returns JSON object from parsed file 
+ * and puts into iframe. This listener function gets the contents of the 
+ * iframe and calls error checking function.
+ */
 $('#upload-target').on('load', function(){
 		var result = $(this).contents().find('body').html();
 		var grades = JSON.parse(result);
 		sendToErrorChecking(grades);
 });
-	
+
+/**
+ * Updates the global grades array when user resubmits grades.
+ * @param {Array} grades - New JSON object of grades from error checking modal
+ */
+
 function updateGlobalGrades(grades) {
 	var index;
 	var grade;
@@ -24,6 +44,13 @@ function updateGlobalGrades(grades) {
 	}
 }
 
+/**
+ * Finds grade with 'id' in array 'grades'
+ * @param {Integer} id - Id of student to find
+ * @param {Array} grades - Array of grade objects to check
+ * @return {Integer} Index of found grade item with student id 'id'
+ */
+
 function findGrade(id, grades) {
 	for (var i = 0; i < grades.length; i++) {
 		if (String(grades[i].id) == String(id)) {
@@ -32,6 +59,13 @@ function findGrade(id, grades) {
 	}
 	return -1;
 }
+
+/**
+ * Ajax call to error_checking.php. On return, if status is 200, redirects 
+ * to report page. Otherwise, displays error modal with error messages 
+ * returned from error_checking.php
+ * @param {Array} data - array of JSON grade objects to send for error checking 
+ */
 
 function sendToErrorChecking(data) { 
 	// Clear all previous forms and error messages
@@ -61,13 +95,13 @@ function sendToErrorChecking(data) {
 								
 								errorForm.find('#name').text(data[i].name);
 								errorForm.attr('id', formId);
-								
 								errorForm.addClass('error-form');
 								errorForm.removeClass('hidden');
 								errorForm.removeClass('modal-form-template');
 								errorForm.find('#comment').text(data[i].comment);
 								errorForm.find('#grade').val(data[i].value);
 								errorForm.appendTo('.modal-body');
+								errorForm.find('.remove-student-error').attr('id', 'remove-' + data[i].id);
 
 								if (data[i].type == 0) {
 									error = $('.templates .modal-warning-template').clone();
@@ -95,12 +129,30 @@ function sendToErrorChecking(data) {
 		});
 }	
 
+/**
+ * Listener for clicking remove student button (red x) on manual entry.
+ */
 $('.remove-student').click(function() {
 	var id = $(this).attr('id');
 	id = id.slice(7);
 	$('#student-' + id).remove();
 });
 
+/**
+ * Listener for clicking remove student button (red x) on error modal
+ */
+$('.remove-student-error').click(function() {
+	console.log('here');
+	var id = $(this).attr('id');
+	id = id.slice(7);
+	console.log(id);
+	$('#error-form-' + id).remove();
+});
+
+/**
+ * Click event for when user resubmits grades. Gets changes from modal 
+ * then updates global grades array and sends to error checking again.
+ */
 $('#resubmit').click(function() {
 	var forms = $('.modal-body .error-form');
 	var grades = [];
@@ -120,10 +172,17 @@ $('#resubmit').click(function() {
 	sendToErrorChecking(globalGrades);
 });
 
+/**
+ * Closes button for error checking modal.
+ */
 $('#cancel-upload').click(function() {
 	closeModal('error-message-modal');
 });
 
+/**
+ * Submits manual upload form. Goes through student forms and 
+ * makes array of JSON objects
+ */
 $('#manual-upload').click(function() {
 	var forms = $('.upload-form');
 	var grades = [];

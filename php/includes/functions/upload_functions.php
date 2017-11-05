@@ -1,6 +1,11 @@
 <?php 
 	
-
+/**
+ * Parses Grade file (csv). Goes through file object and creates 
+ * array of JSON grade objects.
+ * @param {File} file - opened file object
+ * @return {Array} Array of grade objects.
+ */
 function parse_file($file)
 {
 	$grades = array();
@@ -22,6 +27,12 @@ function parse_file($file)
 	return $grades;
 }
 
+/**
+ * Error checking for array of grades object. Returns array of errors.
+ * @param {Array} grades - array of grades objects
+ * @param {Integer} grade_item_id
+ * @return {Array} Array of errors and error messages to be sent to frontend
+ */
 function error_checking($grades, $grade_item_id)
 {	
 	// Filler until grades class is done

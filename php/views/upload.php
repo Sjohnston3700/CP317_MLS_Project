@@ -67,7 +67,7 @@
 	<p class="modal-warning modal-warning-template hidden"></p>
 	<p class="modal-error modal-error-template hidden"></p>
 	<form class="modal-form-template form-wide hidden" id="modal-form-template">
-		<h3><div id="name" class="inline"></div><button class="btn btn-error btn-remove inline">x</button></h3>
+		<h3><div id="name" class="inline"></div><button type="button" class="btn btn-error btn-remove inline remove-student-error">x</button></h3>
 		<div class="form-group">
 			<label>Grade: </label>
 			<input type="text" name="grade" id="grade" placeholder="Enter grade">
