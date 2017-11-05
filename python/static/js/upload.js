@@ -111,7 +111,7 @@ function sendToErrorChecking(data) {
 									error.removeClass('modal-error-template');
 									msg = '<strong>ERROR: </strong> ';
 								}
-
+								error.addClass('error-msg-' + data[i].id);
 								error.html(msg + data[i].msg);
 								error.removeClass('hidden');
 								error.insertBefore(errorForm);
@@ -143,6 +143,9 @@ $('.remove-student-error').click(function() {
 	var id = $(this).attr('id');
 	id = id.slice(7);
 	$('#error-form-' + id).remove();
+	
+	// Remove all error messages for that person
+	$('.error-msg-' + id).remove();
 });
 
 /**
