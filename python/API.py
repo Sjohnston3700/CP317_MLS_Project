@@ -10,60 +10,40 @@ GET_USER_ENROLLMENT  = '/d2l/api/le/(version)/(orgUnitId)/grades/'
 GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
 
 
-def get_grade_items(course):
+def get(user, route, route_params):
     '''
-    Returns grades associated with the a given user context and course id number
+    Uses a GET request to get JSON
 
     Preconditions:
-        course (Course object) : the course to get the grade items for.
+        user - A User object corresponding to the current user
+		route - The route to make a GET request to
+		route_params - A dictionary of parameters corresponding to route
+	Postconditions
+		On success:
+			Returns:
+			Python dict of grade objects
+		On failure:
+			raises RuntimeError
     '''
-    # get latest installed version of the API
-    product_code = 'lp'
-    version =  [item['LatestVersion'] for item in get_api_versions(course.get_user().get_host()) if item['ProductCode'] == product_code][0]
-    # Make request to get grades
-    r = get_route(course.get_user(), GET_GRADES_ROUTE, {'version': version, 'orgUnitId': course.get_id() })
-    # Check if request went through
+    # Make request to GET grades
+    r = get_route(user.get_context(), route, route_params)
+    # Check if request was valid
     check_request(r)
     return r.json()
 
-def put_grade_item(self, grade_item, params):
+def put(user, route, route_params, params):
     '''
-    Uses a PUT request to set multiple grade entries in Brightspace using JSON
+    Uses a PUT request to set JSON
     
     Preconditions :
         grade_item (GradeItem object) : The grade_item to change grade data for
         params (json) : JSON grade data to send
     Postconditions:
-        Brightspace grade data will be changed for student with id user_id
+        Brightspace data will be updated with params as JSON
     '''
-    # get latest installed version of the API
-    product_code = 'lp'
-    version =  [item['LatestVersion'] for item in get_api_versions(grade_item.get_user().get_host()) if item['ProductCode'] == product_code][0]
-    route_params = {'version': version, 'orgUnitId': grade_item.get_course().get_id(), 'gradeObjectId': grade_item.get_id()}
-    r = put_route(grade_item.get_user(), SET_GRADES_ROUTE, route_params, params)
-    check_request(r)
-    return
-
-def put_grade(self, us, user_id, course_id, grade_item_id, grade_data):
-    '''
-    Uses a PUT request to set a single grade entry for user 
-	with ID = user_id in Brightspace using JSON
-    
-    Preconditions :
-        uc : Usercontext to make the call with
-        user_id (int or str) : Valence User Id of student
-        course_id (int or str) : Valence Course Id number
-        grade_item_id (int or str ) : Valence Grade Item Id
-        grade_data (dict ) : JSON grade data to send
-    Postconditions:
-        Brightspace grade data will be changed for student with id user_id
-    '''
-    # get latest installed version of the API
-    product_code = 'lp'
-    version =  [item['LatestVersion'] for item in get_api_versions(uc) if item['ProductCode'] == product_code][0]
-    route_params = {'version': version, 'orgUnitId': course_id, 'gradeObjectId': grade_item_id, 'userId': user_id}
-	# Attempt to set the user's grade
-    r = put_route(uc, SET_GRADE_ROUTE, route_params, grade_data)
+	# Make request to PUT grades
+    r = put_route(user.get_context(), route, route_params, params)
+	# Check if request was valid
     check_request(r)
     return
 
