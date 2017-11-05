@@ -7,8 +7,8 @@
 <body>
     <script src="../static/js/toc_generator.js"></script>
     <h1>ezMarker - Design</h1>
-    <p>Version 2.0</p>
-    <p>Last updated: November 1, 2017</p>
+    <p>Version 2.1</p>
+    <p>Last updated: November xx, 2017</p>
 
     <div id="toc">
         <h2>Table of Contents</h2>
@@ -27,18 +27,16 @@
     <p>
         <a href="http://php.net/manual/en/intro-whatis.php">PHP </a>(Hypertext Preprocessor) is a server-side scripting langauge. It is used for ezMarker's PHP version. For this project, an <a href="https://aws.amazon.com/">AWS</a> (Amazon Web Services) Ubuntu server hosts the PHP website. Ubuntu supports <a href="https://www.apache.org/">Apache</a>, an open-source HTTP Server that can serve web applications with backends such as PHP.
     </p>
-	<p>
-		PHP is being used as the language for one of the ezMarker versions at the request of the client. This is a good choice for the backend because the project is simple to host
-		on Apache, the Brightspace API has PHP support, and it is not a steep learning curve for the members of the group that do not have previous knowledge of PHP. There is minimal cost for hosting the PHP web application, and no cost to use the language PHP. 
-	</p>
+    <p>
+        PHP is being used as the language for one of the ezMarker versions at the request of the client. This is a good choice for the backend because the project is simple to host on Apache, the Brightspace API has PHP support, and it is not a steep learning curve for the members of the group that do not have previous knowledge of PHP. There is minimal cost for hosting the PHP web application, and no cost to use the language PHP.
+    </p>
     <h3>Python</h3>
     <p>
         <a href="https://www.python.org/">Python</a> is the scripting language being used for ezMarker's Python version. <a href="http://flask.pocoo.org/">Flask</a>, a Python microframework with a built-in development server and debugger, is used to make this web application. To host the Python project, <a href="https://dashboard.heroku.com/apps">Herokuapp</a> is used because of its support for Flask Apps.
     </p>
-	<p>
-		Python is being used as the language for the other version of ezMarker at the request of the client. This is also a good choice for backend because the project was already 
-		started in this language by Harold Hodgins, the Brightspace API has some Python support, and many group members already have Python experience. There is currently no cost to host the Python web application, and no cost to use the language Python. 
-	</p>
+    <p>
+        Python is being used as the language for the other version of ezMarker at the request of the client. This is also a good choice for backend because the project was already started in this language by Harold Hodgins, the Brightspace API has some Python support, and many group members already have Python experience. There is currently no cost to host the Python web application, and no cost to use the language Python.
+    </p>
 
     <h3>Package Diagram</h3>
 
@@ -55,11 +53,13 @@
 
     <h3>Login Page</h3>
     <p>Brightspace takes care of generating the page and handling input.</p>
-    <h3>Course List Page(User JSON)</h3>
+
+    <h3>Courses Page</h3>
     <p> This page has the list of courses and grade items the user has access to modify.</p>
 
     <b>Additional Notes:</b>
     <ul>
+        <li>A warning message appears underneath the course if the user tries to expand a course that has no grade items.</li>
         <li>The user will be notified if they do not have permission to set grades for any courses.</li>
     </ul>
 
@@ -99,7 +99,13 @@
             <td>Shows pop up window of how to use ezMarker</td>
         </tr>
     </table>
-    <h3>Upload Grade Page(User JSON)</h3>
+    <h3>Upload Page(Students JSON)</h3>
+
+    <b>Additional Notes:</b>
+    <ul>
+        <li>An error message appears above the Update Maximum field if there is an error with input maximum</li>
+    </ul>
+
     <img class="prototype-img" src="../static/img/upload_grade.png">
     <table border="1">
         <col width="200">
@@ -164,8 +170,9 @@
             <td>Allows user to enter a numeric value for updating the maximum value</td>
         </tr>
     </table>
-    <h3>Error Handling Modal</h3>
-    <p>Appears if there are errors with user input.</p>
+    <h3>Error Handling Modal(Grades JSON, Grade Error JSON)</h3>
+    <p>Appears if there are errors with user input. Error and warning messages will appear above the appropriate item.</p>
+    <p><b>Note:</b> This pop-up is implemented as part of the Upload page.</p>
     <img class="prototype-img" src="../static/img/error_model.png" />
     <table border="1">
         <col width="200">
@@ -231,14 +238,16 @@
 
     <h3>Functions</h3>
 
-    <p>This section gives a high-level description of the back-end functions.</p>
+    <p>This section gives a high-level description of the back-end functions. See the Wrapper Design document for the objects that these functions use.</p>
+
+    <p><b>Important Note:</b> The user object is stored for each session, so all required objects can be reached by navigating from the user object.</p>
 
     <h4>login()</h4>
     <ol>
         <li>Redirects user to Brightspace login page</li>
         <li>Creates user object</li>
         <li>Sorts course list in ascending order by course name</li>
-        <li>Redirects to Available Courses page, passing JSON containing User information (including all attributes of User)</li>
+        <li>Renders the Courses page and passes JSON with student information</li>
     </ol>
 
     <h4>logout()</h4>
@@ -253,23 +262,13 @@
         <li>If valid, grade item total is updated</li>
     </ol>
 
-    <h4>set_grades(JSON grades, grade_item_id)</h4>
-    <ol>
-        <li>Assumes that error checking has already been done</li>
-        <li>Creates grade objects from JSON</li>
-        <li>Uploads grades</li>
-        <li>Tracks exceptions from Brightspace API wrapper in JSON</li>
-        <li>Remove grades from grade list and students and grades JSON that caused exception</li>
-        <li>Redirects to Report page, passes JSON of grades and students, JSON of errors/warnings (if applicable)</li>
-    </ol>
-
-    <h4>parse_file(File Object)</h4>
+    <h4>parse_file()</h4>
     <ol>
         <li>Parses uploaded file</li>
         <li>Creates and returns JSON with student and grade information</li>
     </ol>
 
-    <h4>error_checking(JSON grades, grade_item_id)</h4>
+    <h4>error_checking(Grades JSON, grade_item_id)</h4>
     <ol>
         <li>Checks grade values in JSON</li>
         <li>If grade value > max grade, add item to JSON warning list specifying grade, student, and msg</li>
@@ -278,23 +277,33 @@
         <li>Return JSON if applicable</li>
     </ol>
 
+    <h4>set_grades(Grades JSON, grade_item_id)</h4>
+    <ol>
+        <li>Assumes that error checking has already been done</li>
+        <li>Creates grade objects from JSON</li>
+        <li>Uploads grades</li>
+        <li>Keep track of grades that cause exceptions when uploading them and remove those grade from grade item grade list</li>
+        <li>Render Report page</li>
+    </ol>
+
     <h3 id="JSON">JSON Specifications</h3>
     <p>The design of the JSON objects that ezMarker creates.</p>
 
-    <h4>User JSON (used in <i>login</i> controller, <i>Available Courses</i> and <i>Grade Item</i> pages)</h4>
-	<p>{ name: String, id: int, org_id: int, role: int, courses: [ Array of Course objects] }</p>
+    <h4>Grades JSON (used in <i>parse_grade</i> function and <i>set_grades</i> controller, <i>Upload</i> page)</h4>
+    <p> { grades: [ { org_member_id: int, value: float, comment: String } ] }</p>
 
-    <h4>Grades JSON (used in <i>parse_grade</i> function and <i>set_grades</i> controller, <i>Grade Item</i> and <i>Report</i> pages)</h4>
-	<p> { grades: [ { org_member_id: int, id: int, value: float, max_points: float } ] }</p>
+    <h4>Grade Error JSON (used in <i>error_checking</i> function and <i>set_grades</i> controller, <i>Upload</i> page)</h4>
+    <p>{ errors: [ { type: int, org_member_id: int, msg: String } ] }</p>
+    <b>Note:</b>
+    <ul>
+        <li><b>type</b> describes if it a warning (0) or an error (1)</li>
+        <li>
+            When this JSON is returned to the frontend from the controller, it is the frontend's responsibility to display 'msg' above the appropriate input for the student with 'org_member_id'. The error messages are for used to inform the user of parsing errors. They are prompted to fix these errors and re-submit their grades to upload.
+        </li>
+    </ul>
 
-    <h4>Grade Error JSON (used in <i>error_checking</i> function and <i>set_grades</i> controller, <i>Grade Item</i> and <i>Report</i> pages)</h4>
-	<p>{ errors: [ { id: String, msg: String } ] }</p>
-	<p>{ 'errors': [ { 'id': '12345', 'msg': 'Grade item can not be negative' }, { 'id': '45678', 'msg': 'No grade entered' } ] }</p>
-	<p> 
-		When this JSON is returned to the frontend from the controller, it is the frontend's responsibility to display 'msg' above the appropriate input for 
-		the student with 'id'. The error messages are for used to inform the user of parsing errors. They are prompted to fix these errors and re-submit their 
-		grades to upload. 
-	</p>
+<h4>Student JSON (used in <i>login</i> controller and <i>Courses</i> page)</h4>
+<p>{ students: [ {org_member_id: int, name: String} ] }</p>
 
     <h3>HTTP Status Codes</h3>
 
@@ -318,9 +327,9 @@
         <li>/templates</li>
         <ul id="file-structure">
             <li>index.html</li>
+            <li>courses.html</li>
             <li>upload.html</li>
-            <li>available_grades.html</li>
-            <li>grades_uploaded.html</li>
+            <li>report.html</li>
         </ul>
         <li>/static</li>
         <ul id="file-structure">
@@ -351,9 +360,9 @@
         <li>/views</li>
         <ul id="file-structure">
             <li>index.php</li>
+            <li>courses.php</li>
             <li>upload.php</li>
-            <li>available_grades.php</li>
-            <li>grades_uploaded.php</li>
+            <li>report.php</li>
         </ul>
         <li>/static</li>
         <ul id="file-structure">
@@ -376,6 +385,7 @@
     <h3 id="toc_exclude">Version 1.0 - 10/23/2017</h3>
     <p>Authors: Sarah Johnston, Xiang Ke, Weibin Ma, Troy Nechanicky, Michelle Wong, Hind Althabi</p>
     <p>SQA: Zac Macdonald, Pirajeev Prabaharan</p>
+
     <h3 id="toc_exclude">Version 2.0 - 11/01/2017</h3>
     <p>- Revised UI design</p>
     <p>- Revised Project Flow diagram</p>
@@ -386,6 +396,16 @@
     <p>- Specified grade file format</p>
     <p>Authors: Sarah Johnston, Xiang Ke, Weibin Ma, Troy Nechanicky, Michelle Wong</p>
     <p>SQA: Troy Nechanicky</p>
+
+    <h3 id="toc_exclude">Version 2.1 - 11/xx/2017</h3>
+    <p>- Added descriptions of UI error handling</p>
+    <p>- Fixed JSON designs</p>
+    <p>- Renamed pages for consistency</p>
+    <p>- Corrected descriptions of interaction between back-end and UI</p>
+    <p>- Fixed image sizes</p>
+    <p>- Fixed Program Flow diagram</p>
+    <p>Authors: Troy Nechanicky</p>
+    <p>SQA: </p>
 </body>
 <style>
     #file-structure {
@@ -397,7 +417,6 @@
         margin: 20px 0px;
 
     }
-
 </style>
 
 </html>

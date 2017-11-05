@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <script src="../../static/js/toc_generator.js"></script>
+    <script src="../static/js/toc_generator.js"></script>
     <h1>Brightspace API Wrapper - Design</h1>
     <p>Version 2.0</p>
     <p>Last updated: xxxxxx, 2017</p>
@@ -21,33 +21,59 @@
     <p>This document describes the design of the wrapper's classes and functions, along with providing helpful reference information.</p>
 
     <h2>Class Design</h2>
-    <img src="../../static/img/wrapper_design_class_diagram.jpg">
+    <img src="../static/img/wrapper_design_class_diagram.jpg">
     <b>Additional Comments:</b>
     <ul>
         <li>Trigger exceptions on error</li>
-        <li>See the documentation linked in the following section for the specifications of the JSON objects that will be passed as parameters</li>
+        <li>See the documentation linked in the following section for the specifications of the dictionaries that will be passed as parameters (dictionaries will follow same naming as API JSON)</li>
     </ul>
 
     <h2>API Functions</h2>
-    <h3>Diagram</h3>
-    <img src="../../static/img/wrapper_design_api_file.jpg">
+    <img src="../static/img/wrapper_design_api_file.jpg">
 
+    <br>
     <b>Additional Comments:</b>
     <ul>
-        <li>Trigger exceptions on error</li>
+        <li>Trigger exceptions on error. Use response message as error message</li>
     </ul>
 
-    <h3>API Reference</h3>
+    <h2>API Reference</h2>
+    
+    <h3>API Requests</h3>
+
+    <p>This section lists the API requests required by each class</p>
+
+    <h4>Host</h4>
     <ul>
-        <li>get_api_versions: Implements GET <a href="http://docs.valence.desire2learn.com/res/apiprop.html#get--d2l-api-versions-" target="_blank">/d2l/api/versions/</a></li>
-        <li>get_who_am_i: Implements GET <a href="http://docs.valence.desire2learn.com/res/user.html#get--d2l-api-lp-(version)-users-whoami" target="_blank">/d2l/api/lp/(version)/users/whoami</a></li>
-        <li>put_grade: Implements PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)-values-(userId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)</a></li>
-        <li>get_course_members: Implements GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-orgUnits-(orgUnitId)-users-" target="_blank">/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/</a></li>
-        <li>get_user_enrollments: Implements GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/</a></li>
-        <li>get_user_enrollment: Implements GET<a href="http://docs.valence.desire2learn.com/res/grade.html#get--d2l-api-le-(version)-(orgUnitId)-grades-" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a></li>
-        <li>get_grade_items: Implements GET<a href="http://docs.valence.desire2learn.com/res/grade.html#get--d2l-api-le-(version)-(orgUnitId)-grades-" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a></li>
-        <li>put_grade_item: Implements PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)</a></li>
+        <li>GET <a href="http://docs.valence.desire2learn.com/res/apiprop.html#get--d2l-api-versions-" target="_blank">/d2l/api/versions/</a></li>
     </ul>
+
+    <h4>OrgMember</h4>
+    <p>None.</p>
+
+    <h4>User</h4>
+    <ul>
+        <li>GET <a href="http://docs.valence.desire2learn.com/res/user.html#get--d2l-api-lp-(version)-users-whoami" target="_blank">/d2l/api/lp/(version)/users/whoami</a></li>
+        <li>GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-users-(userId)-orgUnits-" target="_blank">/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/</a></li>
+    </ul>
+
+    <h4>Course</h4>
+    <ul>
+        <li>GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-orgUnits-(orgUnitId)-users-" target="_blank">/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/</a></li>
+        <li>GET<a href="http://docs.valence.desire2learn.com/res/grade.html#get--d2l-api-le-(version)-(orgUnitId)-grades-" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a></li>
+    </ul>
+
+    <h4>GradeItem</h4>
+    <ul>
+        <li>PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)</a></li>
+    </ul>
+
+    <h4>Grade</h4>
+    <ul>
+        <li>PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)-values-(userId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)</a></li>
+    </ul>
+    
+    <h3>Language Specific References</h3>
 
     <h4>Python Specific</h4>
     <ul>
@@ -73,6 +99,12 @@
     <p>- Added additional notes</p>
     <p>- Added Additional Comments sections</p>
     <p>- Specified error handling</p>
+    <p>- Changed request for getting user enrollments</p>
+    <p>- Changed param type for _route functions</p>
+    <p>- Removed individual functions for each request in API file. Now just <i>API.get</i> and <i>API.put</i> functions that are passed appropriate route</p>
+    <p>- Removed mention of specific requests from API diagram</p>
+    <p>- Grouped API reference section by class</p>
+    <p>- Replaced type JSON with type dictionary</p>
     <p>Authors: Sumeet Jhand, Troy Nechanicky</p>
     <p>SQA: Yi Ling Pang</p>
 </body>
