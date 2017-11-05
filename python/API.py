@@ -26,7 +26,7 @@ def get(user, route, route_params):
 			raises RuntimeError
     '''
     # Make request to GET grades
-    r = get_route(user.get_context(), route, route_params)
+    r = get_route(user, route, route_params)
     # Check if request was valid
     check_request(r)
     return r.json()
@@ -42,7 +42,7 @@ def put(user, route, route_params, params):
         Brightspace data will be updated with params as JSON
     '''
 	# Make request to PUT grades
-    r = put_route(user.get_context(), route, route_params, params)
+    r = put_route(user, route, route_params, params)
 	# Check if request was valid
     check_request(r)
     return
