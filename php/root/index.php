@@ -23,7 +23,7 @@
 	/****************************************************************************************************/
 
 	$PATH_TO_STATIC = '../../python/static';
-    $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'home';
+    $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'courses';
 
 
     switch ($page)
@@ -63,9 +63,12 @@
 		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/home.css">
 		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/docs.css">
 		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/tables.css">
+		<!--<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/upload_button.css">-->
+		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/easy_autocomplete.css">
 		
 		<!-- Fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
 	</head>
 	<body>

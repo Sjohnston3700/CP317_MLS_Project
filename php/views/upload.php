@@ -17,8 +17,8 @@
 <h2>Manual Grade Input</h2>
 <div class="page-section">
 	<h4>Search to add a student: </h4>
-	<form>
-		<input type="text" class="input" placeholder="Enter Student Name or ID...">
+	<form>	
+		<input id="members" class="input" type="text" onkeyup="switchSearchType()" placeholder="Enter Student Name or ID...">
 		<div class="form-checkbox">
 			<input type="checkbox">
 			<label class="mini">Select all</label>
@@ -76,3 +76,69 @@
 	</form>
 </div>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/upload.js"></script>
+<script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/jquery.easy-autocomplete.js"></script>
+<script>
+	
+	var options = {
+		data: [],
+		getValue: "name",
+		list: 
+		{
+			match: {
+				enabled: true
+			},
+			sort: {
+				enabled: true
+			},
+			showAnimation: {
+				type: "slide",
+				time: 200,
+				callback: function() {}
+			},
+			hideAnimation: {
+				type: "fade",
+				time: 200,
+				callback: function() {}
+			},
+			onClickEvent: function() {
+				var form = document.createElement("form");
+				form.innerHTML = "<h3>" + $("#members").getSelectedItemData().name + "<button class=\"btn btn-error btn-remove inline\">x</button></h3> <div class=\"form-group\"> <label>Grade: </label> <input type=\"text\" placeholder=\"Grade out of /{{grade_item.get_max()}}\"></div><textarea class=\"input\" placeholder=\"Student feedback...\" resize=\"false\"></textarea>";
+				document.getElementById("manual-grade-input").appendChild(form);
+			}
+		},
+		template: {
+			type: "description",
+			fields: {
+				description: "id"
+			}
+		}
+	};
+//
+//	{% for member in course.get_members() %}
+//		options.data.push({name:"{{member.get_name()}}", id:"{{member.get_org_id()}}"});
+//	{% endfor %}
+	
+	options.data = [ 
+		{ name: 'Sarah Johnston', id: '12345'},
+		{ name: 'Johnston Doe', id: '34567'}
+	];
+
+	$("#members").easyAutocomplete(options);
+
+	function switchSearchType() {
+		var value = document.getElementById("members").value;
+		if (/\d/g.test(value) && options.getValue == "name") {
+			options.getValue = "id";
+			options.template.fields.description = "name";
+			$("#members").easyAutocomplete(options);
+			$("#members").focus();
+		} 
+		else if (/^[a-zA-Z]+$/.test(value) && options.getValue == "id") {
+			options.getValue = "name";
+			options.template.fields.description = "id";
+			$("#members").easyAutocomplete(options);
+			$("#members").focus();
+		}
+	}
+
+</script>
