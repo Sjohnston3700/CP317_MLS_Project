@@ -30,7 +30,8 @@ def get(route, user = None, route_params = {}):
         r = requests.get(update_route(route, route_params))
     else:
         # Make request to GET grades
-        r = get_route(user, route, route_params)
+        route = update_route(route, route_params)
+        r = requests.get(user.get_context().create_authenticated_url(route,method='GET'))
     # Check if request was valid
     check_request(r)
     return r.json()
@@ -46,7 +47,8 @@ def put(route, user, route_params, params):
         Brightspace data will be updated with params as JSON
     '''
     # Make request to PUT grades
-    r = put_route(user, route, route_params, params)
+    route = update_route(route,route_params)
+    r = requests.put(user.get_context().create_authenticated_url(route,method='PUT'),json=params)
     # Check if request was valid
     check_request(r)
     return
@@ -67,41 +69,6 @@ def update_route(route,params):
     for key in params:
         route = route.replace("({})".format( key ), str(params[key]) )
     return route
-
-def get_route(user, route, params):
-    ''' 
-    Function to test api routes
-        
-    Preconditions :
-        user: the user that is sending the request
-        route: api route copied from valence doc
-        params: dictionary of parameters - keys = what to replace
-
-    Postconditions
-        Returns :
-            request result 
-    '''    
-    route = update_route(route,params)    
-    url = user.get_context().create_authenticated_url(route,method='GET')
-    return requests.get(url)
-
-def put_route(user, route, params, data):
-    ''' 
-    Function to test api routes
-    
-    Preconditions :
-        user: the user that is sending the request
-        route: api route copied from valence docs
-        params: dictionary of parameters - keys = what to replace
-        data: python dictionary of json data to send
-
-    Postconditions:
-        Returns :
-            request result 
-    '''    
-    route = update_route(route,params)
-    url = user.get_context().create_authenticated_url(route,method='PUT')
-    return requests.put(url,json=data)
 
 def check_request(request):
     '''
