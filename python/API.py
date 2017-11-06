@@ -25,9 +25,9 @@ def get(route, user = None, route_params = None):
         On failure:
             raises RuntimeError
     '''
-    #for calls from host (user not accessible
+    # For making a call which does not require User context
     if user is None:
-        r = requests.get(route)
+        r = requests.get(update_route(route, route_params))
     else:
         # Make request to GET grades
         r = get_route(user, route, route_params)
