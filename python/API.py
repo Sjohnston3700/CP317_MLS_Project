@@ -10,7 +10,7 @@ GET_USER_ENROLLMENT  = '/d2l/api/le/(version)/(orgUnitId)/grades/'
 GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
 
 
-def get(route, user = None, route_params = None):
+def get(route, user = None, route_params = {}):
     '''
     Uses a GET request to get JSON
 
