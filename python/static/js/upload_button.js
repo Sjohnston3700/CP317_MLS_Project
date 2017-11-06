@@ -1,6 +1,6 @@
 $(function(){
 
-  var fileInput = $(':file')
+  var fileInput = $(':file');
 
   // When your file input changes, update the text for your button
   fileInput.change(function(){
@@ -9,7 +9,7 @@ $(function(){
 	if($this.val().length == 0) {
 	  $('#file').text('Upload File');
 	}else{
-	  $('#file').text($this.val().replace("C:\\fakepath\\", ""));
+	  $('#file').html($this.val().replace("C:\\fakepath\\", "") + "<i class='fa fa-check upload-check' aria-hidden='true'></i>");
 	}
   })
   // When your fake button is clicked, simulate a click of the file button
@@ -17,3 +17,4 @@ $(function(){
 	fileInput.click();
   }).show();
 });
+

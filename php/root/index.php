@@ -63,7 +63,7 @@
 		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/home.css">
 		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/docs.css">
 		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/tables.css">
-		<!--<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/upload_button.css">-->
+		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/upload_button.css">
 		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/easy_autocomplete.css">
 		
 		<!-- Fonts -->
