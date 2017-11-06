@@ -10,28 +10,32 @@ GET_USER_ENROLLMENT  = '/d2l/api/le/(version)/(orgUnitId)/grades/'
 GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
 
 
-def get(user, route, route_params):
+def get(route, user = None, route_params = None):
     '''
     Uses a GET request to get JSON
 
     Preconditions:
         user - A User object corresponding to the current user
-		route - The route to make a GET request to
-		route_params - A dictionary of parameters corresponding to route
-	Postconditions
-		On success:
-			Returns:
-			Python dict of grade objects
-		On failure:
-			raises RuntimeError
+        route - The route to make a GET request to
+        route_params - A dictionary of parameters corresponding to route
+    Postconditions
+        On success:
+            Returns:
+            Python dict of grade objects
+        On failure:
+            raises RuntimeError
     '''
-    # Make request to GET grades
-    r = get_route(user, route, route_params)
+    #for calls from host (user not accessible
+    if user is None:
+        r = requests.get(route)
+    else:
+        # Make request to GET grades
+        r = get_route(user, route, route_params)
     # Check if request was valid
     check_request(r)
     return r.json()
 
-def put(user, route, route_params, params):
+def put(route, user, route_params, params):
     '''
     Uses a PUT request to set JSON
     
@@ -41,9 +45,9 @@ def put(user, route, route_params, params):
     Postconditions:
         Brightspace data will be updated with params as JSON
     '''
-	# Make request to PUT grades
+    # Make request to PUT grades
     r = put_route(user, route, route_params, params)
-	# Check if request was valid
+    # Check if request was valid
     check_request(r)
     return
 
@@ -108,23 +112,6 @@ def check_request(request):
         exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
         raise  RuntimeError( exception_message )
     return    
-
-def get_api_versions(host):
-    '''
-    Function to return the API versions available with this system
-
-    Preconditions:
-        host : The lms server we are connecting to
-        scheme : http or https (dafault http)
-
-    Postconditions:
-        return :
-             r.json() - json file contain all the supported versions
-        Throws a RuntimeError if status code is not 200 
-    '''
-    r = requests.get('{}://{}/{}'.format(host.get_protocol(),host.get_lms_host(),API_ROUTE))
-    check_request(r)
-    return r.json()
 
 def get_course_members(course):
     '''
