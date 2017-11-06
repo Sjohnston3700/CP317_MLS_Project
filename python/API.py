@@ -82,25 +82,6 @@ def check_request(request):
         raise  RuntimeError( exception_message )
     return    
 
-def get_course_members(course):
-    '''
-    Function will return courses members for given course
-
-    Preconditions:
-        host : the lms server we are connecting to
-        uc : Usercontext to make the call with
-        courseId (str or int) : the course Id to get the course members from
-        name (str) : The course name used for error messages (optional) 
-
-    Postconditions:
-        return :
-            r.json()['items'] - Course Member for given course 
-    '''
-    host = course.get_user().get_host()
-    r = get_route(course.get_user(),GET_COURSE_MEMBERS,{'version': host.get_api_version('lp'),'orgUnitId':course.get_id()})
-    check_request(r)
-    return r.json()['Items']
-
 def get_user_enrollments(user):
     '''
     Function will return the list of all enrollments for the current user
