@@ -62,6 +62,8 @@ def update_route(route,params):
     Postconditions:
         Returns new route - Does not check for missed values
     '''
+    if params is None:
+        return route
     for key in params:
         route = route.replace("({})".format( key ), str(params[key]) )
     return route
