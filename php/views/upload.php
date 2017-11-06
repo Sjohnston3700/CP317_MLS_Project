@@ -8,8 +8,11 @@
 <div class="page-section">
 	<h2>Upload a File</h2>
 	  <form id="upload-automated" action="actions/file_parse.php" method="POST" enctype="multipart/form-data" target="upload-target">
-         	<input type="file" name="file" id="file">
-          <p></p>
+         	<label id="file" class="custom-file-upload-btn">
+				<i class="fa fa-cloud-upload"></i> Upload File
+			</label>
+			<input id="file" type="file" name="file"/>
+          	<p></p>
 	  		<button class="btn" type="submit">Upload Grades File</button>
       </form>
 	  <iframe class="hidden-iframe" id="upload-target" name="upload-target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>   
@@ -88,7 +91,4 @@
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/upload.js"></script>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/jquery.easy-autocomplete.js"></script>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/dynamic_search.js"></script>
-<script>
-	
-
-</script>
+<script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/upload_button.js"></script>
