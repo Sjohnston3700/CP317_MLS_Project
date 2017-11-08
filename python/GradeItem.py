@@ -1,19 +1,52 @@
 class GradeItem(object):
-    def __init__(self):
-        raise NotImplementedError("Implement this in the subclass.")
+    
+    def __init__(self, course, grade_item_params):
+        """
+        Preconditions:
+            course (Course object) - the course the GradeItem is for
+            grade_item_params (json) - info about GradeItem  
+            
+        Postconditions:
+            parent constructor to all GradeItem types. contains data common to all types
+        """
+        if type(this) == GradeItem:
+            raise TypeError("GradeItem must be subclassed")
+        this._name = grade_item_params['Name']
+        self._id = grade_item_params['Id']
+        this._course = course
 
     def get_name(self):
-        raise NotImplementedError("Implement this in the subclass.")
-    
+        """ 
+        Getter function
+        Postconditions:
+            Returns: self._name - name of the GradeItem
+        """
+        return self._name
+
     def get_id(self):
-        raise NotImplementedError("Implement this in the subclass.")
-
+        """ 
+        Getter function
+        Postconditions:
+            Returns: self._id - Id of the GradeItem
+        """
+        return self._id
+       
     def get_user(self):
-        raise NotImplementedError("Implement this in the subclass.")
-
+        """ 
+        Getter function
+        Postconditions:
+            Returns: User object - User associated with the GradeItem
+        """
+        self._course.get_user()
+        
     def get_course(self):
-        raise NotImplementedError("Implement this in the subclass.")
-    
+        """ 
+        Getter function
+        Postconditions:
+            Returns: self._course - Course that the GradeItem belongs to
+        """
+        return self._course
+ 
     def get_grade(self, student):
         raise NotImplementedError
 
@@ -34,32 +67,19 @@ class NumericGradeItem(GradeItem):
             creates object of type NumericGradeItem
         """
         if grade_item_params['GradeType'] != 'Numeric':
-            raise Exception('GradeType for GradeItem {} of Course {} is not numeric.'
-                                .format(grade_item_params['Id'], course.get_id()))
-
-        super(GradeItem,self).__init__                      
-        self._course = course
-        self._user = course.get_user()
-        self._name = grade_item_params['Name']
-        self._id = grade_item_params['Id']
+            raise Exception('GradeType for GradeItem {} of Course {} is not numeric.'.format(grade_item_params['Id'], course.get_id()))
+        super().__init__(course, grade_item_params)                      
         self._max_points = grade_item_params['MaxPoints']
-
-    def get_name(self):
-        return self._name
-    
-    def get_id(self):
-        return self._id
-
-    def get_user(self):
-        return self._user
-
-    def get_course(self):
-        return self._course
     
     def create_grade(self, student, grade_params):
         raise NotImplementedError
     
     def get_max(self):
+        """ 
+        Getter function
+        Postconditions:
+            Returns: self._max_points - The max number of points this GradeItem can have for any one Grade ?? I think
+        """
         return self._max_points
     
 

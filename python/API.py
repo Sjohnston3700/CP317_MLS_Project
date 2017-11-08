@@ -10,28 +10,33 @@ GET_USER_ENROLLMENT  = '/d2l/api/le/(version)/(orgUnitId)/grades/'
 GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
 
 
-def get(user, route, route_params):
+def get(route, user = None, route_params = {}):
     '''
     Uses a GET request to get JSON
 
     Preconditions:
         user - A User object corresponding to the current user
-		route - The route to make a GET request to
-		route_params - A dictionary of parameters corresponding to route
-	Postconditions
-		On success:
-			Returns:
-			Python dict of grade objects
-		On failure:
-			raises RuntimeError
+        route - The route to make a GET request to
+        route_params - A dictionary of parameters corresponding to route
+    Postconditions
+        On success:
+            Returns:
+            Python dict of grade objects
+        On failure:
+            raises RuntimeError
     '''
-    # Make request to GET grades
-    r = get_route(user, route, route_params)
+    # For making a call which does not require User context
+    if user is None:
+        r = requests.get(update_route(route, route_params))
+    else:
+        # Make request to GET grades
+        route = update_route(route, route_params)
+        r = requests.get(user.get_context().create_authenticated_url(route,method='GET'))
     # Check if request was valid
     check_request(r)
     return r.json()
 
-def put(user, route, route_params, params):
+def put(route, user, route_params, params):
     '''
     Uses a PUT request to set JSON
     
@@ -41,9 +46,10 @@ def put(user, route, route_params, params):
     Postconditions:
         Brightspace data will be updated with params as JSON
     '''
-	# Make request to PUT grades
-    r = put_route(user, route, route_params, params)
-	# Check if request was valid
+    # Make request to PUT grades
+    route = update_route(route,route_params)
+    r = requests.put(user.get_context().create_authenticated_url(route,method='PUT'),json=params)
+    # Check if request was valid
     check_request(r)
     return
 
@@ -58,44 +64,11 @@ def update_route(route,params):
     Postconditions:
         Returns new route - Does not check for missed values
     '''
+    if params is None:
+        return route
     for key in params:
         route = route.replace("({})".format( key ), str(params[key]) )
     return route
-
-def get_route(user, route, params):
-    ''' 
-    Function to test api routes
-        
-    Preconditions :
-        user: the user that is sending the request
-        route: api route copied from valence doc
-        params: dictionary of parameters - keys = what to replace
-
-    Postconditions
-        Returns :
-            request result 
-    '''    
-    route = update_route(route,params)    
-    url = user.get_context().create_authenticated_url(route,method='GET')
-    return requests.get(url)
-
-def put_route(user, route, params, data):
-    ''' 
-    Function to test api routes
-    
-    Preconditions :
-        user: the user that is sending the request
-        route: api route copied from valence docs
-        params: dictionary of parameters - keys = what to replace
-        data: python dictionary of json data to send
-
-    Postconditions:
-        Returns :
-            request result 
-    '''    
-    route = update_route(route,params)
-    url = user.get_context().create_authenticated_url(route,method='PUT')
-    return requests.put(url,json=data)
 
 def check_request(request):
     '''
@@ -108,85 +81,3 @@ def check_request(request):
         exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
         raise  RuntimeError( exception_message )
     return    
-
-def get_api_versions(host):
-    '''
-    Function to return the API versions available with this system
-
-    Preconditions:
-        host : The lms server we are connecting to
-        scheme : http or https (dafault http)
-
-    Postconditions:
-        return :
-             r.json() - json file contain all the supported versions
-        Throws a RuntimeError if status code is not 200 
-    '''
-    r = requests.get('{}://{}/{}'.format(host.get_protocol(),host.get_lms_host(),API_ROUTE))
-    check_request(r)
-    return r.json()
-
-def get_course_members(course):
-    '''
-    Function will return courses members for given course
-
-    Preconditions:
-        host : the lms server we are connecting to
-        uc : Usercontext to make the call with
-        courseId (str or int) : the course Id to get the course members from
-        name (str) : The course name used for error messages (optional) 
-
-    Postconditions:
-        return :
-            r.json()['items'] - Course Member for given course 
-    '''
-    host = course.get_user().get_host()
-    r = get_route(course.get_user(),GET_COURSE_MEMBERS,{'version': host.get_api_version('lp'),'orgUnitId':course.get_id()})
-    check_request(r)
-    return r.json()['Items']
-
-def get_user_enrollments(user):
-    '''
-    Function will return the list of all enrollments for the current user
-
-    Preconditions:
-        user: The current user to which we are getting enrollments for
-
-    Postconditions:
-        return:
-            r.json - json file containing all enrollments for the current user
-    '''
-    r = get_route(user, GET_USER_ENROLLMENTS, {'version': user.get_host().get_api_version('lp')})
-    check_request(r)
-    return [item for item in r.json()["Items"] if item['OrgUnit']['Type']['Code'] == 'Course Offering']
-
-def get_user_enrollment(user, course_id):
-    '''
-    Function will retrieve all the current grade objects for a particular course id
-
-    Preconditions:
-        user: The current user 
-        course_id: Integer ID of a given course
-
-    Postconditions:
-        return:
-            r.json() - a json array of grade objects blocks.
-    '''
-    r = get_route(user,GET_USER_ENROLLMENT,{'version': user.get_host().get_api_version('le'),'orgUnitId': course_id})
-    check_request(r)
-    return r.json()
-
-def get_who_am_i(user):
-    '''
-    Function retrieves the current user context's user information
-
-    Preconditions:
-        user: the current user
-        
-    Postconditions:
-        return:
-            r.json() - json file containing user data of the current user
-    '''
-    r = get_route(user, GET_WHO_AM_I,{'version': user.get_host().get_api_version('lp')})
-    check_request(r)
-    return r.json()
