@@ -4,22 +4,6 @@ SUCCESS = 200
 API_ROUTE = '/d2l/api/versions/'
 
 
-
-def updateRoute(route,params):
-    '''
-    Function to update api route by replace (...) with the appropriate value
-    
-    Preconditions:
-    route - the route from the valence docs (eg. '/d2l/api/le/(version)/(orgUnitId)/grades/')
-    params - dictionary of replacement values (eg {'version':1.22,'orgUnitId':23456})
-
-    Postconditions:
-    Returns new route - Does not check for missed values
-    '''
-    for key in params:
-        route = route.replace("({})".format( key ), str(params[key]) )
-    return route
-
 def getRoute(uc, route, params):
     ''' 
     Function to test api routes
@@ -85,6 +69,22 @@ def getAvailableClasses(uc):
         returns : r.json()
         Throws a RuntimeError if status code is not 200
     '''
+
+
+def updateRoute(route,params):
+    '''
+    Function to update api route by replace (...) with the appropriate value
+    
+    Preconditions:
+    route - the route from the valence docs (eg. '/d2l/api/le/(version)/(orgUnitId)/grades/')
+    params - dictionary of replacement values (eg {'version':1.22,'orgUnitId':23456})
+
+    Postconditions:
+    Returns new route - Does not check for missed values
+    '''
+    for key in params:
+        route = route.replace("({})".format( key ), str(params[key]) )
+    return route
     
     
 
