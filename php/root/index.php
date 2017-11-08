@@ -43,6 +43,9 @@
 		case 'token':
 			$contents = 'token.php';
 			break;
+		case 'spmp':
+			$contents = $PATH_TO_DOCS . 'spmp.html';
+			break;
 		case 'requirements':
 			$contents = $PATH_TO_DOCS . 'requirements.html';
 			break;
