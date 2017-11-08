@@ -7,25 +7,23 @@
 
 
 	$PATH_TO_STATIC = '../../python/static';
-	$PATH_TO_DOCS = '../../python/templates/';
-
     $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'courses';
 
-	/******************************* All of the D2L code should go here *********************************/
-	 //Skip this part if we already have a valid user context
-//	if ((!isset($_SESSION['user_context']) || strlen($_SESSION['user_context']->getUserId()) > 0) && $page != 'token' ) {
-//		$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
-//	
-//		// TODO: This gives error 'invalid x_target', HOWEVER it seems that the user is authenticated when revisiting the page
-//		$app_url = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
-//		
-//		// Get URL for authentication; this takes a callback address
-//		$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
-//
-//		// Redirect to D2L authentication page; user will be redirected back here after
-//		header('Location: ' . $url);
-//		die();
-//	}
+	/******************************* D2L Code Goes Here *********************************/
+	//Skip this part if we already have a valid user context
+	if ((!isset($_SESSION['user_context']) || strlen($_SESSION['user_context']->getUserId()) > 0) & $page != 'token') {
+		$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
+
+		$app_url = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
+		//$app_url = "{$config['scheme']}://{$config['host']}:{$config['port']}{$config['route']}";
+		
+		// Get URL for authentication; this takes a callback address
+		$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
+		session_write_close();
+		// Redirect to D2L authentication page; user will be redirected back here after
+		header('Location: ' . $url);
+		die();
+	}
 	/****************************************************************************************************/
 
 
@@ -40,30 +38,6 @@
         case 'upload':
             $contents = '../views/upload.php';
             break;
-		case 'token':
-			$contents = 'token.php';
-			break;
-		case 'spmp':
-			$contents = $PATH_TO_DOCS . 'spmp.html';
-			break;
-		case 'requirements':
-			$contents = $PATH_TO_DOCS . 'requirements.html';
-			break;
-		case 'requirements_wrapper':
-			$contents = $PATH_TO_DOCS . 'requirements_wrapper.html';
-			break;
-		case 'analysis':
-			$contents = $PATH_TO_DOCS . 'analysis.html';
-			break;
-		case 'analysis_wrapper':
-			$contents = $PATH_TO_DOCS . 'analysis_wrapper.html';
-			break;
-		case 'design':
-			$contents = $PATH_TO_DOCS . 'design.html';
-			break;
-		case 'design_wrapper':
-			$contents = $PATH_TO_DOCS . 'design_wrapper.html';
-			break;
         default:
             $contents = '../views/courses.php';
             break;
@@ -114,7 +88,20 @@
 			</li>
 		</ul>
 		<div class="page-content-horiz">
-			<?php require_once($contents); ?>
+			
+			<script type="text/javascript">
+			var page = "<?php echo $page; ?>";
+			
+			if(page == "token") { // Only print these on the token page
+				// (DEBUG) Print the x_a, x_b, x_c values
+				window.alert("<?php echo "x_a: {$_GET['x_a']}\\nx_b: {$_GET['x_b']}\\nx_c: {$_GET['x_c']}" ?> ");
+			}
+			</script>
+			
+			<?php
+			// Show contents of page
+			require_once($contents);
+			?>
 		</div>
 	</body>
 	
