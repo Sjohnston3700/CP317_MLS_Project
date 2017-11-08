@@ -21,9 +21,9 @@
 <div class="page-section">
 	<h4>Search to add a student: </h4>
 	<form>	
-		<input id="members" class="input" type="text" onkeyup="switchSearchType()" placeholder="Enter Student Name or ID...">
+		<input id="members" class="input" type="text" onkeyup="handleInputKeyUp()" placeholder="Enter Student Name or ID...">
 		<div class="form-checkbox">
-			<input type="checkbox">
+			<input id="members-cb" type="checkbox" onchange="handleCheckboxChange()">
 			<label class="mini">Select all</label>
 		</div>
 	</form>

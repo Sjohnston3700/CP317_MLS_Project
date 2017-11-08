@@ -1,11 +1,57 @@
-function formExists(id) {
+	function createForm(name,id) {
+		var form = $('.templates .upload-form-template').clone(true, true);
+		
+		form.removeClass('upload-form-template');
+		form.removeClass('hidden');
+		form.find('#name').text(name);
+		form.find('.remove-student').attr('id', 'remove-' + id);
+		form.attr('id', 'student-' + id);
+		
+		$("#manual-grade-input").append(form);
+	}
+	
+	function formExists(id) {
 		var forms = $('#manual-grade-input .upload-form');
 		var grades = [];
 		for (var i = 0; i < forms.length; i++) {
 			if (forms[i].id.slice(8) == id) {
 				return true;
 			}
-		return false;
+			return false;
+		}
+	}
+
+	// switches search type from name to id if a number is entered and vice-versa
+	function handleInputKeyUp() {
+		var value = document.getElementById("members").value;
+		
+		if (/\d/g.test(value) && options.getValue == "name") {
+			options.getValue = "id";
+			options.template.fields.description = "name";
+			$("#members").easyAutocomplete(options);
+			$("#members").focus();
+		} 
+		else if (/^[a-zA-Z]+$/.test(value) && options.getValue == "id") {
+			options.getValue = "name";
+			options.template.fields.description = "id";
+			$("#members").easyAutocomplete(options);
+			$("#members").focus();
+		}
+	}
+
+	// adds all students when ticked, removes them when unticked
+	function handleCheckboxChange() {
+		var checked = document.getElementById("members-cb").checked;
+
+		if (checked) {
+			for (var i in options.data) {
+				var name = options.data[i].name; 
+				var id = options.data[i].id;
+				if (!formExists(id)) createForm(name, id);
+			}
+		} 
+		else {
+			$("#manual-grade-input").empty();
 		}
 	}
 		
@@ -35,18 +81,7 @@ function formExists(id) {
 				var id = $("#members").getSelectedItemData().id;
 				
 				// Only make grade form if one doesn't exist for that student yet
-				if (!formExists(id)) {
-					
-					var form = $('.templates .upload-form-template').clone(true, true);
-
-					form.removeClass('upload-form-template');
-					form.removeClass('hidden');
-					form.find('#name').text(name);
-					form.find('.remove-student').attr('id', 'remove-' + id);
-					form.attr('id', 'student-' + id);
-
-					$("#manual-grade-input").append(form);
-				}
+				if (!formExists(id)) createForm(name,id);
 			}
 		},
 		template: {
@@ -67,19 +102,3 @@ function formExists(id) {
 	];
 
 	$("#members").easyAutocomplete(options);
-
-	function switchSearchType() {
-		var value = document.getElementById("members").value;
-		if (/\d/g.test(value) && options.getValue == "name") {
-			options.getValue = "id";
-			options.template.fields.description = "name";
-			$("#members").easyAutocomplete(options);
-			$("#members").focus();
-		} 
-		else if (/^[a-zA-Z]+$/.test(value) && options.getValue == "id") {
-			options.getValue = "name";
-			options.template.fields.description = "id";
-			$("#members").easyAutocomplete(options);
-			$("#members").focus();
-		}
-	}
