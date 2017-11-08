@@ -16,7 +16,7 @@
 
     <h2>Introduction</h2>
     <p>
-        The Brightspace API Wrapper is a library used to make calls to the Brightspace API. It allows developers to fetch and push information through the API in a friendly manner. Rather than directly making <a href="#_httpreq">HTTP requests</a>, developers can simply use the functions available in the wrapper's library. This wrapper is being developed primarily for ezMarker, a web application for uploading grades and feedback to a Brightspace environment. PHP and Python versions of the wrapper are being developed to support the corresponding versions of ezMarker.
+        The Brightspace API Wrapper is a library used to make calls to the Brightspace API. It allows developers to fetch and push information through the API in a friendly manner. Rather than directly making HTTP requests, developers can simply use the functions available in the wrapper's library. Here an HTTP request would consist of a URL and a verb (ex, GET, PUT). The API returns a JSON object which contains the information required to make such requests (see section 3).This wrapper is being developed primarily for ezMarker, a web application for uploading grades and feedback to a Brightspace environment. PHP and Python versions of the wrapper are being developed to support the corresponding versions of ezMarker.
     </p>
     <p>This document describes the design of the wrapper's classes and functions, along with providing helpful reference information.</p>
 
@@ -85,7 +85,6 @@
     <ul>
         <li>Uses <a href="http://requests.ryanmccue.info" target="_blank">Requests</a> library</li>
         <li>Brightspace example code: <a href="https://github.com/Brightspace/valence-sdk-php/tree/master/samples/BasicSample" target="_blank">https://github.com/Brightspace/valence-sdk-php/tree/master/samples/BasicSample</a></li>
-        <li><a name="_httpreq"></a>HTTP Requests: consist of a URL and a verb (GET, PUT, POST, DELETE) that are being sent to the server as requests. The server then creates a response which carries a status code(Successful, Redirection, Client Error) and a message body. These requests allow for actions such as updating, fetching and creating resources on the server. </li>
     </ul>
 
     <h2 id="toc_exclude">Revision History</h2>
@@ -106,7 +105,7 @@
     <p>- Removed mention of specific requests from API diagram</p>
     <p>- Grouped API reference section by class</p>
     <p>- Replaced type JSON with type dictionary</p>
-    <p>Authors: Sumeet Jhand, Troy Nechanicky</p>
+    <p>Authors: Sumeet Jhand, Troy Nechanicky, Harjodh Singh</p>
     <p>SQA: Yi Ling Pang</p>
 </body>
 
