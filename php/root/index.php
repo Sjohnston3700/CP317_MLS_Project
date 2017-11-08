@@ -7,6 +7,8 @@
 
 
 	$PATH_TO_STATIC = '../../python/static';
+	$PATH_TO_DOCS = '../../python/templates/';
+
     $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'courses';
 
 	/******************************* All of the D2L code should go here *********************************/
@@ -40,6 +42,24 @@
             break;
 		case 'token':
 			$contents = 'token.php';
+			break;
+		case 'requirements':
+			$contents = $PATH_TO_DOCS . 'requirements.html';
+			break;
+		case 'requirements_wrapper':
+			$contents = $PATH_TO_DOCS . 'requirements_wrapper.html';
+			break;
+		case 'analysis':
+			$contents = $PATH_TO_DOCS . 'analysis.html';
+			break;
+		case 'analysis_wrapper':
+			$contents = $PATH_TO_DOCS . 'analysis_wrapper.html';
+			break;
+		case 'design':
+			$contents = $PATH_TO_DOCS . 'design.html';
+			break;
+		case 'design_wrapper':
+			$contents = $PATH_TO_DOCS . 'design_wrapper.html';
 			break;
         default:
             $contents = '../views/courses.php';
