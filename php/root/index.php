@@ -5,13 +5,17 @@
 	ob_start();
     session_start();
 
+
+	$PATH_TO_STATIC = '../../python/static';
+    $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'courses';
+
 	/******************************* All of the D2L code should go here *********************************/
-	// Skip this part if we already have a valid user context
-//	if(!isset($_SESSION['user_context']) || strlen($_SESSION['user_context']->getUserId()) > 0) {
+	 //Skip this part if we already have a valid user context
+//	if ((!isset($_SESSION['user_context']) || strlen($_SESSION['user_context']->getUserId()) > 0) && $page != 'token' ) {
 //		$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
 //	
 //		// TODO: This gives error 'invalid x_target', HOWEVER it seems that the user is authenticated when revisiting the page
-//		$app_url = '${config['scheme']}://${config['host']}:${config['port']}${config['route']}'; // $_SERVER['REQUEST_URI']
+//		$app_url = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
 //		
 //		// Get URL for authentication; this takes a callback address
 //		$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
@@ -21,9 +25,6 @@
 //		die();
 //	}
 	/****************************************************************************************************/
-
-	$PATH_TO_STATIC = '../../python/static';
-    $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'courses';
 
 
     switch ($page)
@@ -37,6 +38,9 @@
         case 'upload':
             $contents = '../views/upload.php';
             break;
+		case 'token':
+			$contents = 'token.php';
+			break;
         default:
             $contents = '../views/courses.php';
             break;
