@@ -103,20 +103,3 @@
 	];
 
 	$("#members").easyAutocomplete(options);
-
-	
-	function switchSearchType() {
-		var value = document.getElementById("members").value;
-		if (/\d/g.test(value) && options.getValue == "name") {
-			options.getValue = "id";
-			options.template.fields.description = "name";
-			$("#members").easyAutocomplete(options);
-			$("#members").focus();
-		} 
-		else if (/^[a-zA-Z]+$/.test(value) && options.getValue == "id") {
-			options.getValue = "name";
-			options.template.fields.description = "id";
-			$("#members").easyAutocomplete(options);
-			$("#members").focus();
-		}
-	}
