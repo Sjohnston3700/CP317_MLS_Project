@@ -78,16 +78,7 @@
             <td>Accordion</td>
             <td>After clicking the course, it shows the available grade items to be modified by the user</td>
         </tr>
-        <tr>
-            <td>Logout</td>
-            <td>Button</td>
-            <td>Redirects to Logout screen</td>
-        </tr>
-        <tr>
-            <td>Courses</td>
-            <td>Hyperlink</td>
-            <td>Redirects user to select a grade item page</td>
-        </tr>
+    
         <tr>
             <td>Grade Item</td>
             <td>Hyperlink</td>
@@ -97,6 +88,11 @@
             <td>Help</td>
             <td>Hyperlink</td>
             <td>Shows pop up window of how to use ezMarker</td>
+        </tr>
+		<tr>
+            <td>Logout</td>
+            <td>Button</td>
+            <td>Redirects to Logout screen</td>
         </tr>
     </table>
     <h3>Upload Page(Students JSON)</h3>
@@ -116,15 +112,48 @@
             <th align="left">Type</th>
             <th align="left">Description</th>
         </tr>
-        <tr>
+		<tr>
+            <td>Comment Field</td>
+            <td>Text Field</td>
+            <td>Allows user to manually input a student's feedback</td>
+        </tr>
+		<tr>
             <td>Choose File Button</td>
             <td>Button</td>
             <td>File dialog opens, allowing user to choose a <a href="http://ezmarker.herokuapp.com/documentation/requirements#1.3%20Definitions">Grade File</a></td>
         </tr>
-        <tr>
+		<tr>
             <td>Delete Button (X)</td>
             <td>Button</td>
             <td>Deletes the student entry it refers to</td>
+        </tr>
+		<tr>
+            <td>Grade Field</td>
+            <td>Text Field</td>
+            <td>Allows user to manually input a student's grade</td>
+        </tr>
+		<tr>
+            <td>Search Input Field</td>
+            <td>Text Field</td>
+            <td>
+                Dynamic search that changes its dropdown list of candidates everytime user types. Searches by student name when user enters a letter first, otherwise searches by student ID. Users can only search students that are enrolled in the course
+            </td>
+         </tr>
+		 <tr>
+            <td>Select-all Check Box</td>
+            <td>Check Box</td>
+            <td>Populates the page with manual input sections for every student in that course</td>
+         </tr>
+		 <tr>
+            <td>Update Maximum Button</td>
+            <td>Button</td>
+            <td>Updates grade item maximum value</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Update Maximum Text Field</td>
+            <td>Text Field</td>
+            <td>Allows user to enter a numeric value for updating the maximum value</td>
         </tr>
         <tr>
             <td>Upload Grades Button</td>
@@ -135,39 +164,6 @@
             <td>Upload Grade File Button</td>
             <td>Button</td>
             <td>Updates marks and feedback for students using a Grade File</td>
-        </tr>
-        <tr>
-            <td>Update Maximum Button</td>
-            <td>Button</td>
-            <td>Updates grade item maximum value</a>
-            </td>
-        </tr>
-        <tr>
-            <td>Select-all Check Box</td>
-            <td>Check Box</td>
-            <td>Populates the page with manual input sections for every student in that course</td>
-        </tr>
-        <tr>
-            <td>Comment Field</td>
-            <td>Text Field</td>
-            <td>Allows user to manually input a student's feedback</td>
-        </tr>
-        <tr>
-            <td>Grade Field</td>
-            <td>Text Field</td>
-            <td>Allows user to manually input a student's grade</td>
-        </tr>
-        <tr>
-            <td>Search Input Field</td>
-            <td>Text Field</td>
-            <td>
-                Dynamic search that changes its dropdown list of candidates everytime user types. Searches by student name when user enters a letter first, otherwise searches by student ID. Users can only search students that are enrolled in the course
-            </td>
-        </tr>
-        <tr>
-            <td>Update Maximum Text Field</td>
-            <td>Text Field</td>
-            <td>Allows user to enter a numeric value for updating the maximum value</td>
         </tr>
     </table>
     <h3>Error Handling Pop-up(Grades JSON, Grade Error JSON)</h3>
@@ -197,6 +193,16 @@
             <td>Button</td>
             <td>Closes pop-up window</td>
         </tr>
+		<tr>
+            <td>Comment Field</td>
+            <td>Text Field</td>
+            <td>Allows user to manually input a student's feedback</td>
+        </tr>
+		<tr>
+            <td>Grade Field</td>
+            <td>Text Field</td>
+            <td>Allows user to manually input a student's grade</td>
+        </tr>
         <tr>
             <td>Re-upload Button</td>
             <td>Button</td>
@@ -208,22 +214,12 @@
             <td>Changes the total maximum mark of that grade item</td>
         </tr>
         <tr>
-            <td>Comment Field</td>
-            <td>Text Field</td>
-            <td>Allows user to manually input a student's feedback</td>
-        </tr>
-        <tr>
-            <td>Grade Field</td>
-            <td>Text Field</td>
-            <td>Allows user to manually input a student's grade</td>
-        </tr>
-        <tr>
             <td>Update Maximum Text Field</td>
             <td>Text Field</td>
             <td>Allows user to enter a numeric value for updating the maximum value</td>
         </tr>
     </table>
-    <h3>Report Page(Grades JSON, Grade Error JSON)</h3>
+    <h3>Report Page(JSON grades, JSON grade_error)</h3>
 
     <p>Reports which students' grades that are set successfully and not successfully</p>
 
@@ -266,7 +262,7 @@
         <li>If valid, grade item total is updated</li>
     </ol>
 
-    <h4>parse_file()</h4>
+    <h4>parse_file(File file)</h4>
     <ol>
         <li>Parses uploaded file</li>
         <li>Creates and returns JSON with student and grade information</li>
@@ -384,7 +380,6 @@
             </ul>
         </ul>
     </ul>
-
     <h2 id="toc_exclude">Revision History</h2>
     <h3 id="toc_exclude">Version 1.0 - 10/23/2017</h3>
     <p>Authors: Sarah Johnston, Xiang Ke, Weibin Ma, Troy Nechanicky, Michelle Wong, Hind Althabi</p>
@@ -401,14 +396,15 @@
     <p>Authors: Sarah Johnston, Xiang Ke, Weibin Ma, Troy Nechanicky, Michelle Wong</p>
     <p>SQA: Troy Nechanicky</p>
 
-    <h3 id="toc_exclude">Version 2.1 - 11/xx/2017</h3>
+    <h3 id="toc_exclude">Version 2.1 - 11/07/2017</h3>
     <p>- Added descriptions of UI error handling</p>
     <p>- Fixed JSON designs</p>
     <p>- Renamed pages for consistency</p>
     <p>- Corrected descriptions of interaction between back-end and UI</p>
     <p>- Fixed image sizes</p>
     <p>- Fixed Program Flow diagram</p>
-    <p>Authors: Troy Nechanicky</p>
+	<p>- Made tables alphabetical order</p>
+    <p>Authors: Sarah Johnston, Troy Nechanicky</p>
     <p>SQA: </p>
 </body>
 <style>
