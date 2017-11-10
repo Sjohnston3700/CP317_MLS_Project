@@ -20,7 +20,7 @@ class Course(object):
         self._user_role = course_params['Access']['ClasslistRoleName']
         self._user = user
         self._grade_items = self._get_grade_items()
-        self._members = [OrgMember(member) for member in API.get(GET_MEMBERS)['Items']]
+        self._members = [OrgMember(member) for member in API.get(GET_MEMBERS,user,{'version':self._user().get_host().get_api_version(),'orgUnitID':self._id})['Items']]
 
     def _get_grade_items(self):
         """
@@ -28,7 +28,7 @@ class Course(object):
         return :
                 lists - grade item
         """
-        gradeitems = API.get(GET_GRADE_ITEMS)
+        gradeitems = API.get(GET_GRADE_ITEMS,self._user,{'version':self._user().get_host().get_api_version(),'orgUnitID':self._id})
         items = []
         for item in gradeitems:
             if item['GradeType'] == 'Numeric':
@@ -105,52 +105,3 @@ class Course(object):
             return self._user - user 
         """
         return self._user
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#*****************************************************************
-# OLD CODE
-# # ****************************************************************************    
-#     def _getGradeItems(self):
-#         try:
-#             grade_items = [GradeItem(self.uc,item,self.API) for item in self.API.getGradeItems(self.uc,self.Id,self.name)]
-#         except Exception as e:
-#             grade_items = []
-#             print(str(e))
-#         return grade_items
-        
-#     def getGradeItem(self, Id):
-#         '''
-#         Function to return a specific gradeItem based on the Valence ID. 
-        
-#         Preconditions:
-#             Id (int or str) : the value class Id
-        
-#         Returns the gradeItem if it's associated with this Course None if not found  
-#         '''
-#         try:
-#             return [gradeItem for gradeItem in self.grade_items if str(gradeItem.Id) == str(Id)][0]
-#         except:
-#             return None
-   
