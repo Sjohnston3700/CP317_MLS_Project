@@ -64,10 +64,13 @@ def update_route(route,params):
     Postconditions:
         Returns new route - Does not check for missed values
     '''
-    if params is None:
-        return route
-    for key in params:
-        route = route.replace("({})".format( key ), str(params[key]) )
+    if params is not None:#Dont care about params={} for loop takes care of it
+        for key in params:
+            route = route.replace("({})".format( key ), str(params[key]) )
+ 
+    if '(' in route or ')' in route:#check for missed stuff to replace
+        exception_message = 'Route : {} needs more parameters'.format(route)
+        raise  RuntimeError( exception_message )
     return route
 
 def check_request(request):
