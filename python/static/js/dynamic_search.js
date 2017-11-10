@@ -41,7 +41,7 @@
 
 	// adds all students when ticked, removes them when unticked
 	function handleCheckboxChange() {
-		var checked = document.getElementById("members-cb").checked;
+		var checked = $("#members-cb").is(":checked");
 
 		if (checked) {
 			for (var i in options.data) {
@@ -54,6 +54,11 @@
 			$("#manual-grade-input").empty();
 		}
 	}
+	
+	// unticks Select All checkbox when a student is removed
+	$(".remove-student").click(function() {
+		$("#members-cb").prop("checked", false);
+	});
 		
 	var options = {
 		data: [],
@@ -98,8 +103,7 @@
 	
 	options.data = [ 
 		{ name: 'Sarah Johnston', id: '12345'},
-		{ name: 'John Doe', id: '34567'},
-		{ name: 'Jen Doe', id: '78955'},
+		{ name: 'Johnston Doe', id: '34567'}
 	];
 
 	$("#members").easyAutocomplete(options);
