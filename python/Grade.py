@@ -63,9 +63,6 @@ class Grade(object):
 
     def put_grade():
         raise NotImplementedError
-    
-    def upload_grade():
-        raise NotImplementedError
 
 
 class NumericGrade(Grade):
