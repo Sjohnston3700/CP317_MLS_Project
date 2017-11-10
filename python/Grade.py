@@ -1,4 +1,6 @@
 import re,sys
+import API
+import GradeItem
 
 FEEDBACK_PATTERN = '\-{3,}?.*?(\d{5,7}).*?^([\w|\s]*?)$(.+?(?:Total:\s+(\d+)\s+\/\s+(\d+).*?)?)\-{3,}?'
 
@@ -23,44 +25,66 @@ class Grade(object):
         self.value  = int(value)
         self.public_feedback  = public_feedback
         self.private_feedback = private_feedback'''
+    
+    def __init__(self, grade_item, student, grade_params) {
+        """
+        Constructor:
+            grade_item(GradeItem Object)
+            student(OrgMember)
+        """
+        self._comment = grade_params['Comments']
+        self._grade_item = grade_item
+        self._student = student
+    }
 
+    def get_comment(self):
+        """
+        Return comments for this student with respect to this GradeItem
+        """
+        return self._comment
+
+    def get_user(self):
+        """
+        Return the user
+        """
+        return self._grade_item.get_usser()
+
+    def get_grade_item(self):
+        """
+        Return the GradeItem Object
+        """
+        return self._grade_item
+
+    def get_student(self):
+        """
+        Return the student object (OrgMember)
+        """
+        return self._student
+
+    def put_grade():
+        raise NotImplementedError
+    
     def upload_grade():
-        return
-
-    def get_comment():
-        return self.comment
-
-    def get_user():
-        return object.student
-
-    def get_grade_item():
-        return object.grade_item
-
-    def get_student():
-        return object.student
+        raise NotImplementedError
 
 
-class NumericGrade():
-    """
-    -----------------------------------------------------
-    Constructor
-    -----------------------------------------------------
-    Precondition:
-        - grade_item (GradeItem)
-        - student (OrgMember)
-        - grade_param (JSON)
-    Postcondition:
-        - Create object with attributes
-    -----------------------------------------------------
-    """
-    def __init__(self, grade_item, student, grade_param):
-        super(Grade,self).__init__
-        self.grade_item = grade_item
-        self.student = student
-        self.grade_param = grade_param
+class NumericGrade(Grade):
 
-    def get_value():
-        return self.value
+    def __init__(self, grade_item, student, grade_params):
+        """
+        Constructor:
+            grade_item(GradeItem Object)
+            student(OrgMember)
+            grade_params(JSON: Grade.GradeValue)
+        """
+        self._value = grade_params['PointsNumerator']
+        super().__init__(grade_item, student, grade_params)
+
+    def get_value(self):
+        """
+        Returns value of the NumericGrade Item
+        """
+        return self._value
 
 
 
