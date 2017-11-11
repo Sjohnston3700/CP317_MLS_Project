@@ -7,8 +7,8 @@
 <body>
     <script src="../static/js/toc_generator.js"></script>
     <h1>ezMarker - Design</h1>
-    <p>Version 2.1</p>
-    <p>Last updated: November 08, 2017</p>
+    <p>Version 2.x</p>
+    <p>Last updated: November xx, 2017</p>
 
     <div id="toc">
         <h2>Table of Contents</h2>
@@ -45,9 +45,8 @@
     <h2>User Interface Design</h2>
     <p>This section describes the front-end of ezMarker. See <a href="#JSON">JSON Specifications</a> for the design of the JSON objects.</p>
 
-    <b>Additional Notes:</b>
+    <b>Additional Note:</b>
     <ul>
-        <li>User will be redirected back to login if they are missing credentials at any point</li>
         <li>User will be notified if they do not have permission to carry out their requested action</li>
     </ul>
 
@@ -95,11 +94,12 @@
             <td>Redirects to Logout screen</td>
         </tr>
     </table>
-    <h3>Upload Page(Students JSON)</h3>
+    <h3>Upload Page()</h3>
 
     <b>Additional Notes:</b>
     <ul>
         <li>An error message appears above the Update Maximum field if there is an error with input maximum</li>
+        <li>User has to confirm if want to set a new maximum</li>
     </ul>
 
     <img class="prototype-img" src="../static/img/upload_grade.png">
@@ -172,6 +172,7 @@
     <ul>
         <li>This pop-up is implemented as part of the Upload page.</li>
         <li>Special pop-up that does not allow user to click outside until all errors are dealt with or cancel button is clicked</li>
+        <li>User has to confirm if want to set a new maximum</li>
     </ul>
     <img class="prototype-img" src="../static/img/error_modal.png" />
     <table border="1">
@@ -244,20 +245,34 @@
 
     <p>This section gives a high-level description of the back-end functions. See the Wrapper Design document for the objects that these functions use.</p>
 
-    <p><b>Important Note:</b> The user object is stored for each session, so all required objects can be reached by navigating from the user object.</p>
+    <p><b>Additional Notes:</b></p>
+    <ul>
+        <li>The user object is stored for each session, so all required objects can be reached by navigating from the user object.</li>
+        <li>User will be redirected back to login if they are missing credentials at any point</li>
+    </ul>
 
     <h4>login()</h4>
     <ol>
         <li>Redirects user to Brightspace login page</li>
-        <li>Creates user object</li>
+        <li>Creates user object, passing constructor IDs (from config file) of roles that can set grades</li>
         <li>Sorts course list in ascending order by course name</li>
-        <li>Renders the Courses page and passes Students JSON</li>
+        <li>Redirects to the Courses page</li>
     </ol>
 
     <h4>logout()</h4>
     <ol>
         <li>Redirects user to Brightspace logout page</li>
         <li>User has to return to ezMarker root in order to login again</li>
+    </ol>
+
+    <h4>show_courses()</h4>
+    <ol>
+        <li>Renders Courses page</li>
+    </ol>
+
+    <h4>show_upload(course_id, grade_item_id)</h4>
+    <ol>
+        <li>Renders Upload page</li>
     </ol>
 
     <h4> modify_grade_max(grade_item_id, max)</h4>
@@ -312,11 +327,19 @@
     <h4>Parsing Error JSON (used in <i>parse_file</i> function and <i>Parsing Error</i> pop-up)</h4>
     <p>{ errors: [ { msg: String } ] }</p>
 
-    <h4>Student JSON (used in <i>login</i> controller and <i>Courses</i> page)</h4>
-    <p>{ students: [ {org_member_id: int, name: String} ] }</p>
+    <h2>Reference</h2>
 
     <h3>Grade File Format</h3>
     <p>The grade file is a csv with the format <b>student_name</b>, <b>brightspace_id</b>, <b>grade</b>, <b>comment</b></p>
+
+    <h3>User Roles</h3>
+    <ul>
+        <li>TA : 103</li>
+        <li>Instructor : 102</li>
+        <li>Student : 101</li>
+    </ul>
+
+    <p>These roles will be stored in the config file</p>
 
     <h2>Project Structure</h2>
     <h3>Python Structure</h3>
@@ -406,6 +429,13 @@
     <p>- Further descriped error handling in Detailed Design</p>
     <p>- Added Parsing Error Pop-up sections</p>
     <p>Authors: Sarah Johnston, Xiang Ke, Weibin Ma, Troy Nechanicky</p>
+    <p>SQA: </p>
+
+    <h3 id="toc_exclude">Version 2.2 - 11/xx/2017</h3>
+    <p>- Removed unnecessary Student JSON</p>
+    <p>- Added show_courses, show_upload controllers</p>
+    <p>- Added References section</p>
+    <p>Authors: Harold Hodgins, Troy Nechanicky</p>
     <p>SQA: </p>
 </body>
 <style>
