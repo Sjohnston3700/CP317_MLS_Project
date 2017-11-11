@@ -1,4 +1,4 @@
-from Grade import NumericGrade
+import Grade
 import API
 
 class GradeItem(object):
@@ -53,7 +53,7 @@ class GradeItem(object):
                      Returns None if student grqade is not found
         """
         for grade in self._grades:
-            if student.get_id() == grade.get_student().get_id()
+            if (student.get_id() == grade.get_student().get_id()):
                 return grade
         return None
         
