@@ -69,7 +69,7 @@ function error_checking($grades, $grade_item_id)
 		'max_points' => 30
 	);
 	
-	// Error object to return it $error is true
+	// Error object to return
 	$errors = array();
 
 	foreach ($grades as $g)
@@ -118,6 +118,37 @@ function error_checking($grades, $grade_item_id)
 				'type' => '0'
 			);
 		}
+	}
+	return $errors;
+}
+
+/**
+ * Error checking for max. If success, updates max grade value
+ * @param {Integer} grade_item_id
+ * @param {Integer} max
+ * @return {Array} Array of errors and error messages to be sent to frontend
+ */
+function modify_grade_max($grade_item_id, $max)
+{
+	// Error object to return
+	$errors = array();
+	if ($max == '')
+	{
+		$errors[] = array ( 
+			'msg' => 'Missing grade maximum',
+		);
+	}
+	else if (!is_numeric($max))
+	{
+		$errors[] = array ( 
+			'msg' => 'Grade maximum must be a number',
+		);
+	}
+	else if (floatval($max) < 0)
+	{
+		$errors[] = array ( 
+			'msg' => 'Grade maximum must be a positive number',
+		);
 	}
 	return $errors;
 }

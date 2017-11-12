@@ -1,8 +1,11 @@
 <h1>CS123 - Test Course - Lab Report 1</h1>
 <h2>Out of: <strong>150</strong> marks</h2>
 <hr>
-<input type="text" class="input" placeholder="Grade item is now out of...">
-<button class="btn btn-success">Update maximum</button>
+<form id="update-max-form">
+	<div id="update-max-error"></div>
+	<input type="text" class="input" id="max-grade" placeholder="Grade item is now out of...">
+	<button type="button" id="update-max" class="btn btn-success">Update maximum</button>
+</form>
 <hr>
 <h2>Automated Upload</h2>
 <div class="page-section">
@@ -29,25 +32,7 @@
 		</div>
 	</form>
 	<hr>
-	<div id="manual-grade-input">
-	<!-- foreach student
-	<form class="upload-form" id="student-1">
-		<h3><div id="name" class="inline">John Doe</div><button type="button" class="btn btn-error btn-remove inline remove-student" id="remove-1">x</button></h3>
-		<div class="form-group">
-			<label>Grade: </label>
-			<input id="grade" name="grade" type="text" placeholder="Grade">
-		</div>	
-		<textarea id="comment" name="comment" class="input" placeholder="Student feedback..." resize="false"></textarea>
-	</form>
-	<form class="upload-form" id="student-2">
-		<h3><div id="name" class="inline">Jane Doe</div><button type="button" class="btn btn-error btn-remove inline remove-student" id="remove-2">x</button></h3>
-		<div class="form-group">
-			<label>Grade: </label>
-			<input id="grade" name="grade" type="text" placeholder="Grade">
-		</div>	
-		<textarea id="comment" name="comment" class="input" placeholder="Student feedback..." resize="false"></textarea>
-	</form> -->
-	</div>
+	<div id="manual-grade-input"></div>
 	<button type="button" id="manual-upload" class="btn submit-btn">Upload grades to MLS</button>
 </div>
 <div id="error-message-modal" class="modal">
@@ -56,8 +41,11 @@
 			<span class="close">&times;</span>
 			<h2>Errors With Your Grade Upload</h2>
 			<hr>
-			<input type="text" class="input" placeholder="Grade item is now out of...">
-			<button class="btn btn-success">Update maximum</button>
+			<form class="form-wide" id="update-max-form-modal">
+				<div id="update-max-error-modal"></div>
+				<input type="text" class="input" id="max-grade-modal" placeholder="Grade item is now out of...">
+				<button type="button" id="update-max-modal" class="btn btn-success">Update maximum</button>
+			</form>
 			<hr>
 		</div>
 		<div class="modal-body">
@@ -70,6 +58,7 @@
 </div>
 <!-- Template HTML -->
 <div class="templates">
+	<p class="modal-success modal-success-template hidden"></p>
 	<p class="modal-warning modal-warning-template hidden"></p>
 	<p class="modal-error modal-error-template hidden"></p>
 	<form class="modal-form-template form-wide hidden" id="modal-form-template">

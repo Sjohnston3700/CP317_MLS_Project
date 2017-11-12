@@ -223,3 +223,70 @@ $('#manual-upload').click(function() {
 	}
 	sendToErrorChecking(grades)
 });
+
+$('#update-max').click(function() {
+	var form = $('#update-max-form');
+	var max = form.find('#max-grade').val();
+	updateMax(max, 'update-max-error');
+});
+
+$('#update-max-modal').click(function() {
+	var form = $('#update-max-form-modal');
+	var max = form.find('#max-grade-modal').val();
+	updateMax(max, 'update-max-error-modal');
+});
+
+
+/**
+ * Ajax call to error_checking.php. On return, if status is 200, redirects 
+ * to report page. Otherwise, displays error modal with error messages 
+ * returned from error_checking.php
+ * @param {Array} data - array of JSON grade objects to send for error checking 
+ */
+function updateMax(max, id) { 
+	// Clear all previous forms and error messages
+	$('.update-max-error').remove();
+	
+	var formData = {
+		max: max
+	}
+
+	$.ajax({
+		type        : 'POST', 
+		url         : 'actions/update_max.php', 
+		data        : formData, 
+		dataType    : 'json', 
+		encode      : true,
+		success     : function(data) {
+						if (data.length > 0) {
+							for (var i = 0; i < data.length; i++) {
+								var error;
+								var msg;
+
+								error = $('.templates .modal-error-template').clone(true, true);
+								error.removeClass('modal-error-template');
+								error.removeClass('hidden');
+								error.addClass('update-max-error');
+								msg = '<strong>ERROR: </strong> ';
+								error.html(msg + data[i].msg);
+								
+								error.insertBefore('#' + id);
+							}
+						}
+						else {
+								var success;
+								var msg;
+
+								success = $('.templates .modal-success-template').clone(true, true);
+								msg = 'Grade maximum updated successfully';
+								
+								success.removeClass('hidden');
+								success.removeClass('modal-success-template');
+								success.addClass('update-max-error');
+								success.html(msg);
+								success.insertBefore('#' + id);
+						}
+					} 
+					
+		});
+}	
