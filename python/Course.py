@@ -20,7 +20,7 @@ class Course(object):
         self._user_role = course_params['Access']['ClasslistRoleName']
         self._user = user
         self._grade_items = self._get_grade_items()
-        self._members = [OrgMember(member) for member in API.get(GET_MEMBERS,user,{'version':self._user().get_host().get_api_version(),'orgUnitID':self._id})['Items']]
+        self._members = [OrgMember(member) for member in API.get(GET_MEMBERS,user,{'orgUnitID':self._id})['Items']]
 
     def _get_grade_items(self):
         """
@@ -28,7 +28,7 @@ class Course(object):
         return :
                 lists - grade item
         """
-        gradeitems = API.get(GET_GRADE_ITEMS,self._user,{'version':self._user().get_host().get_api_version(),'orgUnitID':self._id})
+        gradeitems = API.get(GET_GRADE_ITEMS,self._user,{'orgUnitID':self._id})
         items = []
         for item in gradeitems:
             if item['GradeType'] == 'Numeric':
