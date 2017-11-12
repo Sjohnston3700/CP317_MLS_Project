@@ -13,19 +13,20 @@
 
 	/******************************* D2L Code Goes Here *********************************/
 	//Skip this part if we already have a valid user context
-	if ((!isset($_SESSION['user_context']) || strlen($_SESSION['user_context']->getUserId()) > 0) && $page != 'token') {
-		$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
+//	if ((!isset($_SESSION['user_context']) || strlen($_SESSION['user_context']->getUserId()) > 0) && $page != 'token') {
+//		$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
+//
+//		$app_url = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
+//		//$app_url = "{$config['scheme']}://{$config['host']}:{$config['port']}{$config['route']}";
+//		
+//		// Get URL for authentication; this takes a callback address
+//		$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
+//		session_write_close();
+//		// Redirect to D2L authentication page; user will be redirected back here after
+//		header('Location: ' . $url);
+//		die();
+//	}
 
-		$app_url = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
-		//$app_url = "{$config['scheme']}://{$config['host']}:{$config['port']}{$config['route']}";
-
-		// Get URL for authentication; this takes a callback address
-		$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
-		session_write_close();
-		// Redirect to D2L authentication page; user will be redirected back here after
-		header('Location: ' . $url);
-		die();
-	}
 	/****************************************************************************************************/
 
 
@@ -112,17 +113,6 @@
 		</ul>
 		<div class="page-content-horiz">
 			<?php require_once($contents); ?>
-<<<<<<< HEAD
-=======
-			<script type="text/javascript">
-				var page = "<?php echo $page; ?>";
-
-				if(page == "token") { // Only print these on the token page
-					// (DEBUG) Display the x_a, x_b, x_c values
-					window.alert("<?php echo "x_a: {$_GET['x_a']}\\nx_b: {$_GET['x_b']}\\nx_c: {$_GET['x_c']}" ?> ");
-				}
-			</script>
->>>>>>> 9d70001e16099ae6516f734d3c38b108ac9c1857
 		</div>
 	</body>
 
