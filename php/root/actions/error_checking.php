@@ -9,7 +9,7 @@ if (sizeof($errors) > 0)
 }
 else 
 {
-	echo 200;
+	echo json_encode(array());
 }
 
 ?>

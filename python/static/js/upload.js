@@ -84,7 +84,7 @@ function sendToErrorChecking(data) {
 		dataType    : 'json', 
 		encode      : true,
 		success     : function(data) {
-						if (isNaN(data)) {
+						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
 								var errorForm = $('.templates .modal-form-template').clone(true, true);
 								var formId = 'error-form-' + data[i].id;
@@ -121,6 +121,7 @@ function sendToErrorChecking(data) {
 						else {
 							closeModal('error-message-modal');
 							// Success, go to report page
+							window.location.href = 'index.php?page=report';
 						}
 					} 
 					
