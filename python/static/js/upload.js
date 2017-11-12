@@ -14,10 +14,32 @@ var globalGrades = [];
  * and puts into iframe. This listener function gets the contents of the 
  * iframe and calls error checking function.
  */
-$('#upload-target').on('load', function(){
+$('#upload-target').on('load', function() {
+		$('.upload-file-error').remove();
 		var result = $(this).contents().find('body').html();
-		var grades = JSON.parse(result);
-		sendToErrorChecking(grades);
+		var json = JSON.parse(result);
+		
+		if (json.length > 0 && json[0].hasOwnProperty('id')) {
+			sendToErrorChecking(json);
+		} 
+		else {
+			for (var i = 0; i < json.length; i++) {
+				var error = $('.templates .modal-error-template').clone(true, true);
+				error.removeClass('modal-error-template');
+				error.removeClass('hidden');
+				error.addClass('upload-file-error');
+				if (json[i].hasOwnProperty('line')) {
+					msg = '<strong>ERROR (line ' + json[i].line + '): </strong>' + json[i].msg;
+				}
+				else {
+					msg = '<strong>ERROR: </strong>' + json[i].msg;
+				}
+				
+				error.html(msg);
+				error.insertBefore($('#file-error'));
+			}
+		}
+		
 });
 
 /**

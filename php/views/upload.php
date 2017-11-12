@@ -7,6 +7,7 @@
 <h2>Automated Upload</h2>
 <div class="page-section">
 	<h2>Upload a File</h2>
+	<div id="file-error"></div>
 	  <form id="upload-automated" action="actions/file_parse.php" method="POST" enctype="multipart/form-data" target="upload-target">
          	<label id="file" class="custom-file-upload-btn">
 				<i class="fa fa-cloud-upload"></i> Upload File

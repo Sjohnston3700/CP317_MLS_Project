@@ -9,19 +9,48 @@
 function parse_file($file)
 {
 	$grades = array();
-	
+	$errors = array();
+	$i = 1;
+	$num_errors = 0;
 	// Traverse through CSV and add each pseudo Grade object to JSON object
 	while (!feof($file))
-	{
+	{	
 		$row = fgetcsv($file);
-		$grade = array(
-			'id' => $row[0],
-			'value' => $row[1],
-			'name' => $row[2],
-			'comment' => $row[3]
-		);
+		if (sizeof($row) < 4)
+		{
+			$error = array(
+				'line' => $i,
+				'msg' => 'Format must be student_name, brightspace_id, grade, comment'
+			);
+				
+			$num_errors++;
+			$errors[] = $error;
+		}
+		else 
+		{
+			$grade = array(
+				'id' => $row[0],
+				'value' => $row[1],
+				'name' => $row[2],
+				'comment' => $row[3]
+			);
 
-		$grades[] = $grade;
+			$grades[] = $grade;
+		}
+		$i++;
+	}
+
+	if ($i - 1 == $num_errors)
+	{	
+		$msg = array();
+		$msg[] = array(
+			'msg' => 'Entire file is formatted incorrectly. Please ensure each student entry is formatted as student_name, brightspace_id, grade, comment'
+		);
+		return $msg;
+	}
+	else if ($num_errors > 0)
+	{
+		return $errors;
 	}
 
 	return $grades;
