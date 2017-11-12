@@ -20,37 +20,41 @@
 
 		<h2>Object Classification</h2>
 		<h3>Objects Diagram</h3>
-		<img class="prototype-img" src="/static/img/wrapper_analysis_object_diagram.png" />
+		<img class="prototype-img" src="../static/img/wrapper_analysis_object_diagram.png" />
 
 		<h3>Entity Objects</h3>
 		<ul>
+			<li>Host - Store information about the connection, including the Internet Protocol and API version.</li>
 			<li>User - Stores information about logged in user, including the user's identity and permissions.</li>
 			<li>Course - Stores information about a course, which may consist the course identification code, professor, registerated students, and course content.</li>
-			<li>Student - Stores information about a student, specifically their coursework and grades. </li>
 			<li>GradeItem - Stores information about a grade item's parameters, including the outline and grading type. Implemented by specific grade item type.</li>
 			<li>Grade - Stores information about a specific grade, unique to the grade item's grading scale. Implemented by specific grade type.</li>
+			<li>OrgMember - Stores information about a a member of the organization. More specifically a student, their coursework and grades. </li>
 		</ul>
 		
 		<h3>Boundary Objects</h3>
-		<p>The Brightspace API Wrapper does not have any boundary objects specifically. Calling appication is the boundary object(s).</p>
+		<p>The Brightspace API Wrapper does not have any boundary objects specifically in its own scope. Its calling applications are the boundary object(s).</p>
 
 		<h3>Control Objects</h3>
 		<ul>
-			<li>API - Interacts with Brightspace server</li>
+			<li>API - Interacts with Brightspace server.</li>
 		</ul>
+		<p>The rest of the entity objects have their own respective control objects to parse and dispatch information.</p>
 
 		<h2>Class Diagram</h2>
-		<img src="/static/img/wrapper_analysis_class_diagram.jpg">
+		<img src="../static/img/wrapper_analysis_class_diagram.jpg">
 
 		<h2 id="toc_exclude">Revision History</h2>
 		<h3 id="toc_exclude">Version 1.0 - 10/23/2017</h3>
 
 		<p>Authors: Sarah Johnston, Troy Nechanicky, Hind Althabi</p>
         <h3 id="toc_exclude">Version 2.0 - 11/4/2017</h3>
-        <p>- Added control objects to objects diagram </p>
+        <ul><li> Added control objects to objects diagram </li></ul>
         <p>Authors: Hind Althabi</p>
      
-
+		<h3 id="toc_exclude">Version 3.0 - 11/11/2017</h3>
+        <ul><li> Updated in accordance to changes made in Design document</li></ul>
+        <p>Authors: Tyler Gwynn, Troy Nechanicky</p>
 	
 	</body>
 </html>

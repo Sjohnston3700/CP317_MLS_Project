@@ -89,7 +89,7 @@
 
 <h2 id="2. Overall Description">2. Overall Description</h2>
 <h3 id="2.1 Product Perspective">2.1 Product Perspective</h3>
-<img id="process-flow-diagram" src="/static/img/process_flow.png">
+<img id="process-flow-diagram" src="../static/img/process_flow.png">
 <h3 id="2.5 Constraints">2.2 Constraints</h3>
 <p>Development is constrained by a short, hard deadline.</p>
 <h3 id="2.6 Assumptions and Dependencies">2.3 Assumptions and Dependencies</h3>
@@ -103,7 +103,7 @@
 <h3 id="3.1 Host">3.1 Host </h3>
 <ul>
     <li>Host Contains API information</li>
-    <li>Implements Get API Versions (GET <a href="http://docs.valence.desire2learn.com/res/apiprop.html#get--d2l-api-versions-" target="_blank">/d2l/api/versions/</a>).</li>
+    <li>Uses Get API Versions (GET <a href="http://docs.valence.desire2learn.com/res/apiprop.html#get--d2l-api-versions-" target="_blank">/d2l/api/versions/</a>).</li>
 </ul>
 
 <h3 id="3.2 User">3.2 User</h3>
@@ -114,10 +114,13 @@
     <li>Stores the authentication token</li>
     <li>Filters courses by given permissions</li>
     
-    <li>Implements Who Am I (GET <a href="http://docs.valence.desire2learn.com/res/user.html#get--d2l-api-lp-(version)-users-whoami" target="_blank">/d2l/api/lp/(version)/users/whoami</a></li>
-    <li>Implements Get List of Accessible Courses (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/</a>)
+    <li>Uses Who Am I (GET <a href="http://docs.valence.desire2learn.com/res/user.html#get--d2l-api-lp-(version)-users-whoami" target="_blank">/d2l/api/lp/(version)/users/whoami</a></li>
+    <li>Uses Get List of Accessible Courses (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/</a>)
     </li>
-    <li>Implements Get Enrollments in OrgUnit (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-(orgUnitId)" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/(orgUnitId)</a>)</li>
+		
+	<li>Uses Get User Enrollments (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-users-(userId)-orgUnits-" target="_blank">/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/</a></li>
+	
+    <li>Uses Get Enrollments in OrgUnit (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-(orgUnitId)" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/(orgUnitId)</a>)</li>
     
 </ul>
 
@@ -125,40 +128,48 @@
 <ul>
     <li>Contains course information</li>
     
-    <li>Implements Get Course Enrollments (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-orgUnits-(orgUnitId)-users-" target="_blank">/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/</a>)</li>
+    <li>Uses Get Course Enrollments (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-orgUnits-(orgUnitId)-users-" target="_blank">/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/</a>)</li>
 
-    <li>Implements Get Grade Items (GET<a href="http://docs.valence.desire2learn.com/res/grade.html#get--d2l-api-le-(version)-(orgUnitId)-grades-" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a>)</li>
+    <li>Uses Get Grade Items (GET<a href="http://docs.valence.desire2learn.com/res/grade.html#get--d2l-api-le-(version)-(orgUnitId)-grades-" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a>)</li>
+
 </ul>
 
-<h3 id="3.4 Student">3.4 Student</h3>
+<h3 id="3.4 Student">3.4 OrgMember</h3>
 <ul>
     <li>
-        Contains student information
+        Contains information for a user's role in the BrightSpace organization such as ID, as well as grades and courses
     </li>
 </ul>
 
 
 <h3 id="3.5 Grade Item">3.5 Grade Item</h3>
 <ul>
-    <li>Implements Set Specific Grade Item (PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)</a>)</li>
+    <li>Contains Set Specific Grade Item (PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)</a>)</li>
 </ul>
 
 <h3 id="3.6 Grade">3.6 Grade</h3>
 <ul>
-    <li>Implements Set Grade (PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)-values-(userId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)</a>)</li>
+    <li>Contains Set Grade (PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)-values-(userId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)</a>)</li>
 </ul>
-
 
 <h2 id="Revision History">Revision History</h2>
 <h3>Version 1.0 - 10/09/2017</h3>
 <p>Authors: Sumeet Jhand, Xiang Ke, Troy Nechanicky</p>
 <p>SQA: Tyler Gwynn, Harold Hodgins</p>
 <h3>Version 2.0 - 10/14/2017</h3>
-<p>- Added that both PHP and Python versions are being developed</p>
-<p>- Added additional detail to section 3</p>
-<p>- Various small grammar changes</p>
+<ul>
+<li>Added that both PHP and Python versions are being developed</li>
+<li>Added additional detail to section 3</li>
+<li>Various small grammar changes</li>
+</ul>
 <p>Authors: Troy Nechanicky, Amardeep Sarang</p>
 <p>SQA: Tyler Gwynn, Harold Hodgins</p>
+
+<h3>Version 3.0 - 11/12/2017</h3>
+<ul>
+<li>Updated in accordance to wrapper design document (Added Get User Enrollments API call)</li>
+</ul>
+<p>SQA: Tyler Gwynn</p>
 
 <style>
     img {
