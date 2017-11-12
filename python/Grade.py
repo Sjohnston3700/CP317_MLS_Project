@@ -26,13 +26,14 @@ class Grade(object):
         self.public_feedback  = public_feedback
         self.private_feedback = private_feedback'''
 
-    def __init__(self, grade_item, student, grade_params):
+    def __init__(self, grade_item, student, comment):
         """
         Constructor:
             grade_item(GradeItem Object)
             student(OrgMember)
+            comment (String)
         """
-        self._comment = grade_params['Comments']
+        self._comment = comment
         self._grade_item = grade_item
         self._student = student
 
@@ -61,7 +62,7 @@ class Grade(object):
         return self._student
 
     def put_grade():
-        raise NotImplementedError
+        "...."
 
 
 class NumericGrade(Grade):
@@ -74,7 +75,7 @@ class NumericGrade(Grade):
             grade_params(JSON: Grade.GradeValue)
         """
         self._value = grade_params['PointsNumerator']
-        super().__init__(grade_item, student, grade_params)
+        super().__init__(grade_item, student, grade_params['Comments'])
 
     def get_value(self):
         """
