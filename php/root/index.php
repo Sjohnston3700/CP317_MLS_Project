@@ -5,7 +5,7 @@
 	ob_start();
     session_start();
 
-
+	$DEBUG = true;
 	$PATH_TO_STATIC = '../../python/static';
 	$PATH_TO_DOCS = '../../python/templates/';
 
@@ -13,15 +13,24 @@
 
 	/******************************* D2L Code Goes Here *********************************/
 	//Skip this part if we already have a valid user context
-//	if ((!isset($_SESSION['user_context']) || strlen($_SESSION['user_context']->getUserId()) > 0) && $page != 'token') {
-//		$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
+//	if ($page == 'token')
+//	{	
+//		if ($DEBUG)
+//		{
+//			header('Location: http://localhost/CP317_MLS_Project/php/root/token.php');
+//			die();
+//		}
+//		
+//	}
 //
+//	if (!isset($_SESSION['user_context']) || strlen($_SESSION['user_context']->getUserId()) > 0) {
+//		$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
 //		$app_url = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
 //		//$app_url = "{$config['scheme']}://{$config['host']}:{$config['port']}{$config['route']}";
 //		
 //		// Get URL for authentication; this takes a callback address
 //		$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
-//		session_write_close();
+//		
 //		// Redirect to D2L authentication page; user will be redirected back here after
 //		header('Location: ' . $url);
 //		die();

@@ -82,15 +82,15 @@ function findGrade(id, grades) {
 }
 
 /**
- * Ajax call to error_checking.php. On return, if status is 200, redirects 
+ * Ajax call to error_checking.php. On return, if no errors, redirects 
  * to report page. Otherwise, displays error modal with error messages 
  * returned from error_checking.php
  * @param {Array} data - array of JSON grade objects to send for error checking 
  */
 function sendToErrorChecking(data) { 
 	// Clear all previous forms and error messages
-	$('.error-form').remove();
-	$('.modal-body').html('');
+	$('#error-message-modal .error-form').remove();
+	$('#error-message-modal .modal-body').html('');
 	
 	//Set data to global variable in case user re-submits
 	globalGrades = data;
@@ -120,7 +120,7 @@ function sendToErrorChecking(data) {
 								errorForm.removeClass('modal-form-template');
 								errorForm.find('#comment').text(data[i].comment);
 								errorForm.find('#grade').val(data[i].value);
-								errorForm.appendTo('.modal-body');
+								errorForm.appendTo('#error-message-modal .modal-body');
 								errorForm.find('.remove-student-error').attr('id', 'remove-' + data[i].id);
 
 								if (data[i].type == 0) {
@@ -202,6 +202,13 @@ $('#cancel-upload').click(function() {
 });
 
 /**
+ * Closes button for error checking modal.
+ */
+$('#cancel-confirm').click(function() {
+	closeModal('confirm-max-grade');
+});
+
+/**
  * Submits manual upload form. Goes through student forms and 
  * makes array of JSON objects
  */
@@ -224,13 +231,38 @@ $('#manual-upload').click(function() {
 	sendToErrorChecking(grades)
 });
 
+/**
+ * Opens modal to confirm if user wants to change grade maximum
+ */
+$('.open-confirm-max-grade').click(function() {
+	console.log('here');
+	var isModal = parseInt($(this).attr('modal-form'));
+	if (isModal) {
+		$('#update-max').addClass('hidden');
+		$('#update-max-modal').removeClass('hidden');
+	}
+	else {
+		$('#update-max').removeClass('hidden');
+		$('#update-max-modal').addClass('hidden');
+	}
+	showModal('confirm-max-grade');
+});
+
+/**
+ * Listens for submitting of update max.
+ */
 $('#update-max').click(function() {
+	closeModal('confirm-max-grade');
 	var form = $('#update-max-form');
 	var max = form.find('#max-grade').val();
 	updateMax(max, 'update-max-error');
 });
 
+/**
+ * Listens for submitting of update max on modal.
+ */
 $('#update-max-modal').click(function() {
+	closeModal('confirm-max-grade');
 	var form = $('#update-max-form-modal');
 	var max = form.find('#max-grade-modal').val();
 	updateMax(max, 'update-max-error-modal');
@@ -238,10 +270,11 @@ $('#update-max-modal').click(function() {
 
 
 /**
- * Ajax call to error_checking.php. On return, if status is 200, redirects 
- * to report page. Otherwise, displays error modal with error messages 
- * returned from error_checking.php
- * @param {Array} data - array of JSON grade objects to send for error checking 
+ * Ajax call to update_max.php. On return, if no errors, shows 
+ * success message. Otherwise, displays error modal with error messages 
+ * returned from update_max.php
+ * @param {String} max - grade max from input
+ * @param {String} id - element id to put the error messages before
  */
 function updateMax(max, id) { 
 	// Clear all previous forms and error messages
