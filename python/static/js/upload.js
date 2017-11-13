@@ -232,13 +232,12 @@ $('#manual-upload').click(function() {
 });
 
 /**
- * Listens for submitting of update max.
+ * Opens modal to confirm if user wants to change grade maximum
  */
 $('.open-confirm-max-grade').click(function() {
 	console.log('here');
 	var isModal = parseInt($(this).attr('modal-form'));
 	if (isModal) {
-		//closeModal('error-message-modal');
 		$('#update-max').addClass('hidden');
 		$('#update-max-modal').removeClass('hidden');
 	}
