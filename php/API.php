@@ -14,35 +14,42 @@
 	$GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami';
 	
 	
-	function get($route, $user = NULL, $route_params = array()){
-		/* 
+	function get($route, $user = NULL, $route_params = array(), $additional_params = array()){
+		/*
 		Uses a GET request to get JSON
 
 		Preconditions:
 			user - A User object corresponding to the current user
 			route - The route to make a GET request to
 			route_params - A dictionary of parameters corresponding to route
+			additional_params - A dictionary of extra parameters. Added to the end of the url as ?key=value
 		Postconditions
 			On success:
 				Returns:
-				Python dict of grade objects
+				Python dict of request result
 			On failure:
 				raises RuntimeError
 		*/
 		
-		// For making a call which does not require User context
-		if ($user == NULL) {
-			$response = Requests::get(update_route($route, $route_params));
-		}
-		else{
-			//Make request to GET grades
-			$route = update_route($route, $route_params);
-			$response = Requests::get($user->get_context()->createAuthenticatedUrl($route, 'GET'))
+		$route = update_route($route, $route_params);
+		
+		if ($user != NULL) {
+			$route = $user->get_context()->createAuthenticatedUrl($route, 'GET')
 		}
 		
-		//Check if request was valid
-		check_request($response);
-		return (json_decode($response));
+		$response = Requests::get($route, $additional_params = payload );
+		
+		check_request($response)
+		
+		$results = json_enconde($response)
+		
+		if (in_array("PagingInfo", results.keys()) == True and $results("PagingInfo")("HasMoreItems") == True){
+			$bookmark = $results("PagingInfo")("Bookmark")
+			$next_results = get($route, $user, $route_params,("Bookmark"=> $bookmark))        
+			$results("Items") = $results("Items") + $next_results("Items")
+        }
+		
+		return $results
 	}
 
 	function put($route, $user, $route_params, $params){
