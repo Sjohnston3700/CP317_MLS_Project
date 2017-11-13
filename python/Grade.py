@@ -61,9 +61,9 @@ class Grade(object):
         """
         return self._student
 
-    def put_grade():
-        "...."
-
+    def put_grade(self):
+        "Call function to update grade"
+        API.put_grade(self)
 
 class NumericGrade(Grade):
 
