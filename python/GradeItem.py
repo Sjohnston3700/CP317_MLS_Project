@@ -59,7 +59,7 @@ class GradeItem(object):
         
     def put_grades(self):
         """
-        Calls grade.put_grade for each Grade object
+        Calls grade.put_grade() for each Grade object
         """
         for grade in self._grades:
             grade.put_grade()
@@ -67,10 +67,10 @@ class GradeItem(object):
         
     def put_grade_item():
         """
-        Eh. 
+        Puts grade item to Brightspace
         """
-        
-        
+        API.put_grade_item(self)
+        return
         
     def get_user(self):
         """ 
