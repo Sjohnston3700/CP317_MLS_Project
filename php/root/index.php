@@ -12,29 +12,26 @@
     $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'courses';
 
 	/******************************* D2L Code Goes Here *********************************/
-	//Skip this part if we already have a valid user context
-//	if ($page == 'token')
-//	{	
-//		if ($DEBUG)
-//		{
-//			header('Location: http://localhost/CP317_MLS_Project/php/root/token.php');
-//			die();
-//		}
-//		
-//	}
-//
-//	if (!isset($_SESSION['user_context']) || strlen($_SESSION['user_context']->getUserId()) > 0) {
-//		$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
-//		$app_url = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
-//		//$app_url = "{$config['scheme']}://{$config['host']}:{$config['port']}{$config['route']}";
-//		
-//		// Get URL for authentication; this takes a callback address
-//		$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
-//		
-//		// Redirect to D2L authentication page; user will be redirected back here after
-//		header('Location: ' . $url);
-//		die();
-//	}
+
+	// I guess we need these? They should come in handy at some point
+	// From http://docs.valence.desire2learn.com/basic/auth.html
+	if(isset($_GET['x_a']) && isset($_GET['x_b']) && isset($_GET['x_c'])) {
+		$_SESSION['tokenID'] = $_GET['x_a'];
+		$_SESSION['tokenKey'] = $_GET['x_b'];
+		$_SESSION['tokenSig'] = $_GET['x_c'];
+	}
+	else if ((!isset($_SESSION['user_context'])) && $page != 'token') {
+		$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
+
+		$app_url = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
+		
+		// Get URL for authentication; this takes a callback address
+		$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
+		session_write_close();
+		// Redirect to D2L authentication page; user will be redirected back here after
+		header('Location: ' . $url);
+		die();
+	}
 
 	/****************************************************************************************************/
 
