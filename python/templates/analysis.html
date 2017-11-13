@@ -15,7 +15,7 @@
 
 		<h2>Introduction</h2>
 		<p>
-			ezMarker is a web application that allows instructors at Wilfrid Laurier University to bulk upload grades and feedback into MyLearningSpace,with the integration of the Brightspace API supported by D2L. The goal of ezMarker is to solve the issues regarding inefficient manual grade uploading and and feedback through the current MyLearningSpace interface. On average, it can take markers a few hours to physically upload grades for one class. Marking time is cut down to minutes with the use of ezMarker's bulk file uploading features. This document outlines the structure of the classes and objects for the ezMarker application, including the software interaction summary.
+			ezMarker is a web application that allows instructors at Wilfrid Laurier University to bulk upload grades and feedback into MyLearningSpace, with the integration of the Brightspace API supported by D2L. The goal of ezMarker is to solve the issues regarding inefficient manual grade uploading and and feedback through the current MyLearningSpace interface. On average, it can take markers a few hours to physically upload grades for one class. Marking time is cut down to minutes with the use of ezMarker's bulk file uploading features. This document outlines the structure of the classes and objects for the ezMarker application, including the software interaction summary.
 		</p>
 
 		<hr>
@@ -27,9 +27,10 @@
 
 		<h3>Entity Objects</h3>
 		<ul>
+			<li>Host - Stores information about the LMS host. Information includes protocol (http/https) and a list containing the versions of the API the host uses.</li>
 			<li>User - Stores information about logged in user, including the user's identity and permissions.</li>
 			<li>Course - Stores information about a course, which may consist the course identification code, professor, registerated students, and course content.</li>
-			<li>Student - Stores information about a student, specifically their coursework and grades. </li>
+			<li>OrgMember - Stores information about a student, specifically their coursework and grades. </li>
 			<li>GradeItem - Stores information about a grade item's parameters, including the outline and grading type. Implemented by specific grade item type.</li>
 			<li>Grade - Stores information about a specific grade, unique to the grade item's grading scale. Implemented by specific grade type.</li>
 		</ul>
@@ -55,7 +56,7 @@
 			<li>SearchStudentsController - Allows searching of students by name or student ID.</li>
 			<li>AvailableGradeItemsController - Allows retrieval of a course's GradeItems that the user has permission to upload grades to.</li>
 			<li>ChangeGradeTotalController - Allows changing of the grade total of a grade item and updating GradeItem object.</li>
-			<li>GradingController - Handles  parsing, validating and uploading of students' grades and updating GradeItem object.</li>
+			<li>GradingController - Handles parsing, validating and uploading of students' grades and updating GradeItem object.</li>
 		</ul>
 
 		<h2>Class Diagram</h2>
@@ -73,8 +74,16 @@
 			<li>Removed the use of "coordinates"</li>
 			<li>Added object description details</li>
 		</ul>	
-		<p>Authors: </p>
+		<p>Authors: Sumeet Jhand</p>
 		<p>SQA: Sophie Wang, Pirajeev Prabaharan</p>
+		
+		<h3 id="toc_exclude">Version 3.0 - 11/12/2017</h3>
+		<h4 id="toc_exclude">Revision Notes</h4>
+		<ul>
+			<li>Added Host entity object and updated diagram</li>
+		</ul>	
+		<p>Authors: Sumeet Jhand</p>
+		<p>SQA: </p>
 
 
 	</body>
@@ -82,7 +91,7 @@
 	<style>
 		img 
 		{
-			width: 1100px;
+			width: 1200px;
 		}
 	</style>
 </html>

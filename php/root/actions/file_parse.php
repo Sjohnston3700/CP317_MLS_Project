@@ -1,5 +1,5 @@
 <?php
-require_once('../../includes/functions/upload_functions.php');
+require_once('../../includes/functions/grade_functions.php');
 
 // Open CSV
 $file = fopen($_FILES['file']['tmp_name'], 'r');
