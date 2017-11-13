@@ -1,29 +1,41 @@
 <?php
     require_once 'config.php';
 	require_once $config['libpath'] . '/D2LAppContextFactory.php';
-	
+
 	ob_start();
     session_start();
 
-
+	$DEBUG = true;
 	$PATH_TO_STATIC = '../../python/static';
+	$PATH_TO_DOCS = '../../python/templates/';
+
     $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'courses';
 
-	/******************************* All of the D2L code should go here *********************************/
-	 //Skip this part if we already have a valid user context
-//	if ((!isset($_SESSION['user_context']) || strlen($_SESSION['user_context']->getUserId()) > 0) && $page != 'token' ) {
+	/******************************* D2L Code Goes Here *********************************/
+	//Skip this part if we already have a valid user context
+//	if ($page == 'token')
+//	{	
+//		if ($DEBUG)
+//		{
+//			header('Location: http://localhost/CP317_MLS_Project/php/root/token.php');
+//			die();
+//		}
+//		
+//	}
+//
+//	if (!isset($_SESSION['user_context']) || strlen($_SESSION['user_context']->getUserId()) > 0) {
 //		$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
-//	
-//		// TODO: This gives error 'invalid x_target', HOWEVER it seems that the user is authenticated when revisiting the page
 //		$app_url = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
+//		//$app_url = "{$config['scheme']}://{$config['host']}:{$config['port']}{$config['route']}";
 //		
 //		// Get URL for authentication; this takes a callback address
 //		$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
-//
+//		
 //		// Redirect to D2L authentication page; user will be redirected back here after
 //		header('Location: ' . $url);
 //		die();
 //	}
+
 	/****************************************************************************************************/
 
 
@@ -38,14 +50,32 @@
         case 'upload':
             $contents = '../views/upload.php';
             break;
-		case 'token':
-			$contents = 'token.php';
-			break;
-        default:
+ 		case 'spmp':
+ 			$contents = $PATH_TO_DOCS . 'spmp.html';
+ 			break;
+ 		case 'requirements':
+ 			$contents = $PATH_TO_DOCS . 'requirements.html';
+ 			break;
+ 		case 'requirements_wrapper':
+ 			$contents = $PATH_TO_DOCS . 'requirements_wrapper.html';
+ 			break;
+ 		case 'analysis':
+ 			$contents = $PATH_TO_DOCS . 'analysis.html';
+ 			break;
+ 		case 'analysis_wrapper':
+ 			$contents = $PATH_TO_DOCS . 'analysis_wrapper.html';
+ 			break;
+ 		case 'design':
+ 			$contents = $PATH_TO_DOCS . 'design.html';
+ 			break;
+ 		case 'design_wrapper':
+ 			$contents = $PATH_TO_DOCS . 'design_wrapper.html';
+ 			break;
+		default:
             $contents = '../views/courses.php';
             break;
     }
-	
+
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +86,7 @@
 		<link rel="shortcut icon" type="image/png" href="<?=$PATH_TO_STATIC?>/img/logo.png"/>
 		<!-- JQuery -->
 		<script src="<?=$PATH_TO_STATIC?>/js/jquery-3.2.1.min.js"></script>
-		
+
 		<!-- Stylesheets -->
 		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/main.css">
 		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/nav.css">
@@ -69,7 +99,7 @@
 		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/tables.css">
 		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/upload_button.css">
 		<link rel="stylesheet" href="<?=$PATH_TO_STATIC?>/css/easy_autocomplete.css">
-		
+
 		<!-- Fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -94,9 +124,8 @@
 			<?php require_once($contents); ?>
 		</div>
 	</body>
-	
+
 	<!-- JS Files -->
 	<script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/accordion.js"></script>
 	<script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/modal.js"></script>
 </html>
-

@@ -98,3 +98,7 @@ textarea.input
 	display: none;
 }
 
+.upload-file-error
+{
+	margin-bottom: 10px !important;
+}

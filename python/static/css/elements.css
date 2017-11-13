@@ -195,6 +195,13 @@ button.accordion.active:after
 	color: #ad4641;
 }
 
+.modal-success
+{
+	border: 1px solid #7dbf4a;
+	background: #dbffc9;
+	color: #7dbf4a;
+}
+
 .modal-error strong
 {
 	color: #ad4641;
@@ -258,4 +265,9 @@ hr
 .inline 
 {
 	display: inline;
+}
+
+#update-max-error, #update-max-error-modal
+{
+	margin-bottom: 20px;
 }

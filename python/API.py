@@ -3,6 +3,7 @@ import requests
 SUCCESS = 200
 API_ROUTE = '/d2l/api/versions/'
 GET_GRADES_ROUTE     = '/d2l/api/le/(version)/(orgUnitId)/grades/'
+SET_GRADEITEM_ROUTE  = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
 SET_GRADE_ROUTE      = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)'
 GET_COURSE_MEMBERS   = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/'
 GET_USER_ENROLLMENTS = '/d2l/api/lp/(version)/enrollments/myenrollments/'
@@ -64,10 +65,13 @@ def update_route(route,params):
     Postconditions:
         Returns new route - Does not check for missed values
     '''
-    if params is None:
-        return route
-    for key in params:
-        route = route.replace("({})".format( key ), str(params[key]) )
+    if params is not None:#Dont care about params={} for loop takes care of it
+        for key in params:
+            route = route.replace("({})".format( key ), str(params[key]) )
+ 
+    if '(' in route or ')' in route:#check for missed stuff to replace
+        exception_message = 'Route : {} needs more parameters'.format(route)
+        raise  RuntimeError( exception_message )
     return route
 
 def check_request(request):
@@ -81,3 +85,59 @@ def check_request(request):
         exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
         raise  RuntimeError( exception_message )
     return    
+
+def get_grade_items(course):
+	'''
+	Gets grade item JSON as python dict from a Course object
+	
+	Preconditions:
+		course : the Course to retrieve grades from
+	Postconditions:
+		returns
+		a dict of grade items corresponding to the given course
+	'''
+	user = course.get_user()
+	route_params = {'version' : user.get_host().get_api_version('le'), 'orgUnitId': course.get_id()}
+	r = get(GET_GRADES_ROUTE, user, route_params)
+	return r
+	
+def put_grade(grade):
+	'''
+	Posts a Grade object to Brightspace using a PUT request
+	
+	Preconditions:
+		grade : the grade to post
+	Postconditions:
+		grade JSON is PUT to Brightspace
+	'''
+	user = grade.get_user()
+	route_params = {'version' : user.get_host().get_api_version('le'), \
+		'orgUnitId': grade.get_grade_item().get_course().get_id(), \
+		'gradeObjectId': grade.get_grade_item().get_id(), \
+		'userId' : grade.get_student().get_id() }
+	params = {"Comments": grade.get_comment(), "PrivateComments": ''} # For generic Grade
+	
+	# TODO: Support other Grade types?
+	params['GradeObjectType'] = 1 # NumericGrade Type
+	params['PointsNumerator'] = grade.get_value() # For NumericGrade
+	
+	# Make PUT request
+	r = put(SET_GRADE_ROUTE, user, route_params, params)
+	return
+
+def put_grade_item(grade_item):
+	'''
+	Posts a GradeItem object to Brightspace using a PUT request
+	
+	Preconditions:
+		grade_item : the grade_item to post
+	Postconditions:
+		grade_item JSON is PUT to Brightspace
+	'''
+	user = grade_item.get_user()
+	route_params = {'version' : user.get_host().get_api_version('le'), \
+			'orgUnitId': grade.get_grade_item().get_course().get_id(), \
+			'gradeObjectId': grade.get_grade_item().get_id() }
+	params = { "MaxPoints": grade_item.get_max(), "CanExceedMaxPoints": grade_item.can_exceed(), "GradeType": "Numeric" }
+	r = put(SET_GRADEITEM_ROUTE, user, route_params, params)
+	return
