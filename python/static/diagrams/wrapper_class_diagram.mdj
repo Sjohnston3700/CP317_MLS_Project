@@ -4117,7 +4117,7 @@
 											"containerExtending": false,
 											"left": 1853,
 											"top": 683,
-											"width": 585.6474609375,
+											"width": 603.7001953125,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
@@ -4189,7 +4189,7 @@
 									"containerExtending": false,
 									"left": 1848,
 									"top": 676,
-									"width": 595.6474609375,
+									"width": 613.7001953125,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -4235,7 +4235,7 @@
 											"containerExtending": false,
 											"left": 1853,
 											"top": 706,
-											"width": 585.6474609375,
+											"width": 603.7001953125,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
@@ -4256,7 +4256,7 @@
 									"containerExtending": false,
 									"left": 1848,
 									"top": 701,
-									"width": 595.6474609375,
+									"width": 613.7001953125,
 									"height": 23,
 									"autoResize": false
 								},
@@ -4290,11 +4290,11 @@
 											"containerExtending": false,
 											"left": 1853,
 											"top": 729,
-											"width": 585.6474609375,
+											"width": 603.7001953125,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "«constructor»+__init__(grade_item: GradeItem, student: OrgMember, grade_params: dictionary): void",
+											"text": "«constructor»+__init__(grade_item: GradeItem, student: OrgMember, comment: String, value: float): void",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -4319,7 +4319,7 @@
 											"containerExtending": false,
 											"left": 1853,
 											"top": 744,
-											"width": 585.6474609375,
+											"width": 603.7001953125,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
@@ -4340,7 +4340,7 @@
 									"containerExtending": false,
 									"left": 1848,
 									"top": 724,
-									"width": 595.6474609375,
+									"width": 613.7001953125,
 									"height": 38,
 									"autoResize": false
 								},
@@ -4404,7 +4404,7 @@
 							"containerExtending": false,
 							"left": 1848,
 							"top": 676,
-							"width": 595.6474609375,
+							"width": 613.7001953125,
 							"height": 113,
 							"autoResize": false,
 							"stereotypeDisplay": "label",
@@ -4462,8 +4462,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 2129,
-									"top": 623,
+									"left": 2134,
+									"top": 624,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -4496,8 +4496,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 2114,
-									"top": 623,
+									"left": 2119,
+									"top": 625,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -4530,8 +4530,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 2158,
-									"top": 624,
+									"left": 2163,
+									"top": 623,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -4563,7 +4563,7 @@
 								"$ref": "AAAAAAFe8ztoR/rjMX4="
 							},
 							"lineStyle": 1,
-							"points": "2145:675;2144:585",
+							"points": "2151:675;2147:585",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -4903,7 +4903,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+create_grade(student: OrgMember, grade_params: dictionary): void",
+											"text": "+create_grade(student: OrgMember, comment: String, value: float): void",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -7350,7 +7350,7 @@
 								"$ref": "AAAAAAFfSr91p9c0cPg="
 							},
 							"lineStyle": 1,
-							"points": "1994:665;2016:675"
+							"points": "1996:665;2020:675"
 						},
 						{
 							"_type": "UMLNoteView",
@@ -7397,7 +7397,7 @@
 								"$ref": "AAAAAAFfSsEaGuDUMkA="
 							},
 							"lineStyle": 1,
-							"points": "2262:659;2237:675"
+							"points": "2265:659;2240:675"
 						},
 						{
 							"_type": "UMLNoteView",
@@ -10795,11 +10795,11 @@
 									"_parent": {
 										"$ref": "AAAAAAFfQUEy9OOaKzo="
 									},
-									"name": "grade_params",
+									"name": "comment",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
-									"type": "dictionary",
+									"type": "String",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -10819,6 +10819,22 @@
 									"isOrdered": false,
 									"isUnique": false,
 									"direction": "return"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFfszEh31Pk46M=",
+									"_parent": {
+										"$ref": "AAAAAAFfQUEy9OOaKzo="
+									},
+									"name": "value",
+									"visibility": "public",
+									"isStatic": false,
+									"isLeaf": false,
+									"type": "float",
+									"isReadOnly": false,
+									"isOrdered": false,
+									"isUnique": false,
+									"direction": "in"
 								}
 							],
 							"concurrency": "sequential",
@@ -11057,11 +11073,11 @@
 									"_parent": {
 										"$ref": "AAAAAAFfQUy3reRO6p0="
 									},
-									"name": "grade_params",
+									"name": "comment",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
-									"type": "dictionary",
+									"type": "String",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -11081,6 +11097,22 @@
 									"isOrdered": false,
 									"isUnique": false,
 									"direction": "return"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFfszDPmlNRvtI=",
+									"_parent": {
+										"$ref": "AAAAAAFfQUy3reRO6p0="
+									},
+									"name": "value",
+									"visibility": "public",
+									"isStatic": false,
+									"isLeaf": false,
+									"type": "float",
+									"isReadOnly": false,
+									"isOrdered": false,
+									"isUnique": false,
+									"direction": "in"
 								}
 							],
 							"concurrency": "sequential",

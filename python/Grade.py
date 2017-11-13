@@ -61,21 +61,22 @@ class Grade(object):
         """
         return self._student
 
-    def put_grade():
-        "...."
-
+    def put_grade(self):
+        "Call function to update grade"
+        API.put_grade(self)
 
 class NumericGrade(Grade):
 
-    def __init__(self, grade_item, student, grade_params):
+    def __init__(self, grade_item, student, comment, value):
         """
         Constructor:
             grade_item(GradeItem Object)
             student(OrgMember)
-            grade_params(JSON: Grade.GradeValue)
+            value(mark student scored) int
+            comment(feedbacks) string
         """
-        self._value = grade_params['PointsNumerator']
-        super().__init__(grade_item, student, grade_params['Comments'])
+        self._value = value
+        super().__init__(grade_item, student, comment)
 
     def get_value(self):
         """

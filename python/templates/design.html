@@ -254,15 +254,14 @@
     <h4>login()</h4>
     <ol>
         <li>Redirects user to Brightspace login page</li>
+    </ol>
+
+    <h4>auth_token_handler()</h4>
+    <ol>
+        <li>Redirected to by Brightspace login page</li>
         <li>Creates user object, passing constructor IDs (from config file) of roles that can set grades</li>
         <li>Sorts course list in ascending order by course name</li>
         <li>Redirects to the Courses page</li>
-    </ol>
-
-    <h4>logout()</h4>
-    <ol>
-        <li>Redirects user to Brightspace logout page</li>
-        <li>User has to return to ezMarker root in order to login again</li>
     </ol>
 
     <h4>show_courses()</h4>
@@ -306,6 +305,12 @@
         <li>Uploads grades</li>
         <li>Keep track of grades that cause exceptions when uploading them and remove those grade from grade item grade list</li>
         <li>Render Report page</li>
+    </ol>
+
+    <h4>logout()</h4>
+    <ol>
+        <li>Redirects user to Brightspace logout page</li>
+        <li>User has to return to ezMarker root in order to login again</li>
     </ol>
 
     <h3 id="JSON">JSON Specifications</h3>
@@ -433,8 +438,9 @@
 
     <h3 id="toc_exclude">Version 2.2 - 11/xx/2017</h3>
     <p>- Removed unnecessary Student JSON</p>
-    <p>- Added show_courses, show_upload controllers</p>
+    <p>- Added show_courses, show_upload, auth_token_handler controllers</p>
     <p>- Added References section</p>
+    <p>- Added additional note that user is prompted to confirm before updating max value</p>
     <p>Authors: Harold Hodgins, Troy Nechanicky</p>
     <p>SQA: </p>
 </body>
