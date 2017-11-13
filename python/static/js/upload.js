@@ -89,8 +89,8 @@ function findGrade(id, grades) {
  */
 function sendToErrorChecking(data) { 
 	// Clear all previous forms and error messages
-	$('.error-form').remove();
-	$('.modal-body').html('');
+	$('#error-message-modal .error-form').remove();
+	$('#error-message-modal .modal-body').html('');
 	
 	//Set data to global variable in case user re-submits
 	globalGrades = data;
@@ -120,7 +120,7 @@ function sendToErrorChecking(data) {
 								errorForm.removeClass('modal-form-template');
 								errorForm.find('#comment').text(data[i].comment);
 								errorForm.find('#grade').val(data[i].value);
-								errorForm.appendTo('.modal-body');
+								errorForm.appendTo('#error-message-modal .modal-body');
 								errorForm.find('.remove-student-error').attr('id', 'remove-' + data[i].id);
 
 								if (data[i].type == 0) {
@@ -202,6 +202,13 @@ $('#cancel-upload').click(function() {
 });
 
 /**
+ * Closes button for error checking modal.
+ */
+$('#cancel-confirm').click(function() {
+	closeModal('confirm-max-grade');
+});
+
+/**
  * Submits manual upload form. Goes through student forms and 
  * makes array of JSON objects
  */
@@ -227,7 +234,26 @@ $('#manual-upload').click(function() {
 /**
  * Listens for submitting of update max.
  */
+$('.open-confirm-max-grade').click(function() {
+	console.log('here');
+	var isModal = parseInt($(this).attr('modal-form'));
+	if (isModal) {
+		//closeModal('error-message-modal');
+		$('#update-max').addClass('hidden');
+		$('#update-max-modal').removeClass('hidden');
+	}
+	else {
+		$('#update-max').removeClass('hidden');
+		$('#update-max-modal').addClass('hidden');
+	}
+	showModal('confirm-max-grade');
+});
+
+/**
+ * Listens for submitting of update max.
+ */
 $('#update-max').click(function() {
+	closeModal('confirm-max-grade');
 	var form = $('#update-max-form');
 	var max = form.find('#max-grade').val();
 	updateMax(max, 'update-max-error');
@@ -237,6 +263,7 @@ $('#update-max').click(function() {
  * Listens for submitting of update max on modal.
  */
 $('#update-max-modal').click(function() {
+	closeModal('confirm-max-grade');
 	var form = $('#update-max-form-modal');
 	var max = form.find('#max-grade-modal').val();
 	updateMax(max, 'update-max-error-modal');

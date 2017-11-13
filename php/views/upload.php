@@ -4,7 +4,7 @@
 <form id="update-max-form">
 	<div id="update-max-error"></div>
 	<input type="text" class="input" id="max-grade" placeholder="Grade item is now out of...">
-	<button type="button" id="update-max" class="btn btn-success">Update maximum</button>
+	<button type="button" modal-form="0" class="btn btn-success open-confirm-max-grade">Update maximum</button>
 </form>
 <hr>
 <h2>Automated Upload</h2>
@@ -44,7 +44,7 @@
 			<form class="form-wide" id="update-max-form-modal">
 				<div id="update-max-error-modal"></div>
 				<input type="text" class="input" id="max-grade-modal" placeholder="Grade item is now out of...">
-				<button type="button" id="update-max-modal" class="btn btn-success">Update maximum</button>
+				<button type="button" modal-form="1" class="btn btn-success open-confirm-max-grade">Update maximum</button>
 			</form>
 			<hr>
 		</div>
@@ -53,6 +53,22 @@
 		<div class="modal-footer">
 			<button id="resubmit" class="btn btn-success">Re-Upload</button>
 			<button id="cancel-upload" class="btn btn-error">Cancel Upload</button>
+		</div>
+	</div>
+</div>
+<div id="confirm-max-grade" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+			<span class="close">&times;</span>
+			<h2>Confirm</h2>
+		</div>
+		<div class="modal-body">	
+			Are you sure you want to update grade maximum?
+		</div>
+		<div class="modal-footer">
+			<button type="button" id="update-max-modal" class="btn btn-success">Confirm</button>
+			<button type="button" id="update-max" class="btn btn-success">Confirm</button>
+			<button id="cancel-confirm" class="btn btn-error">Cancel</button>
 		</div>
 	</div>
 </div>
