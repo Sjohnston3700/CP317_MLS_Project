@@ -90,7 +90,7 @@
 
 <h2 id="2. Overall Description">2. Overall Description</h2>
 <h3 id="2.1 Product Perspective">2.1 Product Perspective</h3>
-<img id="process-flow-diagram" src="../static/img/process_flow.png">
+<img id="process-flow-diagram" src="../static/img/process_flow.png" height="690" width="483" >
 <h3 id="2.5 Constraints">2.2 Constraints</h3>
 <p>Development is constrained by a short, hard deadline.</p>
 <h3 id="2.6 Assumptions and Dependencies">2.3 Assumptions and Dependencies</h3>
@@ -98,7 +98,7 @@
 <p>This project is dependent on continued support for the Brightspace API.</p>
 <h2 id="3. Software Requirements">3. Software Requirements</h2>
 
-<p>This section lists the classes and requests that the wrapper contains. Parameters and return objects have been specified in cases where the wrapper implementation of a request has significantly different input and output objects in comparison to the request.
+<p>This section lists the classes and requests that the wrapper contains.
 </p>
 
 <h3 id="3.1 Host">3.1 Host </h3>
@@ -110,18 +110,19 @@
 <h3 id="3.2 User">3.2 User</h3>
 <ul>
     <li>
-        Contains user information
-    </li>
-    <li>Stores the authentication token</li>
-    <li>Filters courses by given permissions</li>
+        Contains user information  (context)</li>
+    <li>Filters courses by given permissions (roles)</li>
     
     <li>Uses Who Am I (GET <a href="http://docs.valence.desire2learn.com/res/user.html#get--d2l-api-lp-(version)-users-whoami" target="_blank">/d2l/api/lp/(version)/users/whoami</a></li>
-    <li>Uses Get List of Accessible Courses (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/</a>)
-    </li>
-		
+	
 	<li>Uses Get User Enrollments (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-users-(userId)-orgUnits-" target="_blank">/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/</a></li>
 	
     <li>Uses Get Enrollments in OrgUnit (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-(orgUnitId)" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/(orgUnitId)</a>)</li>
+	
+    <li>Uses Get List of Accessible Courses (GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-myenrollments-" target="_blank">/d2l/api/lp/(version)/enrollments/myenrollments/</a>)
+    </li>
+		
+
     
 </ul>
 
@@ -169,15 +170,17 @@
 <h3>Version 3.0 - 11/12/2017</h3>
 <ul>
 <li>Updated in accordance to wrapper design document (Added Get User Enrollments API call)</li>
-<li>Fixed minor errors in formatting and added remaning detail in sections
+<li>Fixed minor errors in formatting and added remaining detail in sections
 </ul>
-<p>SQA: Tyler Gwynn, Deep Raithatha</p>
+<p>Authors: Tyler Gwynn
+<p>SQA: Deep Raithatha, Troy Nechanicky</p>
 
 <style>
-    img {
-        width: 800px;
+    <!--
+	img {
+        width: 483px;
     }
-
+	-->
 </style>
 
 </html>
