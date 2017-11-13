@@ -19,7 +19,7 @@ class Host(object):
         self._lms_host = lms_host
         self._protocol = protocol
         if versions is None:
-            self._versions = API.get('{}://{}/{}'.format(self._protocol,self._lms_host, API.API_ROUTE))
+            self._versions = API.get_api_versions(self)
         else:
             self._versions = versions
 
