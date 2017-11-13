@@ -16,7 +16,8 @@
 
     <h2>Introduction</h2>
     <p>
-        The Brightspace API Wrapper is a library used to make calls to the Brightspace API. It allows developers to fetch and push information through the API in a friendly manner. Rather than directly making HTTP requests, developers can simply use the functions available in the wrapper's library. Here an HTTP request would consist of a URL and a verb (E.g. GET, PUT). The API returns a JSON object which contains the information required to make such requests (see section 3). This wrapper is being developed primarily for ezMarker, a web application for uploading grades and feedback to a Brightspace environment. PHP and Python versions of the wrapper are being developed to support the corresponding versions of ezMarker.
+        The Brightspace API Wrapper is a library used to make calls to the Brightspace API. It allows developers to fetch and push information through the API in a friendly manner. Rather than directly making HTTP requests, developers can simply use the functions available in the wrapper's library. HTTP requests consist of a URL and a verb. In this wrapper, requests GET or PUT data.</p>
+    <p>The wrapper is being developed primarily for ezMarker, a web application for uploading grades and feedback to a Brightspace environment. PHP and Python versions of the wrapper are being developed to support the corresponding versions of ezMarker.
     </p>
     <p>This document describes the design of the wrapper's classes and functions, along with providing helpful reference information.</p>
 
@@ -69,6 +70,7 @@
     <h3 id="toc_exclude">Version 1.0 - 10/23/2017</h3>
     <p>Authors: Troy Nechanicky</p>
     <p>SQA: Harold Hodgins, Yi Ling Pang</p>
+
     <h3 id="toc_exclude">Version 2.0 - 11/12/2017</h3>
     <p>- Added PHP specific information</p>
     <p>- Made User subclass of OrgMember</p>
@@ -84,9 +86,10 @@
     <p>- Added constructors to GradeItem and Grade</p>
     <p>- Added get_grades to GradeItem</p>
     <p>- Ordered methods, attributes</p>
+    <p>- Added general information about HTTP requests</p>
 
     <p>Authors: Sumeet Jhand, Troy Nechanicky, Amardeep Sarang, Harjodh Singh</p>
-    <p>SQA: Yi Ling Pang</p>
+    <p>SQA: Mohamed Al-Thibeh, Yi Ling Pang</p>
 </body>
 
 </html>
