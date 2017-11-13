@@ -184,7 +184,18 @@ def get_user_enrollments(user):
             
     return user_enrollments
 
-def get_who_am_i():  
+def get_who_am_i(user):
+    '''
+    Retrieve the current user context’s user information as python dict JSON.
+    
+    Preconditions:
+        user : the Course to retrieve grades from
+    Postconditions:
+        returns
+         WhoAmIUser JSON block for the current user context (as python dict)
+    '''
+    route_params = {'version' : user.get_host().get_api_version('lP')}
+    r = get(GET_WHO_AM_I, user, route_params)
     return
     
     
