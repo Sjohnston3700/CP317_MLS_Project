@@ -11,7 +11,7 @@ GET_USER_ENROLLMENTS = '/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnit
 GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
 
 
-def get(route, user = None, route_params = {}):
+def get(route, user = None, route_params = {},additional_params={}):
     '''
     Uses a GET request to get JSON
 
@@ -19,23 +19,28 @@ def get(route, user = None, route_params = {}):
         user - A User object corresponding to the current user
         route - The route to make a GET request to
         route_params - A dictionary of parameters corresponding to route
+        additional_params - A dictionary of extra parameters. Added to the end of the url as ?key=value
     Postconditions
         On success:
             Returns:
-            Python dict of grade objects
+            Python dict of request result
         On failure:
             raises RuntimeError
     '''
-    # For making a call which does not require User context
-    if user is None:
-        r = requests.get(update_route(route, route_params))
-    else:
-        # Make request to GET grades
-        route = update_route(route, route_params)
-        r = requests.get(user.get_context().create_authenticated_url(route,method='GET'))
-    # Check if request was valid
+    route = update_route(route, route_params)
+    if user is not None:
+        route = user.get_context().create_authenticated_url(route,method='GET')
+    r = requests.get(route, params=payload)
+    
     check_request(r)
-    return r.json()
+    
+    results = r.json()
+    if 'PagingInfo' in results.keys() and results['PagingInfo']['HasMoreItems'] == True:
+        bookmark = results['PagingInfo']['Bookmark']
+        next_results = get(route, user,route_params,{'Bookmark':bookmark})        
+        results['Items'] += next_results['Items']
+        
+    return results
 
 def put(route, user, route_params, params):
     '''
@@ -168,20 +173,7 @@ def get_user_enrollments(user):
     route_params = {'version':unser.get_host().get_api_version('lp'), 'userId':user.get_id()}
     r = get(GET_USER_ENROLLMENTS, user, route_params)
     user_enrollments = r['Items']
-    #return r['Items']
     
-    #Not so sure about this next bit...
-    finished = False
-    while not finished:
-        check = r['PagingInfo']
-        if check['HasMoreItems'] == True:
-            bookmark = check['Bookmark']
-            route = GET_USER_ENROLLMENTS + '?bookmark=' + bookmark
-            r = get(route, user, route_params)
-            user_enrollments.update(r['Items'])
-        else:
-            finished = True
-            
     return user_enrollments
 
 def get_who_am_i(user):
