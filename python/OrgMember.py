@@ -48,7 +48,7 @@ class OrgMember(object):
 
 
 class User(OrgMember):
-	def __init__(self, context, host, roles=None):
+	def __init__(self, context, host, roles=[]):
 		"""
 		Instantiates a new User object
 		Preconditions:
@@ -64,7 +64,7 @@ class User(OrgMember):
 		self._id = ''
 		self._courses = [Course(self,item) 
 				for item in API.get_user_enrollments(self)
-				if item['Access']['ClasslistRoleName'] == 'TA']
+				if item['Access']['ClasslistRoleName'] in roles]
 
 	def get_courses(self):
 		"""
