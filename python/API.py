@@ -30,7 +30,7 @@ def get(route, user = None, route_params = {},additional_params={}):
     route = update_route(route, route_params)
     if user is not None:
         route = user.get_context().create_authenticated_url(route,method='GET')
-    r = requests.get(route, params=payload)
+    r = requests.get(route, additional_params=payload)
     
     check_request(r)
     
@@ -173,7 +173,6 @@ def get_user_enrollments(user):
     route_params = {'version':unser.get_host().get_api_version('lp'), 'userId':user.get_id()}
     r = get(GET_USER_ENROLLMENTS, user, route_params)
     user_enrollments = r['Items']
-    
     return user_enrollments
 
 def get_who_am_i(user):
