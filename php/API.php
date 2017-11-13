@@ -37,7 +37,7 @@
 		else{
 			//Make request to GET grades
 			$route = update_route($route, $route_params);
-			$response = Requests::get(update_route($route, $route_params));
+			$response = Requests::get($user->get_context()->createAuthenticatedUrl($route, 'GET'))
 		}
 		
 		//Check if request was valid
