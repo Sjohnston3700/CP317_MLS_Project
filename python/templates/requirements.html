@@ -21,6 +21,7 @@
         
         <h3 id="1.1 Purpose">Purpose</h3>
 		<p>This document lists the requirements of the ezMarker project, and has been created for developers as a basis for their work and to help the client understand the functionality of the software.</p>
+		<p>The remainder of this document explains the details of interfaces, software platforms used, product design, and functionality. The document follows the IEEE Software Requirements Specifications document standards.</p>
 		<h3 id="1.2 Scope">Scope</h3>
 		<p>ezMarker is a website that adds extended functionality to the MLS platform by providing an interface for setting student grades and feedback that is superior to the current MLS implementation. In the existing system feedback has to be set individually for each student. For courses with many students, inputting feedback for each student can take hours. ezMarker provides an alternate user interface that reduces grade recording time to minutes by allowing users to upload a single file that contains both grades and feedback for any students the user wishes to mark.</p>
 		<p>After logging into ezMarker, the marker selects a course and a grade item (ex. Midterm 1). The marker then uploads a file with the grades and feedback they want submitted to that grade item. ezMarker parses the file and uses the <a href="#1.3%20Definitions">Brightspace API</a> to set the grades and feedback in MLS. Following this, the marker is brought to a report page where they can see the results of the upload. Finally, they are given the option to do another upload or to logout.</p>
@@ -43,11 +44,15 @@
 			<li>IEEE. IEEE Std 830-1998 IEEE Recommended Practice for Software Requirements Specifications. IEEE Computer Society, 1998</li>
 			<li>&ldquo;MLS API Report&rdquo;, April 30th 2017, Harold Hodgins, Wilfrid Laurier University</li>
 		</ul>
-		<h3 id="1.5 Overview">Overview</h3>
-		<p>The remainder of this document explains the details of interfaces, software platforms used, product design, and functionality. The document follows the IEEE Software Requirements Specifications document standards.</p>
 
 		<h2 id="2. Overall Description">Overall Description</h2>
-		<h3 id="2.1 Product Perspective">Product Perspective</h3>
+		<h3 id="2.1.1 Product Functions">Product Functions</h3>
+		<ul>
+			<li>Upload an Autograder formatted text file to set grades and feedback in MLS for all students in a course.</li>
+			<li>Manually input grades and feedback to be set in MLS for selected students in a course.</li>
+			<li>Change the grade total for a grade item.</li>
+		</ul>
+		<h3 id="2.1.2 Product Perspective">Product Perspective</h3>
 		<p>ezMarker is a web-based application that allows users to set student grades and feedback in MLS through the use of the Brightspace API. Users are able to set grades and feedback by uploading Autograder formatted text files or by manually inputting information into a webpage. There will be no consideration for mobile usability.</p>
 		<h4>User Interfaces</h4>
 		<ul>
@@ -71,19 +76,13 @@
 			</li>
 			<li>Logout Page</li> 
 		</ul>
-		<h3 id="2.2 Product Functions">Product Functions</h3>
-		<ul>
-			<li>Upload an Autograder formatted text file to set grades and feedback in MLS for all students in a course.</li>
-			<li>Manually input grades and feedback to be set in MLS for selected students in a course.</li>
-			<li>Change the grade total for a grade item.</li>
-		</ul>
-		<h3 id="2.3 Use Cases">Use Cases</h3>
+		<h3 id="2.2 Use Cases">Use Cases</h3>
 		<img id="use-case-diagram" src="/static/img/use_case_diagram.png" />
-		<h3 id="2.4 User Characteristics">User Characteristics</h3>
+		<h3 id="2.3 User Characteristics">User Characteristics</h3>
 		<p>Users are MLS users with permissions to set grades for students (i.e. professors and TAs). Basic computer literacy is required for the use of ezMarker.</p>
-		<h3 id="2.5 Constraints">Constraints</h3>
+		<h3 id="2.4 Constraints">Constraints</h3>
 		<p>Development is constrained by the capabilities of the Brightspace API and the development skills of the team.</p>
-		<h3 id="2.6 Assumptions and Dependencies">Dependencies</h3>
+		<h3 id="2.5 Assumptions and Dependencies">Dependencies</h3>
 		<p>ezMarker is dependent on continued support for the Brightspace API and the Autograder.</p>
 
 		<h2 id="3. Software Requirements">Software Requirements</h2>
