@@ -33,7 +33,7 @@
 
 		<h3 id="assumptions_cons">Constraints</h3>
 		<ul>
-			<li>Deadline of December 6, 2017.</li>
+			<li>Deadline of December 22, 2017.</li>
 			<li>Capabilities of Brightspace API.</li>
 			<li>Budget of $0.</li>
 			<li>The abilities of the ezMarker team.</li>
@@ -41,7 +41,7 @@
 
 		<h3 id="deliverables">Project Deliverables</h3>
 		<h4 id="software_del">Software Deliverables</h4>
-		<p>The ezMarker team aims to deliver a fully functioning product before December 6, 2017. Its aspects are as follows:
+		<p>The ezMarker team aims to deliver a fully functioning product before December 22, 2017. Its aspects are as follows:
 
 			<ul>
 				<li>Two wrappers: Python and PHP.</li>
@@ -54,20 +54,23 @@
 		<p>
 			In additon to the software itself, the following documents are required for the ezMarker project:
 			<ul>
-				<li>Software Project Management Plan.</li>
+                <li>Analysis Document.</li>
+                <li>Brightspace API Wrapper Requirements Document.</li>
+                <li>Client Feedback.</li>
+                <li>Design Document.</li>
+                <li>ezEmployee Report.</li>
 				<li>ezMarker Software Requirements Document.</li>
-				<li>Brightspace API Wrapper Requirements Document.</li>
-				<li>Analysis Document.</li>
-				<li>Design Document.</li>
+				<li>Software Project Management Plan.</li>
 				<li>QA Log.</li>
-				<li>Client Feedback.</li>
-			</ul>
+            </ul>
 			The following documents will be presented to the client:
 			<ul>
-				<li>ezMarker Project Software Project Management Plan.</li>
+                <li>Brightspace API Wrapper Requirements Document.</li>
+                <li>ezEmployee Report</li>
+				<li>ezMarker Software Project Management Plan.</li>
 				<li>ezMarker Software Requirements Document.</li>
-				<li>Brightspace API Wrapper Requirements Document.</li>
-			</ul>
+                <li>QA Log.</li>
+            </ul>
 		</p>
 
 		<h3 id="schedule">Schedule Summary</h3>
@@ -159,6 +162,15 @@
 					TBA
 				</td>
 			</tr>
+            <tr>
+                <td>
+                    QA Log
+                </td>
+                <td>
+                    TBA
+                </td>
+            </tr>
+
 			<tr>
 				<td>
 					Student Participation Records
@@ -179,8 +191,8 @@
 		<p>
 			<a href="https://bohr.wlu.ca/cp317/" target="_blank">CP317 course website</a>
 		</p>
-		<p id="testsite"><a
-			  href="https://ezmarker.herokuapp.com/" target="_blank">ezMarker test website</a></p>
+		<p id="testsite"><a href="https://ezmarker.herokuapp.com/" target="_blank">ezMarker: Python</a></p>
+        <p id="testsite-php"><a href="http://somethingdumb.ca/" target="_blank">ezMarker: PHP</a></p>
 		<p>IEEE Std 1058-1998, IEEE Standard for Software Project Management Plans, IEEE 1998</p>
 		<p>“MLS API Report”, April 30th 2017, Harold Hodgins, Wilfrid Laurier University</p>
 
@@ -309,7 +321,7 @@
 
 		<h4 id="estimation-plan">Estimation Plan</h4>
 		<p>
-			The team aims to have the project completed before the end of the Fall semester, December 3, 2017. This does not include testing, which will take place until the due date of December 20, 2017. If re-estimation is inevitable, the team is to meet in person to discuss how the schedule will be re-evaluated.
+			The team aims to have the project completed before the end of the Fall semester, December 22, 2017. If re-estimation is inevitable, the team is to meet in person to discuss how the schedule will be re-evaluated.
 		</p>
 
 		<h4 id="staffing-plan">Staffing Plan</h4>
@@ -569,19 +581,6 @@
 		<p>The use of a version control system, <a href="https://git-scm.com/" target="_blank">Git</a>, allows the team to revert back to working code in the event of a fault-introducing commit.
 		</p>
 
-		<h3 id="closeout-plan">Project Closeout Plan</h3>
-		<p>
-			Upon completion of the software project in December of 2017, the client will be given:
-			<ul>
-				<li>The final copy of the project.</li>
-				<li>All documentation for the project.</li>
-				<li>A log of all commits and events from September 2017 to December 2017.</li>
-				<li>A log of all hours spent by each team member on the project from September 2017 to December 2017.</li>
-				<li>A log of all tickets from September 2017 to December 2017.</li>
-                <li>A document containing detailed descriptions of QA reports. </li>
-			</ul>
-		</p>
-
 		<h2 id="technical-plan">Technical Process Plan</h2>
 		<p>
 			All programming-based task timelines and strategies are recorded in this section. This is a tentative model, and is to be updated as the project progresses.
@@ -603,9 +602,9 @@
 				</td>
 				<td>
 					<ul>
+                        <li>Assign teams.</li>
 						<li>Develop strategy for project progression.</li>
-						<li>Assign teams.</li>
-						<li>Review existing code from previous term.</li>
+                        <li>Review existing code from previous term.</li>
 					</ul>
 				</td>
 			</tr>
@@ -669,13 +668,12 @@
 				</td>
 				<td>
 					<ul>
-                        <li>Update documents completed in Design phase with updated requirements, including client feedback regarding format.</li>
-						<li>Build functional prototype.</li>
+                        <li>Build functional prototype.</li>
                         <li>Continuous unit testing.</li>
                         <li>Completed front-end</li>
 						<li>Upload to test server.</li>
 						<li>Gather client feedback.</li>
-						
+                        <li>Update documents completed in Design phase with updated requirements, including client feedback regarding format.</li>
 					</ul>
 				</td>
 			</tr>
@@ -684,7 +682,7 @@
 					Integration
 				</td>
 				<td>
-					2017/11/28 – 2017/12/05
+					2017/11/28 – 2017/12/22
 				</td>
 				<td>
 					<ul>
@@ -721,7 +719,7 @@
 
 		<h3 id="infrastructure-plan">Infrastructure Plan</h3>
 		<p>
-			The software is a companion application to MLS. At key checkpoints, prototypes are uploaded to the <a href="https://ezmarker.herokuapp.com/" target="_blank">test server</a>, and transferred to <a href="#bohr">Bohr</a> upon completion. It is to be supported by the Flask framework for the Python verions. Additional resources may include but are not limited to printers, drafting materials, and other University resources.
+			The software is a companion application to MLS. At key checkpoints, prototypes are uploaded to the <a href="https://ezmarker.herokuapp.com/" target="_blank">Python test server</a> and <a href="http://somethingdumb.ca" target="_blank">PHP test server</a>, and transferred to <a href="#bohr">Bohr</a> upon completion. It is to be supported by the Flask framework for the Python verions. Additional resources may include but are not limited to printers, drafting materials, and other University resources.
 		</p>
 
 		<h3 id="product-acceptance-plan">Product Acceptance Plan</h3>
@@ -731,25 +729,30 @@
 
 		<h2 id="revision-history">Revision History</h2>
 		<h3>Version 1.0 - 09/27/2017</h3>
-		<p>Authors: Jaenuz Gorospe, Sumeet Jhand, Sarah Johnston, Marko Mihailovic, Troy Nechanicky, Simon Phothitay, Jose Romero, Sophie Wang</p>
-		<p>SQA: Tyler Gwynn, Chongju Mai, Amardeep Sarang</p>
+            <p>Authors: Jaenuz Gorospe, Sumeet Jhand, Sarah Johnston, Marko Mihailovic, Troy Nechanicky, Simon Phothitay, Jose Romero, Sophie Wang</p>
+            <p>SQA: Tyler Gwynn, Chongju Mai, Amardeep Sarang</p>
 		<h3>Version 2.0 - 10/02/2017</h3>
-		<p>- Added more detail to the Overview and Scope.</p>
-		<p>- Added additional definitions and more intra-document links to the Definitions section.</p>
-		<p>- Removed unneeded sections.</p>
-		<p>- Further specified the technologies that are being used.</p>
-		<p>- Numerious small grammatical and detail changes.</p>
+            <p>- Added more detail to the Overview and Scope.</p>
+            <p>- Added additional definitions and more intra-document links to the Definitions section.</p>
+            <p>- Removed unneeded sections.</p>
+            <p>- Further specified the technologies that are being used.</p>
+            <p>- Numerious small grammatical and detail changes.</p>
 		<h3>Version 3.0 - 10/22/2017</h3>
-		<p>- Added dashes to all occurances of backend and frontend.</p>
-		<p>- Mentioned Autograder as driving force behind project.</p>
-		<p>- Merged section 7 into the rest of the document.</p>
-		<p>- Revised timeline to better reflect actual work progress.</p>
-		<p>- Revised needs and goals due to client conflict.</p>
-		<p>Authors: Lucas Boulanger, Sarah Johnston, Marko Mihailovic, Troy Nechanicky, Simon Phothitay, Jose Romero, Sophie Wang</p>
-		<p>SQA: Jaenuz Gorospe</p>
+            <p>- Added dashes to all occurances of backend and frontend.</p>
+            <p>- Mentioned Autograder as driving force behind project.</p>
+            <p>- Merged section 7 into the rest of the document.</p>
+            <p>- Revised timeline to better reflect actual work progress.</p>
+            <p>- Revised needs and goals due to client conflict.</p>
+            <p>Authors: Lucas Boulanger, Sarah Johnston, Marko Mihailovic, Troy Nechanicky, Simon Phothitay, Jose Romero, Sophie Wang</p>
+            <p>SQA: Jaenuz Gorospe</p>
         <h3>Version 4.0 - 11/12/2017</h3>
-            <p>Author: Sophie Wang</p>
-            <p>SQA: Pirajeev Prabaharan</p>
+            <p>- Updated out-of-date content</p>
+            <p>- Added documentation of newly created documents</p>
+            <p>- Added reference to PHP test site and additional links</p>
+            <p>- Implementation of additional alphabetical ordering</p>
+            <p>- Removed section 5.4</p>
+            <p>Author: Tyler Gwynn, Sophie Wang</p>
+            <p>SQA: Troy Nichanicky, Pirajeev Prabaharan</p>
 	</body>
 	<style>
 		img 

@@ -6081,7 +6081,7 @@
 							"width": 449,
 							"height": 81,
 							"autoResize": false,
-							"text": "Construcor calls api.get_who_am_i\nConstructor also initialize list of courses user has access to (list is attribute). Requires call to api.get_user_enrollments. \nIf a list of roles is passed, only courses where the user has one of the given roles will be added to the list.",
+							"text": "Constructor calls api.get_who_am_i\nConstructor also initialize list of courses user has access to (list is attribute). Requires call to api.get_user_enrollments. \nIf a list of roles is passed, only courses where the user has one of the given roles will be added to the list.",
 							"wordWrap": true
 						},
 						{
