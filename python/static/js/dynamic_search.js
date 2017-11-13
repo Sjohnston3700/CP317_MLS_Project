@@ -102,8 +102,9 @@
 //	{% endfor %}
 	
 	options.data = [ 
-		{ name: 'Sarah Johnston', id: '12345'},
-		{ name: 'Johnston Doe', id: '34567'}
+		{name: 'Sarah Johnston', id: '12345'},
+		{name: 'Mary Johnston', id: '34567'},
+		{name: 'John Doe', id: '123321'}
 	];
 
 	$("#members").easyAutocomplete(options);

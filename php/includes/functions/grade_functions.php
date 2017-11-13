@@ -9,19 +9,48 @@
 function parse_file($file)
 {
 	$grades = array();
-	
+	$errors = array();
+	$i = 1;
+	$num_errors = 0;
 	// Traverse through CSV and add each pseudo Grade object to JSON object
 	while (!feof($file))
-	{
+	{	
 		$row = fgetcsv($file);
-		$grade = array(
-			'id' => $row[0],
-			'value' => $row[1],
-			'name' => $row[2],
-			'comment' => $row[3]
-		);
+		if (sizeof($row) < 4)
+		{
+			$error = array(
+				'line' => $i,
+				'msg' => 'Format must be student_name, brightspace_id, grade, comment'
+			);
+				
+			$num_errors++;
+			$errors[] = $error;
+		}
+		else 
+		{
+			$grade = array(
+				'id' => $row[0],
+				'value' => $row[1],
+				'name' => $row[2],
+				'comment' => $row[3]
+			);
 
-		$grades[] = $grade;
+			$grades[] = $grade;
+		}
+		$i++;
+	}
+
+	if ($i - 1 == $num_errors)
+	{	
+		$msg = array();
+		$msg[] = array(
+			'msg' => 'Entire file is formatted incorrectly. Please ensure each student entry is formatted as student_name, brightspace_id, grade, comment'
+		);
+		return $msg;
+	}
+	else if ($num_errors > 0)
+	{
+		return $errors;
 	}
 
 	return $grades;
@@ -40,7 +69,7 @@ function error_checking($grades, $grade_item_id)
 		'max_points' => 30
 	);
 	
-	// Error object to return it $error is true
+	// Error object to return
 	$errors = array();
 
 	foreach ($grades as $g)
@@ -89,6 +118,37 @@ function error_checking($grades, $grade_item_id)
 				'type' => '0'
 			);
 		}
+	}
+	return $errors;
+}
+
+/**
+ * Error checking for max. If success, updates max grade value
+ * @param {Integer} grade_item_id
+ * @param {Integer} max
+ * @return {Array} Array of errors and error messages to be sent to frontend
+ */
+function modify_grade_max($grade_item_id, $max)
+{
+	// Error object to return
+	$errors = array();
+	if ($max == '')
+	{
+		$errors[] = array ( 
+			'msg' => 'Missing grade maximum',
+		);
+	}
+	else if (!is_numeric($max))
+	{
+		$errors[] = array ( 
+			'msg' => 'Grade maximum must be a number',
+		);
+	}
+	else if (floatval($max) < 0)
+	{
+		$errors[] = array ( 
+			'msg' => 'Grade maximum must be a positive number',
+		);
 	}
 	return $errors;
 }

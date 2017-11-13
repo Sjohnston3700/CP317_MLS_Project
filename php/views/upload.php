@@ -1,12 +1,16 @@
 <h1>CS123 - Test Course - Lab Report 1</h1>
 <h2>Out of: <strong>150</strong> marks</h2>
 <hr>
-<input type="text" class="input" placeholder="Grade item is now out of...">
-<button class="btn btn-success">Update maximum</button>
+<form id="update-max-form">
+	<div id="update-max-error"></div>
+	<input type="text" class="input" id="max-grade" placeholder="Grade item is now out of...">
+	<button type="button" modal-form="0" class="btn btn-success open-confirm-max-grade">Update maximum</button>
+</form>
 <hr>
 <h2>Automated Upload</h2>
 <div class="page-section">
 	<h2>Upload a File</h2>
+	<div id="file-error"></div>
 	  <form id="upload-automated" action="actions/file_parse.php" method="POST" enctype="multipart/form-data" target="upload-target">
          	<label id="file" class="custom-file-upload-btn">
 				<i class="fa fa-cloud-upload"></i> Upload File
@@ -28,25 +32,7 @@
 		</div>
 	</form>
 	<hr>
-	<div id="manual-grade-input">
-	<!-- foreach student
-	<form class="upload-form" id="student-1">
-		<h3><div id="name" class="inline">John Doe</div><button type="button" class="btn btn-error btn-remove inline remove-student" id="remove-1">x</button></h3>
-		<div class="form-group">
-			<label>Grade: </label>
-			<input id="grade" name="grade" type="text" placeholder="Grade">
-		</div>	
-		<textarea id="comment" name="comment" class="input" placeholder="Student feedback..." resize="false"></textarea>
-	</form>
-	<form class="upload-form" id="student-2">
-		<h3><div id="name" class="inline">Jane Doe</div><button type="button" class="btn btn-error btn-remove inline remove-student" id="remove-2">x</button></h3>
-		<div class="form-group">
-			<label>Grade: </label>
-			<input id="grade" name="grade" type="text" placeholder="Grade">
-		</div>	
-		<textarea id="comment" name="comment" class="input" placeholder="Student feedback..." resize="false"></textarea>
-	</form> -->
-	</div>
+	<div id="manual-grade-input"></div>
 	<button type="button" id="manual-upload" class="btn submit-btn">Upload grades to MLS</button>
 </div>
 <div id="error-message-modal" class="modal">
@@ -55,8 +41,11 @@
 			<span class="close">&times;</span>
 			<h2>Errors With Your Grade Upload</h2>
 			<hr>
-			<input type="text" class="input" placeholder="Grade item is now out of...">
-			<button class="btn btn-success">Update maximum</button>
+			<form class="form-wide" id="update-max-form-modal">
+				<div id="update-max-error-modal"></div>
+				<input type="text" class="input" id="max-grade-modal" placeholder="Grade item is now out of...">
+				<button type="button" modal-form="1" class="btn btn-success open-confirm-max-grade">Update maximum</button>
+			</form>
 			<hr>
 		</div>
 		<div class="modal-body">
@@ -67,8 +56,25 @@
 		</div>
 	</div>
 </div>
+<div id="confirm-max-grade" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+			<span class="close">&times;</span>
+			<h2>Confirm</h2>
+		</div>
+		<div class="modal-body">	
+			Are you sure you want to update grade maximum?
+		</div>
+		<div class="modal-footer">
+			<button type="button" id="update-max-modal" class="btn btn-success">Confirm</button>
+			<button type="button" id="update-max" class="btn btn-success">Confirm</button>
+			<button id="cancel-confirm" class="btn btn-error">Cancel</button>
+		</div>
+	</div>
+</div>
 <!-- Template HTML -->
 <div class="templates">
+	<p class="modal-success modal-success-template hidden"></p>
 	<p class="modal-warning modal-warning-template hidden"></p>
 	<p class="modal-error modal-error-template hidden"></p>
 	<form class="modal-form-template form-wide hidden" id="modal-form-template">

@@ -34,3 +34,13 @@ function closeModal(modalId) {
 	modal.css('display', 'none');
 }
 
+function showModal(modalId) {
+	var modal = $('#' + modalId);
+	modal.css('display', 'block');
+	$(window).click(function(event) {
+		if (event.target.id == modalId) {
+			modal.css('display', 'none');
+		}
+	});
+}
+

@@ -14,10 +14,32 @@ var globalGrades = [];
  * and puts into iframe. This listener function gets the contents of the 
  * iframe and calls error checking function.
  */
-$('#upload-target').on('load', function(){
+$('#upload-target').on('load', function() {
+		$('.upload-file-error').remove();
 		var result = $(this).contents().find('body').html();
-		var grades = JSON.parse(result);
-		sendToErrorChecking(grades);
+		var json = JSON.parse(result);
+		
+		if (json.length > 0 && json[0].hasOwnProperty('id')) {
+			sendToErrorChecking(json);
+		} 
+		else {
+			for (var i = 0; i < json.length; i++) {
+				var error = $('.templates .modal-error-template').clone(true, true);
+				error.removeClass('modal-error-template');
+				error.removeClass('hidden');
+				error.addClass('upload-file-error');
+				if (json[i].hasOwnProperty('line')) {
+					msg = '<strong>ERROR (line ' + json[i].line + '): </strong>' + json[i].msg;
+				}
+				else {
+					msg = '<strong>ERROR: </strong>' + json[i].msg;
+				}
+				
+				error.html(msg);
+				error.insertBefore($('#file-error'));
+			}
+		}
+		
 });
 
 /**
@@ -60,15 +82,15 @@ function findGrade(id, grades) {
 }
 
 /**
- * Ajax call to error_checking.php. On return, if status is 200, redirects 
+ * Ajax call to error_checking.php. On return, if no errors, redirects 
  * to report page. Otherwise, displays error modal with error messages 
  * returned from error_checking.php
  * @param {Array} data - array of JSON grade objects to send for error checking 
  */
 function sendToErrorChecking(data) { 
 	// Clear all previous forms and error messages
-	$('.error-form').remove();
-	$('.modal-body').html('');
+	$('#error-message-modal .error-form').remove();
+	$('#error-message-modal .modal-body').html('');
 	
 	//Set data to global variable in case user re-submits
 	globalGrades = data;
@@ -84,7 +106,7 @@ function sendToErrorChecking(data) {
 		dataType    : 'json', 
 		encode      : true,
 		success     : function(data) {
-						if (isNaN(data)) {
+						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
 								var errorForm = $('.templates .modal-form-template').clone(true, true);
 								var formId = 'error-form-' + data[i].id;
@@ -98,7 +120,7 @@ function sendToErrorChecking(data) {
 								errorForm.removeClass('modal-form-template');
 								errorForm.find('#comment').text(data[i].comment);
 								errorForm.find('#grade').val(data[i].value);
-								errorForm.appendTo('.modal-body');
+								errorForm.appendTo('#error-message-modal .modal-body');
 								errorForm.find('.remove-student-error').attr('id', 'remove-' + data[i].id);
 
 								if (data[i].type == 0) {
@@ -121,6 +143,7 @@ function sendToErrorChecking(data) {
 						else {
 							closeModal('error-message-modal');
 							// Success, go to report page
+							window.location.href = 'index.php?page=report';
 						}
 					} 
 					
@@ -179,6 +202,13 @@ $('#cancel-upload').click(function() {
 });
 
 /**
+ * Closes button for error checking modal.
+ */
+$('#cancel-confirm').click(function() {
+	closeModal('confirm-max-grade');
+});
+
+/**
  * Submits manual upload form. Goes through student forms and 
  * makes array of JSON objects
  */
@@ -200,3 +230,95 @@ $('#manual-upload').click(function() {
 	}
 	sendToErrorChecking(grades)
 });
+
+/**
+ * Opens modal to confirm if user wants to change grade maximum
+ */
+$('.open-confirm-max-grade').click(function() {
+	var isModal = parseInt($(this).attr('modal-form'));
+	if (isModal) {
+		$('#update-max').addClass('hidden');
+		$('#update-max-modal').removeClass('hidden');
+	}
+	else {
+		$('#update-max').removeClass('hidden');
+		$('#update-max-modal').addClass('hidden');
+	}
+	showModal('confirm-max-grade');
+});
+
+/**
+ * Listens for submitting of update max.
+ */
+$('#update-max').click(function() {
+	closeModal('confirm-max-grade');
+	var form = $('#update-max-form');
+	var max = form.find('#max-grade').val();
+	updateMax(max, 'update-max-error');
+});
+
+/**
+ * Listens for submitting of update max on modal.
+ */
+$('#update-max-modal').click(function() {
+	closeModal('confirm-max-grade');
+	var form = $('#update-max-form-modal');
+	var max = form.find('#max-grade-modal').val();
+	updateMax(max, 'update-max-error-modal');
+});
+
+
+/**
+ * Ajax call to update_max.php. On return, if no errors, shows 
+ * success message. Otherwise, displays error modal with error messages 
+ * returned from update_max.php
+ * @param {String} max - grade max from input
+ * @param {String} id - element id to put the error messages before
+ */
+function updateMax(max, id) { 
+	// Clear all previous forms and error messages
+	$('.update-max-error').remove();
+	
+	var formData = {
+		max: max
+	}
+
+	$.ajax({
+		type        : 'POST', 
+		url         : 'actions/update_max.php', 
+		data        : formData, 
+		dataType    : 'json', 
+		encode      : true,
+		success     : function(data) {
+						if (data.length > 0) {
+							for (var i = 0; i < data.length; i++) {
+								var error;
+								var msg;
+
+								error = $('.templates .modal-error-template').clone(true, true);
+								error.removeClass('modal-error-template');
+								error.removeClass('hidden');
+								error.addClass('update-max-error');
+								msg = '<strong>ERROR: </strong> ';
+								error.html(msg + data[i].msg);
+								
+								error.insertBefore('#' + id);
+							}
+						}
+						else {
+								var success;
+								var msg;
+
+								success = $('.templates .modal-success-template').clone(true, true);
+								msg = 'Grade maximum updated successfully';
+								
+								success.removeClass('hidden');
+								success.removeClass('modal-success-template');
+								success.addClass('update-max-error');
+								success.html(msg);
+								success.insertBefore('#' + id);
+						}
+					} 
+					
+		});
+}	
