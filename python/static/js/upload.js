@@ -235,7 +235,6 @@ $('#manual-upload').click(function() {
  * Opens modal to confirm if user wants to change grade maximum
  */
 $('.open-confirm-max-grade').click(function() {
-	console.log('here');
 	var isModal = parseInt($(this).attr('modal-form'));
 	if (isModal) {
 		$('#update-max').addClass('hidden');
