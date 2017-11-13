@@ -111,4 +111,38 @@
     return;
 	
 	}
+	
+	function get_user_enrollments($user){
+    /*
+    Function to test if a request was valid.
+
+    Preconditions:
+        request : the request object to test
+    */
+	
+
+	
+	
+	
+	}
+	
+    return;
+	
+	}
+	
+	function get_who_am_i($user){
+    /*
+    Retrieve the current user context’s user information as PHP dict JSON.
+    
+    Preconditions:
+        user : the Course to retrieve grades from
+    Postconditions:
+        returns
+         WhoAmIUser JSON block for the current user context (as python dict)
+    */
+	
+    $route_params = $user->get_host->get_api_version('lP');
+	$r = get(GET_USER_ENROLLMENTS, $user, $route_params);
+    return;
+	}
 ?>
