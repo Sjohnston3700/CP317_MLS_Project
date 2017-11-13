@@ -30,14 +30,14 @@ def get(route, user = None, route_params = {},additional_params={}):
     route = update_route(route, route_params)
     if user is not None:
         route = user.get_context().create_authenticated_url(route,method='GET')
-    r = requests.get(route, additional_params=payload)
+    r = requests.get(route, params=additional_params)
     
     check_request(r)
     
     results = r.json()
     if 'PagingInfo' in results.keys() and results['PagingInfo']['HasMoreItems'] == True:
         bookmark = results['PagingInfo']['Bookmark']
-        next_results = get(route, user,route_params,{'Bookmark':bookmark})        
+        next_results = get(route, user,route_params,additional_params={'Bookmark':bookmark})        
         results['Items'] += next_results['Items']
         
     return results
