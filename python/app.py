@@ -5,7 +5,7 @@ from flask import Flask, redirect, request, render_template, url_for
 from werkzeug.utils import secure_filename
 from conf_basic import app_config
 
-from User import User
+from OrgMember import User
 from Host import Host
 from grade_functions import parse_grades
 
