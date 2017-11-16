@@ -34,19 +34,19 @@
 		$route = update_route($route, $route_params);
 		
 		if ($user != NULL) {
-			$route = $user->get_context()->createAuthenticatedUrl($route, 'GET')
+			$route = $user->get_context()->createAuthenticatedUrl($route, 'GET');
 		}
 		
 		$response = Requests::get($route, $additional_params = payload );
 		
-		check_request($response)
+		check_request($response);
 		
-		$results = json_enconde($response)
+		$results = json_enconde($response);
 		
 		if (in_array("PagingInfo", results.keys()) == True and $results("PagingInfo")("HasMoreItems") == True){
-			$bookmark = $results("PagingInfo")("Bookmark")
-			$next_results = get($route, $user, $route_params,("Bookmark"=> $bookmark))        
-			$results("Items") = $results("Items") + $next_results("Items")
+			$bookmark = $results("PagingInfo")("Bookmark");
+			$next_results = get($route, $user, $route_params,("Bookmark"=> $bookmark));    
+			$results("Items") = $results("Items") + $next_results("Items");
         }
 		
 		return $results
@@ -65,7 +65,7 @@
 		
 		//Make request to PUT grades
 		$route = update_route($route, $route_params);
-		$response = Requests::put($user->get_context()->createAuthenticatedUrl($route, 'PUT'), $data = $params)
+		$response = Requests::put($user->get_context()->createAuthenticatedUrl($route, 'PUT'), $data = $params);
 		
 		//Check if request was valid
 		check_request($response);
@@ -84,14 +84,19 @@
         Returns new route - Does not check for missed values
     */
 	
-    if ($params == NULL){
-        return $route;
+    if ($params != NULL){
+		foreach ($params as $key){
+			$temp_string = "(", $key, ")";
+			$route = str_replace($temp_string, ((string)($params(key))), $route );
+		}
 	}
 	
+	(strpos($a, 'are')
 	
-    foreach ($params as $key):
-		$temp_string = "(", $key, ")";
-		$route = str_replace($temp_string, ((string)($params[key])), $route );
+	if ((strpos($route, '(')) !== false or (strpos($route, ')')) !== false){	//check for missed stuff to replace
+        $exception_message = "Route : ",$route "needs more parameters";
+        throw new RuntimeException($exception_message);
+	}
     return $route
 	
 	}
