@@ -91,13 +91,11 @@
 		}
 	}
 	
-	(strpos($a, 'are')
-	
 	if ((strpos($route, '(')) !== false or (strpos($route, ')')) !== false){	//check for missed stuff to replace
         $exception_message = "Route : ",$route "needs more parameters";
         throw new RuntimeException($exception_message);
 	}
-    return $route
+    return $route;
 	
 	}
 	
@@ -123,6 +121,18 @@
     return;
 	
 	}
+	
+	
+	
+	
+	function get_grade_items($course){
+		$user = $course->get_user();
+		$route_params = array("version" => $user->get_host()->get_api_version("le"), "orgUnitId" => $course.get_id());
+		$response = get($GET_GRADES_ROUTE, $user, $route_params);
+		
+		return $response;
+	}
+	
 	
 	function get_user_enrollments($user){
     /*
