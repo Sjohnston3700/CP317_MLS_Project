@@ -45,7 +45,7 @@
 		
 		if (in_array("PagingInfo", results.keys()) == True and $results("PagingInfo")("HasMoreItems") == True){
 			$bookmark = $results("PagingInfo")("Bookmark");
-			$next_results = get($route, $user, $route_params,("Bookmark"=> $bookmark));    
+			$next_results = get($route, $user, $route_params, $additional_params = array("Bookmark" => $bookmark));    
 			$results("Items") = $results("Items") + $next_results("Items");
         }
 		
