@@ -13,17 +13,18 @@ GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
 
 def get(route, user = None, route_params = {},additional_params={}):
     '''
-    Uses a GET request to get JSON
+    Uses a GET request to get JSON.
 
     Preconditions:
-        user - A User object corresponding to the current user
-        route - The route to make a GET request to
-        route_params - A dictionary of parameters corresponding to route
-        additional_params - A dictionary of extra parameters. Added to the end of the url as ?key=value
+        user (User object) : A User object corresponding to the current user.
+        route (str) : The route to make a GET request to.
+        route_params (dict) : A dictionary of parameters corresponding to route.
+        additional_params (dict): A dictionary of extra parameters. Added to the end of the url as ?key=value.
+        
     Postconditions
         On success:
             Returns:
-            Python dict of request result
+            results (dict) : Python dict of JSON data from request result.
         On failure:
             raises RuntimeError
     '''
@@ -44,13 +45,16 @@ def get(route, user = None, route_params = {},additional_params={}):
 
 def put(route, user, route_params, params):
     '''
-    Uses a PUT request to set JSON
+    Uses a PUT request to set JSON.
     
     Preconditions :
-        grade_item (GradeItem object) : The grade_item to change grade data for
-        params (json) : JSON grade data to send
+        user (User object) : A User object corresponding to the current user.
+        route (str) : The route to make a GET request to.
+        route_params (dict) : A dictionary of parameters corresponding to route.
+        params (dict) : A dictionary of JSON grade data to send.
+        
     Postconditions:
-        Brightspace data will be updated with params as JSON
+        Brightspace data will be updated with params as JSON.
     '''
     # Make request to PUT grades
     route = update_route(route,route_params)
@@ -61,14 +65,18 @@ def put(route, user, route_params, params):
 
 def update_route(route,params):
     '''
-    Function to update api route by replace (...) with the appropriate value
+    Function to update api route by replace (...) with the appropriate value.
     
     Preconditions: 
-        route: the route from the valence docs (eg. '/d2l/api/le/(version)/(orgUnitId)/grades/')
-        params: dictionary of replacement values (eg {'version':1.22,'orgUnitId':23456})
+        route (str) : The route to make a GET/PUT request to.
+        params (dict) : A dictionary of parameters corresponding to route.
 
     Postconditions:
-        Returns new route - Does not check for missed values
+        On success:
+            Returns:
+            route (str) : Updated route with params inserted. 
+        On failure:
+            raises RuntimeError.
     '''
     if params is not None:#Dont care about params={} for loop takes care of it
         for key in params:
@@ -84,7 +92,13 @@ def check_request(request):
     Function to test if a request was valid.
 
     Preconditions:
-        request : the request object to test
+        request (str) : the request object to test.
+        
+    Postconditions:
+        on success:
+            Request returns a valid SUCCESS status code, is a valid request.
+        on failure:
+            raises RuntimeError.
     '''
     if request.status_code != SUCCESS:
         exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
@@ -93,27 +107,29 @@ def check_request(request):
 
 def get_grade_items(course):
     '''
-    Gets grade item JSON as python dict from a Course object
+    Gets grade item JSON as python dict from a Course object.
     
     Preconditions:
-        course : the Course to retrieve grades from
+        course (Course object) : The Course object to retrieve GradeItems for.
+        
     Postconditions:
-        returns
-        a dict of grade items corresponding to the given course
+        returns:
+        results (dict) : Python dict of JSON data containing GradeItem object data for the given course.
     '''
     user = course.get_user()
     route_params = {'version' : user.get_host().get_api_version('le'), 'orgUnitId': course.get_id()}
-    r = get(GET_GRADES_ROUTE, user, route_params)
-    return r
+    results = get(GET_GRADES_ROUTE, user, route_params)
+    return results
     
 def put_grade(grade):
     '''
-    Posts a Grade object to Brightspace using a PUT request
+    Posts a Grade object to Brightspace using a PUT request.
     
     Preconditions:
-        grade : the grade to post
+        grade (Grade object) : the Grade object to post to Brightspace.
+        
     Postconditions:
-        grade JSON is PUT to Brightspace
+        Grade object data as JSON is PUT to Brightspace.
     '''
     user = grade.get_user()
     route_params = {'version' : user.get_host().get_api_version('le'), \
@@ -132,12 +148,13 @@ def put_grade(grade):
 
 def put_grade_item(grade_item):
     '''
-    Posts a GradeItem object to Brightspace using a PUT request
+    Posts a GradeItem object to Brightspace using a PUT request.
     
     Preconditions:
-        grade_item : the grade_item to post
+        grade_item (GradeItem object) : the GradeItem object to post to Brightspace.
+        
     Postconditions:
-        grade_item JSON is PUT to Brightspace
+        grade_item data as JSON is PUT to Brightspace.
     '''
     user = grade_item.get_user()
     route_params = {'version' : user.get_host().get_api_version('le'), \
@@ -149,26 +166,28 @@ def put_grade_item(grade_item):
     
 def get_api_versions(host):
     '''
-    Gets product version numbers JSON as python dict 
+    Gets product version numbers JSON as python dict. 
     
     Preconditions:
-        host : the Host object used
+        host (Host object) : A Host object corresponding to the current host.
+
     Postconditions:
-        returns
-        a dict of product version numbers for the API
+        returns:
+        results (dict) : A dict of product version numbers for the API.
     '''
-    r = get('{}://{}/{}'.format(host.get_protocol(),host.get_lms_host(), API_ROUTE))
-    return r
+    results = get('{}://{}/{}'.format(host.get_protocol(),host.get_lms_host(), API_ROUTE))
+    return results
 
 def get_user_enrollments(user):
     '''
     Retrieves the collection of users enrolled in the identified org unit.
     
     Preconditions:
-        course : the Course to retrieve grades from
+        course (Course object) : A Course object to retrieve grades from.
+        
     Postconditions:
-        returns
-        a dict of grade items corresponding to the given course
+        returns:
+        user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
     '''
     route_params = {'version':unser.get_host().get_api_version('lp'), 'userId':user.get_id()}
     r = get(GET_USER_ENROLLMENTS, user, route_params)
@@ -180,13 +199,14 @@ def get_who_am_i(user):
     Retrieve the current user context’s user information as python dict JSON.
     
     Preconditions:
-        user : the Course to retrieve grades from
+        user (User object) : A User object corresponding to the current user.
+        
     Postconditions:
-        returns
-         WhoAmIUser JSON block for the current user context (as python dict)
+        returns:
+        Results (dict) : A dict containing WhoAmIUser JSON block for the current user context. 
     '''
     route_params = {'version' : user.get_host().get_api_version('lP')}
-    r = get(GET_WHO_AM_I, user, route_params)
-    return
+    results = get(GET_WHO_AM_I, user, route_params)
+    return results
     
     
