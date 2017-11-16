@@ -133,20 +133,20 @@
 	
 	
 	function put_grade($grade){
-    '''
+    /*
     Posts a Grade object to Brightspace using a PUT request
     
     Preconditions:
         grade : the grade to post
     Postconditions:
         grade JSON is PUT to Brightspace
-    '''
+    */
     $user = $grade->get_user();
     $route_params = array(
 		"version"=> $user->get_host()->get_api_version("le"),
         "orgUnitId" => $grade->get_grade_item()->get_course()->get_id(),
         "gradeObjectId" => $grade->get_grade_item()->get_id(),
-        "userId" => $grade->get_student()->get_id() 
+        "userId" => $grade->get_student()->get_id(),
 	);
 		
     $params = array("Comments" => $grade->get_comment(), "PrivateComments" => ""); # For generic Grade
@@ -156,7 +156,34 @@
     $params("PointsNumerator") = $grade->get_value(); # For NumericGrade
     
     # Make PUT request
-    $respose = put(SET_GRADE_ROUTE, $user, $route_params, $params);
+    $respose = put($SET_GRADE_ROUTE, $user, $route_params, $params);
+    
+	return;
+	
+	}
+	
+	function put_grade_item($grade_item){
+    /*
+    Posts a GradeItem object to Brightspace using a PUT request
+    
+    Preconditions:
+        grade_item : the grade_item to post
+    Postconditions:
+        grade_item JSON is PUT to Brightspace
+    */
+	
+    $user = $grade_item->get_user();
+    $route_params = array(
+		"version" => $user->get_host()->get_api_version("le"),
+		"orgUnitId" => $grade->get_grade_item()->get_course()->get_id(),
+		"gradeObjectId" => $grade->get_grade_item()->get_id(),
+	);
+    $params = array(
+		"MaxPoints" => $grade_item->get_max(), 
+		"CanExceedMaxPoints" => $grade_item->can_exceed(), 
+		"GradeType" => "Numeric",
+	)
+    $response = put($SET_GRADEITEM_ROUTE, $user, $route_params, $params);
     
 	return;
 	
