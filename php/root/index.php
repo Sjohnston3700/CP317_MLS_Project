@@ -13,24 +13,27 @@
 
 	/******************************* D2L Code Goes Here *********************************/
 
-	// I guess we need these? They should come in handy at some point
-	// From http://docs.valence.desire2learn.com/basic/auth.html
-	if(isset($_GET['x_a']) && isset($_GET['x_b']) && isset($_GET['x_c'])) {
-		$_SESSION['tokenID'] = $_GET['x_a'];
-		$_SESSION['tokenKey'] = $_GET['x_b'];
-		$_SESSION['tokenSig'] = $_GET['x_c'];
-	}
-	else if ((!isset($_SESSION['user_context'])) && $page != 'token') {
-		$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
+	// Check if we have already obtained a valid instance
+	if(! (isset($_SESSION['tokenID']) || isset($_SESSION['tokenKey']) || isset($_SESSION['tokenSig']))) {
+		// I guess we need these? They should come in handy at some point
+		// From http://docs.valence.desire2learn.com/basic/auth.html
+		if(isset($_GET['x_a']) && isset($_GET['x_b']) && isset($_GET['x_c'])) {
+			$_SESSION['tokenID'] = $_GET['x_a'];
+			$_SESSION['tokenKey'] = $_GET['x_b'];
+			$_SESSION['tokenSig'] = $_GET['x_c'];
+		}
+		else if ((!isset($_SESSION['user_context'])) && $page != 'token') {
+			$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
 
-		$app_url = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
-		
-		// Get URL for authentication; this takes a callback address
-		$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
-		session_write_close();
-		// Redirect to D2L authentication page; user will be redirected back here after
-		header('Location: ' . $url);
-		die();
+			$app_url = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
+			
+			// Get URL for authentication; this takes a callback address
+			$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
+			session_write_close();
+			// Redirect to D2L authentication page; user will be redirected back here after
+			header('Location: ' . $url);
+			die();
+		}
 	}
 
 	/****************************************************************************************************/
