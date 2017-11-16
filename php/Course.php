@@ -9,6 +9,10 @@
 
 	class Course {
 		function __construct ($user,$course_params) {
+			/*
+			user (user object) - info about user
+			course_params - info about course (Enrollment.MyOrgUnitInfo) 
+			*/
 			$this->user = $user;
 			$this->name = $course_params['OrgUnit']['Name'];
 			$this->id = $course_params['OrgUnit']['Id'];
@@ -17,6 +21,11 @@
 			$this->members = [OrgMember($member) foreach(API->get($GET_MEMBERS,$user,array('orgUnitID'=>$this->id)['Items'] as $member))]
 		}
 		function _get_grade_items() {
+			/*
+			Function will return list of grade items
+			return :
+                lists - grade item
+			*/
 			$gradeitems = API->get($GET_GRADE_ITEMS, $this->user, array('orgUnitId'=>$this->id));
 			$items = array();
 			foreach($gradeitems as $item) {
