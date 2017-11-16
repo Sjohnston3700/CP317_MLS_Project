@@ -123,8 +123,6 @@
 	}
 	
 	
-	
-	
 	function get_grade_items($course){
 		$user = $course->get_user();
 		$route_params = array("version" => $user->get_host()->get_api_version("le"), "orgUnitId" => $course.get_id());
@@ -133,6 +131,36 @@
 		return $response;
 	}
 	
+	
+	function put_grade($grade){
+    '''
+    Posts a Grade object to Brightspace using a PUT request
+    
+    Preconditions:
+        grade : the grade to post
+    Postconditions:
+        grade JSON is PUT to Brightspace
+    '''
+    $user = $grade->get_user();
+    $route_params = array(
+		"version"=> $user->get_host()->get_api_version("le"),
+        "orgUnitId" => $grade->get_grade_item()->get_course()->get_id(),
+        "gradeObjectId" => $grade->get_grade_item()->get_id(),
+        "userId" => $grade->get_student()->get_id() 
+	);
+		
+    $params = array("Comments" => $grade->get_comment(), "PrivateComments" => ""); # For generic Grade
+    
+    # TODO: Support other Grade types?
+    $params("GradeObjectType") = 1; # NumericGrade Type
+    $params("PointsNumerator") = $grade->get_value(); # For NumericGrade
+    
+    # Make PUT request
+    $respose = put(SET_GRADE_ROUTE, $user, $route_params, $params);
+    
+	return;
+	
+	}
 	
 	function get_user_enrollments($user){
     /*
