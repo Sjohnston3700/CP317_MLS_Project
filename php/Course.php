@@ -14,10 +14,10 @@
 			$this->id = $course_params['OrgUnit']['Id'];
 			$this->user_role = $course_params['Access']['ClasslistRoleName'];
 			$this->grade_items = $this->_get_grade_items();
-			'self._members = [OrgMember(member) for member in API.get(GET_MEMBERS,user,{'orgUnitID':self._id})['Items']]'
+			$this->members = [OrgMember($member) foreach(API->get($GET_MEMBERS,$user,array('orgUnitID'=>$this->id)['Items'] as $member))]
 		}
 		function _get_grade_items() {
-			$gradeitems = API->get(GET_GRADE_ITEMS, self->user, array('orgUnitId'=>$this->id));
+			$gradeitems = API->get($GET_GRADE_ITEMS, $this->user, array('orgUnitId'=>$this->id));
 			$items = array();
 			foreach($gradeitems as $item) {
 				if ($item['GradeType'] == 'Numeric') {
@@ -34,7 +34,12 @@
 			"""
 			return $this->grade_items;
 		}
-		function get_grade_item(self,id) {
+		function get_grade_item($id) {
+			try {
+				return [$grade_item foreach($this->grade_items) if str($grade_item->get_id()) == str($id)][0] 
+			} catch (Exception $e) {
+				return NULL;
+			}
 			
 		}
 		function get_name() {
@@ -83,7 +88,7 @@
 					return $member;
 				}
 			}
-			return None;
+			return NULL;
 		}
 		function get_user() {
 			"""
