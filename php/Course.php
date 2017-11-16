@@ -27,11 +27,11 @@
 			return $items;
 		}
 		function get_grade_items() {
-			"""
+			/*
 			Function will return all the current grade object (Numeric) for current course
 			return:
             Gradeitems - list
-			"""
+			*/
 			return $this->grade_items;
 		}
 		function get_grade_item($id) {
@@ -43,27 +43,27 @@
 			
 		}
 		function get_name() {
-			"""
+			/*
 			Function will return the name of course
 			PostCondition:
             return self.name - current course name
-			"""
+			*/
 			return $this->name;
 		}
 		function get_id() {
-			"""
+			/*
 			Function will return the id for the current course
 			PostCondition:
             reutrn self.id - Id for the current course
-			"""
+			*/
 			return $this->id;
 		}
 		function get_user_role() {
-			"""
+			/*
 			Function will return the user fole for current course
 			PostCondition:
             reutrn self.user_role - user role for current course
-			"""
+			*/
 			return $this->user_role;
 		}
 		function get_members($role = []) {
@@ -79,10 +79,10 @@
 			return $this->members;
 		}
 		function get_member($org_id) {
-			"""
+			/*
 			Function will return the member request if it exist, 
 			Otherwise, it return None
-			"""
+			*/
 			foreach ($this->members as $member) {
 				if($member->get_org_id() == $org_id) {
 					return $member;
@@ -91,11 +91,11 @@
 			return NULL;
 		}
 		function get_user() {
-			"""
+			/*
 			Function will return the user object
 			PostCondition:
             return self._user - user 
-			"""
+			*/
 			return $this->user
 		}
 	}
