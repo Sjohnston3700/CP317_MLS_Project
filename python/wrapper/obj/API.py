@@ -104,6 +104,14 @@ def update_route(route,params):
         raise  RuntimeError( exception_message )
     return route   
 
+def get_course_enrollments(course):
+    '''
+    Gets all the user that enrollments in the given course
+    '''
+    user = get_user()
+    return get(GET_COURSE_MEMBERS,user,{'version':user.get_host().get_api_version('le'),'orgUnitId': course.get_id()}) 
+
+
 def get_api_versions(host):
     '''
     Gets product version numbers JSON as python dict. 
