@@ -60,12 +60,12 @@
 		function __construct($context, $host, $roles=[]) {
 			$this->context = $context;
 			$this->host = $host;
-			$me = API->get_who_am_i(host);
+			$me = API->get_who_am_i(host); //Syntax error, unexpteced use of -> 
 			$fName = $me['FirstName'];
 			$lName = $me['LastName'];
 			$this->name = "$fName $lName";
 			$this->id = '';
-			foreach(API->get_user_enrollments() as $item) {
+			foreach(API->get_user_enrollments() as $item) { //Syntax error, unexpteced use of -> 
 				if (in_array($item['Access']['ClasslistRoleName'], $roles)) {
 					$this->courses = new Course($item);
 				}
