@@ -102,3 +102,15 @@ textarea.input
 {
 	margin-bottom: 10px !important;
 }
+
+#max-grade
+{
+	display: block;
+	width: 180px;
+	margin-bottom: 20px;
+}
+
+#max-grade-modal
+{
+	width: 180px;
+}

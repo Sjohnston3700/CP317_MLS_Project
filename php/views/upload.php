@@ -1,15 +1,16 @@
 <h1>CS123 - Test Course - Lab Report 1</h1>
 <h2>Out of: <strong>150</strong> marks</h2>
 <hr>
-<form id="update-max-form">
-	<div id="update-max-error"></div>
-	<input type="text" class="input" id="max-grade" placeholder="Grade item is now out of...">
-	<button type="button" modal-form="0" class="btn btn-success open-confirm-max-grade">Update maximum</button>
-</form>
-<hr>
+<h2>Change Grade Maximum</h2>
+<div class="page-section">
+	<form class="form-wide" id="update-max-form">
+		<div id="update-max-error"></div>
+		<input type="number" class="input" id="max-grade" placeholder="150">
+		<button type="button" modal-form="0" class="btn open-confirm-max-grade">Update grade maximum</button>
+	</form>
+</div>
 <h2>Automated Upload</h2>
 <div class="page-section">
-	<h2>Upload a File</h2>
 	<div id="file-error"></div>
 	  <form id="upload-automated" action="actions/file_parse.php" method="POST" enctype="multipart/form-data" target="upload-target">
          	<label id="file" class="custom-file-upload-btn">
@@ -43,8 +44,8 @@
 			<hr>
 			<form class="form-wide" id="update-max-form-modal">
 				<div id="update-max-error-modal"></div>
-				<input type="text" class="input" id="max-grade-modal" placeholder="Grade item is now out of...">
-				<button type="button" modal-form="1" class="btn btn-success open-confirm-max-grade">Update maximum</button>
+				<input type="number" class="input" id="max-grade-modal" placeholder="Grade item is now out of...">
+				<button type="button" modal-form="1" class="btn open-confirm-max-grade">Update grade maximum</button>
 			</form>
 			<hr>
 		</div>
