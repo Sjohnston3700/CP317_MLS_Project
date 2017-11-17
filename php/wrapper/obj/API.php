@@ -115,13 +115,13 @@
         request : the request object to test
     */
 	
-    if ((var_dump($request->success)) == False){
+    if ((var_dump($request->success)) == False){ //Keywords such as true, fase and null must be in lower case 
 		
 		/*Line in API.py is:
 		exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
 		I'm not sure what the equivalent for request.text is in this case
 		*/
-		$exception_message = "Request returned status code : ",$request->$status_code,", text : ";
+		$exception_message = "Request returned status code : ",$request->$status_code,", text : "; //Syntax error  with commas 
         throw new RuntimeException($exception_message);
 	}
 	
