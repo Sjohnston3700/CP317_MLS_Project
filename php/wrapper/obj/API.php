@@ -14,6 +14,7 @@
 	$GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami';
 	
 	
+	//Keywords such as true, fase and null must be in lower case 
 	function get($route, $user = NULL, $route_params = array(), $additional_params = array()){
 		/*
 		Uses a GET request to get JSON
@@ -33,6 +34,7 @@
 		
 		$route = update_route($route, $route_params);
 		
+		//Keywords such as true, fase and null must be in lower case 
 		if ($user != NULL) {
 			$route = $user->get_context()->createAuthenticatedUrl($route, 'GET');
 		}
@@ -43,15 +45,16 @@
 		
 		$results = json_enconde($response);
 		
+		//Keywords such as true, fase and null must all be in lower case 
 		if (in_array("PagingInfo", results.keys()) == True and $results("PagingInfo")("HasMoreItems") == True){
 			$bookmark = $results("PagingInfo")("Bookmark");
 			$next_results = get($route, $user, $route_params, $additional_params = array("Bookmark" => $bookmark));
 			
-			/*Can't use function return value in write context in index.php */ 
+			//Can't use function return value in write context in index.php 
 			$results("Items") = $results("Items") + $next_results("Items"); 
         }
 		
-		/*missing semi colon*/ 
+		//missing semi colon
 		return $results  
 	}
 
@@ -87,6 +90,7 @@
         Returns new route - Does not check for missed values
     */
 	
+	//Keywords such as true, fase and null must be in lower case 
     if ($params != NULL){
 		foreach ($params as $key){
 			$temp_string = "(", $key, ")";
