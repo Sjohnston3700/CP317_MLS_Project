@@ -98,7 +98,7 @@
 					return $course;
 				}
 			}
-			return NULL;
+			return NULL; //Keywords such as true, fase and null must be in lower case 
 		}
 		/*
 		Returns the user context belonging to this user
