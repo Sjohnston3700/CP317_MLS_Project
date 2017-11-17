@@ -194,6 +194,8 @@
     
 	return;
 	
+	//No closing parenthesis 
+	
 	
 	function get_user_enrollments($user){
    /*
