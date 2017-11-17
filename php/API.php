@@ -187,25 +187,30 @@
     
 	return;
 	
-	}
 	
 	function get_user_enrollments($user){
-    /*
-    Function to test if a request was valid.
-
+   /*
+    Retrieves the collection of users enrolled in the identified org unit.
+    
     Preconditions:
-        request : the request object to test
+        user (Course object) : A Course object to retrieve grades from.
+        
+    Postconditions:
+        returns:
+        user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
     */
 	
-
-	
-	
+    $route_params = array(
+		"version" => ($user->get_host()->get_api_version("lp")),
+		"userId" => $user->get_id(),
+		);
+    
+	$response = get($GET_USER_ENROLLMENTS, $user, $route_params);
+    $user_enrollments = $response("Items");
+    return user_enrollments;
 	
 	}
 	
-    return;
-	
-	}
 	
 	function get_who_am_i($user){
     /*
