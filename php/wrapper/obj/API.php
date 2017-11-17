@@ -49,7 +49,9 @@
 			$results("Items") = $results("Items") + $next_results("Items");
         }
 		
-		return $results
+		/*missing semi colon*/ 
+		
+		return $results  
 	}
 
 	function put($route, $user, $route_params, $params){
