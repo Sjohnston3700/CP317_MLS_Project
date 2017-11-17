@@ -35,7 +35,7 @@ def get(route, user = None, route_params = {},additional_params={}):
     check_request(r)
     
     results = r.json()
-    if 'PagingInfo' in results.keys() and results['PagingInfo']['HasMoreItems'] == True:
+    if 'PagingInfo' in results and results['PagingInfo']['HasMoreItems'] == True:
         bookmark = results['PagingInfo']['Bookmark']
         next_results = get(route, user,route_params,additional_params={'Bookmark':bookmark})        
         results['Items'] += next_results['Items']
@@ -185,8 +185,8 @@ def get_who_am_i(user):
         returns
          WhoAmIUser JSON block for the current user context (as python dict)
     '''
-    route_params = {'version' : user.get_host().get_api_version('lP')}
+    route_params = {'version' : user.get_host().get_api_version('lp')}
     r = get(GET_WHO_AM_I, user, route_params)
-    return
+    return r
     
     

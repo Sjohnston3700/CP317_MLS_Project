@@ -59,7 +59,7 @@ class User(OrgMember):
 		self.context = context
 		self.host = host
 		
-		me = API.get_who_am_i(host)
+		me = API.get_who_am_i(self)
 		self._name = '{} {}'.format(me['FirstName'], me['LastName'])
 		self._id = ''
 		self._courses = [Course(self,item) 
