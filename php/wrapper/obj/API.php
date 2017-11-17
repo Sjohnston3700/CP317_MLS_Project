@@ -189,7 +189,7 @@
 		"MaxPoints" => $grade_item->get_max(), 
 		"CanExceedMaxPoints" => $grade_item->can_exceed(), 
 		"GradeType" => "Numeric",
-	)
+	) //Missing colon syntax error 
     $response = put($SET_GRADEITEM_ROUTE, $user, $route_params, $params);
     
 	return;
