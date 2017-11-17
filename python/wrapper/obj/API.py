@@ -154,7 +154,7 @@ def get_user_enrollments(user):
         returns:
         user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
     '''
-    route_params = {'version':unser.get_host().get_api_version('lp'), 'userId':user.get_id()}
+    route_params = {'version':user.get_host().get_api_version('lp'), 'userId':user.get_id()}
     r = get(GET_USER_ENROLLMENTS, user, route_params)
     user_enrollments = r['Items']
     return user_enrollments
