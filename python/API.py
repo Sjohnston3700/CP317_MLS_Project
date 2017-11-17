@@ -118,11 +118,7 @@ def get_api_versions(host):
     results = get('{}://{}/{}'.format(host.get_protocol(),host.get_lms_host(), API_ROUTE))
     return results
     
-def get_course_enrollments(course):
-    '''
-    '''
-    return
-    
+ 
 def get_grade_items(course):
     '''
     Gets grade item JSON as python dict from a Course object.
