@@ -19,30 +19,14 @@ class GradeItem(object):
         self._course = course
         self._grades = []
 
-    def get_name(self):
+    def get_course(self):
         """ 
         Getter function
         Postconditions:
-            Returns: self._name - name of the GradeItem
+            Returns: self._course - Course that the GradeItem belongs to
         """
-        return self._name
+        return self._course
 
-    def get_id(self):
-        """ 
-        Getter function
-        Postconditions:
-            Returns: self._id - Id of the GradeItem
-        """
-        return self._id
-    
-    def get_grades(self):
-        """
-        Getter function
-        Postconditions:
-            Returns: List of Grade objects associated with this GradeItem
-        """
-        return self._grades
-        
     def get_grade(self, student):
         """
         Gets grade for a given student
@@ -56,22 +40,31 @@ class GradeItem(object):
             if (student.get_id() == grade.get_student().get_id()):
                 return grade
         return None
+
+    def get_grades(self):
+        """
+        Getter function
+        Postconditions:
+            Returns: List of Grade objects associated with this GradeItem
+        """
+        return self._grades
+
+    def get_id(self):
+        """ 
+        Getter function
+        Postconditions:
+            Returns: self._id - Id of the GradeItem
+        """
+        return self._id
         
-    def put_grades(self):
+    def get_name(self):
+        """ 
+        Getter function
+        Postconditions:
+            Returns: self._name - name of the GradeItem
         """
-        Calls grade.put_grade() for each Grade object
-        """
-        for grade in self._grades:
-            grade.put_grade()
-        return
-        
-    def put_grade_item():
-        """
-        Puts grade item to Brightspace
-        """
-        API.put_grade_item(self)
-        return
-        
+        return self._name
+
     def get_user(self):
         """ 
         Getter function
@@ -80,13 +73,20 @@ class GradeItem(object):
         """
         self._course.get_user()
         
-    def get_course(self):
-        """ 
-        Getter function
-        Postconditions:
-            Returns: self._course - Course that the GradeItem belongs to
+    def put_grade_item():
         """
-        return self._course
+        Puts grade item to Brightspace
+        """
+        API.put_grade_item(self)
+        return
+        
+    def put_grades(self):
+        """
+        Calls grade.put_grade() for each Grade object
+        """
+        for grade in self._grades:
+            grade.put_grade()
+        return
 
 class NumericGradeItem(GradeItem):
     def __init__(self, course, grade_item_params):
@@ -103,7 +103,14 @@ class NumericGradeItem(GradeItem):
         super().__init__(course, grade_item_params)                      
         self._max_points = grade_item_params['MaxPoints']
         self._can_exceed_max_points = grade_item_params['CanExceedMaxPoints']
-        
+
+    def can_exceed(self):
+        """
+        Getter function
+        Postconditions:
+            returns: self._get_can_exceed
+        """
+        return self._can_exceed_max_points        
     
     def create_grade(self, student, grade_params):
         """
@@ -122,14 +129,6 @@ class NumericGradeItem(GradeItem):
             Returns: self._max_points - The max number of points this GradeItem can have for any one Grade ?? I think
         """
         return self._max_points
-        
-    def get_can_exceed(self):
-        """
-        Getter function
-        Postconditions:
-            returns: self._get_can_exceed
-        """
-        return self._can_exceed_max_points
      
     def within_max(self, value):
         """

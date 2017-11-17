@@ -43,23 +43,23 @@ class Grade(object):
         """
         return self._comment
 
-    def get_user(self):
-        """
-        Return the user
-        """
-        return self._grade_item.get_usser()
-
     def get_grade_item(self):
         """
         Return the GradeItem Object
         """
-        return self._grade_item
-
+        return self._grade_item        
+        
     def get_student(self):
         """
         Return the student object (OrgMember)
         """
         return self._student
+        
+    def get_user(self):
+        """
+        Return the user
+        """
+        return self._grade_item.get_usser()
 
     def put_grade(self):
         "Call function to update grade"

@@ -10,6 +10,23 @@ GET_COURSE_MEMBERS   = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/u
 GET_USER_ENROLLMENTS = '/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/'
 GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
 
+def check_request(request):
+    '''
+    Function to test if a request was valid.
+
+    Preconditions:
+        request (str) : the request object to test.
+        
+    Postconditions:
+        on success:
+            Request returns a valid SUCCESS status code, is a valid request.
+        on failure:
+            raises RuntimeError.
+    '''
+    if request.status_code != SUCCESS:
+        exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
+        raise  RuntimeError( exception_message )
+    return 
 
 def get(route, user = None, route_params = {},additional_params={}):
     '''
@@ -85,26 +102,27 @@ def update_route(route,params):
     if '(' in route or ')' in route:#check for missed stuff to replace
         exception_message = 'Route : {} needs more parameters'.format(route)
         raise  RuntimeError( exception_message )
-    return route
+    return route   
 
-def check_request(request):
+def get_api_versions(host):
     '''
-    Function to test if a request was valid.
-
+    Gets product version numbers JSON as python dict. 
+    
     Preconditions:
-        request (str) : the request object to test.
-        
-    Postconditions:
-        on success:
-            Request returns a valid SUCCESS status code, is a valid request.
-        on failure:
-            raises RuntimeError.
-    '''
-    if request.status_code != SUCCESS:
-        exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
-        raise  RuntimeError( exception_message )
-    return    
+        host (Host object) : A Host object corresponding to the current host.
 
+    Postconditions:
+        returns:
+        results (dict) : A dict of product version numbers for the API.
+    '''
+    results = get('{}://{}/{}'.format(host.get_protocol(),host.get_lms_host(), API_ROUTE))
+    return results
+    
+def get_course_enrollments(course):
+    '''
+    '''
+    return
+    
 def get_grade_items(course):
     '''
     Gets grade item JSON as python dict from a Course object.
@@ -119,6 +137,38 @@ def get_grade_items(course):
     user = course.get_user()
     route_params = {'version' : user.get_host().get_api_version('le'), 'orgUnitId': course.get_id()}
     results = get(GET_GRADES_ROUTE, user, route_params)
+    return results
+    
+def get_user_enrollments(user):
+    '''
+    Retrieves the collection of users enrolled in the identified org unit.
+    
+    Preconditions:
+        course (Course object) : A Course object to retrieve grades from.
+        
+    Postconditions:
+        returns:
+        user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
+    '''
+    route_params = {'version':unser.get_host().get_api_version('lp'), 'userId':user.get_id()}
+    r = get(GET_USER_ENROLLMENTS, user, route_params)
+    user_enrollments = r['Items']
+    return user_enrollments
+
+def get_who_am_i(user):
+    '''
+    Retrieve the current user context’s user information as python dict JSON.
+    
+    Preconditions:
+        user (User object) : A User object corresponding to the current user.
+        
+    Postconditions:
+        returns:
+        Results (dict) : A dict containing WhoAmIUser JSON block for the current user context. 
+    '''
+
+    route_params = {'version' : user.get_host().get_api_version('lp')}
+    results = get(GET_WHO_AM_I, user, route_params)
     return results
     
 def put_grade(grade):
@@ -163,49 +213,3 @@ def put_grade_item(grade_item):
     params = { "MaxPoints": grade_item.get_max(), "CanExceedMaxPoints": grade_item.can_exceed(), "GradeType": "Numeric" }
     r = put(SET_GRADEITEM_ROUTE, user, route_params, params)
     return
-    
-def get_api_versions(host):
-    '''
-    Gets product version numbers JSON as python dict. 
-    
-    Preconditions:
-        host (Host object) : A Host object corresponding to the current host.
-
-    Postconditions:
-        returns:
-        results (dict) : A dict of product version numbers for the API.
-    '''
-    results = get('{}://{}/{}'.format(host.get_protocol(),host.get_lms_host(), API_ROUTE))
-    return results
-
-def get_user_enrollments(user):
-    '''
-    Retrieves the collection of users enrolled in the identified org unit.
-    
-    Preconditions:
-        course (Course object) : A Course object to retrieve grades from.
-        
-    Postconditions:
-        returns:
-        user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
-    '''
-    route_params = {'version':unser.get_host().get_api_version('lp'), 'userId':user.get_id()}
-    r = get(GET_USER_ENROLLMENTS, user, route_params)
-    user_enrollments = r['Items']
-    return user_enrollments
-
-def get_who_am_i(user):
-    '''
-    Retrieve the current user context’s user information as python dict JSON.
-    
-    Preconditions:
-        user (User object) : A User object corresponding to the current user.
-        
-    Postconditions:
-        returns:
-        Results (dict) : A dict containing WhoAmIUser JSON block for the current user context. 
-    '''
-
-    route_params = {'version' : user.get_host().get_api_version('lp')}
-    results = get(GET_WHO_AM_I, user, route_params)
-    return results

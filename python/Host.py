@@ -22,23 +22,7 @@ class Host(object):
             self._versions = API.get_api_versions(self)
         else:
             self._versions = versions
-
-    def get_protocol(self):
-        """ 
-        Getter function
-        Postconditions:
-            Returns: self._protocol - protocol used
-        """
-        return self._protocol
-    
-    def get_lms_host(self):
-        """ 
-        Getter function
-        Postconditions:
-            Returns: self._lm_host - hostname for back-end LMS
-        """
-        return self._lms_host
-
+        
     def get_api_version(self, product_code):
         """ 
         Getter function
@@ -48,3 +32,23 @@ class Host(object):
             Returns: LatestVersion for specific product_code
         """
         return [item['LatestVersion'] for item in self._versions if item['ProductCode'] == product_code][0]
+
+    def get_lms_host(self):
+        """ 
+        Getter function
+        Postconditions:
+            Returns: self._lm_host - hostname for back-end LMS
+        """
+        return self._lms_host        
+    
+    def get_protocol(self):
+        """ 
+        Getter function
+        Postconditions:
+            Returns: self._protocol - protocol used
+        """
+        return self._protocol
+    
+
+
+

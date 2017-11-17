@@ -49,6 +49,14 @@ class Course(object):
         except:
             return None
     
+    def get_id(self):
+        """
+        Function will return the id for the current course
+        PostCondition:
+            reutrn self.id - Id for the current course
+        """
+        return self._id    
+    
     def get_name(self):
         """
         Function will return the name of course
@@ -57,22 +65,15 @@ class Course(object):
         """
         return self._name
 
-    def get_id(self):
+    def get_member(self,org_id):
         """
-        Function will return the id for the current course
-        PostCondition:
-            reutrn self.id - Id for the current course
-    """
-        return self._id
-
-    def get_user_role(self):
+        Function will return the member request if it exist, 
+        Otherwise, it return None
         """
-        Function will return the user fole for current course
-        PostCondition:
-            reutrn self.user_role - user role for current course
-        """
-        return self._user_role
-
+        for member in self._members:
+            if member.get_org_id() == org_id:
+                return member
+        return None        
 
     def get_members(self,role=[]):
         """
@@ -87,17 +88,7 @@ class Course(object):
                     items.append(member)
             return items 
         return self._members
-
-    def get_member(self,org_id):
-        """
-        Function will return the member request if it exist, 
-        Otherwise, it return None
-        """
-        for member in self._members:
-            if member.get_org_id() == org_id:
-                return member
-        return None
-
+        
     def get_user(self):
         """
         Function will return the user object
@@ -105,3 +96,11 @@ class Course(object):
             return self._user - user 
         """
         return self._user
+        
+    def get_user_role(self):
+        """
+        Function will return the user fole for current course
+        PostCondition:
+            reutrn self.user_role - user role for current course
+        """
+        return self._user_role
