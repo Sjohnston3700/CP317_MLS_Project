@@ -39,7 +39,7 @@
 			$route = $user->get_context()->createAuthenticatedUrl($route, 'GET');
 		}
 		
-		$response = Requests::get($route, $additional_params = payload );
+		$response = Requests::get($route, $additional_params = payload ); //Control structure issue, no spaces before or after parenthesis
 		
 		check_request($response);
 		
@@ -94,7 +94,7 @@
     if ($params != NULL){
 		foreach ($params as $key){
 			$temp_string = "(", $key, ")";
-			$route = str_replace($temp_string, ((string)($params(key))), $route );
+			$route = str_replace($temp_string, ((string)($params(key))), $route ); //Control structure issue, no spaces before or after parenthesis
 		}
 	}
 	
