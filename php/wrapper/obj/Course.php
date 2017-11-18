@@ -8,7 +8,7 @@
 	$GET_MEMBERS = "/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/"
 
 	class Course {
-		function __construct ($user,$course_params) {
+		function __construct ($user, $course_params) {
 			/*
 			user (user object) - info about user
 			course_params - info about course (Enrollment.MyOrgUnitInfo) 

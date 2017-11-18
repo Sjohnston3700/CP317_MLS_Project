@@ -5,13 +5,6 @@
 	Requests::register_autoloader();
 	
 	$SUCCESS = 200;
-	$API_ROUTE = '/d2l/api/versions/';
-	$GET_GRADES_ROUTE     = '/d2l/api/le/(version)/(orgUnitId)/grades/';
-	$SET_GRADE_ROUTE      = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)';
-	$GET_COURSE_MEMBERS   = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/';
-	$GET_USER_ENROLLMENTS = '/d2l/api/lp/(version)/enrollments/myenrollments/';
-	$GET_USER_ENROLLMENT  = '/d2l/api/le/(version)/(orgUnitId)/grades/';
-	$GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami';
 	
 	
 	function get($route, $user = NULL, $route_params = array(), $additional_params = array()){
@@ -41,7 +34,7 @@
 		
 		check_request($response);
 		
-		$results = json_enconde($response);
+		$results = json_encode($response);
 		
 		if (in_array("PagingInfo", results.keys()) == True and $results("PagingInfo")("HasMoreItems") == True){
 			$bookmark = $results("PagingInfo")("Bookmark");

@@ -114,3 +114,8 @@ textarea.input
 {
 	width: 180px;
 }
+
+.from-grade-out-of
+{
+	display: inline;
+}

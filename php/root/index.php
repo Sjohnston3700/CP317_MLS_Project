@@ -36,6 +36,12 @@
 		}
 	}
 
+	if (isset($_SESSION['app_context']) && !isset($_SESSION['user_context'])) {
+		$_SESSION['user_context'] = $_SESSION['app_context']->createUserContext($config['lms_host'], $config['lms_port'], $config['encrypt_requests']); // Get context
+		print_r($_SESSION['user_context']);
+		die();
+	}
+
 	/****************************************************************************************************/
 
 
