@@ -7,6 +7,7 @@
 	$SUCCESS = 200;
 	
 	
+	//Keywords such as true, fase and null must be in lower case 
 	function get($route, $user = NULL, $route_params = array(), $additional_params = array()){
 		/*
 		Uses a GET request to get JSON
@@ -26,23 +27,28 @@
 		
 		$route = update_route($route, $route_params);
 		
+		//Keywords such as true, fase and null must be in lower case 
 		if ($user != NULL) {
 			$route = $user->get_context()->createAuthenticatedUrl($route, 'GET');
 		}
 		
-		$response = Requests::get($route, $additional_params = payload );
+		$response = Requests::get($route, $additional_params = payload ); //Control structure issue, no spaces before or after parenthesis
 		
 		check_request($response);
 		
 		$results = json_encode($response);
 		
+		//Keywords such as true, fase and null must all be in lower case 
 		if (in_array("PagingInfo", results.keys()) == True and $results("PagingInfo")("HasMoreItems") == True){
 			$bookmark = $results("PagingInfo")("Bookmark");
-			$next_results = get($route, $user, $route_params, $additional_params = array("Bookmark" => $bookmark));    
-			$results("Items") = $results("Items") + $next_results("Items");
+			$next_results = get($route, $user, $route_params, $additional_params = array("Bookmark" => $bookmark));
+			
+			//Can't use function return value in write context in index.php 
+			$results("Items") = $results("Items") + $next_results("Items"); 
         }
 		
-		return $results
+		//missing semi colon
+		return $results  
 	}
 
 	function put($route, $user, $route_params, $params){
@@ -77,10 +83,11 @@
         Returns new route - Does not check for missed values
     */
 	
+	//Keywords such as true, fase and null must be in lower case 
     if ($params != NULL){
 		foreach ($params as $key){
 			$temp_string = "(", $key, ")";
-			$route = str_replace($temp_string, ((string)($params(key))), $route );
+			$route = str_replace($temp_string, ((string)($params(key))), $route ); //Control structure issue, no spaces before or after parenthesis
 		}
 	}
 	
@@ -101,13 +108,13 @@
         request : the request object to test
     */
 	
-    if ((var_dump($request->success)) == False){
+    if ((var_dump($request->success)) == False){ //Keywords such as true, fase and null must be in lower case 
 		
 		/*Line in API.py is:
 		exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
 		I'm not sure what the equivalent for request.text is in this case
 		*/
-		$exception_message = "Request returned status code : ",$request->$status_code,", text : ";
+		$exception_message = "Request returned status code : ",$request->$status_code,", text : "; //Syntax error  with commas 
         throw new RuntimeException($exception_message);
 	}
 	
@@ -175,10 +182,12 @@
 		"MaxPoints" => $grade_item->get_max(), 
 		"CanExceedMaxPoints" => $grade_item->can_exceed(), 
 		"GradeType" => "Numeric",
-	)
+	) //Missing colon syntax error 
     $response = put($SET_GRADEITEM_ROUTE, $user, $route_params, $params);
     
 	return;
+	
+	//No closing parenthesis 
 	
 	
 	function get_user_enrollments($user){
