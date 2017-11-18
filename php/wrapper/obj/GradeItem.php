@@ -1,6 +1,6 @@
 <?php
-	include_once "Grade.php";
-	include_once "API.php";
+	//require_once "Grade.php";
+	require_once "API.php";
 
 class GradeItem {
 	
@@ -66,7 +66,7 @@ class GradeItem {
                 return $grade;
 			}
 		}
-        return Null
+        return null;
        
 	}
 	
@@ -85,7 +85,7 @@ class GradeItem {
         /*
         Puts grade item to Brightspace
         */
-        API->put_grade_item($this);
+        put_grade_item($this);
         return;
     }    
 	
@@ -108,7 +108,7 @@ class GradeItem {
 	}
 }
 
-class NumericGradeItem(){
+class NumericGradeItem {
 	
 	public function __construct($course, $grade_item_params){
 		/*
@@ -120,10 +120,10 @@ class NumericGradeItem(){
             creates object of type NumericGradeItem
         */
 		
-		if $grade_item_params("GradeType") != "Numeric"{
+		if ($grade_item_params["GradeType"] != "Numeric") {
 			$course_id = $course->get_id();
-			$the_grade_item = $grade_item_params("Id");
-            throw new RuntimeException("GradeType for GradeItem $course_id of Course $the_grade_item is not numeric.");
+			$the_grade_item = $grade_item_params["Id"];
+            throw new RuntimeException("GradeType for GradeItem " . $course_id . "of Course " . $the_grade_item . " is not numeric.");
 		}
 		
         parent::__construct($course, $grade_item_params);                    
@@ -139,7 +139,7 @@ class NumericGradeItem(){
             $grade_params: Python dictionary of parameters required to initialize a NumericGrade
         */
 		$the_grade = NumericGrade($student. $grade_params);
-        $this->grades::append(NumericGrade(self, student, grade_params));
+        array_push($this->grades, NumericGrade(self, student, grade_params));
 		
         return;
 	}

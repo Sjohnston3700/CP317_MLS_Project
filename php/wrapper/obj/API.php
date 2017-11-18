@@ -15,7 +15,7 @@
 	
 	
 	//Keywords such as true, fase and null must be in lower case 
-	function get($route, $user = NULL, $route_params = array(), $additional_params = array()){
+	function get($route, $user, $route_params, $additional_params){
 		/*
 		Uses a GET request to get JSON
 
@@ -46,15 +46,14 @@
 		$results = json_encode($response);
 		
 		//Keywords such as true, fase and null must all be in lower case 
-		if (in_array("PagingInfo", results.keys()) == True and $results("PagingInfo")("HasMoreItems") == True){
-			$bookmark = $results("PagingInfo")("Bookmark");
+		if (in_array("PagingInfo", results.keys()) && $results["PagingInfo"]["HasMoreItems"]){
+			$bookmark = $results["PagingInfo"]["Bookmark"];
 			$next_results = get($route, $user, $route_params, $additional_params = array("Bookmark" => $bookmark));
 			
 			//Can't use function return value in write context in index.php 
-			$results("Items") = $results("Items") + $next_results("Items"); 
+			$results["Items"] = $results["Items"] + $next_results["Items"]; 
         }
 		
-		//missing semi colon
 		return $results;
 	}
 
@@ -99,7 +98,7 @@
 	}
 	
 	if ((strpos($route, '(')) !== false or (strpos($route, ')')) !== false){	//check for missed stuff to replace
-        $exception_message = "Route : " . $route "needs more parameters";
+        $exception_message = "Route : " . $route . "needs more parameters";
         throw new RuntimeException($exception_message);
 	}
     return $route;
@@ -108,24 +107,22 @@
 	
 	
 	function check_request($request){
-    /*
-    Function to test if a request was valid.
+		/*
+		Function to test if a request was valid.
 
-    Preconditions:
-        request : the request object to test
-    */
-	
-    if ((var_dump($request->success)) == False){ //Keywords such as true, fase and null must be in lower case 
-		
-		/*Line in API.py is:
-		exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
-		I'm not sure what the equivalent for request.text is in this case
+		Preconditions:
+			request : the request object to test
 		*/
-		$exception_message = "Request returned status code : " . $request->$status_code . ", text : "; //Syntax error  with commas 
-        throw new RuntimeException($exception_message);
-	}
-	
-    return;
+
+		if (!(var_dump($request->success))) { //Keywords such as true, fase and null must be in lower case 
+
+			/*Line in API.py is:
+			exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
+			I'm not sure what the equivalent for request.text is in this case
+			*/
+			$exception_message = "Request returned status code : " . $request->$status_code . ", text : "; 
+			throw new RuntimeException($exception_message);
+		}
 	
 	}
 	
