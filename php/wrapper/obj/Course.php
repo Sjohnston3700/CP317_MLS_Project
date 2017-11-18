@@ -18,7 +18,13 @@
 			$this->id = $course_params['OrgUnit']['Id'];
 			$this->user_role = $course_params['Access']['ClasslistRoleName'];
 			$this->grade_items = $this->_get_grade_items();
-			//$this->members = [OrgMember($member) foreach(API-($GET_MEMBERS,$user,array('orgUnitID'=>$this->id)['Items'] as $member))];
+			$members = array();
+			foreach(get($GET_MEMBERS,$user,array('orgUnitID'=>$this->id))['Items'] as $member) {
+				array_push($members,$member);
+			}
+			$this->members = $members;
+			
+			//[OrgMember($member) foreach(API-($GET_MEMBERS,$user,array('orgUnitID'=>$this->id)['Items'] as $member))];
 		}
 		/*
 		Function will return list of grade items
@@ -26,11 +32,11 @@
             lists - grade item
 		*/
 		function _get_grade_items() {
-			$gradeitems = API->get($GET_GRADE_ITEMS, $this->user, array('orgUnitId'=>$this->id));
+			$gradeitems = get($GET_GRADE_ITEMS, $this->user, array('orgUnitId'=>$this->id));
 			$items = array();
 			foreach($gradeitems as $item) {
 				if ($item['GradeType'] == 'Numeric') {
-					$items::append(NumericGradeItem($item));
+					array_push($items,(NumericGradeItem($this, $item)));
 				}
 			}
 			return $items;
@@ -50,9 +56,13 @@
 		*/
 		function get_grade_item($id) {
 			try {
-				return [$grade_item foreach($this->grade_items) if str($grade_item->get_id()) == str($id)][0] 
+				foreach($this->grade_items as $grade_item) {
+					if(string($grade_item->get_id()) == string($id)) {
+						return [$grade_item][0];
+					}
+				}	
 			} catch (Exception $e) {
-				return NULL;
+				return null;
 			}
 			
 		}
@@ -85,12 +95,12 @@
 		return :
 			list of Orgmembers
 		*/
-		function get_members($role = []) {
-			if ($role != []) {
+		function get_members($role = array()) {
+			if (empty($role)) {
 				$items = array();
 				foreach($this->members as $member) {
 					if (in_array($member->get_user_role, $role)) {
-						$items::append($member);
+						array_push($items,$member);
 					}
 				}
 				return $items;

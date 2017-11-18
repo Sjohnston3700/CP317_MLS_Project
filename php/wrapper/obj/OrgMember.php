@@ -57,7 +57,7 @@
 			$host: The Host object corresponding to the user (Host)
 			$roles: List of roles, default: None (list)
 		*/
-		function __construct($context, $host, $roles=[]) {
+		function __construct($context, $host, $roles = array()) {
 			$this->context = $context;
 			$this->host = $host;
 			$me = get_who_am_i(host);
@@ -98,7 +98,7 @@
 					return $course;
 				}
 			}
-			return NULL; //Keywords such as true, fase and null must be in lower case 
+			return null; //Keywords such as true, fase and null must be in lower case 
 		}
 		/*
 		Returns the user context belonging to this user
