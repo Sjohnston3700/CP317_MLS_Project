@@ -1,6 +1,6 @@
 <?php
 
-
+	
 	require_once 'Requests.php';
 	Requests::register_autoloader();
 	
@@ -48,7 +48,7 @@
         }
 		
 		//missing semi colon
-		return $results  
+		return $results;
 	}
 
 	function put($route, $user, $route_params, $params){
@@ -86,13 +86,13 @@
 	//Keywords such as true, fase and null must be in lower case 
     if ($params != NULL){
 		foreach ($params as $key){
-			$temp_string = "(", $key, ")";
+			$temp_string = "(" . $key . ")";
 			$route = str_replace($temp_string, ((string)($params(key))), $route ); //Control structure issue, no spaces before or after parenthesis
 		}
 	}
 	
 	if ((strpos($route, '(')) !== false or (strpos($route, ')')) !== false){	//check for missed stuff to replace
-        $exception_message = "Route : ",$route "needs more parameters";
+        $exception_message = "Route : " . $route "needs more parameters";
         throw new RuntimeException($exception_message);
 	}
     return $route;
@@ -114,7 +114,7 @@
 		exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
 		I'm not sure what the equivalent for request.text is in this case
 		*/
-		$exception_message = "Request returned status code : ",$request->$status_code,", text : "; //Syntax error  with commas 
+		$exception_message = "Request returned status code : " . $request->$status_code . ", text : "; //Syntax error  with commas 
         throw new RuntimeException($exception_message);
 	}
 	
@@ -133,61 +133,59 @@
 	
 	
 	function put_grade($grade){
-    /*
-    Posts a Grade object to Brightspace using a PUT request
-    
-    Preconditions:
-        grade : the grade to post
-    Postconditions:
-        grade JSON is PUT to Brightspace
-    */
-    $user = $grade->get_user();
-    $route_params = array(
-		"version"=> $user->get_host()->get_api_version("le"),
-        "orgUnitId" => $grade->get_grade_item()->get_course()->get_id(),
-        "gradeObjectId" => $grade->get_grade_item()->get_id(),
-        "userId" => $grade->get_student()->get_id(),
-	);
-		
-    $params = array("Comments" => $grade->get_comment(), "PrivateComments" => ""); # For generic Grade
-    
-    # TODO: Support other Grade types?
-    $params("GradeObjectType") = 1; # NumericGrade Type
-    $params("PointsNumerator") = $grade->get_value(); # For NumericGrade
-    
-    # Make PUT request
-    $respose = put($SET_GRADE_ROUTE, $user, $route_params, $params);
-    
-	return;
+		/*
+		Posts a Grade object to Brightspace using a PUT request
+
+		Preconditions:
+			grade : the grade to post
+		Postconditions:
+			grade JSON is PUT to Brightspace
+		*/
+		$user = $grade->get_user();
+		$route_params = array(
+			"version"=> $user->get_host()->get_api_version("le"),
+			"orgUnitId" => $grade->get_grade_item()->get_course()->get_id(),
+			"gradeObjectId" => $grade->get_grade_item()->get_id(),
+			"userId" => $grade->get_student()->get_id(),
+		);
+
+		$params = array("Comments" => $grade->get_comment(), "PrivateComments" => ""); # For generic Grade
+
+		# TODO: Support other Grade types?
+		$params["GradeObjectType"] = 1; # NumericGrade Type
+		$params["PointsNumerator"] = $grade->get_value(); # For NumericGrade
+
+		# Make PUT request
+		$respose = put($SET_GRADE_ROUTE, $user, $route_params, $params);
+
+		return;
 	
 	}
 	
 	function put_grade_item($grade_item){
-    /*
-    Posts a GradeItem object to Brightspace using a PUT request
-    
-    Preconditions:
-        grade_item : the grade_item to post
-    Postconditions:
-        grade_item JSON is PUT to Brightspace
-    */
-	
-    $user = $grade_item->get_user();
-    $route_params = array(
-		"version" => $user->get_host()->get_api_version("le"),
-		"orgUnitId" => $grade->get_grade_item()->get_course()->get_id(),
-		"gradeObjectId" => $grade->get_grade_item()->get_id(),
-	);
-    $params = array(
-		"MaxPoints" => $grade_item->get_max(), 
-		"CanExceedMaxPoints" => $grade_item->can_exceed(), 
-		"GradeType" => "Numeric",
-	) //Missing colon syntax error 
-    $response = put($SET_GRADEITEM_ROUTE, $user, $route_params, $params);
-    
-	return;
-	
-	//No closing parenthesis 
+		/*
+		Posts a GradeItem object to Brightspace using a PUT request
+
+		Preconditions:
+			grade_item : the grade_item to post
+		Postconditions:
+			grade_item JSON is PUT to Brightspace
+		*/
+
+		$user = $grade_item->get_user();
+		$route_params = array(
+			"version" => $user->get_host()->get_api_version("le"),
+			"orgUnitId" => $grade->get_grade_item()->get_course()->get_id(),
+			"gradeObjectId" => $grade->get_grade_item()->get_id(),
+		);
+		$params = array(
+			"MaxPoints" => $grade_item->get_max(), 
+			"CanExceedMaxPoints" => $grade_item->can_exceed(), 
+			"GradeType" => "Numeric",
+		);
+		$response = put($SET_GRADEITEM_ROUTE, $user, $route_params, $params);
+
+	}
 	
 	
 	function get_user_enrollments($user){

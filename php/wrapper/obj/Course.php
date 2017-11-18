@@ -3,9 +3,8 @@
 	include 'API.php';
 	include 'GradeItem.php';
 	include 'OrgMember.php';
+	include 'routes.php';
 
-	$GET_GRADE_ITEMS = "/d2l/api/le/(version)/(orgUnitId)/grades/";
-	$GET_MEMBERS = "/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/"
 
 	class Course {
 
@@ -13,13 +12,13 @@
 		user (user object) - info about user
 		course_params - info about course (Enrollment.MyOrgUnitInfo) 
 		*/
-		function __construct ($user,$course_params) {
+		function __construct ($user, $course_params) {
 			$this->user = $user;
 			$this->name = $course_params['OrgUnit']['Name'];
 			$this->id = $course_params['OrgUnit']['Id'];
 			$this->user_role = $course_params['Access']['ClasslistRoleName'];
 			$this->grade_items = $this->_get_grade_items();
-			$this->members = [OrgMember($member) foreach(API->get($GET_MEMBERS,$user,array('orgUnitID'=>$this->id)['Items'] as $member))]
+			//$this->members = [OrgMember($member) foreach(API-($GET_MEMBERS,$user,array('orgUnitID'=>$this->id)['Items'] as $member))];
 		}
 		/*
 		Function will return list of grade items
