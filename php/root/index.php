@@ -1,5 +1,6 @@
 <?php
 	require_once '../wrapper/obj/OrgMember.php';
+	require_once '../wrapper/obj/API.php';
     require_once 'config.php';
 	require_once $config['libpath'] . '/D2LAppContextFactory.php';
 
@@ -42,6 +43,8 @@
 		print_r($_SESSION['user_context']);
 		die();
 	}
+
+	get_who_am_i($_SESSION['user_context']);
 
 	/****************************************************************************************************/
 

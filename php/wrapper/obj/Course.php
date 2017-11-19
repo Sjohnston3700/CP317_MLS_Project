@@ -3,8 +3,6 @@
 	require_once 'API.php';
 	require_once 'GradeItem.php';
 	require_once 'OrgMember.php';
-	require_once '../routes.php';
-
 
 	class Course {
 
