@@ -1,9 +1,6 @@
 <?php
 	require_once $_SERVER['DOCUMENT_ROOT'] . '/CP317_MLS_Project/php/root/config.php';
-	require_once 'Requests.php';
 	require_once $config['libpath'] . '/D2LAppContextFactory.php';
-	Requests::register_autoloader();	
-	$SUCCESS = 200;
 	
 	function get($route, $user, $route_params, $additional_params){
 		/*
