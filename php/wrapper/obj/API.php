@@ -245,7 +245,7 @@
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CUSTOMREQUEST  => $verb,
 			CURLOPT_URL            => $uri,
-			CURLOPT_SSL_VERIFYPEER => true,
+			CURLOPT_SSL_VERIFYPEER => false,
 			CURLINFO_HEADER_OUT => true
 		);
 		
@@ -256,15 +256,13 @@
 		$httpCode  = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		$contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 		$responseCode = $userContext->handleResult($response, $httpCode, $contentType);
+		echo($response);
 		if ($responseCode == D2LUserContext::RESULT_OKAY) {
 			return json_decode($response, true);
+
 		}
 		
 		$errors = curl_error($ch);
-		curl_close($ch);
-		var_dump($errors);
-		var_dump($response);
-		echo '<br> Response code: ' . $responseCode;
 		throw new Exception("Valence API call failed: $httpCode: $response");
 
 	}
