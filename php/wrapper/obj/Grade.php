@@ -1,5 +1,9 @@
 <?php 
 
+	require_once 'API.php';
+	$FEEDBACK_PATTERN = '\-{3,}?.*?(\d{5,7}).*?^([\w|\s]*?)$(.+?(?:Total:\s+(\d+)\s+\/\s+(\d+).*?)?)\-{3,}?'
+
+
 class Grade{
 	
 	function __construct($grade_item, $student, $comment) {
@@ -62,7 +66,7 @@ class Grade{
 	
 class NumericGrade{
 	
-	function __construct($grade_item, $student, $comment, value) {
+	function __construct($grade_item, $student, $comment, $value) {
 		
 		/*
 		Constructor:
@@ -72,7 +76,7 @@ class NumericGrade{
             value(mark student scored) float
 		*/
 		
-		parent::__construct($argument);
+		parent::__construct($grade_item, $student, $comment);
 		$this->_value = value;	
 	}
 		
