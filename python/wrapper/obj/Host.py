@@ -10,7 +10,7 @@ class Host(object):
             
             Preconditions: 
                 lms_host - hostname for the back-end LMS
-                protocol - protocol to use for user <--> web-app interaction
+                protocol - protocol to use for user <--> web-UserTest interaction
                 versions - Dictionary containing the latest versions of various products (needed for majority API calls)
             
             Postconditions:

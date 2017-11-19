@@ -46,8 +46,10 @@ class OrgMember(object):
         """
         return self._role
 
+from Course import Course
 
 class User(OrgMember):
+    
     def __init__(self, context, host, roles=[]):
         """
         Instantiates a new User object
@@ -61,10 +63,10 @@ class User(OrgMember):
         
         me = API.get_who_am_i(self)
         self._name = '{} {}'.format(me['FirstName'], me['LastName'])
-        self._id = ''
+        self._id = me['Identifier']
         self._courses = [Course(self,item) 
                 for item in API.get_user_enrollments(self)
-                if item['Access']['ClasslistRoleName'] in roles]
+                if item['Role']['Name'] in roles]
 
     def get_context(self):
         """
@@ -111,3 +113,5 @@ class User(OrgMember):
             A Host object
         """
         return self.host
+
+
