@@ -206,8 +206,7 @@
 	}
 	
 	
-	function get_who_am_i($user){
-    /*
+   /*
     Retrieve the current user context’s user information as PHP dict JSON.
     
     Preconditions:
@@ -216,12 +215,20 @@
         returns
          WhoAmIUser JSON block for the current user context (as python dict)
     */
-		global $routes;
+
+	function get_who_am_i(){
+ 		global $routes;
 		global $config;
-		
 		
 		$route = $routes['BASE_URL'] . '/d2l/api/lp/' . $config['LP_Version'] . '/users/whoami';
 		$verb = 'GET';
+		$json = valence_request($route, $verb);
+		print_r($json);
+	}
+
+	function valence_request($route, $verb) {
+		global $routes;
+		global $config;
 		
 	  	$userId = $_SESSION['userId'];
     	$userKey = $_SESSION['userKey'];
@@ -236,9 +243,7 @@
 		
 		// Create url for API call
 		$uri = $userContext->createAuthenticatedUri($route, $verb);
-		$uri = str_replace(':443', '', $uri);
-		echo $uri;
-		
+
 		// Setup cURL
 		$ch = curl_init();
 		$options = array(
@@ -249,21 +254,16 @@
 			CURLINFO_HEADER_OUT => true
 		);
 		
-
 		curl_setopt_array($ch, $options);
 		
 		$response = curl_exec($ch);
 		$httpCode  = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		$contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 		$responseCode = $userContext->handleResult($response, $httpCode, $contentType);
-		echo($response);
-		if ($responseCode == D2LUserContext::RESULT_OKAY) {
-			return json_decode($response, true);
-
-		}
+		
+		return json_decode($response, true);
 		
 		$errors = curl_error($ch);
 		throw new Exception("Valence API call failed: $httpCode: $response");
-
 	}
 ?>
