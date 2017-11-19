@@ -218,6 +218,7 @@
     */
 		global $routes;
 		$route = $routes['BASE_URL'] . '/d2l/api/lp/' . $routes['VER'] . '/users/whoami';
+		echo $route;
 		$response = Requests::get($route);
 	}
 ?>
