@@ -1,4 +1,4 @@
-import Grade
+from Grade import NumericGrade
 import API
 
 class GradeItem(object):
@@ -73,7 +73,7 @@ class GradeItem(object):
         """
         self._course.get_user()
         
-    def put_grade_item():
+    def put_grade_item(self):
         """
         Puts grade item to Brightspace
         """

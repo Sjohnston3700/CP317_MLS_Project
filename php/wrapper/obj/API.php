@@ -1,18 +1,9 @@
 <?php
-	
+	require_once $_SERVER['DOCUMENT_ROOT'] . '/CP317_MLS_Project/php/wrapper/routes.php';
 	require_once 'Requests.php';
-	Requests::register_autoloader();
-	
-	$SUCCESS = 200;
 
-	$API_ROUTE = '/d2l/api/versions/';
-	$GET_GRADES_ROUTE     = '/d2l/api/le/(version)/(orgUnitId)/grades/';
-	$SET_GRADE_ROUTE      = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)';
-	$GET_COURSE_MEMBERS   = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/';
-	$GET_USER_ENROLLMENTS = '/d2l/api/lp/(version)/enrollments/myenrollments/';
-	$GET_USER_ENROLLMENT  = '/d2l/api/le/(version)/(orgUnitId)/grades/';
-	$GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami';
-	
+	Requests::register_autoloader();	
+	$SUCCESS = 200;
 	
 	function get($route, $user, $route_params, $additional_params){
 		/*
@@ -225,9 +216,9 @@
         returns
          WhoAmIUser JSON block for the current user context (as python dict)
     */
-	
-    $route_params = $user->get_host->get_api_version('lP');
-	$r = get(GET_USER_ENROLLMENTS, $user, $route_params);
-    return;
+		global $routes;
+		$route = $routes['BASE_URL'] . '/d2l/api/lp/' . $routes['VER'] . '/users/whoami';
+		echo $route;
+		$response = Requests::get($route);
 	}
 ?>
