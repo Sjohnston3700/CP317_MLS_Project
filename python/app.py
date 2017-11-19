@@ -38,7 +38,7 @@ def auth_token_handler():
     uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
     host = Host(app_config['lms_host'])
     # store the user context's
-    user = User(uc, host])
+    user = User(uc, host)
     app.config['user'] = user
     return redirect('/courses/')
 
