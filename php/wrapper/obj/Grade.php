@@ -3,6 +3,7 @@
 class Grade{
 	
 	function __construct($grade_item, $student, $comment) {
+		
 		/*
 		Constructor:
             grade_item(GradeItem Object)
@@ -17,13 +18,16 @@ class Grade{
 	}
 	
 	function get_comment(){
+		
 		/*
 		Return comments for this student with respect to this GradeItem
 		*/
+		
 		return $this->_comment;
 	}
 	
 	function get_grade_item(){
+		
 		/*
 		Return the GradeItem Object
 		*/
@@ -39,6 +43,7 @@ class Grade{
 	}
 	
 	function get_user(){
+		
 		/*
 		Return the user
 		*/
@@ -47,11 +52,40 @@ class Grade{
 	}
 	
 	function put_grade(){
+		
 		/*
 		Call function to update grade
 		*/
 		API.put_grade();
+
 	}
+	
+class NumericGrade{
+	
+	function __construct($grade_item, $student, $comment, value) {
+		
+		/*
+		Constructor:
+            grade_item(GradeItem Object)
+            student(OrgMember)
+            comment(feedbacks) string
+            value(mark student scored) float
+		*/
+		
+		parent::__construct($argument);
+		$this->_value = value;	
+	}
+		
+	function get_value() {
+		
+		/*
+		Returns value of the NumericGrade Item
+		*/
+		
+		return $this->_value;	
+	}
+	
+}
 }
 
 ?>
