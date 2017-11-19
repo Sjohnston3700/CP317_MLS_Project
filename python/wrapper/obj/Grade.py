@@ -1,6 +1,6 @@
 import re,sys
-import API
-import GradeItem
+from . import API
+#from . import GradeItem #TO BE FIXED. I think this is currently a recursive import
 
 FEEDBACK_PATTERN = '\-{3,}?.*?(\d{5,7}).*?^([\w|\s]*?)$(.+?(?:Total:\s+(\d+)\s+\/\s+(\d+).*?)?)\-{3,}?'
 

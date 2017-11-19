@@ -1,4 +1,4 @@
-import API
+from . import API
 
 class Host(object):
     """
