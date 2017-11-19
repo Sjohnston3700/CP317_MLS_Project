@@ -5,10 +5,11 @@ import unittest
 from flask import Flask, redirect, request
 
 import os, sys
-root_path = os.path.abspath(os.path.join('..'))
-obj_path = os.path.abspath(os.path.join('..', 'wrapper', 'obj'))
-sys.path.append(root_path)
-sys.path.append(obj_path)
+file_path = os.path.abspath(__file__)
+root_path = os.path.abspath(os.path.join(file_path, "..", ".."))
+obj_path = os.path.realpath(os.path.join(file_path, "..", "..", 'wrapper', 'obj'))
+sys.path.append(os.path.abspath(root_path))
+sys.path.append(os.path.abspath(obj_path))
 
 from conf_basic import app_config
 from Host import Host
@@ -45,7 +46,7 @@ def auth_token_handler():
     # waits for the testing to finish
     thread.join()
     
-    sys.exit(0)    
+    return "ok"
 
 # unit testing class
 # do not change setUp and tearDown to snake case, it'll break
@@ -68,4 +69,4 @@ if __name__ == "__main__":
     log.setLevel(logging.ERROR)
     
     print("Go to {0}://{1}:{2} to authenticate.".format(app_config['scheme'], app_config['host'], app_config['port']))
-    app.run(port=8080,debug=False)
+    app.run(port=8080,debug=True)
