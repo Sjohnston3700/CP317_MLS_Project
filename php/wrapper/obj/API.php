@@ -5,7 +5,6 @@
 	Requests::register_autoloader();	
 	$SUCCESS = 200;
 	
-	//Keywords such as true, fase and null must be in lower case 
 	function get($route, $user, $route_params, $additional_params){
 		/*
 		Uses a GET request to get JSON
@@ -41,13 +40,13 @@
 			$bookmark = $results["PagingInfo"]["Bookmark"];
 			$next_results = get($route, $user, $route_params, $additional_params = array("Bookmark" => $bookmark));
 			
-			//Can't use function return value in write context in index.php 
 			$results["Items"] = $results["Items"] + $next_results["Items"]; 
         }
 		
 		return $results;
 	}
-
+	
+	
 	function put($route, $user, $route_params, $params){
 		/*
 		Uses a PUT request to set JSON

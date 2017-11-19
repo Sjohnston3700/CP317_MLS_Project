@@ -65,7 +65,7 @@
 			$lName = $me['LastName'];
 			$this->name = "$fName $lName";
 			$this->id = '';
-			foreach(get_user_enrollments() as $item) { //Syntax error, unexpected use of -> 
+			foreach(get_user_enrollments() as $item) { 
 				if (in_array($item['Access']['ClasslistRoleName'], $roles)) {
 					$this->courses = new Course($item);
 				}
@@ -98,7 +98,7 @@
 					return $course;
 				}
 			}
-			return null; //Keywords such as true, fase and null must be in lower case 
+			return null; 
 		}
 		/*
 		Returns the user context belonging to this user

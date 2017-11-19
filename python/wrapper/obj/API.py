@@ -108,7 +108,7 @@ def get_course_enrollments(course):
     '''
     Gets all the user that enrollments in the given course
     '''
-    user = get_user()
+    user = course.get_user()
     return get(GET_COURSE_MEMBERS,user,{'version':user.get_host().get_api_version('le'),'orgUnitId': course.get_id()}) 
 
 
@@ -197,7 +197,7 @@ def put_grade(grade):
     params['PointsNumerator'] = grade.get_value() # For NumericGrade
     
     # Make PUT request
-    r = put(SET_GRADE_ROUTE, user, route_params, params)
+    put(SET_GRADE_ROUTE, user, route_params, params)
     return
 
 def put_grade_item(grade_item):
@@ -212,8 +212,8 @@ def put_grade_item(grade_item):
     '''
     user = grade_item.get_user()
     route_params = {'version' : user.get_host().get_api_version('le'), \
-            'orgUnitId': grade.get_grade_item().get_course().get_id(), \
-            'gradeObjectId': grade.get_grade_item().get_id() }
+            'orgUnitId': grade_item.get_course().get_id(), \
+            'gradeObjectId': grade_item.get_id() }
     params = { "MaxPoints": grade_item.get_max(), "CanExceedMaxPoints": grade_item.can_exceed(), "GradeType": "Numeric" }
-    r = put(SET_GRADEITEM_ROUTE, user, route_params, params)
+    put(SET_GRADEITEM_ROUTE, user, route_params, params)
     return
