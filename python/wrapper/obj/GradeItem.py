@@ -1,5 +1,7 @@
-from .Grade import NumericGrade
-from . import API
+import logging
+import API, Grade
+
+logger = logging.getLogger(__name__)
 
 class GradeItem(object):
     

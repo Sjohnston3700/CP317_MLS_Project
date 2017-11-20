@@ -1,4 +1,7 @@
-from . import API
+import logging
+import API
+
+logger = logging.getLogger(__name__)
 
 class Host(object):
     """

@@ -1,9 +1,7 @@
-from .GradeItem import NumericGradeItem
-from .OrgMember import OrgMember
-from . import API
+import GradeItem, OrgMember, API
+import logging
 
-GET_GRADE_ITEMS = "/d2l/api/le/(version)/(orgUnitId)/grades/"
-GET_MEMBERS = "/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/"
+logger = logging.getLogger(__name__)
 
 class Course(object):
     '''
@@ -17,23 +15,11 @@ class Course(object):
         """
         self._name      = course_params['OrgUnit']['Name']
         self._id        = course_params['OrgUnit']['Id']
-        self._user_role = course_params['Access']['ClasslistRoleName']
+        self._user_role = course_params['Role']['Name']#need to update to use Number Instead
         self._user = user
-        self._grade_items = self._get_grade_items()
-        self._members = [OrgMember(member) for member in API.get(GET_MEMBERS,user,{'orgUnitID':self._id})['Items']]
+        self._grade_items = API.get_grade_items(self)
+        self._members = API.get_class_list(self)
 
-    def _get_grade_items(self):
-        """
-        Function will return list of grade items
-        return :
-                lists - grade item
-        """
-        gradeitems = API.get(GET_GRADE_ITEMS,self._user,{'orgUnitID':self._id})
-        items = []
-        for item in gradeitems:
-            if item['GradeType'] == 'Numeric':
-                items.append(NumericGradeItem(self, item))
-        return items
 
     def get_grade_items(self):
         """

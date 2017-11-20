@@ -1,5 +1,7 @@
 import os, sys, requests, traceback
 import d2lvalence.auth as d2lauth
+import logging, json, logging.config
+
 
 from flask import Flask, redirect, request, render_template, url_for
 from werkzeug.utils import secure_filename
@@ -8,6 +10,13 @@ from conf_basic import app_config
 from wrapper.obj.OrgMember import User
 from wrapper.obj.Host import Host
 from grade_functions import parse_grades
+
+#Setup logging - Should be moved to a separate function ultimately
+logger = logging.getLogger(__name__)
+with open('logging_config.json', 'rt') as f:
+    config = json.load(f)
+    logging.config.dictConfig(config)
+
 
 
 EDIT_GRADE_ITEM_URL = 'https://{host}/d2l/lms/grades/admin/manage/item_props_newedit.d2l?objectId={gradeItemId}&gradesArea=1&ou={courseId}'
@@ -35,18 +44,20 @@ def login():
 
 @app.route(app_config["route"])
 def auth_token_handler():
-    uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
-    host = Host(app_config['lms_host'])
-    # store the user context's
-    user = User(uc, host)
-    app.config['user'] = user
+    if "user" not in app.config:
+        uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
+        host = Host(app_config['lms_host'])
+        # store the user context's
+        user = User(uc, host)
+        app.config['user'] = user
     return redirect('/courses/')
 
 @app.route('/courses/')
 def show_courses():
     try:
         return render_template('available_grades.html', user=app.config['user'])
-    except:
+    except Exception as inst :
+        print("Something went wrong in /courses/\n{}".format(inst))
         return redirect("/")
 
 @app.route('/documentation/')
@@ -94,7 +105,8 @@ def set_grades(courseId, gradeItemId):
         user   = app.config['user']
         course = user.get_course(courseId)
         grade_item = course.get_grade_item(gradeItemId)
-    except:
+    except Exception as inst :
+        print("Something went wrong in /grades/.../.../\n{}".format(inst))
         return redirect('/courses/')
     
     if request.method == 'GET':

@@ -5,11 +5,10 @@
 2. Type 'pip' into your console to see if you have python installed
 3. Install virtual environment by using 'pip install virtualenv'
 4. Make sure you are in /CP317_MLS_Project
-5. Make a virtual env with 'mkvirtualenv name-of-your-env-here'
-6. To workon your new virtual env: 'workon name-of-your-env-here'
-7. Install flask with 'pip install flask'
-8. Install dependencies with 'pip install -r requirements.txt'
-9. Go into 'template_conf_basic.py' and change the following config information: 
+5. Make a virtual enviroment with 'virtualenv -p python3 name-of-your-env-here' (no quotes)
+6. To use your new virtual enviroment: 'source name-of-your-env-here/bin/activate' (no quotes)
+7. Install all of the dependencies with 'pip install -r requirements.txt'
+8. Go into 'template_conf_basic.py' and change the following config information: 
 
 From Harold's email: 
 
@@ -18,8 +17,10 @@ api key = BpBbSId5iAVG988lMvgj5g
 api id = rzQ2Fl48OyGpabNiVo5wYQ
 lms = wlutest.desire2learn.com
 
-10. Name the file to conf_basic.py
-11. Start the app by using 'python setGrades.py' 
-12. You should see that it is running on localhost:8080/
-13. If you did the conf_basic.py file correctly, you should be brought to the MLS login page
+9. Name the file to conf_basic.py
+10. Start the app by using 'python app.py' 
+11. You should see that it is running on localhost:8080/
+12. If you did the conf_basic.py file correctly, you should be brought to the MLS login page
+
+Note : There is also https://virtualenvwrapper.readthedocs.io/en/latest/ which makes virtualenv easier to work with
 

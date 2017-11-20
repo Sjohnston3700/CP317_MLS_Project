@@ -1,8 +1,11 @@
-import re,sys
-from . import API
-#from . import GradeItem #TO BE FIXED. I think this is currently a recursive import
+import re, logging
+
+import API
+import GradeItem
 
 FEEDBACK_PATTERN = '\-{3,}?.*?(\d{5,7}).*?^([\w|\s]*?)$(.+?(?:Total:\s+(\d+)\s+\/\s+(\d+).*?)?)\-{3,}?'
+
+logger = logging.getLogger(__name__)
 
 class Grade(object):
     '''

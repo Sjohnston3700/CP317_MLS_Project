@@ -1,14 +1,20 @@
-import requests
+import requests, traceback, sys,logging
+
+import Course, GradeItem, OrgMember
 
 SUCCESS = 200
 
 API_ROUTE            = '/d2l/api/versions/'
 GET_GRADES_ROUTE     = '/d2l/api/le/(version)/(orgUnitId)/grades/'
 SET_GRADEITEM_ROUTE  = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
+GET_GRADE_ITEMS      = '/d2l/api/le/(version)/(orgUnitId)/grades/'
 SET_GRADE_ROUTE      = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)'
 GET_COURSE_MEMBERS   = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/'
 GET_USER_ENROLLMENTS = '/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/'
+GET_MEMBERS          = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/'
 GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
+
+logger = logging.getLogger(__name__)
 
 def check_request(request):
     '''
@@ -98,7 +104,7 @@ def update_route(route,params):
     if params is not None:#Dont care about params={} for loop takes care of it
         for key in params:
             route = route.replace("({})".format( key ), str(params[key]) )
- 
+
     if '(' in route or ')' in route:#check for missed stuff to replace
         exception_message = 'Route : {} needs more parameters'.format(route)
         raise  RuntimeError( exception_message )
@@ -217,3 +223,44 @@ def put_grade_item(grade_item):
     params = { "MaxPoints": grade_item.get_max(), "CanExceedMaxPoints": grade_item.can_exceed(), "GradeType": "Numeric" }
     put(SET_GRADEITEM_ROUTE, user, route_params, params)
     return
+    
+def get_grade_items(course):
+    """
+    Function will return list of grade items
+    return :
+            lists - grade item
+    """
+    gradeitems = get(GET_GRADE_ITEMS,course.get_user(),{'orgUnitId':course.get_id(),'version':1.20})#Hard coded version, should use Host.version...
+    items = []
+    for item in gradeitems:
+        if item['GradeType'] == 'Numeric':
+            items.append(GradeItem.NumericGradeItem(course, item))
+    return items
+    
+def get_courses(user):
+    '''
+    '''
+    json = get_user_enrollments(user)
+    courses = []
+    for item in json:
+        try:
+            courses.append( Course.Course(user,item) )
+        except Exception as inst:
+            logger.error('problem in get_courses with json = {}. {}'.format(item,inst) )
+            continue
+        logger.info("Extracted {} Courses".format(len(courses)))
+    return courses
+    
+def get_class_list(course):#is this the right name for this function?
+    '''
+    '''
+    json = get(GET_MEMBERS,course.get_user(),{'orgUnitId':course.get_id(),'version':1.20})['Items']#Hard coded verision ....
+    members = []
+    for member in json:
+        try:
+            members.append( OrgMember.OrgMember(member) )
+        except Exception as inst:
+            print("DUndles : {}".format(member) )
+            print(inst)
+            continue
+    return members
