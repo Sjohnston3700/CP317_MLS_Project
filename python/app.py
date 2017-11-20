@@ -35,18 +35,20 @@ def login():
 
 @app.route(app_config["route"])
 def auth_token_handler():
-    uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
-    host = Host(app_config['lms_host'])
-    # store the user context's
-    user = User(uc, host)
-    app.config['user'] = user
+    if "user" not in app.config:
+        uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
+        host = Host(app_config['lms_host'])
+        # store the user context's
+        user = User(uc, host)
+        app.config['user'] = user
     return redirect('/courses/')
 
 @app.route('/courses/')
 def show_courses():
     try:
         return render_template('available_grades.html', user=app.config['user'])
-    except:
+    except Exception as inst :
+        print("Something went wrong in /courses/\n{}".format(inst))
         return redirect("/")
 
 @app.route('/documentation/')
@@ -94,7 +96,8 @@ def set_grades(courseId, gradeItemId):
         user   = app.config['user']
         course = user.get_course(courseId)
         grade_item = course.get_grade_item(gradeItemId)
-    except:
+    except Exception as inst :
+        print("Something went wrong in /grades/.../.../\n{}".format(inst))
         return redirect('/courses/')
     
     if request.method == 'GET':
