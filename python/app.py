@@ -131,6 +131,31 @@ def set_grades(courseId, gradeItemId):
     logoutUrl = LOGOUT_URL.format(host=user.get_host().get_lms_host())
     return render_template("grades_uploaded.html",user=user,errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=grade_item,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
 
+def modify_grade_max(grade_item_id, max):
+    """
+    Update maximum grade points for the grade_item
+    Precondition:
+        grade_item_id - unique id for the grade item
+        max - maximum points to be changed to
+    Postcondition:
+        Edit this grade item
+    """
+    if max >= 0:
+        user = app.config["User"]
+
+        # attempt to find course
+        courses = user.get_courses()
+        for course in courses:
+            if course.get_grade_item(grade_item_id) != None:
+                grade_item = course.get_grade_item(grade_item_id)
+                #current_course = course
+        
+        grade_item._max_points = max
+        API.put_grade_item(grade_item)
+    else:
+        raise RuntimeError("Max grade need to be greater than 0")
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port, debug=app_config["debug"])
