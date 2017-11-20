@@ -1,11 +1,18 @@
-<h1>CS123 - Test Course - Lab Report 1</h1>
-<h2>Out of: <strong>150</strong> marks</h2>
+<?php
+	if ($_GET['grade_item'] && $_GET['course']) {
+		$course = $user->get_course($_GET['course']);
+		$grade_item = $course->get_grade_item($_GET['grade_item']);
+	}
+?>
+
+<h1><strong><?=$course->get_name()?></strong> , <?=$grade_item->get_name()?></h1>
+<h2>Out of: <strong><?=$grade_item->get_max()?></strong> marks</h2>
 <hr>
 <h2>Change Grade Maximum</h2>
 <div class="page-section">
 	<form class="form-wide" id="update-max-form">
 		<div id="update-max-error"></div>
-		<input type="number" class="input" id="max-grade" placeholder="150">
+		<input type="number" class="input" id="max-grade" placeholder="<?=$grade_item->get_max()?>">
 		<button type="button" modal-form="0" class="btn open-confirm-max-grade">Update grade maximum</button>
 	</form>
 </div>
@@ -95,6 +102,18 @@
 		<textarea id="comment" name="comment" class="input" placeholder="Student feedback..." resize="false"></textarea>
 	</form>
 </div>
+<script>
+	
+	var members = [ 
+		<?php 
+		foreach ($course->get_members() as $m) { 
+			echo("{name: '" . $m->get_name() . "', id: '" . $m->get_id() . "'},");
+		} 
+		
+		?>
+	];
+
+</script>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/upload.js"></script>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/jquery.easy-autocomplete.js"></script>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/dynamic_search.js"></script>
