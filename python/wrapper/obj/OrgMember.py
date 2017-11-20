@@ -1,5 +1,5 @@
 import copy
-import API
+from . import API
 
 class OrgMember(object):
     def __init__(self, org_member_params):
@@ -46,7 +46,7 @@ class OrgMember(object):
         """
         return self._role
 
-from Course import Course
+from .Course import Course
 
 class User(OrgMember):
     
@@ -102,7 +102,7 @@ class User(OrgMember):
             returns
             Copy of a python list of all courses accessible by this user
         """
-        return copy.deepcopy(self.courses)
+        return copy.deepcopy(self._courses)
 
     def get_host(self):
         """

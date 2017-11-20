@@ -161,7 +161,7 @@ def get_user_enrollments(user):
 
 def get_who_am_i(user):
     '''
-    Retrieve the current user context’s user information as python dict JSON.
+    Retrieve the current user context's user information as python dict JSON.
     
     Preconditions:
         user (User object) : A User object corresponding to the current user.

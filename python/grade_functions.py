@@ -1,10 +1,11 @@
 import csv # To handle csv files
 import re,sys
 
-from api_functions import getRoute,putRoute
-from Grade import Grade
+
+from wrapper.obj.API import get as getRoute, put as putRoute
+from wrapper.obj.Grade import Grade
 from io import TextIOWrapper # To check if file object is valid
-from Grade import FEEDBACK_PATTERN
+from wrapper.obj.Grade import FEEDBACK_PATTERN
 
 
 gradeItemsRoute = '/d2l/api/le/(version)/(orgUnitId)/grades/'

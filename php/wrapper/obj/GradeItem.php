@@ -19,8 +19,8 @@ class GradeItem {
 			throw new RuntimeException("GradeItem must be subclassed");
 		}
 		
-		$this->name = $grade_item_params("Name");
-        $this->id = $grade_item_params("Id");
+		$this->name = $grade_item_params["Name"];
+        $this->id = $grade_item_params["Id"];
         $this->course = $course;
         $this->grades = array();
 	}

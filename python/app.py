@@ -1,12 +1,12 @@
-import os, sys, requests
+import os, sys, requests, traceback
 import d2lvalence.auth as d2lauth
 
 from flask import Flask, redirect, request, render_template, url_for
 from werkzeug.utils import secure_filename
 from conf_basic import app_config
 
-from OrgMember import User
-from Host import Host
+from wrapper.obj.OrgMember import User
+from wrapper.obj.Host import Host
 from grade_functions import parse_grades
 
 
@@ -44,49 +44,49 @@ def auth_token_handler():
 
 @app.route('/courses/')
 def show_courses():
-	try:
-		return render_template('available_grades.html', user=app.config['user'])
-	except:
-		return redirect("/")
+    try:
+        return render_template('available_grades.html', user=app.config['user'])
+    except:
+        return redirect("/")
 
 @app.route('/documentation/')
 def show_docs():
-	return render_template('documentation.html')
+    return render_template('documentation.html')
 
 @app.route('/documentation/spmp/')
 def show_spmp():
-	return render_template('spmp.html')
+    return render_template('spmp.html')
 
 @app.route('/documentation/requirements')
 def show_requirements():
-	return render_template('requirements.html')
+    return render_template('requirements.html')
 
 @app.route('/documentation/requirements/wrapper')
 def show_requirements_wrapper():
-	return render_template('requirements_wrapper.html')
+    return render_template('requirements_wrapper.html')
 
 @app.route('/documentation/analysis')
 def show_analysis():
-	return render_template('analysis.html')
+    return render_template('analysis.html')
 
 @app.route('/documentation/analysis/wrapper')
 def show_analysis_wrapper():
-	return render_template('analysis_wrapper.html')
+    return render_template('analysis_wrapper.html')
 
 @app.route('/documentation/design')
 def show_design():
-	return render_template('design.html')
+    return render_template('design.html')
 
 @app.route('/documentation/design/wrapper')
 def show_design_wrapper():
-	return render_template('design_wrapper.html')
+    return render_template('design_wrapper.html')
 
 @app.route('/logout/')
 def show_logout():
-	if 'user' in app.config:
-		return redirect(LOGOUT_URL.format(host=app_config['lms_host']))
-	else:
-		return redirect('/') # TODO maybe logout/general error page? "user not found"
+    if 'user' in app.config:
+        return redirect(LOGOUT_URL.format(host=app_config['lms_host']))
+    else:
+        return redirect('/') # TODO maybe logout/general error page? "user not found"
 
 @app.route('/grades/<courseId>/<gradeItemId>', methods = ['GET', 'POST'])
 def set_grades(courseId, gradeItemId):
@@ -132,5 +132,5 @@ def set_grades(courseId, gradeItemId):
     return render_template("grades_uploaded.html",user=user,errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=grade_item,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
 
 if __name__ == "__main__":
-	port = int(os.environ.get("PORT", 8080))
-	app.run(host='0.0.0.0', port=port, debug=app_config["debug"])
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port, debug=app_config["debug"])
