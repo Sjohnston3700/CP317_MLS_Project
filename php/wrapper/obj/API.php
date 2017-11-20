@@ -1,7 +1,7 @@
 <?php
-	require_once $_SERVER['DOCUMENT_ROOT'] . '/CP317_MLS_Project/php/wrapper/routes.php';
+	require_once $_SERVER['DOCUMENT_ROOT'] . '/CP317_MLS_Project/php/root/config.php';
 	require_once 'Requests.php';
-
+	require_once $config['libpath'] . '/D2LAppContextFactory.php';
 	Requests::register_autoloader();	
 	$SUCCESS = 200;
 	
@@ -183,25 +183,25 @@
 	
 	
 	function get_user_enrollments($user){
-   /*
-    Retrieves the collection of users enrolled in the identified org unit.
-    
-    Preconditions:
-        user (Course object) : A Course object to retrieve grades from.
-        
-    Postconditions:
-        returns:
-        user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
-    */
+	   /*
+		Retrieves the collection of users enrolled in the identified org unit.
+
+		Preconditions:
+			user (Course object) : A Course object to retrieve grades from.
+
+		Postconditions:
+			returns:
+			user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
+		*/
 	
-    $route_params = array(
-		"version" => ($user->get_host()->get_api_version("lp")),
-		"userId" => $user->get_id(),
-		);
-    
-	$response = get($GET_USER_ENROLLMENTS, $user, $route_params);
-    $user_enrollments = $response("Items");
-    return user_enrollments;
+		$route_params = array(
+			"version" => ($user->get_host()->get_api_version("lp")),
+			"userId" => $user->get_id(),
+			);
+
+		$response = get($GET_USER_ENROLLMENTS, $user, $route_params);
+		$user_enrollments = $response("Items");
+		return user_enrollments;
 	
 	}
 	
@@ -217,8 +217,55 @@
          WhoAmIUser JSON block for the current user context (as python dict)
     */
 		global $routes;
-		$route = $routes['BASE_URL'] . '/d2l/api/lp/' . $routes['VER'] . '/users/whoami';
-		echo $route;
-		$response = Requests::get($route);
+		global $config;
+		
+		
+		$route = $routes['BASE_URL'] . '/d2l/api/lp/' . $config['LP_Version'] . '/users/whoami';
+		$verb = 'GET';
+		
+	  	$userId = $_SESSION['userId'];
+    	$userKey = $_SESSION['userKey'];
+		
+		// Create authContext
+		$authContextFactory = new D2LAppContextFactory();
+		$authContext = $authContextFactory->createSecurityContext($config['appId'], $config['appKey']);
+		
+		// Create userContext
+		$hostSpec = new D2LHostSpec($config['lms_host'], $config['lms_port'], $config['scheme']);
+		$userContext = $authContext->createUserContextFromHostSpec($hostSpec, $userId, $userKey);
+		
+		// Create url for API call
+		$uri = $userContext->createAuthenticatedUri($route, $verb);
+		$uri = str_replace(':443', '', $uri);
+		echo $uri;
+		
+		// Setup cURL
+		$ch = curl_init();
+		$options = array(
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_CUSTOMREQUEST  => $verb,
+			CURLOPT_URL            => $uri,
+			CURLOPT_SSL_VERIFYPEER => true,
+			CURLINFO_HEADER_OUT => true
+		);
+		
+
+		curl_setopt_array($ch, $options);
+		
+		$response = curl_exec($ch);
+		$httpCode  = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+		$responseCode = $userContext->handleResult($response, $httpCode, $contentType);
+		if ($responseCode == D2LUserContext::RESULT_OKAY) {
+			return json_decode($response, true);
+		}
+		
+		$errors = curl_error($ch);
+		curl_close($ch);
+		var_dump($errors);
+		var_dump($response);
+		echo '<br> Response code: ' . $responseCode;
+		throw new Exception("Valence API call failed: $httpCode: $response");
+
 	}
 ?>

@@ -2,8 +2,7 @@
 	require_once '../wrapper/obj/OrgMember.php';
 	require_once '../wrapper/obj/API.php';
     require_once 'config.php';
-	require_once $config['libpath'] . '/D2LAppContextFactory.php';
-
+	
 	ob_start();
     session_start();
 
@@ -13,41 +12,22 @@
 
     $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'courses';
 
-	/******************************* D2L Code Goes Here *********************************/
-
-	// Check if we have already obtained a valid instance
-	if(! (isset($_SESSION['tokenID']) || isset($_SESSION['tokenKey']) || isset($_SESSION['tokenSig']))) {
-		// I guess we need these? They should come in handy at some point
-		// From http://docs.valence.desire2learn.com/basic/auth.html
-		if(isset($_GET['x_a']) && isset($_GET['x_b']) && isset($_GET['x_c'])) {
-			$_SESSION['tokenID'] = $_GET['x_a'];
-			$_SESSION['tokenKey'] = $_GET['x_b'];
-			$_SESSION['tokenSig'] = $_GET['x_c'];
-		}
-		else if ((!isset($_SESSION['user_context'])) && $page != 'token') {
-			$_SESSION['app_context'] = new D2LAppContext($config['appId'], $config['appKey']);
-
-			$app_url = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
-			
-			// Get URL for authentication; this takes a callback address
-			$url = $_SESSION['app_context']->createUrlForAuthentication($config['lms_host'], $config['lms_port'], $app_url);
-			session_write_close();
-			// Redirect to D2L authentication page; user will be redirected back here after
-			header('Location: ' . $url);
-			die();
-		}
-	}
-
-	if (isset($_SESSION['app_context']) && !isset($_SESSION['user_context'])) {
-		$_SESSION['user_context'] = $_SESSION['app_context']->createUserContext($config['lms_host'], $config['lms_port'], $config['encrypt_requests']); // Get context
-		print_r($_SESSION['user_context']);
+	if ($page == 'token' && isset($_GET['x_a']) && isset($_GET['x_b'])) {
+		header('Location: token.php?x_a=' . $_GET['x_a'] . '&x_b=' . $_GET['x_b']);
 		die();
 	}
 
-	get_who_am_i($_SESSION['user_context']);
+	if (!isset($_SESSION['userId']) || !isset($_SESSION['userKey'])) {
+		$redirectPage = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
+		$authContextFactory = new D2LAppContextFactory();
+		$authContext = $authContextFactory->createSecurityContext($config['appId'], $config['appKey']);
+		$hostSpec = new D2LHostSpec($config['lms_host'], $config['lms_port'], $config['scheme']);
+		$url = $authContext->createUrlForAuthenticationFromHostSpec($hostSpec, $redirectPage);
+		header('Location:' . $url);
+		die();
+	}
 
-	/****************************************************************************************************/
-
+	get_who_am_i('sdfsdf');
 
     switch ($page)
     {

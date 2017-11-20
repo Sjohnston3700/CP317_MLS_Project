@@ -7,6 +7,7 @@ $routes = array(
 	'VER' 					=> $config['LP_Version'],
 	'SCHEME' 				=> $config['scheme'],
 	'BASE_URL' 				=> $config['scheme'] . '://' . $config['lms_host'],
+	'LIBPATH' 				=> $config['libpath'],
 	'API_ROUTE' 		    => '/d2l/api/versions/',
 	'GET_GRADES_ROUTE'     => '/d2l/api/le/(version)/(orgUnitId)/grades/',
 	'SET_GRADE_ROUTE'      => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)',
