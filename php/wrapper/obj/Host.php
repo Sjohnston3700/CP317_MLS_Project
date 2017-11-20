@@ -1,6 +1,6 @@
 <?php 
 
-include ("API.php");
+require_once 'API.php';
 
 class Host{ 
 
@@ -15,17 +15,12 @@ class Host{
 	Postconditions:
 		returns: Object of type Host
 	*/
-	function __construct($lms_host, $protocol="http", $versions=NULL) {
+	function __construct($lms_host, $protocol) {
 
 		$this->_lms_host = $lms_host;
 		$this->_protocol = $protocol;
-
-		if ($versions == NULL) {
-			$this->versions = API.get_api_versions();
-		} else {
-			$this->versions = $versions;			
-		}
-
+		$this->versions = get_api_versions();
+		print_r($this->versions);
    }
    
    /* 

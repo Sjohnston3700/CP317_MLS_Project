@@ -12,22 +12,32 @@
 
     $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'courses';
 
-	if ($page == 'token' && isset($_GET['x_a']) && isset($_GET['x_b'])) {
+	if ($page == 'token' && isset($_GET['x_a']) && isset($_GET['x_b'])) 
+	{
 		header('Location: token.php?x_a=' . $_GET['x_a'] . '&x_b=' . $_GET['x_b']);
 		die();
 	}
 
-	if (!isset($_SESSION['userId']) || !isset($_SESSION['userKey'])) {
+	if ($page == 'logout' && isset($_SESSION['userId']) && isset($_SESSION['userKey'])) 
+	{
+		unset($_SESSION['userId']);
+		unset($_SESSION['userKey']);
+		header("location: index.php");
+		die();
+	}
+
+	if (!isset($_SESSION['userId']) || !isset($_SESSION['userKey'])) 
+	{
 		$redirectPage = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
 		$authContextFactory = new D2LAppContextFactory();
 		$authContext = $authContextFactory->createSecurityContext($config['appId'], $config['appKey']);
-		$hostSpec = new D2LHostSpec($config['lms_host'], $config['lms_port'], $config['scheme']);
+		$hostSpec = new D2LHostSpec($config['lms_host'], $config['lms_port'], $config['protocol']);
 		$url = $authContext->createUrlForAuthenticationFromHostSpec($hostSpec, $redirectPage);
 		header('Location:' . $url);
 		die();
 	}
-
-	get_who_am_i('sdfsdf');
+	
+	$user = new User(array());
 
     switch ($page)
     {
@@ -106,8 +116,8 @@
 			<li class="item"><a href="/courses">Courses</a></li>
 			<li class="item"><a href="#">Help</a></li>
 			<li class="name-section">
-			    <span>Welcome, David Brown</span>
-				<button onclick="window.location.href='/logout'" class="btn">Logout</button>
+			    <span>Welcome, <?=$user->get_full_name()?></span>
+				<button onclick="window.location.href='index.php?page=logout'" class="btn">Logout</button>
 			</li>
 		</ul>
 		<div class="page-content-horiz">

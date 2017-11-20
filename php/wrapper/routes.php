@@ -3,11 +3,7 @@
 require_once '../root/config.php';
 
 $routes = array(
-	'HOST' 					=> $config['lms_host'],
-	'VER' 					=> $config['LP_Version'],
-	'SCHEME' 				=> $config['scheme'],
-	'BASE_URL' 				=> $config['scheme'] . '://' . $config['lms_host'],
-	'LIBPATH' 				=> $config['libpath'],
+	'BASE_URL' 				=> $config['protocol'] . '://' . $config['lms_host'],
 	'API_ROUTE' 		    => '/d2l/api/versions/',
 	'GET_GRADES_ROUTE'     => '/d2l/api/le/(version)/(orgUnitId)/grades/',
 	'SET_GRADE_ROUTE'      => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)',
