@@ -27,7 +27,9 @@ class Grade{
 		Return comments for this student with respect to this GradeItem
 		*/
 		
-		return $this->_comment;
+		return $this->_comment; //Invalid strucutre
+		//Cannot use underscore
+		
 	}
 	
 	function get_grade_item(){
@@ -35,7 +37,10 @@ class Grade{
 		/*
 		Return the GradeItem Object
 		*/
-		return $this->_grade_item;
+		
+		return $this->_grade_item; //Invalid structure 
+		//Cannot use underscore 
+		
 	}
 	
 	
@@ -43,7 +48,10 @@ class Grade{
 		/*
 		Return the student object (OrgMember)
 		*/
-		return $this->_student;
+		return $this->_student; //Invalid structure 
+		//Cannot use underscore 
+		
+		
 	}
 	
 	function get_user(){
@@ -51,7 +59,9 @@ class Grade{
 		/*
 		Return the user
 		*/
-		return self._grade_item.get_user()
+		
+		return self._grade_item.get_user() //Invalid structure 
+		//Cannot use underscore 
 		
 	}
 	
@@ -60,7 +70,7 @@ class Grade{
 		/*
 		Call function to update grade
 		*/
-		API.put_grade();
+		API.put_grade(); 
 
 	}
 	
@@ -77,7 +87,9 @@ class NumericGrade{
 		*/
 		
 		parent::__construct($grade_item, $student, $comment);
-		$this->_value = value;	
+		
+		$this->_value = value;	//Invalid structure 
+		//Cannot use underscore 
 	}
 		
 	function get_value() {
@@ -86,7 +98,9 @@ class NumericGrade{
 		Returns value of the NumericGrade Item
 		*/
 		
-		return $this->_value;	
+		return $this->_value; //Invalid structure 
+		//Cannot use underscore 
+		
 	}
 	
 }
