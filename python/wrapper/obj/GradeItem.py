@@ -1,5 +1,5 @@
-from .Grade import NumericGrade
-from . import API
+import Grade
+import API
 
 class GradeItem(object):
     

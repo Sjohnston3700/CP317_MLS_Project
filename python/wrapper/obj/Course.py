@@ -1,6 +1,6 @@
-from .GradeItem import NumericGradeItem
-from .OrgMember import OrgMember
-from . import API
+import GradeItem
+import OrgMember
+import API
 
 GET_GRADE_ITEMS = "/d2l/api/le/(version)/(orgUnitId)/grades/"
 GET_MEMBERS = "/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/"

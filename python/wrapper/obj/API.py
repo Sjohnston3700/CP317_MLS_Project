@@ -1,5 +1,7 @@
 import requests
 
+import Course, GradeItem
+
 SUCCESS = 200
 
 API_ROUTE            = '/d2l/api/versions/'

@@ -1,5 +1,5 @@
 import copy
-from . import API
+import API, Course
 
 class OrgMember(object):
     def __init__(self, org_member_params):
@@ -45,8 +45,6 @@ class OrgMember(object):
             The role id of the OrgMember (str)
         """
         return self._role
-
-from .Course import Course
 
 class User(OrgMember):
     
