@@ -62,9 +62,7 @@ class User(OrgMember):
         me = API.get_who_am_i(self)
         self._name = '{} {}'.format(me['FirstName'], me['LastName'])
         self._id = me['Identifier']
-        self._courses = [Course(self,item) 
-                for item in API.get_user_enrollments(self)
-                if item['Role']['Name'] in roles]
+        self._courses = API.get_courses(self)#still need to filter by role
 
     def get_context(self):
         """
@@ -87,8 +85,8 @@ class User(OrgMember):
             returns
             A single course object with matching id, None if this User cannot access that course
         """
-        for course in self.courses:
-            if course.get_id() == id:
+        for course in self._courses:
+            if str( course.get_id() ) == str( id ):
                 return course
         return None        
         
@@ -100,7 +98,9 @@ class User(OrgMember):
             returns
             Copy of a python list of all courses accessible by this user
         """
-        return copy.deepcopy(self._courses)
+#        return copy.deepcopy(self._courses)#Deepcopy doesn't know how to deal with a list of courses
+        return self._courses#need to find a way to make deepcopy happy
+        #maybe https://stackoverflow.com/questions/6279305/typeerror-cannot-deepcopy-this-pattern-object
 
     def get_host(self):
         """
