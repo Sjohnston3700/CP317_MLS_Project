@@ -15,10 +15,6 @@ class GradeItem {
             parent constructor to all GradeItem types. contains data common to all types
         */
 		
-		if ((gettype($this)) == GradeItem){
-			throw new RuntimeException("GradeItem must be subclassed");
-		}
-		
 		$this->name = $grade_item_params["Name"];
         $this->id = $grade_item_params["Id"];
         $this->course = $course;
@@ -108,7 +104,7 @@ class GradeItem {
 	}
 }
 
-class NumericGradeItem {
+class NumericGradeItem extends GradeItem {
 	
 	public function __construct($course, $grade_item_params){
 		/*
@@ -127,8 +123,8 @@ class NumericGradeItem {
 		}
 		
         parent::__construct($course, $grade_item_params);                    
-        $this->max_points = $grade_item_params("MaxPoints");
-        $this->can_exceed_max_points = $grade_item_params("CanExceedMaxPoints");
+        $this->max_points = $grade_item_params["MaxPoints"];
+        $this->can_exceed_max_points = $grade_item_params["CanExceedMaxPoints"];
 	}
 	
 	function create_grade($student, $grade_params){

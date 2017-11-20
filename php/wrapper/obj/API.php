@@ -3,14 +3,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/CP317_MLS_Project/php/root/config.php
 require_once $config['libpath'] . '/D2LAppContextFactory.php';
 
 $routes = array(
-'BASE_URL' 				=> $config['scheme'] . '://' . $config['lms_host'],
-'API_ROUTE' 		    => '/d2l/api/versions/',
-'GET_GRADES_ROUTE'     => '/d2l/api/le/(version)/(orgUnitId)/grades/',
-'SET_GRADE_ROUTE'      => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)',
-'GET_COURSE_MEMBERS'   => '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/',
-'GET_USER_ENROLLMENTS' => '/d2l/api/lp/(version)/enrollments/myenrollments/',
-'GET_USER_ENROLLMENT'  => '/d2l/api/le/(version)/(orgUnitId)/grades/',
-'GET_WHO_AM_I'         => '/d2l/api/lp/(version)/users/whoami',
+	'BASE_URL' 				=> $config['protocol'] . '://' . $config['lms_host'],
+	'GET_API_VERSIONS' 	   => '/d2l/api/versions/',
+	'GET_GRADES'     	   => '/d2l/api/le/(version)/(orgUnitId)/grades/',
+	'SET_GRADE'            => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)',
+	'GET_COURSE_MEMBERS'   => '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/',
+	'GET_USER_ENROLLMENTS' => '/d2l/api/lp/(version)/enrollments/myenrollments/',
+	'GET_USER_ENROLLMENT'  => '/d2l/api/le/(version)/(orgUnitId)/grades/',
+	'GET_WHO_AM_I'         => '/d2l/api/lp/(version)/users/whoami',
 );
 
 /*
@@ -43,7 +43,7 @@ function get($route, $route_params){
 //		$results["Items"] = $results["Items"] + $next_results["Items"]; 
 //	}
 
-	return json_encode($response);
+	return $response;
 }
 
 
@@ -80,11 +80,10 @@ Postconditions:
 */
 function update_route($route, $params) {
 	if ($params != NULL){
-		foreach ($params as $value){
-			$route = str_replace('(' . key($params) . ')', $value, $route ); //Control structure issue, no spaces before or after parenthesis
+		foreach ($params as $key => $value){
+			$route = str_replace('(' . $key . ')', $value, $route); //Control structure issue, no spaces before or after parenthesis
 		} 
 	}
-
 	return $route;
 }
 
@@ -111,10 +110,15 @@ function check_request($request){
 
 
 function get_grade_items($course){
-	$user = $course->get_user();
-	$route_params = array("version" => $user->get_host()->get_api_version("le"), "orgUnitId" => $course.get_id());
-	$response = get($GET_GRADES_ROUTE, $user, $route_params);
+	global $config;
+	global $routes;
 
+	$route_params = array(
+		 'version' => $config['LP_Version'],
+		 'orgUnitId' => $course->get_id()
+		);
+
+	$response = get($routes['GET_GRADES'], $route_params);
 	return $response;
 }
 
@@ -175,27 +179,29 @@ function put_grade_item($grade_item){
 }
 
 
+/*
+Retrieves the collection of users enrolled in the identified org unit.
+
+Preconditions:
+	user (Course object) : A Course object to retrieve grades from.
+
+Postconditions:
+	returns:
+	user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
+*/
 function get_user_enrollments($user){
-   /*
-	Retrieves the collection of users enrolled in the identified org unit.
 
-	Preconditions:
-		user (Course object) : A Course object to retrieve grades from.
-
-	Postconditions:
-		returns:
-		user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
-	*/
+	global $config;
+	global $routes;
 
 	$route_params = array(
-		"version" => ($user->get_host()->get_api_version("lp")),
-		"userId" => $user->get_id(),
+		'version' => $config['LP_Version'],
+		 'userId' => $user->get_id(),
 		);
 
-	$response = get($GET_USER_ENROLLMENTS, $user, $route_params);
-	$user_enrollments = $response("Items");
-	return user_enrollments;
-
+	$response = get($routes['GET_USER_ENROLLMENTS'], $route_params);
+	
+	return $response['Items'];
 }
 
 
@@ -212,10 +218,21 @@ Postconditions:
 function get_who_am_i() {
 	global $config;
 	global $routes;
+	
+	$route_params = array('version' => $config['LP_Version']);
+	$response = get($routes['GET_WHO_AM_I'], $route_params);
+	
+	return $response;
+}
 
-	$route_params = array( 'version' => $config['LP_Version']);
-	$json = get($routes['GET_WHO_AM_I'], $route_params);
-	print_r($json);
+function get_api_versions() {
+	global $config;
+	global $routes;
+	
+	$route_params = array();
+	$response = get($routes['GET_API_VERSIONS'], $route_params);
+	
+	return $response;
 }
 
 function valence_request($route, $verb) {
@@ -230,7 +247,7 @@ function valence_request($route, $verb) {
 	$authContext = $authContextFactory->createSecurityContext($config['appId'], $config['appKey']);
 
 	// Create userContext
-	$hostSpec = new D2LHostSpec($config['lms_host'], $config['lms_port'], $config['scheme']);
+	$hostSpec = new D2LHostSpec($config['lms_host'], $config['lms_port'], $config['protocol']);
 	$userContext = $authContext->createUserContextFromHostSpec($hostSpec, $userId, $userKey);
 
 	// Create url for API call

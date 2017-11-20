@@ -57,19 +57,27 @@
 			$host: The Host object corresponding to the user (Host)
 			$roles: List of roles, default: None (list)
 		*/
-		function __construct($context, $host, $roles = array()) {
-			$this->context = $context;
-			$this->host = $host;
-			$me = get_who_am_i(host);
-			$fName = $me['FirstName'];
-			$lName = $me['LastName'];
-			$this->name = "$fName $lName";
-			$this->id = '';
-			foreach(get_user_enrollments() as $item) { 
-				if (in_array($item['Access']['ClasslistRoleName'], $roles)) {
-					$this->courses = new Course($item);
-				}
+		function __construct($roles) {
+			$me = get_who_am_i();
+			$f_name = $me['FirstName'];
+			$l_name = $me['LastName'];
+			$this->full_name = $f_name . ' ' . $l_name;
+			$this->id = $me['Identifier'];
+			$this->courses = $this->_get_courses();
+		
+//			foreach(get_user_enrollments($this) as $item) { 
+//				if (in_array($item['Access']['ClasslistRoleName'], $roles)) {
+//					$this->courses[] = new Course($item);
+//				}
+//			}
+		}
+		
+		function _get_courses() {
+			$courses = array();
+			foreach(get_user_enrollments($this) as $course) {
+				$courses[] = new Course($this, $course);
 			}
+			return $courses;
 		}
 		/*
 		Returns a copy of the list of courses the user has access to
@@ -78,9 +86,8 @@
 			Copy of a python list of all courses accessible by this user
 			*/
 		function get_courses() {
-			$copy = array();
 			foreach($this->courses as $i => $j) {
-				$copy[$i] = clone $v;
+				$copy[$i] = clone $j;
 			}
 			return $copy;
 		}
@@ -100,22 +107,12 @@
 			}
 			return null; 
 		}
-		/*
-		Returns the user context belonging to this user
-		Postconditions:
-			returns
-			A Brightspace user context
-		*/
-		function get_context() {
-			return $this->context;
+		
+		function get_id() {
+			return $this->id;
 		}
-		/*
-		Gets the host being used by this User
-		Postconditions:
-			returns 
-			A Host object
-		*/
-		function get_host() {
-			return $this->host;
+		
+		function get_full_name() {
+			return $this->full_name;
 		}
 	}
