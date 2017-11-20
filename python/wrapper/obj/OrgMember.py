@@ -1,5 +1,7 @@
-import copy
+import copy, logging
 import API, Course
+
+logger = logging.getLogger(__name__)
 
 class OrgMember(object):
     def __init__(self, org_member_params):

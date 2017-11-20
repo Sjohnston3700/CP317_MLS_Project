@@ -1,5 +1,7 @@
 import os, sys, requests, traceback
 import d2lvalence.auth as d2lauth
+import logging, json, logging.config
+
 
 from flask import Flask, redirect, request, render_template, url_for
 from werkzeug.utils import secure_filename
@@ -8,6 +10,13 @@ from conf_basic import app_config
 from wrapper.obj.OrgMember import User
 from wrapper.obj.Host import Host
 from grade_functions import parse_grades
+
+#Setup logging - Should be moved to a separate function ultimately
+logger = logging.getLogger(__name__)
+with open('logging_config.json', 'rt') as f:
+    config = json.load(f)
+    logging.config.dictConfig(config)
+
 
 
 EDIT_GRADE_ITEM_URL = 'https://{host}/d2l/lms/grades/admin/manage/item_props_newedit.d2l?objectId={gradeItemId}&gradesArea=1&ou={courseId}'

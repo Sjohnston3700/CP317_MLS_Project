@@ -1,4 +1,7 @@
 import GradeItem, OrgMember, API
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Course(object):
     '''

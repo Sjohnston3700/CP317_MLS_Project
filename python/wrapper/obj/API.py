@@ -1,4 +1,4 @@
-import requests, traceback, sys
+import requests, traceback, sys,logging
 
 import Course, GradeItem, OrgMember
 
@@ -13,6 +13,8 @@ GET_COURSE_MEMBERS   = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/u
 GET_USER_ENROLLMENTS = '/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/'
 GET_MEMBERS          = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/'
 GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
+
+logger = logging.getLogger(__name__)
 
 def check_request(request):
     '''
@@ -244,10 +246,9 @@ def get_courses(user):
         try:
             courses.append( Course.Course(user,item) )
         except Exception as inst:
-            print("WHHOOPS: {}".format(item) )
-            print(inst)
+            logger.error('problem in get_courses with json = {}. {}'.format(item,inst) )
             continue
-    print("Extracted {} Courses".format(len(courses)))
+        logger.info("Extracted {} Courses".format(len(courses)))
     return courses
     
 def get_class_list(course):#is this the right name for this function?
