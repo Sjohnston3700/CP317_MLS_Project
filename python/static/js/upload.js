@@ -96,7 +96,9 @@ function sendToErrorChecking(data) {
 	globalGrades = data;
 	
 	var formData = {
-		grades: data
+		'grades': data,
+		'grade_item': grade_item,
+		'course': course
 	}
 
 	$.ajax({

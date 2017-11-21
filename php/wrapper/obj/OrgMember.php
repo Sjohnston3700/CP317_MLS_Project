@@ -1,7 +1,7 @@
 <?php
 	
-	include 'API.php';
-	include 'Course.php'; //Required in the user construct, though not present in the python version?
+	require_once 'API.php';
+	require_once 'Course.php'; //Required in the user construct, though not present in the python version?
 	
 	class OrgMember {
 		/*
@@ -49,7 +49,7 @@
 		}
 	}
 	
-	class User {
+	class User extends OrgMember{
 		/*
 		Instantiates a new User object
 		Preconditions:

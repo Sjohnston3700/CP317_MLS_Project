@@ -103,7 +103,9 @@
 	</form>
 </div>
 <script>
-	
+	// Members for dynamic search
+	var course = <?=$_GET['course']?>;
+	var grade_item = <?=$_GET['grade_item']?>;
 	var members = [ 
 		<?php 
 		foreach ($course->get_members() as $m) { 
