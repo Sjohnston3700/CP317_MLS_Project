@@ -145,7 +145,7 @@ function sendToErrorChecking(data) {
 						else {
 							closeModal('error-message-modal');
 							// Success, go to report page
-							window.location.href = 'index.php?page=report';
+							window.location.href = 'index.php?page=report&course=' + course + '&grade_item=' + grade_item;
 						}
 					} 
 					

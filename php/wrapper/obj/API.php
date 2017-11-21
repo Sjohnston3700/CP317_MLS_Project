@@ -11,8 +11,14 @@ $routes = array(
 	'GET_USER_ENROLLMENTS' => '/d2l/api/lp/(version)/enrollments/myenrollments/',
 	'GET_USER_ENROLLMENT'  => '/d2l/api/le/(version)/(orgUnitId)/grades/',
 	'GET_WHO_AM_I'         => '/d2l/api/lp/(version)/users/whoami',
-	'GET_GRADE_VALUES'	   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/'
+	'GET_GRADE_VALUES'	   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/',
+	'SET_GRADE_MAX'		   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
 );
+
+//{
+//"GradeObjectType": 1, 
+//"PointsNumerator": 12
+//}
 
 /*
 Uses a GET request to get JSON
@@ -61,7 +67,7 @@ function put($route, $route_params, $json_to_send) {
 	
 	$route = update_route($routes['BASE_URL'] . $route, $route_params);
 	$response = valence_request($route, 'PUT', json_encode($json_to_send));
-	
+
 	return $response;
 }
 
@@ -133,17 +139,17 @@ function put_grade($grade){
 	global $routes;
 	
 	$route_params = array(
-		'version'=> $config['LP_Version'],
+		'version'=> '1.12',
 		'orgUnitId' => $grade->get_grade_item()->get_course()->get_id(),
 		'gradeObjectId' => $grade->get_grade_item()->get_id(),
 		'userId' => $grade->get_student()->get_id(),
 	);
 
-	$params = array('Comments' => $grade->get_comment(), 'PrivateComments' => ''); # For generic Grade
-
-	# TODO: Support other Grade types?
-	$params['GradeObjectType'] = 1; # NumericGrade Type
-	$params['PointsNumerator'] = $grade->get_value(); # For NumericGrade
+	$params = array(
+		'GradeObjectType' => 1,
+		'PointsNumerator' => $grade->get_value(),
+		'Comments' => array('Content' => $grade->get_comment(), 'Type' => 'Text'), 
+		'PrivateComments' => array('Content' => '', 'Type' => 'Text'));
 
 	# Make PUT request
 	$response = put($routes['SET_GRADE'], $route_params, $params);
@@ -254,7 +260,6 @@ function get_grade_values($course_id, $grade_item_id) {
 		'gradeObjectId' => $grade_item_id
 	);
 	$response = get($routes['GET_GRADE_VALUES'], $route_params);
-	print_r($response);
 	return $response['Objects'];
 }
 
