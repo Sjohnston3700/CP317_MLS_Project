@@ -16,20 +16,20 @@
 
     <h2 id="1. Introduction">Introduction</h2>
 
-    <p>ezMarker is a web application that allows instructors to upload grades and feedback onto MyLearningSpace with ease. <a href="#1.3%20Definitions">Autograder</a> (MLS) is Wilfrid Laurier University's online learning management system. It is a rebranded version of <a href="#1.3%20Definitions">Autograder</a>, created by <a href="#1.3%20Definitions">Autograder</a> (D2L). This educational platform allows students and instructors to communicate, share resources, and keep track of academic progress. A vital part of this system is a feature that allows instructors to set grades and give feedback on student work. The current feedback system on MLS becomes tedious and is time consuming when giving feedback for large classes, since feedback must be manually set for each student. ezMarker makes it faster to grade students by allowing bulk grade and feedback uploading with the use of the <a href="#brightspace-api">Brightspace API</a>.</p>
+    <p>ezMarker is a web application that allows instructors to upload grades and feedback onto MyLearningSpace with ease. <a href="#1.3%20Definitions">Autograder</a> (<a href="#1.3%20Definitions">MLS</a>) is Wilfrid Laurier University's online learning management system. It is a rebranded version of <a href="#1.3%20Definitions">Autograder</a>, created by <a href="#1.3%20Definitions">Autograder</a> (<a href="#1.3%20Definitions">D2L</a>). This educational platform allows students and instructors to communicate, share resources, and keep track of academic progress. A vital part of this system is a feature that allows instructors to set grades and give feedback on student work. The current feedback system on <a href="#1.3%20Definitions">MLS</a> becomes tedious and is time consuming when giving feedback for large classes, since feedback must be manually set for each student. ezMarker makes it faster to grade students by allowing bulk grade and feedback uploading with the use of the <a href="#1.3%20Definitions">Brightspace API</a>.</p>
     <p>A driving force behind reworking the feedback feature is the <a href="#1.3%20Definitions">Autograder</a> program, currently used by the computer science department at Wilfrid Laurier University. This program generates the files that ezMarker uploads.</p>
-    <p>ezMarker builds on and extends an existing project developed by Harold Hodgins for the upload of grades and feedback on MLS.</p>
+    <p>ezMarker builds on and extends an existing project developed by Harold Hodgins for the upload of grades and feedback on <a href="#1.3%20Definitions">MLS</a>.</p>
 
     <h3 id="1.1 Purpose">Purpose</h3>
     <p>This document lists the requirements of the ezMarker project, and has been created for developers as a basis for their work and to help the client understand the functionality of the software.</p>
     <p>The remainder of this document explains the details of interfaces, software platforms used, product design, and functionality. The document follows the IEEE Software Requirements Specifications document standards.</p>
     <h3 id="1.2 Scope">Scope</h3>
-    <p>ezMarker is a website that adds extended functionality to the MLS platform by providing an interface for setting student grades and feedback that is superior to the current MLS implementation. In the existing system feedback has to be set individually for each student. For courses with many students, inputting feedback for each student can take hours. ezMarker provides an alternate user interface that reduces grade recording time to minutes by allowing users to upload a single file that contains both grades and feedback for any students the user wishes to mark.</p>
-    <p>After logging into ezMarker, the marker selects a course and a grade item (ex. Midterm 1). The marker then uploads a file with the grades and feedback they want submitted to that grade item. ezMarker parses the file and uses the <a href="#1.3%20Definitions">Brightspace API</a> to set the grades and feedback in MLS. Following this, the marker is brought to a report page where they can see the results of the upload. Finally, they are given the option to do another upload or to logout.</p>
-    <p>ezMarker also offers users the ability to change the maximum grade value and manually input grades and feedback for selected students, such that ezMarker can replace the current MLS website for all marking purposes.</p>
+    <p>ezMarker is a website that adds extended functionality to the <a href="#1.3%20Definitions">MLS</a> platform by providing an interface for setting student grades and feedback that is superior to the current <a href="#1.3%20Definitions">MLS</a> implementation. In the existing system feedback has to be set individually for each student. For courses with many students, inputting feedback for each student can take hours. ezMarker provides an alternate user interface that reduces grade recording time to minutes by allowing users to upload a single file that contains both grades and feedback for any students the user wishes to mark.</p>
+    <p>After logging into ezMarker, the marker selects a course and a grade item (ex. Midterm 1). The marker then uploads a file with the grades and feedback they want submitted to that grade item. ezMarker parses the file and uses the <a href="#1.3%20Definitions">Brightspace API</a> to set the grades and feedback in <a href="#1.3%20Definitions">MLS</a>. Following this, the marker is brought to a report page where they can see the results of the upload. Finally, they are given the option to do another upload or to logout.</p>
+    <p>ezMarker also offers users the ability to change the maximum grade value and manually input grades and feedback for selected students, such that ezMarker can replace the current <a href="#1.3%20Definitions">MLS</a> website for all marking purposes.</p>
     <p>There are both PHP and Python versions of ezMarker.</p>
 
-    <p>The current MLS interface for uploading grades: </p>
+    <p>The current <a href="#1.3%20Definitions">MLS</a> interface for uploading grades: </p>
     <img src="/static/img/current.png" />
     <h3 id="1.3 Definitions">Definitions</h3>
     <ul>
@@ -38,7 +38,7 @@
         <li><a href="https://www.d2l.com/products/learning-environment/" target="_blank"><b>Brightspace</b></a>: A learning management system (LMS) produced by D2L.</li>
         <li><a href="http://docs.valence.desire2learn.com/reference.html" target="_blank"><b>Brightspace API</b></a>: API developed by D2L for their Brightspace LMS, used for authentication for entry into the ezMarker website and to upload student grades and feedback in batches.</li>
         <li><a href="https://www.d2l.com/products/learning-environment/" target="_blank"><b>D2L</b></a>: A Waterloo-based company that produces learning management software. They are the creators of Brightspace.</li>
-        <li><a href="https://mylearningspace.wlu.ca" target="_blank"><b>MyLearningSpace (MLS)</b></a>: Laurier's online learning management system for students and professors. This software is a rebranded version of Brightspace.</li>
+        <li><a href="https://mylearningspace.wlu.ca" target="_blank"><b>MyLearningSpace (<a href="#1.3%20Definitions">MLS</a>)</b></a>: Laurier's online learning management system for students and professors. This software is a rebranded version of Brightspace.</li>
     </ul>
     <h3 id="1.4 References">References</h3>
     <ul>
@@ -49,15 +49,15 @@
     <h2 id="2. Overall Description">Overall Description</h2>
     <h3 id="2.1.1 Product Functions">Product Functions</h3>
     <ul>
-        <li>Upload an Autograder formatted text file to set grades and feedback in MLS for all students in a course.</li>
-        <li>Manually input grades and feedback to be set in MLS for selected students in a course.</li>
+        <li>Upload an <a href="#1.3%20Definitions">Autograder</a> formatted text file to set grades and feedback in <a href="#1.3%20Definitions">MLS</a>for all students in a course.</li>
+        <li>Manually input grades and feedback to be set in <a href="#1.3%20Definitions">MLS</a> for selected students in a course.</li>
         <li>Change the maximum grade for a grade item.</li>
     </ul>
     <h3 id="2.1.2 Product Perspective">Product Perspective</h3>
-    <p>ezMarker is a web-based application that allows users to set student grades and feedback in MLS through the use of the Brightspace API. Users are able to set grades and feedback by uploading Autograder formatted text files or by manually inputting information into a webpage. There will be no consideration for mobile usability.</p>
+    <p>ezMarker is a web-based application that allows users to set student grades and feedback in <a href="#1.3%20Definitions">MLS</a> through the use of the <a href="#1.3%20Definitions">Brightspace API</a>. Users are able to set grades and feedback by uploading <a href="#1.3%20Definitions">Autograder</a> formatted text files or by manually inputting information into a webpage. There will be no consideration for mobile usability.</p>
     <h4>User Interfaces</h4>
     <ul>
-        <li>MLS Login Page</li>
+        <li><a href="#1.3%20Definitions">MLS</a> Login Page</li>
         <li>Course List Page
             <ul>
                 <li>Shows all courses from current term for which that user has permission to set grades.</li>
@@ -65,7 +65,7 @@
         </li>
         <li>Grade Item Page
             <ul>
-                <li>User can upload an Autograder formatted text file.</li>
+                <li>User can upload an <a href="#1.3%20Definitions">Autograder</a> formatted text file.</li>
                 <li>User can also search for students and manually input grades and feedback.</li>
                 <li>User can update the maximum grade of a grade item.</li>
             </ul>
@@ -82,17 +82,17 @@
     <h3 id="2.2 Use Cases">Use Cases</h3>
     <img id="use-case-diagram" src="/static/img/use_case_diagram.png" />
     <h3 id="2.3 User Characteristics">User Characteristics</h3>
-    <p>Users are MLS users with permissions to set grades for students (i.e. professors and TAs). Basic computer literacy is required for the use of ezMarker.</p>
+<p>Users are <a href="#1.3%20Definitions">MLS</a> users with permissions to set grades for students (i.e. professors and TAs). Basic computer literacy is required for the use of ezMarker.</p>
     <h3 id="2.4 Constraints">Constraints</h3>
-    <p>Development is constrained by the capabilities of the Brightspace API and the development skills of the team.</p>
+<p>Development is constrained by the capabilities of the <a href="#1.3%20Definitions">Brightspace API</a> and the development skills of the team.</p>
     <h3 id="2.5 Assumptions and Dependencies">Dependencies</h3>
-    <p>ezMarker is dependent on continued support for the Brightspace API and the Autograder.</p>
+<p>ezMarker is dependent on continued support for the <a href="#1.3%20Definitions">Brightspace API</a> and the <a href="#1.3%20Definitions">Autograder</a>.</p>
 
     <h2 id="3. Software Requirements">Software Requirements</h2>
     <h3 id="3.1 User Interfaces">User Interfaces</h3>
     <h4>Login Page</h4>
     <ul>
-        <li>The user signs into the website using their MLS login credentials. Brightspace generates this page.</li>
+        <li>The user signs into the website using their <a href="#1.3%20Definitions">MLS</a> login credentials. <a href="#1.3%20Definitions">Brightspace</a> generates this page.</li>
     </ul>
     <h4>Course Page</h4>
     <ul>
@@ -102,7 +102,7 @@
     </ul>
     <h4>Grade Item Page</h4>
     <ul>
-        <li>A Choose File button opens a file dialog for selecting an Autograder formatted text file.</li>
+        <li>A Choose File button opens a file dialog for selecting an <a href="#1.3%20Definitions">Autograder</a> formatted text file.</li>
         <li>An Upload Grades File button uploads the file and sets the grades and feedback for the student listed in the file.</li>
         <li>An Update Grade Maximum button allows the user to change the maximum grade of the current grade item. </li>
         <li>A search bar appears below the above form, giving the user an option to set grades and feedback manually for individual students. Otherwise, the user can proceed.</li>
@@ -113,11 +113,11 @@
     <h4>Report Page</h4>
     <ul>
         <li>A report page shows how many grades were successfully set. Any errors in the submission are also displayed.</li>
-        <li>The report page has a Check Grades button (links to MLS page with all grades for that grade item).</li>
+        <li>The report page has a Check Grades button (links to <a href="#1.3%20Definitions">MLS</a> page with all grades for that grade item).</li>
     </ul>
     <h4>Logout Page</h4>
     <ul>
-        <li>Displays the Brightspace logout page.</li>
+        <li>Displays the <a href="#1.3%20Definitions">Brightspace</a> logout page.</li>
     </ul>
     <h4>Navigation Bar</h4>
     <ul>
@@ -135,13 +135,13 @@
     <h4>Login</h4>
     <p>Occurs when user clicks the Login button on the Login page.</p>
     <ul>
-        <li>If the Brightspace API cannot identify the user, they can not login and use the service.</li>
+        <li>If the <a href="#1.3%20Definitions">Brightspace API</a> cannot identify the user, they can not login and use the service.</li>
         <li>If the login is valid, the user is brought to the Course List page.</li>
     </ul>
     <h4>Upload file</h4>
     <p>Occurs when the user has selected a file and submits the form.</p>
     <ul>
-        <li>If the file is not a correctly formatted Autograder text file, an error message is displayed and no grades are uploaded.</li>
+        <li>If the file is not a correctly formatted <a href="#1.3%20Definitions">Autograder</a> text file, an error message is displayed and no grades are uploaded.</li>
         <li>If a necessary parameter for a grade is missing, that grade is not accepted.</li>
         <li>Only grades for which the total grade is greater than or equal to the grade received are accepted (i.e. 45/23 is not a valid grade). </li>
         <li>Should the maximum grade be smaller than the grade received, the user is prompted to continue (and skip the student) or modify the total of the grade item.</li>
@@ -156,7 +156,7 @@
     <h4>Get manually input data</h4>
     <p>Occurs when the user has clicked Set Grades.</p>
     <ul>
-        <li>The data that has been input for the selected student(s) is validated and uploaded to MLS through the Brightspace API.</li>
+        <li>The data that has been input for the selected student(s) is validated and uploaded to <a href="#1.3%20Definitions">MLS</a> through the <a href="#1.3%20Definitions">Brightspace API</a>.</li>
         <li>Only grades for which the total grade is greater than or equal to the grade received are accepted (i.e. 45/23 is not a valid grade).</li>
         <li>Should the total grade be smaller than the grade received, the user is prompted to continue (and skip the student) or modify the total of the grade item.</li>
         <li>If no grade value has been entered for a student, the user is prompted to choose if they want to go back and set a grade value or continue. If they continue, no grade is set for the student.</li>
@@ -170,12 +170,12 @@
     <h4>Set grade and feedback data</h4>
     <p>Occurs when manually inputted data has been submitted or a formatted file has been uploaded.</p>
     <ul>
-        <li>The Brightspace API handles the backend for uploading and setting the students' grades and feedback.</li>
+        <li>The <a href="#1.3%20Definitions">Brightspace API</a> handles the backend for uploading and setting the students' grades and feedback.</li>
     </ul>
     <h4>Logout</h4>
     <p>Occurs when the user clicks Logout.</p>
     <ul>
-        <li>User is directed to the Brightspace logout page and their session is terminated.</li>
+        <li>User is directed to the <a href="#1.3%20Definitions">Brightspace</a> logout page and their session is terminated.</li>
         <li>The user will need to return to ezMarker to login again.</li>
     </ul>
     <h3 id="3.3 Performance Requirements">Performance Requirements</h3>
@@ -185,7 +185,7 @@
     </ul>
     <h3 id="3.4 Security Requirements">Security Requirements</h3>
     <ul>
-        <li>Only those who have MLS credentials are allowed past the login page.</li>
+        <li>Only those who have <a href="#1.3%20Definitions">MLS</a> credentials are allowed past the login page.</li>
     </ul>
 
     <h2 id="appendix-a">Appendix A: UI Prototypes</h2>
