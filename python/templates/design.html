@@ -274,9 +274,9 @@
         <li>Renders Upload page</li>
     </ol>
 
-    <h4> modify_grade_max(grade_item_id, max)</h4>
+    <h4> modify_grade_max(course_id, grade_item_id, max)</h4>
     <ol>
-        <li>Checks that max is greater than or equal to 0</li>
+        <li>Checks that max is between 0.01 and 9999999999 (the range that Brightspace accepts)</li>
         <li>If valid, grade item total is updated</li>
     </ol>
 
@@ -441,6 +441,7 @@
     <p>- Added show_courses, show_upload, auth_token_handler controllers</p>
     <p>- Added References section</p>
     <p>- Added additional note that user is prompted to confirm before updating max value</p>
+    <p>- Updated modify_grade_max</p>
     <p>Authors: Harold Hodgins, Troy Nechanicky</p>
     <p>SQA: </p>
 </body>
