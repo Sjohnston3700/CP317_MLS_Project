@@ -24,6 +24,7 @@ EDIT_GRADE_ITEM_URL = 'https://{host}/d2l/lms/grades/admin/manage/item_props_new
 VIEW_GRADES_URL     = 'https://{host}/d2l/lms/grades/admin/enter/grade_item_edit.d2l?objectId={gradeItemId}&ou={courseId}'
 LOGOUT_URL          = 'https://{host}/d2l/logout'
 PUT_GRADE_ITEM_ROUTE= '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
+GET_GRADE_ITEM_ROUTE= '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
 
 UPLOAD_FOLDER = './Uploaded_Files'
 ALLOWED_EXTENSIONS = set(['txt','dat'])
@@ -161,7 +162,9 @@ def modify_grade_max(course_id, grade_item_id, max):
             'orgUnitId' : course_id, \
             'gradeObjectId' : grade_item_id}
         
-        params = {"MaxPoints" : max}
+        params = API.get(GET_GRADE_ITEM_ROUTE, user, route_param)
+        params['MaxPoints'] = max
+        
         API.put(PUT_GRADE_ITEM_ROUTE, user, route_param, params)
     else:
         raise RuntimeError("Max grade need to be greater than 0")
