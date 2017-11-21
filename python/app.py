@@ -170,4 +170,4 @@ def modify_grade_max(grade_item_id, max):
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
-    app.run(host='0.0.0.0', port=port, debug=app_config["debug"])
+    app.run(host=app_config['host'], port=port, debug=app_config["debug"])
