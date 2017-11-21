@@ -6,6 +6,7 @@ import logging, json, logging.config
 from flask import Flask, redirect, request, render_template, url_for
 from werkzeug.utils import secure_filename
 from conf_basic import app_config
+from wrapper.obj import API
 
 from wrapper.obj.OrgMember import User
 from wrapper.obj.Host import Host
@@ -22,6 +23,7 @@ with open('logging_config.json', 'rt') as f:
 EDIT_GRADE_ITEM_URL = 'https://{host}/d2l/lms/grades/admin/manage/item_props_newedit.d2l?objectId={gradeItemId}&gradesArea=1&ou={courseId}'
 VIEW_GRADES_URL     = 'https://{host}/d2l/lms/grades/admin/enter/grade_item_edit.d2l?objectId={gradeItemId}&ou={courseId}'
 LOGOUT_URL          = 'https://{host}/d2l/logout'
+PUT_GRADE_ITEM_ROUTE= '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
 
 UPLOAD_FOLDER = './Uploaded_Files'
 ALLOWED_EXTENSIONS = set(['txt','dat'])
@@ -143,27 +145,24 @@ def set_grades(courseId, gradeItemId):
     logoutUrl = LOGOUT_URL.format(host=user.get_host().get_lms_host())
     return render_template("grades_uploaded.html",user=user,errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=grade_item,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
 
-def modify_grade_max(grade_item_id, max):
+def modify_grade_max(course_id, grade_item_id, max):
     """
-    Update maximum grade points for the grade_item
-    Precondition:
+        Update maximum grade points for the grade_item
+        Precondition:
         grade_item_id - unique id for the grade item
+        course_id - unique id for the course
         max - maximum points to be changed to
-    Postcondition:
-        Edit this grade item
-    """
-    if max >= 0:
+        Postcondition:
+        Edit this grade item's maximum total grade
+        """
+    if max >= 0.01 and max <= 9999999999: # MaxPoints for grade item needs to be within this range (indicated by API)
         user = app.config["User"]
-
-        # attempt to find course
-        courses = user.get_courses()
-        for course in courses:
-            if course.get_grade_item(grade_item_id) != None:
-                grade_item = course.get_grade_item(grade_item_id)
-                #current_course = course
+        route_param = {'version': user.get_host().get_api_version('le'), \
+            'orgUnitId' : course_id, \
+            'gradeObjectId' : grade_item_id}
         
-        grade_item._max_points = max
-        API.put_grade_item(grade_item)
+        params = {"MaxPoints" : max}
+        API.put(PUT_GRADE_ITEM_ROUTE, user, route_param, params)
     else:
         raise RuntimeError("Max grade need to be greater than 0")
 
