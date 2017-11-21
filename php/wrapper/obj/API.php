@@ -34,7 +34,6 @@ function get($route, $route_params){
 	
 	$route = update_route($routes['BASE_URL'] . $route, $route_params);
 	$response = valence_request($route, 'GET');
-
 //	//Keywords such as true, fase and null must all be in lower case 
 //	if (in_array("PagingInfo", results.keys()) && $results["PagingInfo"]["HasMoreItems"]){
 //		$bookmark = $results["PagingInfo"]["Bookmark"];
@@ -42,7 +41,6 @@ function get($route, $route_params){
 //
 //		$results["Items"] = $results["Items"] + $next_results["Items"]; 
 //	}
-
 	return $response;
 }
 
@@ -196,8 +194,8 @@ function get_user_enrollments($user){
 
 	$route_params = array(
 		'version' => $config['LP_Version'],
-		 'userId' => $user->get_id(),
-		);
+		'userId' => $user->get_id(),
+	);
 
 	$response = get($routes['GET_USER_ENROLLMENTS'], $route_params);
 	
@@ -235,6 +233,24 @@ function get_api_versions() {
 	return $response;
 }
 
+function get_members($course) {
+	global $config;
+	global $routes;
+	
+	$route_params = array(
+		'version' => $config['LP_Version'],
+		'orgUnitId' => $course->get_id(),
+	);
+	
+	$response = get($routes['GET_COURSE_MEMBERS'], $route_params);
+	if (array_key_exists('Items', $response)) {
+		return $response['Items'];
+	}
+	else {
+		return array();
+	}
+}
+
 function valence_request($route, $verb) {
 	global $routes;
 	global $config;
@@ -269,7 +285,7 @@ function valence_request($route, $verb) {
 	$httpCode  = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	$contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 	$responseCode = $userContext->handleResult($response, $httpCode, $contentType);
-
+	
 	return json_decode($response, true);
 
 	$errors = curl_error($ch);

@@ -75,7 +75,10 @@
 		function _get_courses() {
 			$courses = array();
 			foreach(get_user_enrollments($this) as $course) {
-				$courses[] = new Course($this, $course);
+				if ($course['OrgUnit']['Id'] == 219318) { // This is temp to make loading time quicker for development
+					$courses[] = new Course($this, $course);
+				}
+				
 			}
 			return $courses;
 		}
@@ -86,6 +89,7 @@
 			Copy of a python list of all courses accessible by this user
 			*/
 		function get_courses() {
+			$copy = array();
 			foreach($this->courses as $i => $j) {
 				$copy[$i] = clone $j;
 			}
@@ -101,7 +105,7 @@
 		*/
 		function get_course($id) {
 			foreach($this->courses as $course) {
-				if($course->get_id == $id) {
+				if($course->get_id() == $id) {
 					return $course;
 				}
 			}

@@ -1,4 +1,5 @@
-	function createForm(name,id) {
+
+function createForm(name,id) {
 		var form = $('.templates .upload-form-template').clone(true, true);
 		
 		form.removeClass('upload-form-template');
@@ -60,8 +61,8 @@
 		$("#members-cb").prop("checked", false);
 	});
 		
-	var options = {
-		data: [],
+	options = {
+		data: members,
 		getValue: "name",
 		list: 
 		{
@@ -96,15 +97,6 @@
 			}
 		}
 	};
-//
-//	{% for member in course.get_members() %}
-//		options.data.push({name:"{{member.get_name()}}", id:"{{member.get_org_id()}}"});
-//	{% endfor %}
 	
-	options.data = [ 
-		{name: 'Sarah Johnston', id: '12345'},
-		{name: 'Mary Johnston', id: '34567'},
-		{name: 'John Doe', id: '123321'}
-	];
 
 	$("#members").easyAutocomplete(options);

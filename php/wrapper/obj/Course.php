@@ -16,7 +16,7 @@
 			$this->id = $course_params['OrgUnit']['Id'];
 			//$this->user_role = $course_params['Access']['ClasslistRoleName'];
 			$this->grade_items = $this->_get_grade_items();
-			$this->members = array();
+			$this->members = $this->_get_members();
 //			foreach(get($GET_MEMBERS,$user,array('orgUnitID'=>$this->id))['Items'] as $member) {
 //				array_push($members,$member);
 //			}
@@ -41,6 +41,15 @@
 			}
 			return $items;
 		}
+		
+		function _get_members() {
+			$result = array();
+			$members = get_members($this);
+			foreach($members as $m) {
+				$result[] = new OrgMember($m);
+			}
+			return $result;
+		}
 		/*
 		Function will return all the current grade object (Numeric) for current course
 		return:
@@ -57,7 +66,7 @@
 		function get_grade_item($id) {
 			try {
 				foreach($this->grade_items as $grade_item) {
-					if(string($grade_item->get_id()) == string($id)) {
+					if((string)($grade_item->get_id()) == (string) $id) {
 						return [$grade_item][0];
 					}
 				}	
@@ -96,15 +105,6 @@
 			list of Orgmembers
 		*/
 		function get_members($role = array()) {
-			if (empty($role)) {
-				$items = array();
-				foreach($this->members as $member) {
-					if (in_array($member->get_user_role, $role)) {
-						array_push($items,$member);
-					}
-				}
-				return $items;
-			}
 			return $this->members;
 		}
 		/*

@@ -10,7 +10,7 @@ $courses = $user->get_courses();
 	<div class="panel">
 		<?php if (sizeof($c->get_grade_items()) > 0) { ?>
 			<?php foreach ($c->get_grade_items() as $g) { ?>
-			<a class="grade-link" href="#"><?=$g->get_name()?></a>
+			<a class="grade-link" href="index.php?page=upload&course=<?=$c->get_id()?>&grade_item=<?=$g->get_id();?>"><?=$g->get_name()?></a>
 			<?php } ?>
 		<?php } else { ?>
 			<p> No grade items for this course</p>
