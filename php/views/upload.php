@@ -97,7 +97,7 @@
 		</div>	
 		<textarea class="input" name="comment" id="comment" placeholder="Student feedback..." resize="false"></textarea>
 	</form>
-	<form class="upload-form upload-form-template hidden">
+	<form class="upload-form upload-form-template form-med-wide hidden">
 		<h3><div id="name" class="inline"></div><button type="button" class="btn btn-error btn-remove inline remove-student">x</button></h3>
 		<div class="form-group">
 			<label>Grade: </label>
