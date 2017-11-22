@@ -134,15 +134,18 @@ function error_checking($grades, $course_id, $grade_item_id)
 			);
 		}
 	}
-	if (sizeof($errors == 0))
+
+	if (sizeof($errors) == 0)
 	{
-		$errors = upload_grades($grades, $course, $grade_item);
+		return upload_grades($grades, $course, $grade_item);
 	}
 	return $errors;
 }
 
 function upload_grades($grades, $course, $grade_item)
 {
+	$errors = array();
+	
 	foreach ($grades as $g)
 	{	
 		$id = $g['id'];
@@ -150,6 +153,8 @@ function upload_grades($grades, $course, $grade_item)
 		$grade = new NumericGrade($grade_item, $student, $g['comment'], $g['value']);
 		put_grade($grade);
 	}
+	
+	return $errors;
 }
 /**
  * Error checking for max. If success, updates max grade value
