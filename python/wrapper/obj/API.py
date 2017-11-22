@@ -69,49 +69,33 @@ def get(route, user = None, route_params = {},additional_params={}):
         
     return results
 
-def put(route, user, route_params, params):
+def get_class_list(course):#is this the right name for this function?
     '''
-    Uses a PUT request to set JSON.
+    '''
+    json = get(GET_MEMBERS,course.get_user(),{'orgUnitId':course.get_id(),'version':1.20})['Items']#Hard coded verision ....
+    members = []
+    for member in json:
+        try:
+            members.append( OrgMember.OrgMember(member) )
+        except Exception as inst:
+            print("DUndles : {}".format(member) )
+            print(inst)
+            continue
+    return members
     
-    Preconditions :
-        user (User object) : A User object corresponding to the current user.
-        route (str) : The route to make a GET request to.
-        route_params (dict) : A dictionary of parameters corresponding to route.
-        params (dict) : A dictionary of JSON grade data to send.
-        
-    Postconditions:
-        Brightspace data will be updated with params as JSON.
+def get_courses(user):
     '''
-    # Make request to PUT grades
-    route = update_route(route,route_params)
-    r = requests.put(user.get_context().create_authenticated_url(route,method='PUT'),json=params)
-    # Check if request was valid
-    check_request(r)
-    return
-
-def update_route(route,params):
     '''
-    Function to update api route by replace (...) with the appropriate value.
-    
-    Preconditions: 
-        route (str) : The route to make a GET/PUT request to.
-        params (dict) : A dictionary of parameters corresponding to route.
-
-    Postconditions:
-        On success:
-            Returns:
-            route (str) : Updated route with params inserted. 
-        On failure:
-            raises RuntimeError.
-    '''
-    if params is not None:#Dont care about params={} for loop takes care of it
-        for key in params:
-            route = route.replace("({})".format( key ), str(params[key]) )
-
-    if '(' in route or ')' in route:#check for missed stuff to replace
-        exception_message = 'Route : {} needs more parameters'.format(route)
-        raise  RuntimeError( exception_message )
-    return route   
+    json = get_user_enrollments(user)
+    courses = []
+    for item in json:
+        try:
+            courses.append( Course.Course(user,item) )
+        except Exception as inst:
+            logger.error('problem in get_courses with json = {}. {}'.format(item,inst) )
+            continue
+        logger.info("Extracted {} Courses".format(len(courses)))
+    return courses
 
 def get_course_enrollments(course):
     '''
@@ -136,8 +120,21 @@ def get_api_versions(host):
     '''
     results = get('{}://{}/{}'.format(host.get_protocol(),host.get_lms_host(), API_ROUTE))
     return results
+
+def get_grade_items(course):
+    """
+    Function will return list of grade items
+    return :
+            lists - grade item
+    """
+    gradeitems = get(GET_GRADE_ITEMS,course.get_user(),{'orgUnitId':course.get_id(),'version':1.20})#Hard coded version, should use Host.version...
+    items = []
+    for item in gradeitems:
+        if item['GradeType'] == 'Numeric':
+            items.append( GradeItem.NumericGradeItem(course, item) )
+    return items
+
     
- 
 def get_grade_items(course):
     '''
     Gets grade item JSON as python dict from a Course object.
@@ -185,7 +182,27 @@ def get_who_am_i(user):
     route_params = {'version' : user.get_host().get_api_version('lp')}
     results = get(GET_WHO_AM_I, user, route_params)
     return results
+
+def put(route, user, route_params, params):
+    '''
+    Uses a PUT request to set JSON.
     
+    Preconditions :
+        user (User object) : A User object corresponding to the current user.
+        route (str) : The route to make a GET request to.
+        route_params (dict) : A dictionary of parameters corresponding to route.
+        params (dict) : A dictionary of JSON grade data to send.
+        
+    Postconditions:
+        Brightspace data will be updated with params as JSON.
+    '''
+    # Make request to PUT grades
+    route = update_route(route,route_params)
+    r = requests.put(user.get_context().create_authenticated_url(route,method='PUT'),json=params)
+    # Check if request was valid
+    check_request(r)
+    return
+
 def put_grade(grade):
     '''
     Posts a Grade object to Brightspace using a PUT request.
@@ -229,43 +246,28 @@ def put_grade_item(grade_item):
     put(SET_GRADEITEM_ROUTE, user, route_params, params)
     return
     
-def get_grade_items(course):
-    """
-    Function will return list of grade items
-    return :
-            lists - grade item
-    """
-    gradeitems = get(GET_GRADE_ITEMS,course.get_user(),{'orgUnitId':course.get_id(),'version':1.20})#Hard coded version, should use Host.version...
-    items = []
-    for item in gradeitems:
-        if item['GradeType'] == 'Numeric':
-            items.append( GradeItem.NumericGradeItem(course, item) )
-    return items
+
+def update_route(route,params):
+    '''
+    Function to update api route by replace (...) with the appropriate value.
     
-def get_courses(user):
+    Preconditions: 
+        route (str) : The route to make a GET/PUT request to.
+        params (dict) : A dictionary of parameters corresponding to route.
+
+    Postconditions:
+        On success:
+            Returns:
+            route (str) : Updated route with params inserted. 
+        On failure:
+            raises RuntimeError.
     '''
-    '''
-    json = get_user_enrollments(user)
-    courses = []
-    for item in json:
-        try:
-            courses.append( Course.Course(user,item) )
-        except Exception as inst:
-            logger.error('problem in get_courses with json = {}. {}'.format(item,inst) )
-            continue
-        logger.info("Extracted {} Courses".format(len(courses)))
-    return courses
+    if params is not None:#Dont care about params={} for loop takes care of it
+        for key in params:
+            route = route.replace("({})".format( key ), str(params[key]) )
+
+    if '(' in route or ')' in route:#check for missed stuff to replace
+        exception_message = 'Route : {} needs more parameters'.format(route)
+        raise  RuntimeError( exception_message )
+    return route   
     
-def get_class_list(course):#is this the right name for this function?
-    '''
-    '''
-    json = get(GET_MEMBERS,course.get_user(),{'orgUnitId':course.get_id(),'version':1.20})['Items']#Hard coded verision ....
-    members = []
-    for member in json:
-        try:
-            members.append( OrgMember.OrgMember(member) )
-        except Exception as inst:
-            print("DUndles : {}".format(member) )
-            print(inst)
-            continue
-    return members
