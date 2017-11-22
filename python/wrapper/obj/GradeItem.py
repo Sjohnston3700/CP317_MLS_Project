@@ -79,8 +79,7 @@ class GradeItem(object):
         """
         Puts grade item to Brightspace
         """
-        API.put_grade_item(self)
-        return
+        raise NotImplementedError('Abstract method not implemented.')
         
     def put_grades(self):
         """
@@ -132,6 +131,13 @@ class NumericGradeItem(GradeItem):
         """
         return self._max_points
      
+    def put_grade_item(self, params):
+        """
+        PLACEHOLDER - Until attributes get figured out
+        """
+        API.put_grade_item(self)
+        return
+        
     def within_max(self, value):
         """
         Checks if a value is within below the max points of the grade object
