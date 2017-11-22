@@ -106,7 +106,7 @@ def get_course_enrollments(course):
     PostCondition:
         course (Course Object): The Course ovject to retrieve from
     '''
-    user = Course.course.get_user()
+    user = course.get_user()
     return get(GET_COURSE_MEMBERS,user,{'version':user.get_host().get_api_version('le'),'orgUnitId': course.get_id()}) 
 
 
