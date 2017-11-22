@@ -12,7 +12,8 @@ $routes = array(
 	'GET_USER_ENROLLMENT'  => '/d2l/api/le/(version)/(orgUnitId)/grades/',
 	'GET_WHO_AM_I'         => '/d2l/api/lp/(version)/users/whoami',
 	'GET_GRADE_VALUES'	   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/',
-	'SET_GRADE_MAX'		   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
+	'SET_GRADE_MAX'		   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)',
+	'GET_GRADE'			   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
 );
 
 //{
@@ -64,8 +65,10 @@ function put($route, $route_params, $json_to_send) {
 	*/
 
 	global $routes;
-	
+
 	$route = update_route($routes['BASE_URL'] . $route, $route_params);
+//	print_r(json_encode($json_to_send));
+//	die();
 	$response = valence_request($route, 'PUT', json_encode($json_to_send));
 
 	return $response;
@@ -125,6 +128,22 @@ function get_grade_items($course){
 	return $response;
 }
 
+function get_grade_item($course_id, $grade_item_id) {
+	global $config;
+	global $routes;
+
+	$route_params = array(
+		 'version' => $config['LP_Version'],
+		 'orgUnitId' => $course_id, 
+		 'gradeObjectId' => $grade_item_id
+	);
+
+	$response = get($routes['GET_GRADE'], $route_params);
+	
+	return $response;
+}
+
+
 
 function put_grade($grade){
 	/*
@@ -158,7 +177,7 @@ function put_grade($grade){
 
 }
 
-function put_grade_item($grade_item){
+function put_grade_item($grade_item, $original){
 	/*
 	Posts a GradeItem object to Brightspace using a PUT request
 
@@ -167,19 +186,35 @@ function put_grade_item($grade_item){
 	Postconditions:
 		grade_item JSON is PUT to Brightspace
 	*/
-
-	$user = $grade_item->get_user();
+	global $config;
+	global $routes;
+	
 	$route_params = array(
 		'version' => $config['LP_Version'],
-		'orgUnitId' => $grade->get_grade_item()->get_course()->get_id(),
-		'gradeObjectId' => $grade->get_grade_item()->get_id()
+		'orgUnitId' => $grade_item->get_course()->get_id(),
+		'gradeObjectId' => $grade_item->get_id()
 	);
+	
+	if (empty($original['IsBonus']))
+		$original['IsBonus'] = false;
+	
 	$params = array(
 		'MaxPoints' => $grade_item->get_max(), 
-		'CanExceedMaxPoints' => $grade_item->can_exceed(), 
-		'GradeType' => 'Numeric'
+		'CanExceedMaxPoints' => $grade_item->get_can_exceed(), 
+		'GradeType' => 'Numeric',
+		'IsBonus' => $original['IsBonus'],
+		'ExcludeFromFinalGradeCalculation' => $original['ExcludeFromFinalGradeCalculation'],
+		'GradeSchemeId' => $original['GradeSchemeId'],
+		'Name' => $original['Name'],
+		'ShortName' => $original['ShortName'],
+		'CategoryId' => $original['CategoryId'],
+		'Description' => array('Content' => $original['Description']['Html'], 'Type' => 'Html')
 	);
-	$response = put($routes['TODO'], $user, $route_params, $params);
+	
+	$response = put($routes['SET_GRADE_MAX'], $route_params, $params);
+	if (isset($response['MaxPoints'])) {
+		return $response['MaxPoints'];
+	}
 	return json_encode($response);
 }
 

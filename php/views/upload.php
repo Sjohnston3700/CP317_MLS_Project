@@ -6,7 +6,7 @@
 ?>
 
 <h1><strong><?=$course->get_name()?></strong> , <?=$grade_item->get_name()?></h1>
-<h2>Out of: <strong><?=$grade_item->get_max()?></strong> marks</h2>
+<h2>Out of: <strong id="out-of"><?=$grade_item->get_max()?></strong> marks</h2>
 <hr>
 <h2>Change Grade Maximum</h2>
 <div class="page-section">

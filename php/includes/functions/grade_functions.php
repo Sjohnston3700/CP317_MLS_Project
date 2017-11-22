@@ -162,11 +162,16 @@ function upload_grades($grades, $course, $grade_item)
  * @param {Integer} max
  * @return {Array} Array of errors and error messages to be sent to frontend
  */
-function modify_grade_max($grade_item_id, $max)
+function modify_grade_max($course_id, $grade_item_id, $max)
 {
+	$user = new User(array());
+	$course = get_course($user, $course_id);
+	$course = new Course($user, $course);
+	$grade_item = $course->get_grade_item($grade_item_id);
+
 	// Error object to return
 	$errors = array();
-	if ($max == '')
+	if ($max === '')
 	{
 		$errors[] = array ( 
 			'msg' => 'Missing grade maximum',
@@ -183,6 +188,12 @@ function modify_grade_max($grade_item_id, $max)
 		$errors[] = array ( 
 			'msg' => 'Grade maximum must be a positive number',
 		);
+	}
+
+	if (sizeof($errors) == 0)
+	{
+		$grade_item->set_max((float)$max);
+		return put_grade_item($grade_item, get_grade_item($course_id, $grade_item_id));
 	}
 	return $errors;
 }

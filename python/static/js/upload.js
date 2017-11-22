@@ -282,7 +282,9 @@ function updateMax(max, id) {
 	$('.update-max-error').remove();
 	
 	var formData = {
-		max: max
+		'max': max,
+		'grade_item': grade_item,
+		'course': course
 	}
 
 	$.ajax({
@@ -307,10 +309,13 @@ function updateMax(max, id) {
 								error.insertBefore('#' + id);
 							}
 						}
-						else {
+						else if (parseInt(data) != NaN){
 								var success;
 								var msg;
-
+							
+								$('#out-of').text(data);
+								$('#max-grade').attr('placeholder', data);
+							
 								success = $('.templates .modal-success-template').clone(true, true);
 								msg = 'Grade maximum updated successfully';
 								
