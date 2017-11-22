@@ -116,6 +116,8 @@ def update_route(route,params):
 def get_course_enrollments(course):
     '''
     Gets all the user that enrollments in the given course
+    PostCondition:
+        course (Course Object): The Course ovject to retrieve from
     '''
     user = course.get_user()
     return get(GET_COURSE_MEMBERS,user,{'version':user.get_host().get_api_version('le'),'orgUnitId': course.get_id()}) 
