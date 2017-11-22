@@ -2,7 +2,8 @@
 
 tabbing: 4 spaces, not 2 please
 snake_case for all methods and variable names (except frontend - camelCase)
-
+1 space after commas
+UPPERCASE for constants
 // Frontend 
 
 Jquery: 
