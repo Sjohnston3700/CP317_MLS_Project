@@ -100,6 +100,9 @@ def get_courses(user):
 def get_course_enrollments(course):
     '''
     Gets all the user that enrollments in the given course
+    Preconditions:
+    	course (Course Object): The Course object to retrieve GradeItems for.
+    
     PostCondition:
         course (Course Object): The Course ovject to retrieve from
     '''
