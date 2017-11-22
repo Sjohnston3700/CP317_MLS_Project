@@ -4,12 +4,11 @@
 	require_once 'GradeItem.php';
 	require_once 'OrgMember.php';
 
+	/*
+	user (user object) - info about user
+	course_params - info about course (Enrollment.MyOrgUnitInfo) 
+	*/
 	class Course {
-
-		/*
-		user (user object) - info about user
-		course_params - info about course (Enrollment.MyOrgUnitInfo) 
-		*/
 		function __construct ($user, $course_params) {
 			$this->user = $user;
 			$this->name = $course_params['OrgUnit']['Name'];
