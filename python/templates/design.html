@@ -220,15 +220,11 @@
             <td>Allows user to enter a numeric value for updating the maximum value</td>
         </tr>
     </table>
-<<<<<<< HEAD
-    <h3>Report Page(Grades JSON, Grade_Error JSON)</h3>
-=======
 
     <h3>Parsing Error Pop-up(Parsing Error JSON)</h3>
     <p>Appears if there are problems with the file the user uploaded. User is only notified about errors, there is no functionality for correcting errors. User cannot set grades using a file with any errors</p>
 
     <h3>Report Page(Grades JSON, Grade Error JSON)</h3>
->>>>>>> b8cc6ae0867096a1b64aa038a245ff2e9d9db395
 
     <p>Reports which students' grades that are set successfully and not successfully</p>
 
@@ -278,9 +274,9 @@
         <li>Renders Upload page</li>
     </ol>
 
-    <h4> modify_grade_max(grade_item_id, max)</h4>
+    <h4> modify_grade_max(course_id, grade_item_id, max)</h4>
     <ol>
-        <li>Checks that max is greater than or equal to 0</li>
+        <li>Checks that max is between 0.01 and 9999999999 (the range that Brightspace accepts)</li>
         <li>If valid, grade item total is updated</li>
     </ol>
 
@@ -445,6 +441,7 @@
     <p>- Added show_courses, show_upload, auth_token_handler controllers</p>
     <p>- Added References section</p>
     <p>- Added additional note that user is prompted to confirm before updating max value</p>
+    <p>- Updated modify_grade_max</p>
     <p>Authors: Harold Hodgins, Troy Nechanicky</p>
     <p>SQA: </p>
 </body>
@@ -456,8 +453,8 @@
     img {
         width: 65%;
         margin: 20px 0px;
-
     }
+
 </style>
 
 </html>

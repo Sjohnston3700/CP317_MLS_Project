@@ -1,6 +1,8 @@
 import requests, traceback, sys,logging
 
-import Course, GradeItem, OrgMember
+from Course import Course
+from GradeItem import NumericGradeItem
+from OrgMember import OrgMember
 
 SUCCESS = 200
 
@@ -234,7 +236,7 @@ def get_grade_items(course):
     items = []
     for item in gradeitems:
         if item['GradeType'] == 'Numeric':
-            items.append(GradeItem.NumericGradeItem(course, item))
+            items.append( NumericGradeItem(course, item) )
     return items
     
 def get_courses(user):
@@ -244,7 +246,7 @@ def get_courses(user):
     courses = []
     for item in json:
         try:
-            courses.append( Course.Course(user,item) )
+            courses.append( Course(user,item) )
         except Exception as inst:
             logger.error('problem in get_courses with json = {}. {}'.format(item,inst) )
             continue
@@ -258,7 +260,7 @@ def get_class_list(course):#is this the right name for this function?
     members = []
     for member in json:
         try:
-            members.append( OrgMember.OrgMember(member) )
+            members.append( OrgMember(member) )
         except Exception as inst:
             print("DUndles : {}".format(member) )
             print(inst)
