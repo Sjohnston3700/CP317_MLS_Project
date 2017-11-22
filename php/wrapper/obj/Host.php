@@ -10,13 +10,12 @@ class Host{
 	Preconditions: 
 		lms_host - hostname for the back-end LMS
 		protocol - protocol to use for user <--> web-app interaction
-		versions - Dictionary containing the latest versions of various products (needed for majority API calls)
+		versions - Dictionary containing the latest versions of various products (needed for a majority of API calls)
 	
 	Postconditions:
-		returns: Object of type Host
+		returns: An object of type Host
 	*/
 	function __construct($lms_host, $protocol) {
-
 		$this->_lms_host = $lms_host;
 		$this->_protocol = $protocol;
 		$this->versions = get_api_versions();
