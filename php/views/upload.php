@@ -4,6 +4,10 @@
 		$grade_item = $course->get_grade_item($_GET['grade_item']);
 	}
 ?>
+<div class="loader-box hidden">
+	<div class="loader-msg">Talking to Brightspace API</div>
+	<div class="loader"></div> 
+</div>
 
 <h1><strong><?=$course->get_name()?></strong> , <?=$grade_item->get_name()?></h1>
 <h2>Out of: <strong id="out-of"><?=$grade_item->get_max()?></strong> marks</h2>
