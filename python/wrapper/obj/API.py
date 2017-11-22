@@ -249,7 +249,6 @@ def put_grade_item(grade_item):
     put(SET_GRADEITEM_ROUTE, user, route_params, params)
     return
     
-
 def update_route(route,params):
     '''
     Function to update api route by replace (...) with the appropriate value.
