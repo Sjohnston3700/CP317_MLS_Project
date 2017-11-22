@@ -27,14 +27,14 @@ function createForm(name,id) {
 		var value = document.getElementById("members").value;
 		
 		if (/\d/g.test(value) && options.getValue == "name") {
-			options.getValue = "id";
+			options.getValue = "org_id";
 			options.template.fields.description = "name";
 			$("#members").easyAutocomplete(options);
 			$("#members").focus();
 		} 
 		else if (/^[a-zA-Z]+$/.test(value) && options.getValue == "id") {
 			options.getValue = "name";
-			options.template.fields.description = "id";
+			options.template.fields.description = "org_id";
 			$("#members").easyAutocomplete(options);
 			$("#members").focus();
 		}
@@ -47,7 +47,7 @@ function createForm(name,id) {
 		if (checked) {
 			for (var i in options.data) {
 				var name = options.data[i].name; 
-				var id = options.data[i].id;
+				var id = options.data[i].org_id;
 				if (!formExists(id)) createForm(name, id);
 			}
 		} 
@@ -93,7 +93,7 @@ function createForm(name,id) {
 		template: {
 			type: "description",
 			fields: {
-				description: "id"
+				description: "org_id"
 			}
 		}
 	};

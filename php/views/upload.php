@@ -109,7 +109,7 @@
 	var members = [ 
 		<?php 
 		foreach ($course->get_members() as $m) { 
-			echo("{name: '" . $m->get_name() . "', id: '" . $m->get_id() . "'},");
+			echo("{name: '" . $m->get_name() . "', id: '" . $m->get_id() . "', org_id: '" . $m->get_org_id() . "'},");
 		} 
 		
 		?>
