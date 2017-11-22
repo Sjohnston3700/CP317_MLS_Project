@@ -3,7 +3,6 @@
 require_once 'API.php';
 
 class Host{ 
-
 	/*
 	Constructor for Host Class
 	
@@ -32,7 +31,6 @@ class Host{
         return $this->_protocol;
     }  
 	
-	
 	/*
 	Getter function
 	Postconditions:
@@ -43,7 +41,6 @@ class Host{
         return $this->_lms_host;
     }
 
-
 	/* 
 	Getter function
 	Preconditions:
@@ -51,7 +48,6 @@ class Host{
 	Postconditions:
 		Returns: LatestVersion for specific product_code
 	*/
-			
 	function get_api_version($product_code) {
 
         return [$item['LatestVersion'] foreach $this->versions as $item if($item['ProductCode'] == $product_code)][0];

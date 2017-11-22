@@ -40,7 +40,11 @@
 			}
 			return $items;
 		}
-		
+		/*
+		Function will return all the current members for current course
+		return:
+			result - list
+		*/
 		function _get_members() {
 			$result = array();
 			$members = get_members($this);

@@ -3,8 +3,6 @@
 	require_once "API.php";
 
 class GradeItem {
-	
-	
 	public function __construct($course, $grade_item_params){
 		/*
         Preconditions:
@@ -14,13 +12,11 @@ class GradeItem {
         Postconditions:
             parent constructor to all GradeItem types. contains data common to all types
         */
-		
 		$this->name = $grade_item_params["Name"];
         $this->id = $grade_item_params["Id"];
         $this->course = $course;
         $this->grades = array();
 	}
-	
 	function get_name(){
 		/*
         Getter function
@@ -29,7 +25,6 @@ class GradeItem {
         */
 		return $this->name;
 	}
-	
 	function get_id(){
         /*
         Getter function
@@ -38,7 +33,6 @@ class GradeItem {
 		*/
         return $this->id;
     }
-	
     function get_grades(){
         /*
         Getter function
@@ -47,7 +41,6 @@ class GradeItem {
         */
         return $this->grades;
     }    
-	
     function get_grade($student){
 		/*
         Gets grade for a given student
@@ -62,8 +55,7 @@ class GradeItem {
                 return $grade;
 			}
 		}
-        return null;
-       
+        return null; 
 	}
 	
     function put_grades(){
@@ -74,7 +66,6 @@ class GradeItem {
             $grade->put_grade();
 		}
         return;
-		
 	}
 		
     function put_grade_item(){
@@ -105,7 +96,6 @@ class GradeItem {
 }
 
 class NumericGradeItem extends GradeItem {
-	
 	public function __construct($course, $grade_item_params){
 		/*
         Preconditions:
@@ -173,7 +163,6 @@ class NumericGradeItem extends GradeItem {
         
         return ($value <= ($this->max_points));
 	}
-	
 }
 
 

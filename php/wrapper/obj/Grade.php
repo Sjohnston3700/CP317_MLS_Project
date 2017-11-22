@@ -3,11 +3,7 @@
 	require_once 'API.php';
 	$FEEDBACK_PATTERN = '\-{3,}?.*?(\d{5,7}).*?^([\w|\s]*?)$(.+?(?:Total:\s+(\d+)\s+\/\s+(\d+).*?)?)\-{3,}?';
 
-
 class Grade {
-	
-	
-	
 	/*
 	Constructor:
 		grade_item(GradeItem Object)
@@ -15,12 +11,9 @@ class Grade {
 		comment (String)
 	*/
 	function __construct($grade_item, $student, $comment) {
-		
-		
 		$this->grade_item = $grade_item;
 		$this->student = $student;
 		$this->comment = $comment;
-	
 	}
 	/*
 	Return comments for this student with respect to this GradeItem
@@ -28,8 +21,6 @@ class Grade {
 	function get_comment(){
 		
 		return $this->comment; 
-	
-		
 	}
 	/*
 	Return the GradeItem Object
@@ -45,23 +36,16 @@ class Grade {
 	*/
 	function get_student(){
 		return $this->student;  
-		 
-		
-		
 	}
 	
 	/*
 	Call function to update grade
 	*/
 	function put_grade(){
-		
-
 		put_grade(); 
 
 	}
-	
 }
-
 class NumericGrade extends Grade{
 	/*
 	Constructor:
@@ -81,11 +65,7 @@ class NumericGrade extends Grade{
 	Returns value of the NumericGrade Item
 	*/
 	function get_value() {
-		
-		
 		return $this->value;  
-		
-		
 	}
 	
 }
