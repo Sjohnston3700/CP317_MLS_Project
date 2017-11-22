@@ -147,6 +147,7 @@ function sendToErrorChecking(data) {
 								error.insertBefore(errorForm);
 							}
 							showModalWithoutClose('error-message-modal');
+							$('.modal').animate({ scrollTop: 0 }, 'slow');
 						}
 						else {
 							closeModal('error-message-modal');
@@ -324,6 +325,7 @@ function updateMax(max, id) {
 							}
 						}
 						else if (parseInt(data) != NaN){
+								
 								var success;
 								var msg;
 							
