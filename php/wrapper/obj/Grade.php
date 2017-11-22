@@ -6,60 +6,56 @@
 
 class Grade {
 	
+	
+	
+	/*
+	Constructor:
+		grade_item(GradeItem Object)
+		student(OrgMember)
+		comment (String)
+	*/
 	function __construct($grade_item, $student, $comment) {
 		
-		/*
-		Constructor:
-            grade_item(GradeItem Object)
-            student(OrgMember)
-            comment (String)
-		*/
 		
 		$this->grade_item = $grade_item;
 		$this->student = $student;
 		$this->comment = $comment;
 	
 	}
-	
+	/*
+	Return comments for this student with respect to this GradeItem
+	*/
 	function get_comment(){
-		
-		/*
-		Return comments for this student with respect to this GradeItem
-		*/
 		
 		return $this->comment; 
 	
 		
 	}
-	
+	/*
+	Return the GradeItem Object
+	*/
 	function get_grade_item(){
-		
-		/*
-		Return the GradeItem Object
-		*/
-		
 		return $this->grade_item; 
 		 
 		
 	}
 	
-	
+	/*
+	Return the student object (OrgMember)
+	*/
 	function get_student(){
-		/*
-		Return the student object (OrgMember)
-		*/
 		return $this->student;  
 		 
 		
 		
 	}
 	
-	
+	/*
+	Call function to update grade
+	*/
 	function put_grade(){
 		
-		/*
-		Call function to update grade
-		*/
+
 		put_grade(); 
 
 	}
@@ -67,28 +63,25 @@ class Grade {
 }
 
 class NumericGrade extends Grade{
-	
+	/*
+	Constructor:
+		grade_item(GradeItem Object)
+        student(OrgMember)
+        comment(feedbacks) string
+        value(mark student scored) float
+	*/
 	function __construct($grade_item, $student, $comment, $value) {
-		
-		/*
-		Constructor:
-            grade_item(GradeItem Object)
-            student(OrgMember)
-            comment(feedbacks) string
-            value(mark student scored) float
-		*/
 		
 		parent::__construct($grade_item, $student, $comment);
 		
 		$this->value = $value;	
 		 
 	}
-		
+	/*
+	Returns value of the NumericGrade Item
+	*/
 	function get_value() {
 		
-		/*
-		Returns value of the NumericGrade Item
-		*/
 		
 		return $this->value;  
 		
