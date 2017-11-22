@@ -72,7 +72,6 @@ function get_grade_values($course_id, $grade_item_id) {
 	return $response['Objects'];
 }
 
-
 /*
 Retrieves the collection of users enrolled in the identified org unit.
 
@@ -123,8 +122,6 @@ function get_who_am_i() {
 	
 	return $response;
 }
-
-
 
 function put($route, $route_params, $json_to_send) {
 	/*
@@ -188,6 +185,7 @@ function put_grade_item($grade_item, $original){
 	Postconditions:
 		grade_item JSON is PUT to Brightspace
 	*/
+	
 	global $config;
 	global $routes;
 	
@@ -231,7 +229,7 @@ Postconditions:
 	Returns new route - Does not check for missed values
 */
 function update_route($route, $params) {
-	if ($params != NULL){
+	if ($params != null){
 		foreach ($params as $key => $value){
 			$route = str_replace('(' . $key . ')', $value, $route); //Control structure issue, no spaces before or after parenthesis
 		} 
@@ -254,10 +252,9 @@ function valence_request($route, $verb, $json_to_send) {
 	// Create userContext
 	$hostSpec = new D2LHostSpec($config['lms_host'], $config['lms_port'], $config['protocol']);
 	$userContext = $authContext->createUserContextFromHostSpec($hostSpec, $userId, $userKey);
-
+	
 	// Create url for API call
 	$uri = $userContext->createAuthenticatedUri($route, $verb);
-
 	// Setup cURL
 	$ch = curl_init();
 	$options = array(
@@ -267,7 +264,6 @@ function valence_request($route, $verb, $json_to_send) {
 		CURLOPT_SSL_VERIFYPEER => false,
 		CURLINFO_HEADER_OUT => true
 	);
-	
 	if (sizeof($json_to_send) > 0) {
 		$options[CURLOPT_POSTFIELDS] = $json_to_send;
 		$options[CURLOPT_HTTPHEADER] = 
