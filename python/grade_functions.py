@@ -5,7 +5,6 @@ import re,sys
 from wrapper.obj.API import get as getRoute, put as putRoute
 from wrapper.obj.Grade import Grade
 from io import TextIOWrapper # To check if file object is valid
-from wrapper.obj.Grade import FEEDBACK_PATTERN
 
 
 gradeItemsRoute = '/d2l/api/le/(version)/(orgUnitId)/grades/'
