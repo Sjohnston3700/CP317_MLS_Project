@@ -88,15 +88,17 @@ function findGrade(id, grades) {
  * @param {Array} data - array of JSON grade objects to send for error checking 
  */
 function sendToErrorChecking(data) { 
-	// Clear all previous forms and error messages
-	$('#error-message-modal .error-form').remove();
-	$('#error-message-modal .modal-body').html('');
 	
-	//Set data to global variable in case user re-submits
+	// Show loading 
+	$('.loader-box').removeClass('hidden');
+	
+	// Set data to global variable in case user re-submits
 	globalGrades = data;
 	
 	var formData = {
-		grades: data
+		'grades': data,
+		'grade_item': grade_item,
+		'course': course
 	}
 
 	$.ajax({
@@ -106,7 +108,13 @@ function sendToErrorChecking(data) {
 		dataType    : 'json', 
 		encode      : true,
 		success     : function(data) {
+					
 						if (data.length > 0) {
+							
+							// Clear all previous forms and error messages
+							$('#error-message-modal .error-form').remove();
+							$('#error-message-modal .modal-body').html('');
+							
 							for (var i = 0; i < data.length; i++) {
 								var errorForm = $('.templates .modal-form-template').clone(true, true);
 								var formId = 'error-form-' + data[i].id;
@@ -139,12 +147,16 @@ function sendToErrorChecking(data) {
 								error.insertBefore(errorForm);
 							}
 							showModalWithoutClose('error-message-modal');
+							$('.modal').animate({ scrollTop: 0 }, 'slow');
 						}
 						else {
 							closeModal('error-message-modal');
 							// Success, go to report page
-							window.location.href = 'index.php?page=report';
+							window.location.href = 'index.php?page=report&course=' + course + '&grade_item=' + grade_item;
 						}
+			
+						// Hide loading
+						$('.loader-box').addClass('hidden');
 					} 
 					
 		});
@@ -276,11 +288,14 @@ $('#update-max-modal').click(function() {
  * @param {String} id - element id to put the error messages before
  */
 function updateMax(max, id) { 
-	// Clear all previous forms and error messages
-	$('.update-max-error').remove();
+	
+	// Show loading 
+	$('.loader-box').removeClass('hidden');
 	
 	var formData = {
-		max: max
+		'max': max,
+		'grade_item': grade_item,
+		'course': course
 	}
 
 	$.ajax({
@@ -290,6 +305,10 @@ function updateMax(max, id) {
 		dataType    : 'json', 
 		encode      : true,
 		success     : function(data) {
+							
+						// Clear all previous forms and error messages
+						$('.update-max-error').remove();
+						
 						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
 								var error;
@@ -305,10 +324,14 @@ function updateMax(max, id) {
 								error.insertBefore('#' + id);
 							}
 						}
-						else {
+						else if (parseInt(data) != NaN){
+								
 								var success;
 								var msg;
-
+							
+								$('#out-of').text(data);
+								$('#max-grade').attr('placeholder', data);
+							
 								success = $('.templates .modal-success-template').clone(true, true);
 								msg = 'Grade maximum updated successfully';
 								
@@ -318,6 +341,9 @@ function updateMax(max, id) {
 								success.html(msg);
 								success.insertBefore('#' + id);
 						}
+			
+						// Hide loader
+						$('.loader-box').addClass('hidden');
 					} 
 					
 		});

@@ -111,13 +111,13 @@
 		Function will return the member request if it exist, 
 		Otherwise, it return None
 		*/
-		function get_member($org_id) {
+		function get_member($id) {
 			foreach ($this->members as $member) {
-				if($member->get_org_id() == $org_id) {
+				if($member->get_id() == $id) {
 					return $member;
 				}
 			}
-			return NULL;
+			return null;
 		}
 		/*
 		Function will return the user object

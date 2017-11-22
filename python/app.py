@@ -23,8 +23,7 @@ with open('logging_config.json', 'rt') as f:
 EDIT_GRADE_ITEM_URL = 'https://{host}/d2l/lms/grades/admin/manage/item_props_newedit.d2l?objectId={gradeItemId}&gradesArea=1&ou={courseId}'
 VIEW_GRADES_URL     = 'https://{host}/d2l/lms/grades/admin/enter/grade_item_edit.d2l?objectId={gradeItemId}&ou={courseId}'
 LOGOUT_URL          = 'https://{host}/d2l/logout'
-PUT_GRADE_ITEM_ROUTE= '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
-GET_GRADE_ITEM_ROUTE= '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
+
 
 UPLOAD_FOLDER = './Uploaded_Files'
 ALLOWED_EXTENSIONS = set(['txt','dat'])
@@ -148,24 +147,20 @@ def set_grades(courseId, gradeItemId):
 
 def modify_grade_max(course_id, grade_item_id, max):
     """
-        Update maximum grade points for the grade_item
+        Update maximum grade points for the grade_item and put
         Precondition:
-        grade_item_id - unique id for the grade item
-        course_id - unique id for the course
-        max - maximum points to be changed to
+            grade_item_id - unique id for the grade item
+            course_id - unique id for the course
+            max - maximum points to be changed to
         Postcondition:
-        Edit this grade item's maximum total grade
-        """
+            Edit this grade item's maximum total grade
+    """
     if max >= 0.01 and max <= 9999999999: # MaxPoints for grade item needs to be within this range (indicated by API)
         user = app.config["User"]
-        route_param = {'version': user.get_host().get_api_version('le'), \
-            'orgUnitId' : course_id, \
-            'gradeObjectId' : grade_item_id}
-        
-        params = API.get(GET_GRADE_ITEM_ROUTE, user, route_param)
-        params['MaxPoints'] = max
-        
-        API.put(PUT_GRADE_ITEM_ROUTE, user, route_param, params)
+        course = user.get_course(course_id)
+        grade_item = course.get_grade_item(grade_item_id)
+        params = {'MaxPoints': max}
+        grade_item.put_grade_item(params)
     else:
         raise RuntimeError("Max grade need to be greater than 0")
 

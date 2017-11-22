@@ -158,6 +158,10 @@ class NumericGradeItem extends GradeItem {
         return $this->can_exceed_max_points;
 	}
 	
+	function set_max($max){
+       $this->max_points = $max;
+	}
+	
 	function within_max($value){
         /*
         Checks if a value is within below the max points of the grade object

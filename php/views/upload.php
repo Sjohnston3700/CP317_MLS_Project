@@ -4,9 +4,13 @@
 		$grade_item = $course->get_grade_item($_GET['grade_item']);
 	}
 ?>
+<div class="loader-box hidden">
+	<div class="loader-msg">Talking to Brightspace API</div>
+	<div class="loader"></div> 
+</div>
 
 <h1><strong><?=$course->get_name()?></strong> , <?=$grade_item->get_name()?></h1>
-<h2>Out of: <strong><?=$grade_item->get_max()?></strong> marks</h2>
+<h2>Out of: <strong id="out-of"><?=$grade_item->get_max()?></strong> marks</h2>
 <hr>
 <h2>Change Grade Maximum</h2>
 <div class="page-section">
@@ -93,7 +97,7 @@
 		</div>	
 		<textarea class="input" name="comment" id="comment" placeholder="Student feedback..." resize="false"></textarea>
 	</form>
-	<form class="upload-form upload-form-template hidden">
+	<form class="upload-form upload-form-template form-med-wide hidden">
 		<h3><div id="name" class="inline"></div><button type="button" class="btn btn-error btn-remove inline remove-student">x</button></h3>
 		<div class="form-group">
 			<label>Grade: </label>
@@ -103,11 +107,15 @@
 	</form>
 </div>
 <script>
-	
+	// Members for dynamic search
+	var course = <?=$_GET['course']?>;
+	var grade_item = <?=$_GET['grade_item']?>;
 	var members = [ 
 		<?php 
 		foreach ($course->get_members() as $m) { 
-			echo("{name: '" . $m->get_name() . "', id: '" . $m->get_id() . "'},");
+			if ($m->get_role() == 101) {
+				echo("{name: '" . $m->get_name() . "', id: '" . $m->get_id() . "', org_id: '" . $m->get_org_id() . "'},");
+			}
 		} 
 		
 		?>

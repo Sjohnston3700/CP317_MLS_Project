@@ -1,7 +1,7 @@
 <?php
 	
-	include 'API.php';
-	include 'Course.php'; //Required in the user construct, though not present in the python version?
+	require_once 'API.php';
+	require_once 'Course.php'; //Required in the user construct, though not present in the python version?
 	
 	class OrgMember {
 		/*
@@ -49,7 +49,7 @@
 		}
 	}
 	
-	class User {
+	class User extends OrgMember{
 		/*
 		Instantiates a new User object
 		Preconditions:
@@ -58,6 +58,7 @@
 			$roles: List of roles, default: None (list)
 		*/
 		function __construct($roles) {
+			$this->roles = $roles;
 			$me = get_who_am_i();
 			$f_name = $me['FirstName'];
 			$l_name = $me['LastName'];
@@ -65,17 +66,12 @@
 			$this->id = $me['Identifier'];
 			$this->courses = $this->_get_courses();
 		
-//			foreach(get_user_enrollments($this) as $item) { 
-//				if (in_array($item['Access']['ClasslistRoleName'], $roles)) {
-//					$this->courses[] = new Course($item);
-//				}
-//			}
 		}
 		
 		function _get_courses() {
 			$courses = array();
 			foreach(get_user_enrollments($this) as $course) {
-				if ($course['OrgUnit']['Id'] == 219318) { // This is temp to make loading time quicker for development
+				if (in_array($course['Role']['Id'], $this->roles)) { // This is temp to make loading time quicker for development
 					$courses[] = new Course($this, $course);
 				}
 				

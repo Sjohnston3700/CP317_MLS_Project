@@ -10,6 +10,11 @@ form
 	width: 100%;
 }
 
+.form-med-wide
+{
+	width: 70%;
+}
+
 textarea 
 {
 	resize: none;
@@ -117,4 +122,9 @@ textarea.input
 .from-grade-out-of
 {
 	display: inline;
+}
+
+#comment
+{
+	height: 150px;
 }

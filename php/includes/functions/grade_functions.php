@@ -1,5 +1,8 @@
 <?php 
 	
+require_once('../../wrapper/obj/API.php');
+require_once('../../wrapper/obj/OrgMember.php');
+require_once('../../wrapper/obj/Grade.php');
 /**
  * Parses Grade file (csv). Goes through file object and creates 
  * array of JSON grade objects.
@@ -62,13 +65,14 @@ function parse_file($file)
  * @param {Integer} grade_item_id
  * @return {Array} Array of errors and error messages to be sent to frontend
  */
-function error_checking($grades, $grade_item_id)
+function error_checking($grades, $course_id, $grade_item_id)
 {	
-	// Filler until grades class is done
-	$grade_item = array(
-		'max_points' => 30
-	);
+	$user = new User(array());
+	$course = get_course($user, $course_id);
+	$course = new Course($user, $course);
+	$grade_item = $course->get_grade_item($grade_item_id);
 	
+	//****** TO DO ERROR HANDLING check if course and grade_item actually exist and if user has permission ******
 	// Error object to return
 	$errors = array();
 
@@ -107,7 +111,7 @@ function error_checking($grades, $grade_item_id)
 				'type' => '1'
 			);
 		}
-		else if ($g['value'] > $grade_item['max_points'])
+		else if ($g['value'] > $grade_item->get_max() && $grade_item->get_can_exceed())
 		{
 			$errors[] = array ( 
 				'id' => $g['id'],
@@ -118,21 +122,56 @@ function error_checking($grades, $grade_item_id)
 				'type' => '0'
 			);
 		}
+		else if ($g['value'] > $grade_item->get_max() && !$grade_item->get_can_exceed())
+		{
+			$errors[] = array ( 
+				'id' => $g['id'],
+				'value' => $g['value'],
+				'name' => $g['name'],
+				'comment' => $g['comment'],
+				'msg' => 'Grade is more than the grade maximum',
+				'type' => '1'
+			);
+		}
+	}
+
+	if (sizeof($errors) == 0)
+	{
+		return upload_grades($grades, $course, $grade_item);
 	}
 	return $errors;
 }
 
+function upload_grades($grades, $course, $grade_item)
+{
+	$errors = array();
+	
+	foreach ($grades as $g)
+	{	
+		$id = $g['id'];
+		$student = $course->get_member($id);
+		$grade = new NumericGrade($grade_item, $student, $g['comment'], $g['value']);
+		put_grade($grade);
+	}
+	
+	return $errors;
+}
 /**
  * Error checking for max. If success, updates max grade value
  * @param {Integer} grade_item_id
  * @param {Integer} max
  * @return {Array} Array of errors and error messages to be sent to frontend
  */
-function modify_grade_max($grade_item_id, $max)
+function modify_grade_max($course_id, $grade_item_id, $max)
 {
+	$user = new User(array());
+	$course = get_course($user, $course_id);
+	$course = new Course($user, $course);
+	$grade_item = $course->get_grade_item($grade_item_id);
+
 	// Error object to return
 	$errors = array();
-	if ($max == '')
+	if ($max === '')
 	{
 		$errors[] = array ( 
 			'msg' => 'Missing grade maximum',
@@ -149,6 +188,12 @@ function modify_grade_max($grade_item_id, $max)
 		$errors[] = array ( 
 			'msg' => 'Grade maximum must be a positive number',
 		);
+	}
+
+	if (sizeof($errors) == 0)
+	{
+		$grade_item->set_max((float)$max);
+		return put_grade_item($grade_item, get_grade_item($course_id, $grade_item_id));
 	}
 	return $errors;
 }

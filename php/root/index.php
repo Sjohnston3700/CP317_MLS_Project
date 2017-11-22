@@ -37,7 +37,9 @@
 		die();
 	}
 	
-	$user = new User(array());
+	// TA: 102, Instructor: 103
+	$roles = array(102, 103);
+	$user = new User($roles);
 
     switch ($page)
     {
