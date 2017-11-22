@@ -160,7 +160,7 @@ def modify_grade_max(course_id, grade_item_id, max):
         course = user.get_course(course_id)
         grade_item = course.get_grade_item(grade_item_id)
         params = {'MaxPoints': max}
-        grade_item_id.put_grade_item(params)
+        grade_item.put_grade_item(params)
     else:
         raise RuntimeError("Max grade need to be greater than 0")
 
