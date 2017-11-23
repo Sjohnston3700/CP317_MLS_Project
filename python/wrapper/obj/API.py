@@ -37,7 +37,7 @@ def check_request(request):
         raise  RuntimeError( exception_message )
     return 
 
-def get(route, user = None, route_params = {},additional_params={}):
+def get(route, user, route_params = {},additional_params={}):
     '''
     Uses a GET request to get JSON.
 
@@ -108,21 +108,6 @@ def get_course_enrollments(course):
     '''
     user = course.get_user()
     return get(GET_COURSE_MEMBERS,user,{'version':user.get_host().get_api_version('le'),'orgUnitId': course.get_id()}) 
-
-
-def get_api_versions(host):
-    '''
-    Gets product version numbers JSON as python dict. 
-    
-    Preconditions:
-        host (Host object) : A Host object corresponding to the current host.
-
-    Postconditions:
-        returns:
-        results (dict) : A dict of product version numbers for the API.
-    '''
-    results = get('{}://{}/{}'.format(host.get_protocol(),host.get_lms_host(), API_ROUTE))
-    return results
 
 def get_grade_items(course):
     """

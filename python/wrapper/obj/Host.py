@@ -7,7 +7,7 @@ class Host(object):
     """
     Host class
     """
-    def __init__(self, lms_host, protocol="http", versions=None):
+    def __init__(self, lms_host, protocol="http", versions):
         """
             Constructor for Host Class
             
@@ -21,8 +21,6 @@ class Host(object):
         """
         self._lms_host = lms_host
         self._protocol = protocol
-        if versions is None:
-            self._versions = API.get_api_versions(self)
         else:
             self._versions = versions
         
