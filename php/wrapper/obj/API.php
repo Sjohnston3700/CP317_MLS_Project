@@ -221,7 +221,6 @@ function put_grade_item($grade_item, $original){
 	return json_encode($response);
 }
 
-
 /*
 Retrieves the collection of users enrolled in the identified org unit.
 
@@ -299,16 +298,6 @@ function get_grade_values($course_id, $grade_item_id) {
 	);
 	$response = get($routes['GET_GRADE_VALUES'], $route_params);
 	return $response['Objects'];
-}
-
-function get_api_versions() {
-	global $config;
-	global $routes;
-	
-	$route_params = array();
-	$response = get($routes['GET_API_VERSIONS'], $route_params);
-	
-	return $response;
 }
 
 function get_members($course) {
