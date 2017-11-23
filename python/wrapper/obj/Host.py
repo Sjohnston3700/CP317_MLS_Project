@@ -21,8 +21,7 @@ class Host(object):
         """
         self._lms_host = lms_host
         self._protocol = protocol
-        else:
-            self._versions = versions
+        self._versions = versions
         
     def get_api_version(self, product_code):
         """ 
