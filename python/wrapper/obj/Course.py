@@ -40,14 +40,17 @@ class Course(object):
         Function will return all the current grade object (Numeric) for current course
         return:
             Gradeitems - list
+        exception:
+            not find will return NameError
         """
         return self._grade_items
 
     def get_grade_item(self,id):
-        try:
-            return [grade_item for grade_item in self._grade_items if str(grade_item.get_id()) == str(id)][0]
-        except:
-            return None
+        for item in self._grade_items:
+            if item.get_id == id:
+                return item
+
+        raise NameError
     
     def get_id(self):
         """
