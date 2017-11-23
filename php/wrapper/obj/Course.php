@@ -25,7 +25,7 @@
 		/*
 		Function will return list of grade items
 		return :
-            lists - grade item
+            items - list
 		*/
 		function _get_grade_items() {
 			$grade_items = get_grade_items($this);
@@ -56,7 +56,7 @@
 		/*
 		Function will return all the current grade object (Numeric) for current course
 		return:
-			Gradeitems - list
+			grade_items - list
 		*/
 		function get_grade_items() {
 			return $this->grade_items;
@@ -64,7 +64,7 @@
 		/*
 		Function will return specific grade item for the given id
 		return:
-			gradeitem or NULL
+			grade_item or NULL
 		*/
 		function get_grade_item($id) {
 			try {
@@ -81,7 +81,7 @@
 		/*
 		Function will return the name of course
 		PostCondition:
-			return self.name - current course name
+			return $this.name - current course name
 		*/
 		function get_name() {
 			return $this->name;
@@ -89,23 +89,31 @@
 		/*
 		Function will return the id for the current course
 		PostCondition:
-			reutrn self.id - Id for the current course
+			return $this.id - id for the current course
 		*/
 		function get_id() {
 			return $this->id;
 		}
 		/*
-		Function will return the user fole for current course
+		Function will return the user object
 		PostCondition:
-            reutrn self.user_role - user role for current course
+            return self._user - user 
+		*/
+		function get_user() {
+			return $this->user;
+		}
+		/*
+		Function will return the user role for current course
+		PostCondition:
+            return $this.user_role - user role for current course
 		*/
 		function get_user_role() {
 			return $this->user_role;
 		}
 		/*
 		Function will return all the users for the current course
-		return :
-			list of Orgmembers
+		PostCondition:
+			return list of Orgmembers
 		*/
 		function get_members($role = array()) {
 			return $this->members;
@@ -121,14 +129,6 @@
 				}
 			}
 			return null;
-		}
-		/*
-		Function will return the user object
-		PostCondition:
-            return self._user - user 
-		*/
-		function get_user() {
-			return $this->user;
 		}
 	}
 ?>
