@@ -31,12 +31,11 @@ class Course(object):
         """
         return self._grade_items
 
-    def get_grade_item(self,id):
+    def get_grade_item(self,grade_item_id):
         for item in self._grade_items:
-            if item.get_id == id:
+            if str(item.get_id() ) == str(grade_item_id):
                 return item
-
-        raise NameError
+        raise NameError('Unable to find grade_item with id = {} in course : {}'.format(grade_item_id,self.get_name() ) )
     
     def get_id(self):
         """

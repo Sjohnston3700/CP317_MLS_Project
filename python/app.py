@@ -125,17 +125,21 @@ def show_logout():
 
 @app.route('/grades/<courseId>/<gradeItemId>', methods = ['GET', 'POST'])
 def set_grades(courseId, gradeItemId):
-    try:
-        user   = app.config['user']
-        course = user.get_course(courseId)
-        grade_item = course.get_grade_item(gradeItemId)
-    except Exception as inst :
-        logger.exception("Something went wrong in /grades/.../.../\n{}".format(inst))
-        return redirect('/courses/')
+    if 'user_id' not in session:
+        logger.error('Someone tried to access /grades/{}/{}/ without logging in'.format(courseId,gradeItemId) )
+        return redirect('/login')
+    else:
+        try:
+            user=app.config[ session['user_id'] ]
+            course = user.get_course(courseId)
+            grade_item = course.get_grade_item(gradeItemId)
+        except Exception as inst:
+            logger.exception("Something went wrong in /grades/{}/{}/".format(courseId,gradeItemId) )
+            return redirect('/courses/')
     
     if request.method == 'GET':
         return render_template('upload.html',user=user,course=course,grade_item=grade_item)
-    
+        
     elif request.method == 'POST':
         f = request.files['file']
         grades = parse_grades( f.read().decode("utf-8") )
