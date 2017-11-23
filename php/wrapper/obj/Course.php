@@ -66,14 +66,12 @@
 			grade_item or NULL
 		*/
 		function get_grade_item($id) {
-			try {
-				foreach($this->grade_items as $grade_item) {
-					if((string)($grade_item->get_id()) == (string) $id) {
-						return [$grade_item][0];
-					}
-				}	
-			} catch (Exception $e) {
-				return null;
+			foreach($this->grade_items as $grade_item) {
+				if((string)($grade_item->get_id()) == (string) $id) {
+					return [$grade_item][0];
+				}
+			}	
+			return null;
 			}
 			
 		}
