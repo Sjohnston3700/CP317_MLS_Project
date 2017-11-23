@@ -1,6 +1,6 @@
 <?php
-require_once _DIR_.'/../../root/config.php';
-require_once _DIR_.'/../../D2Llib/D2LAppContextFactory.php';
+require_once __DIR__.'/../../root/config.php';
+require_once __DIR__.'/../../D2Llib/D2LAppContextFactory.php';
 
 $routes = array(
 	'BASE_URL' 				=> $config['protocol'] . '://' . $config['lms_host'],
@@ -20,108 +20,38 @@ $routes = array(
 //"GradeObjectType": 1, 
 //"PointsNumerator": 12
 //}
-   	);
-
-	$response = get($routes['GET_USER_ENROLLMENTS'], $route_params);
-	
-	foreach ($response['Items'] as $c) {
-		if ($c['OrgUnit']['Id'] == $course_id) {
-			return $c;
-		}
-	}
-	return -1;
-}
-
-function get_grade_item($course_id, $grade_item_id) {
-	global $config;
-	global $routes;
-
-	$route_params = array(
-		 'version' => $config['LP_Version'],
-		 'orgUnitId' => $course_id, 
-		 'gradeObjectId' => $grade_item_id
-	);
-
-	$response = get($routes['GET_GRADE'], $route_params);
-	
-	return $response;
-}
-function get_grade_items($course){
-	global $config;
-	global $routes;
-
-	$route_params = array(
-		 'version' => $config['LP_Version'],
-		 'orgUnitId' => $course->get_id()
-		);
-
-	$response = get($routes['GET_GRADES'], $route_params);
-	return $response;
-}
-
-function get_grade_values($course_id, $grade_item_id) {
-	global $config;
-	global $routes;
-	
-	$route_params = array(
-		'version' => '1.8',
-		'orgUnitId' => $course_id,
-		'gradeObjectId' => $grade_item_id
-	);
-	$response = get($routes['GET_GRADE_VALUES'], $route_params);
-	return $response['Objects'];
-}
 
 /*
-Retrieves the collection of users enrolled in the identified org unit.
+Uses a GET request to get JSON
 
 Preconditions:
-	user (Course object) : A Course object to retrieve grades from.
-
-Postconditions:
-	returns:
-	user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
+	user - A User object corresponding to the current user
+	route - The route to make a GET request to
+	route_params - A dictionary of parameters corresponding to route
+	additional_params - A dictionary of extra parameters. Added to the end of the url as ?key=value
+Postconditions
+	On success:
+		Returns:
+		Python dict of request result
+	On failure:
+		raises RuntimeError
 */
-function get_user_enrollments($user){
+function get($route, $route_params){
 
-	global $config;
-	global $routes;
-
-	$route_params = array(
-		'version' => $config['LP_Version'],
-		'userId' => $user->get_id(),
-	);
-	$response = get($routes['GET_USER_ENROLLMENTS'], $route_params);
-	return $response['Items'];
-}
-
-function get_members($course) {
-	global $config;
 	global $routes;
 	
-	$route_params = array(
-		'version' => $config['LP_Version'],
-		'orgUnitId' => $course->get_id(),
-	);
-	
-	$response = get($routes['GET_COURSE_MEMBERS'], $route_params);
-	if (array_key_exists('Items', $response)) {
-		return $response['Items'];
-	}
-	else {
-		return array();
-	}
-}
-
-function get_who_am_i() {
-	global $config;
-	global $routes;
-	
-	$route_params = array('version' => $config['LP_Version']);
-	$response = get($routes['GET_WHO_AM_I'], $route_params);
-	
+	$route = update_route($routes['BASE_URL'] . $route, $route_params);
+	$response = valence_request($route, 'GET', array());
+//	//Keywords such as true, fase and null must all be in lower case 
+//	if (in_array('PagingInfo', results.keys()) && $results['PagingInfo']['HasMoreItems']){
+//		$bookmark = $results['PagingInfo']['Bookmark'];
+//		$next_results = get($route, $user, $route_params, $additional_params = array('Bookmark' => $bookmark));
+//
+//		$results['Items'] = $results['Items'] + $next_results['Items']; 
+//	}
 	return $response;
 }
+
 
 function put($route, $route_params, $json_to_send) {
 	/*
@@ -143,6 +73,77 @@ function put($route, $route_params, $json_to_send) {
 
 	return $response;
 }
+
+
+/*
+Function to update api route by replace (...) with the appropriate value
+
+Preconditions: 
+	route: the route from the valence docs (eg. '/d2l/api/le/(version)/(orgUnitId)/grades/')
+	params: dictionary of replacement values (eg {'version':1.22,'orgUnitId':23456})
+
+Postconditions:
+	Returns new route - Does not check for missed values
+*/
+function update_route($route, $params) {
+	if ($params != NULL){
+		foreach ($params as $key => $value){
+			$route = str_replace('(' . $key . ')', $value, $route); //Control structure issue, no spaces before or after parenthesis
+		} 
+	}
+	return $route;
+}
+
+function check_request($request){
+	/*
+	Function to test if a request was valid.
+
+	Preconditions:
+		request : the request object to test
+	*/
+
+	if (!(var_dump($request->success))) { //Keywords such as true, fase and null must be in lower case 
+
+		/*Line in API.py is:
+		exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
+		I'm not sure what the equivalent for request.text is in this case
+		*/
+		$exception_message = 'Request returned status code : ' . $request->$status_code . ', text : '; 
+		throw new RuntimeException($exception_message);
+	}
+
+}
+
+
+function get_grade_items($course){
+	global $config;
+	global $routes;
+
+	$route_params = array(
+		 'version' => $config['LP_Version'],
+		 'orgUnitId' => $course->get_id()
+		);
+
+	$response = get($routes['GET_GRADES'], $route_params);
+	return $response;
+}
+
+function get_grade_item($course_id, $grade_item_id) {
+	global $config;
+	global $routes;
+
+	$route_params = array(
+		 'version' => $config['LP_Version'],
+		 'orgUnitId' => $course_id, 
+		 'gradeObjectId' => $grade_item_id
+	);
+
+	$response = get($routes['GET_GRADE'], $route_params);
+	
+	return $response;
+}
+
+
 
 function put_grade($grade){
 	/*
@@ -185,7 +186,6 @@ function put_grade_item($grade_item, $original){
 	Postconditions:
 		grade_item JSON is PUT to Brightspace
 	*/
-	
 	global $config;
 	global $routes;
 	
@@ -218,25 +218,113 @@ function put_grade_item($grade_item, $original){
 	return json_encode($response);
 }
 
-/*
-Function to update api route by replace (...) with the appropriate value
 
-Preconditions: 
-	route: the route from the valence docs (eg. '/d2l/api/le/(version)/(orgUnitId)/grades/')
-	params: dictionary of replacement values (eg {'version':1.22,'orgUnitId':23456})
+/*
+Retrieves the collection of users enrolled in the identified org unit.
+
+Preconditions:
+	user (Course object) : A Course object to retrieve grades from.
 
 Postconditions:
-	Returns new route - Does not check for missed values
+	returns:
+	user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
 */
-function update_route($route, $params) {
-	if ($params != null){
-		foreach ($params as $key => $value){
-			$route = str_replace('(' . $key . ')', $value, $route); //Control structure issue, no spaces before or after parenthesis
-		} 
-	}
-	return $route;
+function get_user_enrollments($user){
+
+	global $config;
+	global $routes;
+
+	$route_params = array(
+		'version' => $config['LP_Version'],
+		'userId' => $user->get_id(),
+	);
+
+	$response = get($routes['GET_USER_ENROLLMENTS'], $route_params);
+	
+	return $response['Items'];
 }
 
+
+/*
+Retrieve the current user context’s user information as PHP dict JSON.
+
+Preconditions:
+	user : the Course to retrieve grades from
+Postconditions:
+	returns
+	 WhoAmIUser JSON block for the current user context (as python dict)
+*/
+
+function get_course($user, $course_id){
+
+	global $config;
+	global $routes;
+
+	$route_params = array(
+		'version' => $config['LP_Version'],
+		'userId' => $user->get_id(),
+	);
+
+	$response = get($routes['GET_USER_ENROLLMENTS'], $route_params);
+	
+	foreach ($response['Items'] as $c) {
+		if ($c['OrgUnit']['Id'] == $course_id) {
+			return $c;
+		}
+	}
+	return -1;
+}
+
+function get_who_am_i() {
+	global $config;
+	global $routes;
+	
+	$route_params = array('version' => $config['LP_Version']);
+	$response = get($routes['GET_WHO_AM_I'], $route_params);
+	
+	return $response;
+}
+
+function get_grade_values($course_id, $grade_item_id) {
+	global $config;
+	global $routes;
+	
+	$route_params = array(
+		'version' => '1.8',
+		'orgUnitId' => $course_id,
+		'gradeObjectId' => $grade_item_id
+	);
+	$response = get($routes['GET_GRADE_VALUES'], $route_params);
+	return $response['Objects'];
+}
+
+function get_api_versions() {
+	global $config;
+	global $routes;
+	
+	$route_params = array();
+	$response = get($routes['GET_API_VERSIONS'], $route_params);
+	
+	return $response;
+}
+
+function get_members($course) {
+	global $config;
+	global $routes;
+	
+	$route_params = array(
+		'version' => $config['LP_Version'],
+		'orgUnitId' => $course->get_id(),
+	);
+	
+	$response = get($routes['GET_COURSE_MEMBERS'], $route_params);
+	if (array_key_exists('Items', $response)) {
+		return $response['Items'];
+	}
+	else {
+		return array();
+	}
+}
 
 function valence_request($route, $verb, $json_to_send) {
 	global $routes;
@@ -252,9 +340,10 @@ function valence_request($route, $verb, $json_to_send) {
 	// Create userContext
 	$hostSpec = new D2LHostSpec($config['lms_host'], $config['lms_port'], $config['protocol']);
 	$userContext = $authContext->createUserContextFromHostSpec($hostSpec, $userId, $userKey);
-	
+
 	// Create url for API call
 	$uri = $userContext->createAuthenticatedUri($route, $verb);
+
 	// Setup cURL
 	$ch = curl_init();
 	$options = array(
@@ -264,6 +353,7 @@ function valence_request($route, $verb, $json_to_send) {
 		CURLOPT_SSL_VERIFYPEER => false,
 		CURLINFO_HEADER_OUT => true
 	);
+	
 	if (sizeof($json_to_send) > 0) {
 		$options[CURLOPT_POSTFIELDS] = $json_to_send;
 		$options[CURLOPT_HTTPHEADER] = 

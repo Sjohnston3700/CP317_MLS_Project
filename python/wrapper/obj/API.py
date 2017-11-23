@@ -128,7 +128,7 @@ def get_grade_items(course):
     """
     Function will return list of grade items
     return :
-            lists - grade item
+            lists - grade item (Array of grade item JSON Block)
     """
     gradeitems = get(GET_GRADE_ITEMS,course.get_user(),{'orgUnitId':course.get_id(),'version':1.20})#Hard coded version, should use Host.version...
     items = []

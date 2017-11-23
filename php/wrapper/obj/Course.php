@@ -4,12 +4,11 @@
 	require_once 'GradeItem.php';
 	require_once 'OrgMember.php';
 
+	/*
+	user (user object) - info about user
+	course_params - info about course (Enrollment.MyOrgUnitInfo) 
+	*/
 	class Course {
-
-		/*
-		user (user object) - info about user
-		course_params - info about course (Enrollment.MyOrgUnitInfo) 
-		*/
 		function __construct ($user, $course_params) {
 			$this->user = $user;
 			$this->name = $course_params['OrgUnit']['Name'];
@@ -41,7 +40,11 @@
 			}
 			return $items;
 		}
-		
+		/*
+		Function will return all the current members for current course
+		return:
+			result - list
+		*/
 		function _get_members() {
 			$result = array();
 			$members = get_members($this);

@@ -67,7 +67,11 @@
 			$this->courses = $this->_get_courses();
 		
 		}
-		
+		/*
+		Gets the courses dictionary
+		Postconditions:
+			courses - dictionary of courses
+		*/
 		function _get_courses() {
 			$courses = array();
 			foreach(get_user_enrollments($this) as $course) {
@@ -107,11 +111,21 @@
 			}
 			return null; 
 		}
-		
+		/*
+		Get ID function (Getter)
+		Postconditions
+			returns
+			id - this object's id
+		*/
 		function get_id() {
 			return $this->id;
 		}
-		
+		/*
+		Get Full Name  (Getter)
+		Postconditions
+			returns
+			full_name - This object's full_name
+		*/
 		function get_full_name() {
 			return $this->full_name;
 		}

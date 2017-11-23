@@ -3,20 +3,18 @@
 require_once 'API.php';
 
 class Host{ 
-
 	/*
 	Constructor for Host Class
 	
 	Preconditions: 
 		lms_host - hostname for the back-end LMS
 		protocol - protocol to use for user <--> web-app interaction
-		versions - Dictionary containing the latest versions of various products (needed for majority API calls)
+		versions - Dictionary containing the latest versions of various products (needed for a majority of API calls)
 	
 	Postconditions:
-		returns: Object of type Host
+		returns: An object of type Host
 	*/
 	function __construct($lms_host, $protocol) {
-
 		$this->_lms_host = $lms_host;
 		$this->_protocol = $protocol;
 		$this->versions = get_api_versions();
@@ -33,7 +31,6 @@ class Host{
         return $this->_protocol;
     }  
 	
-	
 	/*
 	Getter function
 	Postconditions:
@@ -44,7 +41,6 @@ class Host{
         return $this->_lms_host;
     }
 
-
 	/* 
 	Getter function
 	Preconditions:
@@ -52,7 +48,6 @@ class Host{
 	Postconditions:
 		Returns: LatestVersion for specific product_code
 	*/
-			
 	function get_api_version($product_code) {
 
         return [$item['LatestVersion'] foreach $this->versions as $item if($item['ProductCode'] == $product_code)][0];
