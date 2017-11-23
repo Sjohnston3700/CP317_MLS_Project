@@ -3,7 +3,7 @@ import d2lvalence.auth as d2lauth
 import logging, json, logging.config
 
 
-from flask import Flask, redirect, request, render_template, url_for
+from flask import Flask, redirect, request, render_template, url_for, session
 from werkzeug.utils import secure_filename
 from conf_basic import app_config
 from wrapper.obj import API
@@ -30,6 +30,7 @@ ALLOWED_EXTENSIONS = set(['txt','dat'])
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'e5ac358c-f0bf-11e5-9e39-d3b532c10a28'
 app.config["app_context"] = d2lauth.fashion_app_context(app_id=app_config['app_id'], app_key=app_config['app_key'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -46,21 +47,26 @@ def login():
 
 @app.route(app_config["route"])
 def auth_token_handler():
-    if "user" not in app.config:
-        uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
-        host = Host(app_config['lms_host'])
-        # store the user context's
-        user = User(uc, host)
-        app.config['user'] = user
+    uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
+    host = Host(app_config['lms_host'])
+    # store the user context's
+    user = User(uc, host)
+    user_id = user.get_id()
+    session['user_id'] = user_id
+    app.config[user_id] = user
     return redirect('/courses/')
 
 @app.route('/courses/')
 def show_courses():
-    try:
-        return render_template('available_grades.html', user=app.config['user'])
-    except Exception as inst :
-        print("Something went wrong in /courses/\n{}".format(inst))
-        return redirect("/")
+    if 'user_id' not in session:
+        logger.error('Someone tried to access /courses/ without logging in')
+        return redirect('/login')
+    else:
+        try:
+            return render_template('available_grades.html', user=app.config[ session['user_id'] ] )
+        except Exception as inst :
+            logger.exception("Something went wrong in /courses/\n{}".format(inst))
+            return redirect("/")#Should redirect to a error handling page
 
 @app.route('/documentation/')
 def show_docs():
@@ -96,9 +102,12 @@ def show_design_wrapper():
 
 @app.route('/logout/')
 def show_logout():
-    if 'user' in app.config:
+    if 'user_id' in session:
+        app.config.pop( session['user_id'] )
+        session.clear()
         return redirect(LOGOUT_URL.format(host=app_config['lms_host']))
     else:
+        logger.error('Someone tried to logout without having logged in')
         return redirect('/') # TODO maybe logout/general error page? "user not found"
 
 @app.route('/grades/<courseId>/<gradeItemId>', methods = ['GET', 'POST'])
@@ -108,7 +117,7 @@ def set_grades(courseId, gradeItemId):
         course = user.get_course(courseId)
         grade_item = course.get_grade_item(gradeItemId)
     except Exception as inst :
-        print("Something went wrong in /grades/.../.../\n{}".format(inst))
+        logger.exception("Something went wrong in /grades/.../.../\n{}".format(inst))
         return redirect('/courses/')
     
     if request.method == 'GET':
