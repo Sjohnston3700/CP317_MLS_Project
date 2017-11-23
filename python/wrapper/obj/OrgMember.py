@@ -8,12 +8,11 @@ class OrgMember(object):
         Instantiates a new OrgMember object 
         
         Preconditions:
-            org_member_params: Parameters to init this user (dict)
+            org_member_params: Parameters to init this user (Enrollment.OrgUnitUser http://docs.valence.desire2learn.com/res/enroll.html#Enrollment.OrgUnitUser)
+        
+        Does no error checking of input    
         """
-        self._id        = org_member_params['User']['Identifier']
-        self._name      = org_member_params['User']['DisplayName']
-        self._org_id    = org_member_params['User']['OrgDefinedId']
-        self._role      = org_member_params['Role']['Id']
+        self._data = org_member_params
 
     def get_id(self):
         """
@@ -21,7 +20,7 @@ class OrgMember(object):
             returns
             The Brightspace ID of the OrgMember (str)
         """
-        return self._id        
+        return self._data['User']['Identifier']
         
     def get_name(self):
         """
@@ -29,7 +28,7 @@ class OrgMember(object):
             returns
             The name of the OrgMember (str)
         """
-        return self._name
+        return self._data['User']['DisplayName']
     
     def get_org_id(self):
         """
@@ -37,7 +36,7 @@ class OrgMember(object):
             returns
             The organization defined ID of the OrgMember (str)
         """
-        return self._org_id
+        return self._data['User']['OrgDefinedId']
 
     def get_role(self):
         """
@@ -45,7 +44,7 @@ class OrgMember(object):
             returns
             The role id of the OrgMember (str)
         """
-        return self._role
+        return self._data['Role']['Name']
 
 
 
