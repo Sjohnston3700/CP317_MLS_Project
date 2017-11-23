@@ -13,14 +13,27 @@ class User(object):
             host: The Host object corresponding to the user (Host)
             roles: List of roles, default: None (list)
         """
-        self.context = context
-        self.host = host
+        self._context = context
+        self._host = host
         
-        me = API.get_who_am_i(self)
-        self._name = '{} {}'.format(me['FirstName'], me['LastName'])
-        self._id = me['Identifier']
+        self._data = API.get_who_am_i(self)
         self._courses = API.get_courses(self)#still need to filter by role
-
+    
+    def get_first_name(self):
+        '''
+        '''
+        return self._data['FirstName']
+    
+    def get_last_name(self):
+        '''
+        '''
+        return self._data['LastName']
+    
+    def get_id(self):
+        '''
+        '''
+        return self._data['Identifier']
+    
     def get_context(self):
         """
         Returns the user context belonging to this user
@@ -29,7 +42,7 @@ class User(object):
             returns
             A Brightspace user context
         """
-        return self.context                
+        return self._context                
 
     def get_course(self, id):
         """
@@ -49,15 +62,13 @@ class User(object):
         
     def get_courses(self):
         """
-        Returns a copy of the list of courses the user has access to
+        Returns the list of courses the user has access to
         
         Postconditions:
             returns
             Copy of a python list of all courses accessible by this user
         """
-#        return copy.deepcopy(self._courses)#Deepcopy doesn't know how to deal with a list of courses
-        return self._courses#need to find a way to make deepcopy happy
-        #maybe https://stackoverflow.com/questions/6279305/typeerror-cannot-deepcopy-this-pattern-object
+        return self._courses
 
     def get_host(self):
         """
@@ -67,5 +78,5 @@ class User(object):
             returns 
             A Host object
         """
-        return self.host
+        return self._host
 
