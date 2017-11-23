@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 from conf_basic import app_config
 from wrapper.obj import API
 
-from wrapper.obj.OrgMember import User
+from wrapper.obj.User import User
 from wrapper.obj.Host import Host
 from grade_functions import parse_grades
 
@@ -50,7 +50,7 @@ def auth_token_handler():
     uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
     host = Host(app_config['lms_host'], versions=app_config['lms_ver'])
     # store the user context's
-    user = User(uc, host)
+    user = User(uc, host,['TA','Instructor'])
     user_id = user.get_id()
     session['user_id'] = user_id
     app.config[user_id] = user

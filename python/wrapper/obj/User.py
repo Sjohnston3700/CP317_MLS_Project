@@ -34,6 +34,10 @@ class User(object):
         '''
         return self._data['Identifier']
     
+    def get_name(self):
+        '''
+        '''
+        return '{} {}'.format( self.get_first_name(), self.get_last_name() )
     def get_context(self):
         """
         Returns the user context belonging to this user
