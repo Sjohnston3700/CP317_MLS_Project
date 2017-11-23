@@ -30,9 +30,9 @@ class Host(object):
         Preconditions:
             product_code: String - product code
         Postconditions:
-            Returns: LatestVersion for specific product_code
+            Returns: LatestVersion for specific product_code, None if product_code not listed
         """
-        return [item['LatestVersion'] for item in self._versions if item['ProductCode'] == product_code][0]
+        return self._versions[product_code] if product_code in self._versions else None
 
     def get_lms_host(self):
         """ 
