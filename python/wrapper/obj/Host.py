@@ -7,7 +7,7 @@ class Host(object):
     """
     Host class
     """
-    def __init__(self, lms_host, protocol="http", versions):
+    def __init__(self, lms_host, protocol="http", versions = []):
         """
             Constructor for Host Class
             
