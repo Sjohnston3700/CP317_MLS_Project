@@ -99,7 +99,20 @@ def show_design():
 @app.route('/documentation/design/wrapper')
 def show_design_wrapper():
     return render_template('design_wrapper.html')
-
+    
+@app.route('/upload/<courseId>/<gradeItemId>')
+def show_upload(courseId, gradeItemId):
+    """
+    No idea if this is correct... oh well
+    """
+    try:
+        user = app.config[session['user_id']]
+        course = user.get_course(courseId)
+        grade_item = course.get_grade_item(gradeItemId)
+    except Exception as e:
+        raise RuntimeError('something went wrong {}'.format(e))
+    return render_template('upload.html',user=user,course=course,grade_item=grade_item)
+        
 @app.route('/logout/')
 def show_logout():
     if 'user_id' in session:

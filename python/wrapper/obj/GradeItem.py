@@ -1,3 +1,4 @@
+
 import logging
 import API, Grade
 
@@ -113,14 +114,15 @@ class NumericGradeItem(GradeItem):
         """
         return self._can_exceed_max_points        
     
-    def create_grade(self, student, grade_params):
+    def create_grade(self, student, comment, value):
         """
         Creates a NumericGrade object and adds to the list (Called by ezMarker)
         Preconditions:
-            student: OrgMember object
-            grade_params: Python dictionary of parameters required to initialize a NumericGrade
+            student (orgMember) : OrgMember object relating to the student that has this grade
+            comment (String) : Feedback comment for the grade
+            value (float) : Mark student scored
         """
-        self._grades.append(NumericGrade(self, student, grade_params))
+        self._grades.append(NumericGrade(self, student, comment, value))
         return
     
     def get_max(self):
