@@ -138,22 +138,6 @@ def get_grade_items(course):
     return items
 
     
-def get_grade_items(course):
-    '''
-    Gets grade item JSON as python dict from a Course object.
-    
-    Preconditions:
-        course (Course object) : The Course object to retrieve GradeItems for.
-        
-    Postconditions:
-        returns:
-        results (dict) : Python dict of JSON data containing GradeItem object data for the given course.
-    '''
-    user = course.get_user()
-    route_params = {'version' : user.get_host().get_api_version('le'), 'orgUnitId': course.get_id()}
-    results = get(GET_GRADES_ROUTE, user, route_params)
-    return results
-    
 def get_user_enrollments(user):
     '''
     Retrieves the collection of users enrolled in the identified org unit.
