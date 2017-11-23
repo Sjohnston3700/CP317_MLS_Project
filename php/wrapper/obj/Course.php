@@ -13,7 +13,6 @@
 			$this->user = $user;
 			$this->name = $course_params['OrgUnit']['Name'];
 			$this->id = $course_params['OrgUnit']['Id'];
-			//$this->user_role = $course_params['Access']['ClasslistRoleName'];
 			$this->grade_items = $this->_get_grade_items();
 			$this->members = $this->_get_members();
 //			foreach(get($GET_MEMBERS,$user,array('orgUnitID'=>$this->id))['Items'] as $member) {
@@ -101,14 +100,6 @@
 		*/
 		function get_user() {
 			return $this->user;
-		}
-		/*
-		Function will return the user role for current course
-		PostCondition:
-            return $this.user_role - user role for current course
-		*/
-		function get_user_role() {
-			return $this->user_role;
 		}
 		/*
 		Function will return all the users for the current course
