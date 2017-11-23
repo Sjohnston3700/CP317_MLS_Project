@@ -149,5 +149,11 @@ class NumericGradeItem(GradeItem):
         
         return value <= self.get_max()
 
-        
+    def set_max(self,new_max):
+        '''
+        Function to update the max points for this grade object
+        '''
+        self._data['MaxPoints'] = str(new_max)
+        API.put_grade_item(self)
+        return    
         
