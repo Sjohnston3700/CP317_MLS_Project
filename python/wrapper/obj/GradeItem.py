@@ -23,6 +23,11 @@ class GradeItem(object):
         self._course = course
         self._grades = []
 
+    def get_json(self):
+        '''
+        '''
+        return self._data
+    
     def get_course(self):
         """ 
         Getter function
@@ -132,13 +137,6 @@ class NumericGradeItem(GradeItem):
             Returns: self._max_points - The max number of points this GradeItem can have for any one Grade ?? I think
         """
         return self._data['MaxPoints']
-     
-    def put_grade_item(self, params):
-        """
-        PLACEHOLDER - Until attributes get figured out
-        """
-        API.put_grade_item(self)
-        return
         
     def within_max(self, value):
         """

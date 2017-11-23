@@ -212,8 +212,9 @@ def put_grade_item(grade_item):
     route_params = {'version' : user.get_host().get_api_version('le'), \
             'orgUnitId': grade_item.get_course().get_id(), \
             'gradeObjectId': grade_item.get_id() }
-    params = { "MaxPoints": grade_item.get_max(), "CanExceedMaxPoints": grade_item.can_exceed(), "GradeType": "Numeric" }
-    put(SET_GRADEITEM_ROUTE, user, route_params, params)
+    #params = { "MaxPoints": grade_item.get_max(), "CanExceedMaxPoints": grade_item.can_exceed(), "GradeType": "Numeric" }
+    data = grade_item.get_json()
+    put(SET_GRADEITEM_ROUTE, user, route_params, data)
     return
     
 def update_route(route,params):
