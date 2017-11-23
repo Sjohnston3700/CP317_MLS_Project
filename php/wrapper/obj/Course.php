@@ -71,9 +71,7 @@
 					return [$grade_item][0];
 				}
 			}	
-			return null;
-			}
-			
+			return null;			
 		}
 		/*
 		Function will return the name of course
