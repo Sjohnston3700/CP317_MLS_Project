@@ -11,11 +11,11 @@ class Course(object):
     def __init__(self,user,course_params):
         """
         user (user object) - info about user
-        course_params - info about course (Enrollment.MyOrgUnitInfo) 
+        course_params - info about course (Enrollment.MyOrgUnitInfo)
+        
+        Does not error checking to validate course_params 
         """
-        self._name      = course_params['OrgUnit']['Name']
-        self._id        = course_params['OrgUnit']['Id']
-        self._user_role = course_params['Role']['Name']#need to update to use Number Instead
+        self._data = course_params
         self._user = user
         self._grade_items = API.get_grade_items(self)
         self._members = API.get_class_list(self)
@@ -44,7 +44,7 @@ class Course(object):
         PostCondition:
             reutrn self.id - Id for the current course
         """
-        return self._id    
+        return self._data['OrgUnit']['Id']   
     
     def get_name(self):
         """
@@ -52,7 +52,7 @@ class Course(object):
         PostCondition:
             return self.name - current course name
         """
-        return self._name
+        return self._data['OrgUnit']['Name']
 
     def get_member(self,org_id):
         """
@@ -92,4 +92,4 @@ class Course(object):
         PostCondition:
             reutrn self.user_role - user role for current course
         """
-        return self._user_role
+        return self._data['Role']['Name']
