@@ -10,15 +10,16 @@ class GradeItem(object):
         """
         Preconditions:
             course (Course object) - the course the GradeItem is for
-            grade_item_params (json) - info about GradeItem  
+            grade_item_params (json) - info about GradeItem  (Grade.GradeObject http://docs.valence.desire2learn.com/res/grade.html#Grade.GradeObject)
             
         Postconditions:
             parent constructor to all GradeItem types. contains data common to all types
         """
         if type(self) == GradeItem:
             raise TypeError("GradeItem must be subclassed")
-        self._name = grade_item_params['Name']
-        self._id = grade_item_params['Id']
+        
+        self._data = grade_item_params
+        
         self._course = course
         self._grades = []
 
@@ -58,7 +59,7 @@ class GradeItem(object):
         Postconditions:
             Returns: self._id - Id of the GradeItem
         """
-        return self._id
+        return self._data['Id']
         
     def get_name(self):
         """ 
@@ -66,7 +67,7 @@ class GradeItem(object):
         Postconditions:
             Returns: self._name - name of the GradeItem
         """
-        return self._name
+        return self._data['Name']
 
     def get_user(self):
         """ 
@@ -103,8 +104,6 @@ class NumericGradeItem(GradeItem):
         if grade_item_params['GradeType'] != 'Numeric':
             raise Exception('GradeType for GradeItem {} of Course {} is not numeric.'.format(grade_item_params['Id'], course.get_id()))
         super().__init__(course, grade_item_params)                      
-        self._max_points = grade_item_params['MaxPoints']
-        self._can_exceed_max_points = grade_item_params['CanExceedMaxPoints']
 
     def can_exceed(self):
         """
@@ -112,7 +111,8 @@ class NumericGradeItem(GradeItem):
         Postconditions:
             returns: self._get_can_exceed
         """
-        return self._can_exceed_max_points        
+        return self._data['CanExceedMaxPoints']
+        
     
     def create_grade(self, student, comment, value):
         """
@@ -131,7 +131,7 @@ class NumericGradeItem(GradeItem):
         Postconditions:
             Returns: self._max_points - The max number of points this GradeItem can have for any one Grade ?? I think
         """
-        return self._max_points
+        return self._data['MaxPoints']
      
     def put_grade_item(self, params):
         """
@@ -149,11 +149,7 @@ class NumericGradeItem(GradeItem):
             Returns: Boolean - false if not value larger than maxa points 
         """
         
-        return (value <= self._max_points)
-        
+        return value <= self.get_max()
 
-    
-
-    
         
         
