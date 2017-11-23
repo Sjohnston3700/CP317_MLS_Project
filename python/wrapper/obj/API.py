@@ -72,7 +72,7 @@ def get(route, user = None, route_params = {},additional_params={}):
 def get_class_list(course):#is this the right name for this function?
     '''
     '''
-    json = get(GET_MEMBERS,course.get_user(),{'orgUnitId':course.get_id(),'version':1.20})['Items']#Hard coded verision ....
+    json = get(GET_MEMBERS,course.get_user(),{'orgUnitId':course.get_id(),'version': course.get_user().get_host().get_api_version('lp')})['Items']
     members = []
     for member in json:
         try:
@@ -130,7 +130,7 @@ def get_grade_items(course):
     return :
             lists - grade item (Array of grade item JSON Block)
     """
-    gradeitems = get(GET_GRADE_ITEMS,course.get_user(),{'orgUnitId':course.get_id(),'version':1.20})#Hard coded version, should use Host.version...
+    gradeitems = get(GET_GRADE_ITEMS,course.get_user(),{'orgUnitId':course.get_id(),'version':course.get_user().get_host().get_api_version('le')})
     items = []
     for item in gradeitems:
         if item['GradeType'] == 'Numeric':
