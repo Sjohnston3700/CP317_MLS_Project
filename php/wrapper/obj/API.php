@@ -52,18 +52,16 @@ function get($route, $route_params){
 	return $response;
 }
 
+/*
+Uses a PUT request to set JSON
 
+Preconditions :
+	grade_item (GradeItem object) : The grade_item to change grade data for
+	params (json) : JSON grade data to send
+Postconditions:
+	Brightspace data will be updated with params as JSON
+*/
 function put($route, $route_params, $json_to_send) {
-	/*
-	Uses a PUT request to set JSON
-
-	Preconditions :
-		grade_item (GradeItem object) : The grade_item to change grade data for
-		params (json) : JSON grade data to send
-	Postconditions:
-		Brightspace data will be updated with params as JSON
-	*/
-
 	global $routes;
 
 	$route = update_route($routes['BASE_URL'] . $route, $route_params);
@@ -94,14 +92,13 @@ function update_route($route, $params) {
 	return $route;
 }
 
+/*
+Function to test if a request was valid.
+
+Preconditions:
+	request : the request object to test
+*/
 function check_request($request){
-	/*
-	Function to test if a request was valid.
-
-	Preconditions:
-		request : the request object to test
-	*/
-
 	if (!(var_dump($request->success))) { //Keywords such as true, fase and null must be in lower case 
 
 		/*Line in API.py is:
@@ -114,7 +111,14 @@ function check_request($request){
 
 }
 
+/*
+Function to get grade items from Brightspace of a certain course
 
+Preconditions:
+	course : The specific course to pull from
+Postconditions:
+	response: The grade_items of the course requested
+*/
 function get_grade_items($course){
 	global $config;
 	global $routes;
@@ -144,16 +148,15 @@ function get_grade_item($course_id, $grade_item_id) {
 }
 
 
+/*
+Posts a Grade object to Brightspace using a PUT request
 
+Preconditions:
+	grade : the grade to post
+Postconditions:
+	grade JSON is PUT to Brightspace
+*/
 function put_grade($grade){
-	/*
-	Posts a Grade object to Brightspace using a PUT request
-
-	Preconditions:
-		grade : the grade to post
-	Postconditions:
-		grade JSON is PUT to Brightspace
-	*/
 	global $config;
 	global $routes;
 	
@@ -176,16 +179,16 @@ function put_grade($grade){
 	return json_encode($response);
 
 }
+/*
+Posts a GradeItem object to Brightspace using a PUT request
 
+Preconditions:
+	grade_item : the grade_item to post
+Postconditions:
+	grade_item JSON is PUT to Brightspace
+*/
 function put_grade_item($grade_item, $original){
-	/*
-	Posts a GradeItem object to Brightspace using a PUT request
 
-	Preconditions:
-		grade_item : the grade_item to post
-	Postconditions:
-		grade_item JSON is PUT to Brightspace
-	*/
 	global $config;
 	global $routes;
 	
