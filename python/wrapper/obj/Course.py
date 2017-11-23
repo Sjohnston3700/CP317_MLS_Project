@@ -17,22 +17,8 @@ class Course(object):
         self._id        = course_params['OrgUnit']['Id']
         self._user_role = course_params['Role']['Name']#need to update to use Number Instead
         self._user = user
-        self._grade_items = self._get_grade_items()
+        self._grade_items = API.get_grade_items(self)
         self._members = API.get_class_list(self)
-
-    def _get_grade_items(self):
-        """
-        Function will retreve all grade itme (JSON), and conver it into an GradItem array list
-        PosrCondition:
-            gradeitems (array) - array of GradeItem Object for all the grade item in the current course
-        """
-        gradeitemjson = API.get_grade_items(self)
-        gradeitems= []
-        for item in gradeitemjson:
-            if item['GradeType'] == 'Numeric':
-                gradeitems.append(GradeItem.NumericGradeItem(self,item)) 
-        
-        return gradeitems
 
 
     def get_grade_items(self):
