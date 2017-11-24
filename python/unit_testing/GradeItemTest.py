@@ -50,7 +50,23 @@ def auth_token_handler():
     thread.join()
     
     return "ok"
-
+#Test objects until we can call actual Grade objects
+d = {"User":
+        {"Identifier": 0, "DisplayName": 0, "OrgDefinedId": 0}, 
+    "Role": 
+        {"Id": 0}
+    }
+TEMP_GRADE = Grade(
+    GradeItem(
+        Course(
+            user, 
+            {"OrgUnit": {"Name": 0, "Id": 0}, "Role": {"Name": 0}}
+        ),
+        {"Name": "CP104", "Id": 0}
+    ),
+    OrgMember( d ),
+    "Good Job on this assignment."
+)
 # unit testing class
 # do not change setUp and tearDown to snake case, it'll break
 class TestGradeItem(unittest.TestCase):
@@ -102,10 +118,13 @@ class TestGradeItem(unittest.TestCase):
         self.assertIsInstance(self.grade_item_1.get_user(), User, "Not an instance of User")
         pass
 
+    def test_get_grade(self):
+        self.assertIsInstance(self.TEMP_GRADE.get_grade(), Grade, "Not an instance of Grade")
+        pass
+    
     """
     @TODO Create the following tests: 
             - test_create_grade
-            - test_get_grade
             - test_get_grades
             - test_put_grade_item
             - test_put_grades
