@@ -80,7 +80,7 @@ class GradeItem(object):
         Postconditions:
             Returns: User object - User associated with the GradeItem
         """
-        self._course.get_user()
+        return self._course.get_user()
         
     def put_grade_item(self):
         """
