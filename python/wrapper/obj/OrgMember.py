@@ -44,7 +44,7 @@ class OrgMember(object):
             returns
             The role id of the OrgMember (str)
         """
-        return self._data['Role']['Name']
+        return self._data['Role']['Id']
 
 
 
