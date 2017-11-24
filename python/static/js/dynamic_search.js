@@ -1,5 +1,4 @@
-
-function createForm(name,id) {
+	function createForm(name,id) {
 		var form = $('.templates .upload-form-template').clone(true, true);
 		
 		form.removeClass('upload-form-template');
@@ -32,7 +31,7 @@ function createForm(name,id) {
 			$("#members").easyAutocomplete(options);
 			$("#members").focus();
 		} 
-		else if (/^[a-zA-Z]+$/.test(value) && options.getValue == "id") {
+		else if (/^[a-zA-Z]+$/.test(value) && options.getValue == "org_id") {
 			options.getValue = "name";
 			options.template.fields.description = "org_id";
 			$("#members").easyAutocomplete(options);
