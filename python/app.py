@@ -37,6 +37,7 @@ app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 
 app_url = '{0}://{1}:{2}{3}'.format(app_config['scheme'], app_config['host'], app_config['port'], app_config["route"])
+host = Host(app_config['lms_host'], versions=app_config['lms_ver'])
 
 @app.route("/")
 def start():
@@ -50,7 +51,6 @@ def login():
 @app.route(app_config["route"])
 def auth_token_handler():
     uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
-    host = Host(app_config['lms_host'], versions=app_config['lms_ver'])
     # store the user context's
     user = User(uc, host,['TA','Instructor'])
     user_id = user.get_id()
