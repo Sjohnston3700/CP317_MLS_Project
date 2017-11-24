@@ -33,6 +33,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'e5ac358c-f0bf-11e5-9e39-d3b532c10a28'
 app.config["app_context"] = d2lauth.fashion_app_context(app_id=app_config['app_id'], app_key=app_config['app_key'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
 
 app_url = '{0}://{1}:{2}{3}'.format(app_config['scheme'], app_config['host'], app_config['port'], app_config["route"])
 

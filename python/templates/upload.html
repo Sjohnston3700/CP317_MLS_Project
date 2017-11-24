@@ -110,69 +110,14 @@
 	</div>
 </div>
 
+
 <script>
-	window.onload = function () 
-	{
-		showModalOnBtnClick('change-total-modal', 'open-change-total');
-		showModalOnBtnClick('error-message-modal', 'open-error-message');
-	}
-	
-	var options = {
-		data: [],
-		getValue: "name",
-		list: 
-		{
-			match: {
-				enabled: true
-			},
-			sort: {
-				enabled: true
-			},
-			showAnimation: {
-				type: "slide",
-				time: 200,
-				callback: function() {}
-			},
-			hideAnimation: {
-				type: "fade",
-				time: 200,
-				callback: function() {}
-			},
-			onClickEvent: function() {
-				var form = document.createElement("form");
-				form.innerHTML = "<h3>" + $("#members").getSelectedItemData().name + "<button class=\"btn btn-error btn-remove inline\">x</button></h3> <div class=\"form-group\"> <label>Grade: </label> <input type=\"text\" placeholder=\"Grade out of /{{grade_item.get_max()}}\"></div><textarea class=\"input\" placeholder=\"Student feedback...\" resize=\"false\"></textarea>";
-				document.getElementById("manual-grade-input").appendChild(form);
-			}
-		},
-		template: {
-			type: "description",
-			fields: {
-				description: "id"
-			}
-		}
-	};
-
-	{% for member in course.get_members() %}
-		options.data.push({name:"{{member.get_name()}}", id:"{{member.get_org_id()}}"});
+    var members = [];
+    {% for member in course.get_members() %}
+        {% if member.get_role() == 101 -%}
+		    members.push({name:"{{member.get_name()}}", id:"{{member.get_id()}}", org_id:"{{member.get_org_id()}}"});
+		{% endif %}
 	{% endfor %}
-
-	$("#members").easyAutocomplete(options);
-
-	function switchSearchType() {
-		var value = document.getElementById("members").value;
-		if (/\d/g.test(value) && options.getValue == "name") {
-			options.getValue = "id";
-			options.template.fields.description = "name";
-			$("#members").easyAutocomplete(options);
-			$("#members").focus();
-		} 
-		else if (/^[a-zA-Z]+$/.test(value) && options.getValue == "id") {
-			options.getValue = "name";
-			options.template.fields.description = "id";
-			$("#members").easyAutocomplete(options);
-			$("#members").focus();
-		}
-	}
-	
 </script>
 {% endblock %}
+
