@@ -1,11 +1,31 @@
-// General
+// General 
+ - Tabbing: 4 spaces
+ - snake_case for all methods and variable names (except frontend - camelCase)
+ - 1 space after commas
+ - UPPERCASE for constants
 
-tabbing: 4 spaces, not 2 please
-snake_case for all methods and variable names (except frontend - camelCase)
-1 space after commas
-UPPERCASE for constants
+//Comments (General)
+- Every method/function must have a comment block explaining purpose
+- Block must contain:
+    - Description
+    - Preconditions (all arguments)
+    - Postconditions (all possible returns if any)
+-Singular comments should be placed above the line of code it intends to explain, NOT beside it
+-Capatilize first letter, UNLESS it is an identifier(variable/method name).
+
+//PHP Comments:
+- Comment blocks must be on top of method/functions
+- Each file should have a docblock at the top. Purpose is to explain what file consists of:
+/**
+* Short description for file
+* Author(s):
+* Long description (if required)
+*/
+
+//Python Comments:
+- Comment blocks must be after signature line of method/function
+
 // Frontend 
-
 Jquery: 
 	please see http://usejsdoc.org/howto-es2015-modules.html for documentation standards
 	use jquery only 
