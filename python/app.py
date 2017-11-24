@@ -173,22 +173,25 @@ def set_grades(courseId, gradeItemId):
     logoutUrl = LOGOUT_URL.format(host=user.get_host().get_lms_host())
     return render_template("grades_uploaded.html",user=user,errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=grade_item,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
 
-def modify_grade_max(course_id, grade_item_id, max):
+@app.route('/upload/<int:course_id>/<int:grade_item_id>/')
+def modify_grade_max(course_id, grade_item_id):
     """
         Update maximum grade points for the grade_item and put
         Precondition:
             grade_item_id - unique id for the grade item
             course_id - unique id for the course
-            max - maximum points to be changed to
+            max - maximum points to be changed to (obtain from request)
         Postcondition:
             Edit this grade item's maximum total grade
     """
+    max = int(request.form['max'])
+    
     if max >= 0.01 and max <= 9999999999: # MaxPoints for grade item needs to be within this range (indicated by API)
-        user = app.config["User"]
+        user = app.config[session['user_id']]
         course = user.get_course(course_id)
         grade_item = course.get_grade_item(grade_item_id)
-        params = {'MaxPoints': max}
-        grade_item.put_grade_item(params)
+        grade_item.set_max(max)
+        return render_template('upload.html',user=user,course=course,grade_item=grade_item)
     else:
         raise RuntimeError("Max grade need to be greater than 0")
 
