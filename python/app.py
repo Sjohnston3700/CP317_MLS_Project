@@ -125,12 +125,6 @@ def show_upload(courseId, gradeItemId):
     #else it is a POST
     try:
         modify_grade_max(courseId, gradeItemId)
-    except AttributeError:
-        pass
-    except Exception as e:
-        logger.exception("Something went wrong in modify_max_grade()")
-        return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
-    try:
         set_grades(courseId, gradeItemId)
     except Exception as e:
         logger.exception("Something went wrong in modify_max_grade()")
@@ -197,10 +191,7 @@ def modify_grade_max(course_id, grade_item_id):
         Postcondition:
             Edit this grade item's maximum total grade
     """
-    try:
-        max = int(request.form['max'])
-    except Exception as e:
-        raise AttributeError
+    max = int(request.form['max'])
     
     if max >= 0.01 and max <= 9999999999: # MaxPoints for grade item needs to be within this range (indicated by API)
         user = app.config[session['user_id']]
