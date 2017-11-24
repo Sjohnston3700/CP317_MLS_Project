@@ -102,19 +102,40 @@ def show_design():
 def show_design_wrapper():
     return render_template('design_wrapper.html')
     
-@app.route('/upload/<courseId>/<gradeItemId>')
+@app.route('/grades/<int:courseId>/<int:gradeItemId>/', methods = ['GET', 'POST'])
 def show_upload(courseId, gradeItemId):
     """
     No idea if this is correct... oh well
     """
+    if 'user_id' not in session:
+        logger.error('Someone tried to access /grades/{}/{}/ without logging in'.format(courseId,gradeItemId))
+        return redirect('/login')
+    
     try:
         user = app.config[session['user_id']]
         course = user.get_course(courseId)
         grade_item = course.get_grade_item(gradeItemId)
     except Exception as e:
-        #raise RuntimeError('something went wrong {}'.format(e))
+        logger.exception("Something went wrong in /grades/{}/{}/".format(courseId, gradeItemId))
         return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
-    return render_template('upload.html',user=user,course=course,grade_item=grade_item)
+    
+    if request.method == "GET":
+        return render_template('upload.html',user=user,course=course,grade_item=grade_item)
+    
+    #else it is a POST
+    try:
+        modify_grade_max(courseId, gradeItemId)
+    except AttributeError:
+        pass
+    except Exception as e:
+        logger.exception("Something went wrong in modify_max_grade()")
+        return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
+    try:
+        set_grades(courseId, gradeItemId)
+    except Exception as e:
+        logger.exception("Something went wrong in modify_max_grade()")
+        return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
+    
         
 @app.route('/logout/')
 def show_logout():
@@ -126,55 +147,46 @@ def show_logout():
         logger.error('Someone tried to logout without having logged in')
         return redirect('/login')
                 
-@app.route('/grades/<courseId>/<gradeItemId>', methods = ['GET', 'POST'])
+
 def set_grades(courseId, gradeItemId):
-    if 'user_id' not in session:
-        logger.error('Someone tried to access /grades/{}/{}/ without logging in'.format(courseId,gradeItemId) )
-        return redirect('/login')
-    else:
+    try:
+        user=app.config[ session['user_id'] ]
+        course = user.get_course(courseId)
+        grade_item = course.get_grade_item(gradeItemId)
+    except Exception as e:
+        logger.exception("Something went wrong in /grades/{}/{}/".format(courseId,gradeItemId) )
+        return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
+        
+    f = request.files['file']
+    grades = parse_grades( f.read().decode("utf-8") )
+        
+    errors = []
+    successful_grades = 0
+    for grade in grades:
         try:
-            user=app.config[ session['user_id'] ]
-            course = user.get_course(courseId)
-            grade_item = course.get_grade_item(gradeItemId)
-        except Exception as e:
-            logger.exception("Something went wrong in /grades/{}/{}/".format(courseId,gradeItemId) )
-            return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
-    
-    if request.method == 'GET':
-        return render_template('upload.html',user=user,course=course,grade_item=grade_item)
-        
-    elif request.method == 'POST':
-        f = request.files['file']
-        grades = parse_grades( f.read().decode("utf-8") )
-        
-        errors = []
-        successful_grades = 0
-        for grade in grades:
-            try:
-                if float(grade.maxValue) != grade_item.maxPoints:
-                    updateUrl = EDIT_GRADE_ITEM_URL.format(host=user.uc.host,gradeItemId=grade_item.get_id(),courseId=course.get_id())
-                    message = 'Grade for {} is out of {}. The Max Points for {} is {}'.format(grade.studentName,grade.maxValue,grade_item.name,grade_item.maxPoints)
-                    #return render_template("update_grade_item.html",gradeUrl=updateUrl,message=message)
-                
-                userId,gradeValue,PublicFeedback = grade.userId,grade.value,grade.public_feedback
-                gradeItem.setUserGrade(userId,courseId,gradeValue,PublicFeedback,PrivateFeedback='')
-                successful_grades += 1
+            if float(grade.maxValue) != grade_item.maxPoints:
+                updateUrl = EDIT_GRADE_ITEM_URL.format(host=user.uc.host,gradeItemId=grade_item.get_id(),courseId=course.get_id())
+                message = 'Grade for {} is out of {}. The Max Points for {} is {}'.format(grade.studentName,grade.maxValue,grade_item.name,grade_item.maxPoints)
+                #return render_template("update_grade_item.html",gradeUrl=updateUrl,message=message)
             
-            except RuntimeError as e:
-                error = str(e)
-                errors.append(error)
-                continue
-                
-            except AssertionError as e:
-                error = '{} for {}'.format(e,grade.studentName)
-                errors.append( error )
-                continue
+            userId,gradeValue,PublicFeedback = grade.userId,grade.value,grade.public_feedback
+            gradeItem.setUserGrade(userId,courseId,gradeValue,PublicFeedback,PrivateFeedback='')
+            successful_grades += 1
+        
+        except RuntimeError as e:
+            error = str(e)
+            errors.append(error)             
+            continue
+            
+        except AssertionError as e:
+            error = '{} for {}'.format(e,grade.studentName)
+            errors.append( error )
+            continue
     
     gradesUrl = VIEW_GRADES_URL.format(host=user.get_host().get_lms_host(),gradeItemId=grade_item.Id,courseId=course.Id)
     logoutUrl = LOGOUT_URL.format(host=user.get_host().get_lms_host())
     return render_template("grades_uploaded.html",user=user,errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=grade_item,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
 
-@app.route('/upload/<int:course_id>/<int:grade_item_id>/')
 def modify_grade_max(course_id, grade_item_id):
     """
         Update maximum grade points for the grade_item and put
@@ -185,7 +197,10 @@ def modify_grade_max(course_id, grade_item_id):
         Postcondition:
             Edit this grade item's maximum total grade
     """
-    max = int(request.form['max'])
+    try:
+        max = int(request.form['max'])
+    except Exception as e:
+        raise AttributeError
     
     if max >= 0.01 and max <= 9999999999: # MaxPoints for grade item needs to be within this range (indicated by API)
         user = app.config[session['user_id']]

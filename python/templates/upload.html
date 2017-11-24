@@ -14,7 +14,7 @@
 <h2>Automated Upload</h2>
 <div class="page-section">
 	<h2>Upload a File</h2>
-	  <form action={{ url_for('set_grades',courseId=courseId,gradeItemId=gradeItemId) }} method="POST"
+	  <form action={{ url_for('show_upload',courseId=course.get_id(),gradeItemId=grade_item.get_id()) }} method="POST"
          enctype="multipart/form-data">
          	<label id="file" class="custom-file-upload-btn">
 				<i class="fa fa-cloud-upload"></i> Upload File
