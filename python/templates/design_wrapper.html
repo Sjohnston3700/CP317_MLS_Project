@@ -1,0 +1,95 @@
+<html>
+
+<head>
+    <title>Brightspace API Wrapper - Design</title>
+</head>
+
+<body>
+    <script src="../static/js/toc_generator.js"></script>
+    <h1>Brightspace API Wrapper - Design</h1>
+    <p>Version 2.0</p>
+    <p>Last updated: November 12, 2017</p>
+
+    <div id="toc">
+        <h2>Table of Contents</h2>
+    </div>
+
+    <h2>Introduction</h2>
+    <p>
+        The Brightspace API Wrapper is a library used to make calls to the <a href="http://docs.valence.desire2learn.com/reference.html" target="_blank">Brightspace API</a>. It allows developers to fetch and push information through the API in a friendly manner. Rather than directly making HTTP requests, developers can simply use the functions available in the wrapper's library. HTTP requests consist of a URL and a verb. In this wrapper, requests GET or PUT data.</p>
+    <p>The wrapper is being developed primarily for ezMarker, a web application for uploading grades and feedback to a Brightspace environment. PHP and Python versions of the wrapper are being developed to support the corresponding versions of ezMarker.
+    </p>
+    <p>This document describes the design of the wrapper's classes and functions, along with providing helpful reference information.</p>
+
+    <h2>Class Design</h2>
+    <img src="../static/img/wrapper_design_class_diagram.jpg">
+    <b>Additional Comments:</b>
+    <ul>
+        <li>Trigger exceptions on error</li>
+        <li>See the documentation linked in the following section for the specifications of the dictionaries that will be passed as parameters (dictionaries will follow same naming as API JSON)</li>
+    </ul>
+
+    <h2>API Functions</h2>
+    <img src="../static/img/wrapper_design_api_file.jpg">
+
+    <br>
+    <b>Additional Comments:</b>
+    <ul>
+        <li>Trigger exceptions on error. Use response message as error message</li>
+    </ul>
+
+    <h2>API Reference</h2>
+
+    <h3>API Requests</h3>
+
+    <ul>
+        <li>get_api_versions: Implements GET <a href="http://docs.valence.desire2learn.com/res/apiprop.html#get--d2l-api-versions-" target="_blank">/d2l/api/versions/</a></li>
+        <li>get_course_enrollments: Implements GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-orgUnits-(orgUnitId)-users-" target="_blank">/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/</a></li>
+        <li>get_grade_items: Implements GET<a href="http://docs.valence.desire2learn.com/res/grade.html#get--d2l-api-le-(version)-(orgUnitId)-grades-" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/</a></li>
+        <li>get_user_enrollments: Implements GET <a href="http://docs.valence.desire2learn.com/res/enroll.html#get--d2l-api-lp-(version)-enrollments-users-(userId)-orgUnits-" target="_blank">/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/</a></li>
+        <li>get_who_am_i: Implements GET <a href="http://docs.valence.desire2learn.com/res/user.html#get--d2l-api-lp-(version)-users-whoami" target="_blank">/d2l/api/lp/(version)/users/whoami</a></li>
+        <li>put_grade: Implements PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)-values-(userId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)</a></li>
+        <li>put_grade_item: Implements PUT <a href="http://docs.valence.desire2learn.com/res/grade.html#put--d2l-api-le-(version)-(orgUnitId)-grades-(gradeObjectId)" target="_blank">/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)</a></li>
+    </ul>
+
+    <h3>Language Specific References</h3>
+
+    <h4>Python Specific</h4>
+    <ul>
+        <li>Uses <a href="http://docs.python-requests.org/en/latest/" target="_blank">Requests</a> library</li>
+        <li>Brightspace example code: <a href="https://github.com/Brightspace/sample-valence-general-python" target="_blank">https://github.com/Brightspace/sample-valence-general-python</a></li>
+    </ul>
+
+    <h4>PHP Specific</h4>
+    <ul>
+        <li>Uses <a href="http://requests.ryanmccue.info" target="_blank">Requests</a> library</li>
+        <li>Brightspace example code: <a href="https://github.com/Brightspace/valence-sdk-php/tree/master/samples/BasicSample" target="_blank">https://github.com/Brightspace/valence-sdk-php/tree/master/samples/BasicSample</a></li>
+    </ul>
+
+    <h2 id="toc_exclude">Revision History</h2>
+    <h3 id="toc_exclude">Version 1.0 - 10/23/2017</h3>
+    <p>Authors: Troy Nechanicky</p>
+    <p>SQA: Harold Hodgins, Yi Ling Pang</p>
+
+    <h3 id="toc_exclude">Version 2.0 - 11/12/2017</h3>
+    <p>- Added PHP specific information</p>
+    <p>- Made User subclass of OrgMember</p>
+    <p>- Renamed some attributes to match Brightspace naming</p>
+    <p>- Made contructors all take JSON objects</p>
+    <p>- Added additional notes</p>
+    <p>- Added Additional Comments sections</p>
+    <p>- Specified error handling</p>
+    <p>- Changed request for getting user enrollments</p>
+    <p>- Changed param type for _route functions</p>
+    <p>- Replaced type JSON with type dictionary</p>
+    <p>- Added can_exceed_max_points attribute, can_exceed and within_max to NumericGradeItem</p>
+    <p>- Added constructors to GradeItem and Grade</p>
+    <p>- Added get_grades to GradeItem</p>
+    <p>- Ordered methods, attributes</p>
+    <p>- Added general information about HTTP requests</p>
+
+    <p>Authors: Sumeet Jhand, Troy Nechanicky, Amardeep Sarang, Harjodh Singh</p>
+    <p>SQA: Mohamed Al-Thibeh, Yi Ling Pang</p>
+</body>
+
+</html>

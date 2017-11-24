@@ -1,0 +1,32 @@
+h1.page-title
+{
+	font-size: 40px; 
+	margin-bottom: 30px;
+}
+
+.grade-link
+{
+	text-decoration: none;
+	display: block;
+	margin: 5px;
+}
+
+.grade-link:hover
+{
+	text-decoration: underline;
+}
+
+.mini
+{
+	font-size: 13px;
+}
+
+.text-error, .text-error strong
+{
+	color: #ad4641;
+}
+
+.text-warning, .text-warning strong
+{
+	color: #d89702;
+}

@@ -1,0 +1,48 @@
+/* 
+
+Legend: 
+
+primary colour, nav bar background: #330072 
+nav hover border: #F2A900
+nav hover: #2a005e
+text color: #2a005e
+page section border: #cfd2d6
+input border: #c4bebe
+input border hover: #9e9696
+button: #F2A900
+button color: white
+button border, button hover: #d89702 
+
+*/
+
+html, body, *
+{
+	font-family: 'Raleway', sans-serif;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	color: #444;
+}
+
+html
+{
+	height: 100%;
+	color: #444;
+}
+
+body
+{
+	min-height: 100%;
+	margin: 0px;
+}
+
+.float-right
+{
+	float: right;
+}
+
+.inline
+{
+	display: inline;
+}
+

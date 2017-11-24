@@ -1,0 +1,316 @@
+/* Buttons */
+
+.btn
+{
+	padding: 10px;
+	margin: 10px;
+	font-size: 14px;
+	color: white;
+	background: #F2A900;
+	transition: 0.4s;
+	border: 1px solid #F2A900;
+}
+
+.block
+{
+	display: block;
+}
+
+.btn
+{
+	margin: 0px;
+}
+
+.btn:hover
+{	
+	background: #d89702;
+	border-color: #d89702;
+	cursor: pointer;
+}
+
+.btn-success
+{
+	border: 1px solid #7dbf4a;
+	background: #7dba5e;
+	color: white;
+}
+
+.btn-success:hover
+{
+	background: #73ad56;
+	border: 1px solid #73ad56;
+}
+
+.btn-error
+{
+	background: #d1554f;
+	color: white;
+	border: 1px solid #ad4641;
+	margin: 0px;
+}
+
+.btn-remove 
+{
+	float: right;
+}
+
+.btn-error:hover
+{
+	background: #ad4641;
+}
+
+.btn-block
+{
+	display: inline-block;
+	margin: 5px 0px;
+}
+
+.btn-xl
+{
+	text-decoration: none;
+	padding: 20px;
+	font-size: 20px;
+	margin: 20px;
+	display: inline-block;
+}
+
+a.btn 
+{
+	text-decoration: none;
+}
+
+.btn-remove
+{
+	height: 30px;
+	width: 30px;
+	padding: 0px;
+}
+
+/* Accordion */
+
+button.accordion 
+{
+    background-color: white;
+    color: #6c459b;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    transition: 0.4s;
+	border: 2px solid #6c459b;
+	margin-bottom: 5px;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+button.accordion.active, button.accordion:hover
+{
+    background-color: #6c459b;
+	color: white;
+}
+
+div.panel 
+{
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+button.accordion:after 
+{
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    float: right;
+    margin-left: 5px;
+}
+
+button.accordion.active:after 
+{
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+	color: white;
+}
+
+/* Modal */
+
+.modal 
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content 
+{
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+.modal-content .btn
+{
+	margin-left: 0px;
+}
+
+.modal-body, .modal-header, .modal-footer
+{
+	padding: 15px 20px;
+}
+
+.modal-body
+{
+	padding-bottom: 30px;
+}
+
+.modal-warning
+{
+	border: 1px solid #d89702;
+	background: #f7da99;
+	color: #d89702;
+
+}
+
+.modal-error
+{
+	border: 1px solid #ad4641;
+	background: #f49c97;
+	color: #ad4641;
+}
+
+.modal-success
+{
+	border: 1px solid #7dbf4a;
+	background: #dbffc9;
+	color: #7dbf4a;
+}
+
+.modal-error strong
+{
+	color: #ad4641;
+}
+
+.modal-warning, .modal-error, .modal-success
+{
+	width: 100%;
+	margin: 0px;
+	padding: 10px;
+	text-align: center;
+}
+
+.modal-warning strong
+{
+	color: #d89702;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop 
+{
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop 
+{
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+.close 
+{
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus 
+{
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* Other */
+
+hr
+{
+	color: #cfd2d6;
+	margin: 40px 0px;
+}
+
+.hidden
+{
+	display: none;
+}
+
+.inline 
+{
+	display: inline;
+}
+
+#update-max-error, #update-max-error-modal
+{
+	margin-bottom: 20px;
+}
+
+
+/* Loader */
+
+.loader-msg
+{
+	color: white;
+	margin: 15px auto;
+	display: block;
+	font-size: 18px;
+}
+
+.loader 
+{
+    border: 16px solid #f3f3f3; 
+    border-top: 16px solid #330072;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+	margin: 0px auto;
+}
+
+.loader-box 
+{
+	text-align: center;
+    position: fixed;
+    z-index: 50;
+    padding-top: 20%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+@keyframes spin 
+{
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

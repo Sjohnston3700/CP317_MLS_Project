@@ -1,0 +1,178 @@
+{% extends "index.html" %}
+
+{% block title %}
+	<title>ezMarker | Upload File</title>
+{% endblock %}
+
+{% block content %}
+<h1>{{course.get_name()}} - {{grade_item.get_name()}}</h1>
+<h2>Out of: <strong>{{grade_item.get_max()}}</strong> marks</h2>
+<hr>
+<input type="text" class="input" placeholder="Grade item is now out of...">
+<button class="btn btn-success">Update maximum</button>
+<hr>
+<h2>Automated Upload</h2>
+<div class="page-section">
+	<h2>Upload a File</h2>
+	  <form action={{ url_for('set_grades',courseId=courseId,gradeItemId=gradeItemId) }} method="POST"
+         enctype="multipart/form-data">
+         	<label id="file" class="custom-file-upload-btn">
+				<i class="fa fa-cloud-upload"></i> Upload File
+			</label>
+			<input id="file" type="file"/>
+          <p></p>
+	  		<button class="btn" type="submit">Upload Grades File</button>
+      </form>
+</div>
+<h2>Manual Grade Input</h2>
+<div class="page-section">
+	<h4>Search to add a student: </h4>
+	<form>	
+		<input id="members" class="input" type="text" onkeyup="handleInputKeyUp()" placeholder="Enter Student Name or ID...">
+		<div class="form-checkbox">
+			<input type="checkbox">
+			<label class="mini">Select all</label>
+		</div>
+	</form>
+	<hr>
+	<div id="manual-grade-input">
+		<!-- foreach student -->
+		<!--<form>
+			<h3>John Doe<button class="btn btn-error btn-remove inline">x</button></h3>
+			<div class="form-group">
+				<label>Grade: </label>
+				<input type="text" placeholder="Grade out of /{{grade_item.get_max()}}">
+			</div>	
+			<textarea class="input" placeholder="Student feedback..." resize="false"></textarea>
+
+		</form>
+		<form>
+			<h3>Jane Doe<button class="btn btn-error btn-remove inline">x</button></h3>
+			<div class="form-group">
+				<label>Grade: </label>
+				<input type="text" placeholder="Grade out of /{{grade_item.get_max()}}">
+			</div>	
+			<textarea class="input" placeholder="Student feedback..." resize="false"></textarea>
+		</form>-->
+	</div>
+	<button class="btn submit-btn">Upload grades to MLS</button>
+</div>
+<div id="change-total-modal" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+			<span class="close">&times;</span>
+			<h3>Change grade item total</h3>
+		</div>
+		<div class="modal-body">
+			<input type="text" class="input" placeholder="Grade item now out of...">
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success">Update total</button>
+			<button class="btn btn-error">Cancel</button>
+		</div>
+	</div>
+</div>
+<div id="error-message-modal" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+			<span class="close">&times;</span>
+			<h2>Errors With Your Grade Upload</h2>
+			<hr>
+			<input type="text" class="input" placeholder="Grade item is now out of...">
+			<button class="btn btn-success">Update maximum</button>
+			<hr>
+		</div>
+		<div class="modal-body">
+			
+			<form class="form-wide">
+				<p class="modal-warning"><strong>WARNING: </strong>Grade greater than the <strong>maximum grade value</strong></p>
+				<h3>John Doe, 1234567<button class="btn btn-error btn-remove inline">x</button></h3>
+				<div class="form-group">
+					<label>Grade: </label>
+					<input type="text" placeholder="Grade out of /100" value="70">
+				</div>	
+				<textarea class="input" placeholder="Student feedback..." resize="false">Good job on A1!</textarea>
+			</form>
+			<form class="form-wide">
+				<p class="modal-error"><strong>ERROR: </strong>Missing grade entry</strong></p>
+				<h3>Jane Doe, 1234565<button class="btn btn-error btn-remove inline">x</button></h3>
+				<div class="form-group">
+					<label>Grade: </label>
+					<input type="text" placeholder="Grade out of /100">
+				</div>	
+				<textarea class="input" placeholder="Student feedback..." resize="false">You need to put more effort in!</textarea>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success">Re-Upload</button>
+			<button class="btn btn-error">Cancel Upload</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	window.onload = function () 
+	{
+		showModalOnBtnClick('change-total-modal', 'open-change-total');
+		showModalOnBtnClick('error-message-modal', 'open-error-message');
+	}
+	
+	var options = {
+		data: [],
+		getValue: "name",
+		list: 
+		{
+			match: {
+				enabled: true
+			},
+			sort: {
+				enabled: true
+			},
+			showAnimation: {
+				type: "slide",
+				time: 200,
+				callback: function() {}
+			},
+			hideAnimation: {
+				type: "fade",
+				time: 200,
+				callback: function() {}
+			},
+			onClickEvent: function() {
+				var form = document.createElement("form");
+				form.innerHTML = "<h3>" + $("#members").getSelectedItemData().name + "<button class=\"btn btn-error btn-remove inline\">x</button></h3> <div class=\"form-group\"> <label>Grade: </label> <input type=\"text\" placeholder=\"Grade out of /{{grade_item.get_max()}}\"></div><textarea class=\"input\" placeholder=\"Student feedback...\" resize=\"false\"></textarea>";
+				document.getElementById("manual-grade-input").appendChild(form);
+			}
+		},
+		template: {
+			type: "description",
+			fields: {
+				description: "id"
+			}
+		}
+	};
+
+	{% for member in course.get_members() %}
+		options.data.push({name:"{{member.get_name()}}", id:"{{member.get_org_id()}}"});
+	{% endfor %}
+
+	$("#members").easyAutocomplete(options);
+
+	function switchSearchType() {
+		var value = document.getElementById("members").value;
+		if (/\d/g.test(value) && options.getValue == "name") {
+			options.getValue = "id";
+			options.template.fields.description = "name";
+			$("#members").easyAutocomplete(options);
+			$("#members").focus();
+		} 
+		else if (/^[a-zA-Z]+$/.test(value) && options.getValue == "id") {
+			options.getValue = "name";
+			options.template.fields.description = "id";
+			$("#members").easyAutocomplete(options);
+			$("#members").focus();
+		}
+	}
+	
+</script>
+{% endblock %}

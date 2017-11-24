@@ -1,0 +1,35 @@
+// General
+
+tabbing: 4 spaces, not 2 please
+snake_case for all methods and variable names (except frontend - camelCase)
+1 space after commas
+UPPERCASE for constants
+// Frontend 
+
+Jquery: 
+	please see http://usejsdoc.org/howto-es2015-modules.html for documentation standards
+	use jquery only 
+	single quotes ' not "
+	camelCase ex: myFunction (myVar, myVar2)
+	no query in html files, all in files located under static/js
+	separate js files for different function/logic
+	function brackets as follows: 
+	
+	function () {
+		// JQuery code here with tab indent (where 1 tab is 
+	}
+	
+CSS 
+	All ids and classes use dashes, NO UNDERSCORES
+	
+	#example-id
+	{
+		display: block;
+	}
+	
+	.example-class:hover
+	{
+		cursor: pointer;
+	}
+	
+

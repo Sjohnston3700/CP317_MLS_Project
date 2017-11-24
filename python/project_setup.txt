@@ -1,0 +1,26 @@
+# Instructions to for setting up and running MLS application (WINDOWS) #
+# This is a summary of Harold's tutorial. See Readme.md and tutorial for more info #
+
+1. Open a command line and cd into your local repositority (CP317_MLS_Project) 
+2. Type 'pip' into your console to see if you have python installed
+3. Install virtual environment by using 'pip install virtualenv'
+4. Make sure you are in /CP317_MLS_Project
+5. Make a virtual enviroment with 'virtualenv -p python3 name-of-your-env-here' (no quotes)
+6. To use your new virtual enviroment: 'source name-of-your-env-here/bin/activate' (no quotes)
+7. Install all of the dependencies with 'pip install -r requirements.txt'
+8. Go into 'template_conf_basic.py' and change the following config information: 
+
+From Harold's email: 
+
+To make it work you will need to update the api key, api id, and lms values in the conf_basic_template.py file and rename it as conf_basic.py
+api key = BpBbSId5iAVG988lMvgj5g
+api id = rzQ2Fl48OyGpabNiVo5wYQ
+lms = wlutest.desire2learn.com
+
+9. Name the file to conf_basic.py
+10. Start the app by using 'python app.py' 
+11. You should see that it is running on localhost:8080/
+12. If you did the conf_basic.py file correctly, you should be brought to the MLS login page
+
+Note : There is also https://virtualenvwrapper.readthedocs.io/en/latest/ which makes virtualenv easier to work with
+
