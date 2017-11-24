@@ -3,6 +3,7 @@
  - snake_case for all methods and variable names (except frontend - camelCase)
  - 1 space after commas
  - UPPERCASE for constants
+ - Do NOT use builtin key words like max, min, id for variable names
 
 //Comments (General)
 - Every method/function must have a comment block explaining purpose
