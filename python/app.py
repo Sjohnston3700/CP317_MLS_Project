@@ -66,7 +66,7 @@ def show_courses():
             return render_template('available_grades.html', user=app.config[ session['user_id'] ] )
         except Exception as e :
             logger.exception( "Something went wrong in /courses/\n{}" )
-            return render_template('error.html',error=e)#Should redirect to a error handling page
+            return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
 
 @app.route('/documentation/')
 def show_docs():
@@ -111,7 +111,7 @@ def show_upload(courseId, gradeItemId):
         grade_item = course.get_grade_item(gradeItemId)
     except Exception as e:
         #raise RuntimeError('something went wrong {}'.format(e))
-        return render_template('error.html',error=e)
+        return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
     return render_template('upload.html',user=user,course=course,grade_item=grade_item)
         
 @app.route('/logout/')
@@ -134,7 +134,6 @@ def set_grades(courseId, gradeItemId):
             user=app.config[ session['user_id'] ]
             course = user.get_course(courseId)
             grade_item = course.get_grade_item(gradeItemId)
-            raise NameError('A most terrible thing this is')
         except Exception as e:
             logger.exception("Something went wrong in /grades/{}/{}/".format(courseId,gradeItemId) )
             return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
