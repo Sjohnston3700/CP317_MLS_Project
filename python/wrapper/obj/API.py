@@ -53,8 +53,7 @@ def get(route, user, route_params = {},additional_params={}):
             raises RuntimeError
     '''
     route = update_route(route, route_params)
-    if user is not None:
-        route = user.get_context().create_authenticated_url(route,method='GET')
+    route = user.get_context().create_authenticated_url(route,method='GET')
     r = requests.get(route, params=additional_params)
     
     check_request(r)
@@ -69,15 +68,27 @@ def get(route, user, route_params = {},additional_params={}):
 
 def get_class_list(course):#is this the right name for this function?
     '''
+    Function to take a course object and return a list of enolled org members
+    
+    Preconditions:
+        course : course object
+    Postconditions:
+        returns list of enrolled orgMember objects
+        errors and exceptions are caught and logged
     '''
-    json = get(GET_COURSE_MEMBERS,course.get_user(),{'orgUnitId':course.get_id(),'version': course.get_user().get_host().get_api_version('lp')})['Items']
+    try:
+        json = get(GET_COURSE_MEMBERS,course.get_user(),{'orgUnitId':course.get_id(),'version': course.get_user().get_host().get_api_version('lp')})
+    except RuntimeError as get_error:
+        logger.error('Failed get call : {}'.format(get_error) )
+    except Exception:
+        logger.exception("Something went wrong with a get call")
+            
     members = []
-    for member in json:
+    for member in json['Items']:
         try:
             members.append( OrgMember.OrgMember(member) )
         except Exception as inst:
-            print("DUndles : {}".format(member) )
-            print(inst)
+            logger.exception("Something went wrong")
             continue
     return members
     
