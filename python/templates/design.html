@@ -7,7 +7,7 @@
 <body>
     <script src="../static/js/toc_generator.js"></script>
     <h1>ezMarker - Design</h1>
-    <p>Version 2.x</p>
+    <p>Version 3.0</p>
     <p>Last updated: November xx, 2017</p>
 
     <div id="toc">
@@ -174,7 +174,7 @@
         <li>Special pop-up that does not allow user to click outside until all errors are dealt with or cancel button is clicked</li>
         <li>User has to confirm if want to set a new maximum</li>
     </ul>
-    <img class="prototype-img" src="../static/img/error_modal.png" />
+    <img class="prototype-img" src="../static/img/error_modal.png" style="max-width: 750px" />
     <table border="1">
         <col width="200">
         <col width="200">
@@ -224,11 +224,15 @@
     <h3>Parsing Error Pop-up(Parsing Error JSON)</h3>
     <p>Appears if there are problems with the file the user uploaded. User is only notified about errors, there is no functionality for correcting errors. User cannot set grades using a file with any errors</p>
 
+    <h3>Loading Animation</h3>
+    <p>Appears ___.</p>
+    <img class="prototype-img" src="../static/img/loading_animation.jpg" style="max-width: 250px"/>
+
     <h3>Report Page(Grades JSON, Grade Error JSON)</h3>
 
     <p>Reports which students' grades that are set successfully and not successfully</p>
 
-    <img class="prototype-img" src="../static/img/report_page.png" height:auto width:auto />
+    <img class="prototype-img" src="../static/img/report_page.png"/>
 
     <h3>Logout Page</h3>
     <p>Brightspace generates logout page and handles logout.</p>
@@ -244,19 +248,34 @@
     <h3>Functions</h3>
 
     <p>This section gives a high-level description of the back-end functions. See the Wrapper Design document for the objects that these functions use.</p>
+    <p>Functions marked <b><i>py</i></b> exist only in the python version; index.php encompasses their functionality (figures out what needs to be done by using conditional statements).</p>
+
+    <p><b>Python Notes:</b></p>
+    <ul>
+        <li>A host object is created, which every user object has a reference to.</li>
+        <li>The user object is stored for each session, so all required objects can be reached by navigating from the user object. The user ID is used as a key to retrieve the object.</li>
+        <li>The user will be redirected back to login if they are missing credentials at any point</li>
+    </ul>
+
+    <p><b>PHP Notes:</b></p>
+    <ul>
+        <li>There is no host object in the PHP version. Instead, the host information is stored as session data.</li>
+        <li>There is no user object in the PHP version. The user's credentials and identiying information are stored for each session, and the context needed to make an API call is created every time a call to the API is made.</li>
+        <li>Brightspace redirects to token.php after a succesful login. token.php saves the user information and then redirects to index.php.</li>
+        <li>Files in root/actions act as controllers between pages and back-end functions. There is one for every primary back-end action: error_checking, file_parse, and update_max.</li>
+    </ul>
 
     <p><b>Additional Notes:</b></p>
     <ul>
-        <li>The user object is stored for each session, so all required objects can be reached by navigating from the user object.</li>
-        <li>User will be redirected back to login if they are missing credentials at any point</li>
+        <li>The user will be redirected back to login if they are missing credentials at any point</li>
     </ul>
 
-    <h4>login()</h4>
+    <h4>login() - <i>py</i></h4>
     <ol>
         <li>Redirects user to Brightspace login page</li>
     </ol>
 
-    <h4>auth_token_handler()</h4>
+    <h4>auth_token_handler() - <i>py</i></h4>
     <ol>
         <li>Redirected to by Brightspace login page</li>
         <li>Creates user object, passing constructor IDs (from config file) of roles that can set grades</li>
@@ -264,12 +283,12 @@
         <li>Redirects to the Courses page</li>
     </ol>
 
-    <h4>show_courses()</h4>
+    <h4>show_courses() - <i>py</i></h4>
     <ol>
         <li>Renders Courses page</li>
     </ol>
 
-    <h4>show_upload(course_id, grade_item_id)</h4>
+    <h4>show_upload(course_id, grade_item_id) - <i>py</i></h4>
     <ol>
         <li>Renders Upload page</li>
     </ol>
@@ -296,6 +315,7 @@
         <li>If grade value &lt 0, add item to Grade Error JSON as error</li>
         <li>If student not in course, add item to Grade Error JSON as only-display-message-error</li>
         <li>Return JSON if applicable</li>
+        <li>In the PHP version, if there are no errors or warnings, then set_grades is called (in Python the page calls set_grades if there are no errors/warnings)</li>
     </ol>
 
     <h4>set_grades(Grades JSON, grade_item_id)</h4>
@@ -307,7 +327,7 @@
         <li>Render Report page</li>
     </ol>
 
-    <h4>logout()</h4>
+    <h4>logout() - <i>py</i></h4>
     <ol>
         <li>Redirects user to Brightspace logout page</li>
         <li>User has to return to ezMarker root in order to login again</li>
@@ -434,7 +454,6 @@
     <p>- Further descriped error handling in Detailed Design</p>
     <p>- Added Parsing Error Pop-up sections</p>
     <p>Authors: Sarah Johnston, Xiang Ke, Weibin Ma, Troy Nechanicky</p>
-    <p>SQA: </p>
 
     <h3 id="toc_exclude">Version 2.2 - 11/xx/2017</h3>
     <p>- Removed unnecessary Student JSON</p>
@@ -443,7 +462,13 @@
     <p>- Added additional note that user is prompted to confirm before updating max value</p>
     <p>- Updated modify_grade_max</p>
     <p>Authors: Harold Hodgins, Troy Nechanicky</p>
-    <p>SQA: </p>
+
+    <h3 id="toc_exclude">Version 3.0 - 11/xx/2017</h3>
+    <p>- Added information about the discrepancies between php and python versions</p>
+    <p>- Updated how python handles storing user object</p>
+    <p>- Added loading icon</p>
+    <p>- Fixed image sizing</p>
+    <p>Authors: Troy Nechanicky</p>
 </body>
 <style>
     #file-structure {
