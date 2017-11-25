@@ -1,0 +1,101 @@
+<html>
+    
+    <head>
+        <title>ezMarker - Design</title>
+    </head>
+    
+    <body>
+        <script src="../static/js/toc_generator.js"></script>
+        <h1>ezMarker - Help</h1>
+        <p>Version 1.x</p>
+        <p>Last updated: November xx, 2017</p>
+        
+        <div id="toc">
+            <h2>Table of Contents</h2>
+        </div>
+        
+        <h2>Introduction</h2>
+        <p>
+        ezMarker is a web application that allows instructors at Wilfrid Laurier University to  upload grades and feedback into MyLearningSpace. The goal of ezMarker is to solve the issues regarding manual grade uploading through the current MLS. It takes markers a few hours to upload grades and feedback for one class, however ezMarker cut dwon to minutes with the use of  bulk file uploading.</p>
+        
+        <h2>Login Page</h2>
+        
+        <p>User login to the ezmarker through MyLearningSpace.</p>
+        
+        <img class="prototype-img" src="../static/img/mls.png">
+        <p> User cannot access MLS if does have a premission to access it.</p>
+        
+        <img class="prototype-img" src="../static/img/login_failed.png">
+        <p> </p>
+        <h2>Course List Page</h2>
+        <p>After login, a user is presented with a list of courses that have premission to access and upload grades to it.</p>
+        <img class="prototype-img" src="../static/img/course_list_page.png">
+        <p> </p>
+        <p>To modify a spacific course, user can select that course and expande it to shows the course's grade item.</p>
+        <img class="prototype-img" src="../static/img/grade_items.png">
+        
+        
+        
+         <p> </p>
+        <h2>Grade Item page</h2>
+        <p>Once selecting a grade items, grade item page shows.</p>
+        <img class="prototype-img" src="../static/img/select_grade_items.png">
+         <p> </p>
+        
+        <h3> Update MAximum Grade</h3>
+        <p>update maximum button allows user to enter a numeric value to update maximum value of current grade item.</P>
+        <img class="prototype-img" src="../static/img/mark.png">
+             <p> </p>
+        <p> If user enter value and select update, confrim message uppare to countine for updating or cancel.</p>
+        <img class="prototype-img" src="../static/img/confrim_mark.png">
+         <p> </p>
+        <p>Selecting confirm shows massege that successfully update the mark.</p>
+        <img class="prototype-img" src="../static/img/successful_update.png">
+        <p> </p>
+        
+        <b>Note:</b>
+        <ul>
+           <li> Vlaue should be numeric to avoid error.</li>
+         <img class="prototype-img" src="../static/img/error_mark.png">
+         </ul>
+        
+        <h3> Upload Grade File</h3>
+        
+        <p> Choose uploade file botton opens file dialog for selectecting Autograde file foramted as text file</p>
+        <img class="prototype-img" src="../static/img/upload_file.png">
+         <p> </p>
+        <h3> Update Grade to MLS</h3>
+        <p>User giving an option to set grade and feedback manually for individual students by using search bar.</p>
+        <p>There is a Select All button for quickly adding input boxes for all students.</p>
+         <img class="prototype-img" src="../static/img/enter_input.png">
+              <p> </p>
+    
+        <p>Grade should be less than maximmum value in order to upload grade successfully.</p>
+         <img class="prototype-img" src="../static/img/error_input.png">
+        
+        
+        <h2>Report Page</h2>
+        <p>Shows how many grades were successfuly set.</p>
+        <img class="prototype-img" src="../static/img/report2.png">
+         <p> </p>
+        <h2>Logout Page</h2>
+        <p> user logout by selecting logout button, then  directed to the Brightspace logout page.</p>
+        <img class="prototype-img" src="../static/img/logout.png">
+         <p> </p>
+        <h3 id="toc_exclude">Version 1.0 - 11/14/2017</h3>
+        <p>Author: Hind Althabi</p>
+        
+    </body>
+    <style>
+        #file-structure {
+            list-style: none;
+        }
+    
+    img {
+        width: 65%;
+        margin: 20px 0px;
+        
+    }
+    </style>
+    
+</html>
