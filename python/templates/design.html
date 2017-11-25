@@ -260,7 +260,7 @@
     <p><b>PHP Notes:</b></p>
     <ul>
         <li>There is no host object in the PHP version. Instead, the host information is stored as session data.</li>
-        <li>There is no user object in the PHP version. The user's credentials and identiying information are stored for each session, and the context needed to make an API call is created every time a call to the API is made.</li>
+        <li>The user's credentials are stored as session variables, and the context needed to make an API call is created every time a call to the API is made. The user object itself is not stored, such that the user object has to be recreated when needed for front-end calls to the back-end.</li>
         <li>Brightspace redirects to token.php after a succesful login. token.php saves the user information and then redirects to index.php.</li>
         <li>Files in root/actions act as controllers between pages and back-end functions. There is one for every primary back-end action: error_checking, file_parse, and update_max.</li>
     </ul>
