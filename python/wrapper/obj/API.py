@@ -31,7 +31,7 @@ def check_request(request):
             raises RuntimeError.
     '''
     if request.status_code != SUCCESS:
-        exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
+        exception_message = 'Request {} returned status code : {}, text : {}'.format(request.url,request.status_code,request.text)
         raise  RuntimeError( exception_message )
     return 
 
