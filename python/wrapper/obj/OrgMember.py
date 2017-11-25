@@ -12,15 +12,20 @@ class OrgMember(object):
         
         Does no error checking of input    
         """
-        self._data = org_member_params
+        self._json = org_member_params
 
+    def get_json(self):
+        '''
+        '''
+        return self._json
+    
     def get_id(self):
         """
         Postconditions:
             returns
             The Brightspace ID of the OrgMember (str)
         """
-        return self._data['User']['Identifier']
+        return self._json['User']['Identifier']
         
     def get_name(self):
         """
@@ -28,7 +33,7 @@ class OrgMember(object):
             returns
             The name of the OrgMember (str)
         """
-        return self._data['User']['DisplayName']
+        return self._json['User']['DisplayName']
     
     def get_org_id(self):
         """
@@ -36,7 +41,7 @@ class OrgMember(object):
             returns
             The organization defined ID of the OrgMember (str)
         """
-        return self._data['User']['OrgDefinedId']
+        return self._json['User']['OrgDefinedId']
 
     def get_role(self):
         """
@@ -44,7 +49,7 @@ class OrgMember(object):
             returns
             The role id of the OrgMember (str)
         """
-        return self._data['Role']['Id']
+        return self._json['Role']['Id']
 
 
 

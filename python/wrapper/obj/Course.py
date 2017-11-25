@@ -15,11 +15,15 @@ class Course(object):
         
         Does not error checking to validate course_params 
         """
-        self._data = course_params
+        self._json = course_params
         self._user = user
         self._grade_items = API.get_grade_items(self)
         self._members = API.get_class_list(self)
-
+    
+    def get_json(self):
+        '''
+        '''
+        return self._json
 
     def get_grade_items(self):
         """
@@ -43,7 +47,7 @@ class Course(object):
         PostCondition:
             reutrn self.id - Id for the current course
         """
-        return self._data['OrgUnit']['Id']   
+        return self._json['OrgUnit']['Id']   
     
     def get_name(self):
         """
@@ -51,7 +55,7 @@ class Course(object):
         PostCondition:
             return self.name - current course name
         """
-        return self._data['OrgUnit']['Name']
+        return self._json['OrgUnit']['Name']
 
     def get_member(self,org_id):
         """
@@ -91,4 +95,4 @@ class Course(object):
         PostCondition:
             reutrn self.user_role - user role for current course
         """
-        return self._data['Role']['Name']
+        return self._json['Role']['Name']

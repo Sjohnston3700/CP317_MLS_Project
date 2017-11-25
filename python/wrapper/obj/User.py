@@ -16,23 +16,23 @@ class User(object):
         self._context = context
         self._host = host
         
-        self._data = API.get_who_am_i(self)
+        self._json = API.get_who_am_i(self)
         self._courses = API.get_courses(self)#still need to filter by role
     
     def get_first_name(self):
         '''
         '''
-        return self._data['FirstName']
+        return self._json['FirstName']
     
     def get_last_name(self):
         '''
         '''
-        return self._data['LastName']
+        return self._json['LastName']
     
     def get_id(self):
         '''
         '''
-        return self._data['Identifier']
+        return self._json['Identifier']
     
     def get_name(self):
         '''

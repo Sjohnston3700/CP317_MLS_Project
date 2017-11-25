@@ -18,7 +18,7 @@ class GradeItem(object):
         if type(self) == GradeItem:
             raise TypeError("GradeItem must be subclassed")
         
-        self._data = grade_item_params
+        self._json = grade_item_params
         
         self._course = course
         self._grades = []
@@ -26,7 +26,7 @@ class GradeItem(object):
     def get_json(self):
         '''
         '''
-        return self._data
+        return self._json
     
     def get_course(self):
         """ 
@@ -64,7 +64,7 @@ class GradeItem(object):
         Postconditions:
             Returns: self._id - Id of the GradeItem
         """
-        return self._data['Id']
+        return self._json['Id']
         
     def get_name(self):
         """ 
@@ -72,7 +72,7 @@ class GradeItem(object):
         Postconditions:
             Returns: self._name - name of the GradeItem
         """
-        return self._data['Name']
+        return self._json['Name']
 
     def get_user(self):
         """ 
@@ -116,7 +116,7 @@ class NumericGradeItem(GradeItem):
         Postconditions:
             returns: self._get_can_exceed
         """
-        return self._data['CanExceedMaxPoints']
+        return self._json['CanExceedMaxPoints']
         
     
     def create_grade(self, student, comment, value):
@@ -136,7 +136,7 @@ class NumericGradeItem(GradeItem):
         Postconditions:
             Returns: self._max_points - The max number of points this GradeItem can have for any one Grade ?? I think
         """
-        return self._data['MaxPoints']
+        return self._json['MaxPoints']
         
     def within_max(self, value):
         """
@@ -153,7 +153,7 @@ class NumericGradeItem(GradeItem):
         '''
         Function to update the max points for this grade object
         '''
-        self._data['MaxPoints'] = str(new_max)
+        self._json['MaxPoints'] = str(new_max)
         API.put_grade_item(self)
         return    
         
