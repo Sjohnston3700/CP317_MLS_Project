@@ -36,13 +36,28 @@ class Grade(object):
             student(OrgMember)
             comment (String)
         """
+        self._json = {
+                    "UserId": student.get_id(),
+                    "OrgUnitId": student.get_org_id(),
+#                    "DisplayedGrade": <string>,
+#                    "GradeObjectIdentifier": <string:D2LID>,
+#                    "GradeObjectName": <string>,
+#                    "GradeObjectType": <number:GRADEOBJ_T>,
+#                    "GradeObjectTypeName": <string>|null,
+                    "Comments": {"Content":comment,"Type":"Text"},
+                    "PrivateComments": {"Content":"", "Type":"Text"}
+                    }
         self._grade_item = grade_item
         self._student = student
-        self._comment = comment
 
+    def get_json(self):
+        '''
+        '''
+        return self._json
+        
     def get_comment(self):
         ''' Return comments for this student with respect to this GradeItem '''
-        return self._comment
+        return self._json['Comments']['Content']
 
     def get_grade_item(self):
         ''' Return the GradeItem Object '''
@@ -71,8 +86,9 @@ class NumericGrade(Grade):
             value(mark student scored) float
         """
         super().__init__(grade_item, student, comment)
-        self._value = value
+        self._json['GradeObjectType'] = 1
+        self._json['PointsNumerator'] = value
 
     def get_value(self):
         '''Returns value of the NumericGrade Item '''
-        return self._value
+        return self._json['PointsNumerator']
