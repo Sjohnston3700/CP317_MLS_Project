@@ -21,7 +21,7 @@ class User(object):
             self._courses = API.get_courses(self)#still need to filter by role
         except Exception as e:
             logger.error('Something went wrong. Unable to create User object')
-            raise RuntimeError('Something went wrong. Unable to create User object')
+            raise e
     
     def get_first_name(self):
         '''

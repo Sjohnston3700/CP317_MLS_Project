@@ -92,19 +92,30 @@ def get_class_list(course):#is this the right name for this function?
             continue
     return members
     
-def get_courses(user):
+def get_courses(user,roles=[]):
     '''
+    Function to get all courses a logged in user is enrolled in (has accesss to)
+    
+    Preconditions:
+        user (User object) - logged in user
+        roles (list (eg : ['Instructor','TA','Student']) ) - roles to filter by, not yet implimented
+    Postconditions:
+        courses (list of Course objects) - list of enrolled courses, empty if none found or all failed for some reason which is logged
     '''
-    json = get_user_enrollments(user)
-    courses = []
-    for item in json:
-        try:
-            courses.append( Course.Course(user,item) )
-        except Exception as inst:
-            logger.error('problem in get_courses with json = {}. {}'.format(item,inst) )
-            continue
-        logger.info("Extracted {} Courses".format(len(courses)))
-    return courses
+    try:
+        json = get(GET_USER_ENROLLMENTS,user,{'version':user.get_host().get_api_version('le'),'userId': user.get_id()})
+        courses = []
+        for item in json['Items']:
+            try:
+                courses.append( Course.Course(user,item) )
+            except Exception as e:
+                logger.error('problem in get_courses with json = {}. {}'.format(item,e) )
+                continue
+        logger.info("Extracted {} of {} courses for {}".format( len(courses),len(json["Items"]),user.get_name() ) )
+        return courses
+    except Exception as e:
+        raise
+        return None
 
 def get_course_enrollments(course):
     '''
