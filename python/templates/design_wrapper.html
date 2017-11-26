@@ -7,8 +7,8 @@
 <body>
     <script src="../static/js/toc_generator.js"></script>
     <h1>Brightspace API Wrapper - Design</h1>
-    <p>Version 2.0</p>
-    <p>Last updated: November 12, 2017</p>
+    <p>Version 3.0</p>
+    <p>Last updated: November xx, 2017</p>
 
     <div id="toc">
         <h2>Table of Contents</h2>
@@ -26,6 +26,7 @@
     <b>Additional Comments:</b>
     <ul>
         <li>Trigger exceptions on error</li>
+        <li>All actions are logged</li>
         <li>See the documentation linked in the following section for the specifications of the dictionaries that will be passed as parameters (dictionaries will follow same naming as API JSON)</li>
     </ul>
 
@@ -36,6 +37,8 @@
     <b>Additional Comments:</b>
     <ul>
         <li>Trigger exceptions on error. Use response message as error message</li>
+        <li>All actions are logged</li>
+        <li>PHP version has routes.php file that stores API routes in associatative array</li>
     </ul>
 
     <h2>API Reference</h2>
@@ -56,13 +59,20 @@
 
     <h4>Python Specific</h4>
     <ul>
+        <li>Uses Python's <a href="https://docs.python.org/3/library/logging.html" target="_blank">logging</a> library. The following categories are used for logging:</li>
+        <ul>
+            <li>INFO: general information (eg. User somename logged in)</li>
+            <li>WARNING: something odd happened (eg. someone tried to access a page without logging in)</li>
+            <li>ERROR: Something went wrong (eg. API request returned 404 error)</li>
+            <li>EXCEPTION: something crashed</li>
+        </ul>
         <li>Uses <a href="http://docs.python-requests.org/en/latest/" target="_blank">Requests</a> library</li>
         <li>Brightspace example code: <a href="https://github.com/Brightspace/sample-valence-general-python" target="_blank">https://github.com/Brightspace/sample-valence-general-python</a></li>
     </ul>
 
     <h4>PHP Specific</h4>
     <ul>
-        <li>Uses <a href="http://requests.ryanmccue.info" target="_blank">Requests</a> library</li>
+        <li>Uses <a href="https://curl.haxx.se/" target="_blank">cURL</a> library</li>
         <li>Brightspace example code: <a href="https://github.com/Brightspace/valence-sdk-php/tree/master/samples/BasicSample" target="_blank">https://github.com/Brightspace/valence-sdk-php/tree/master/samples/BasicSample</a></li>
     </ul>
 
@@ -90,6 +100,19 @@
 
     <p>Authors: Sumeet Jhand, Troy Nechanicky, Amardeep Sarang, Harjodh Singh</p>
     <p>SQA: Mohamed Al-Thibeh, Yi Ling Pang</p>
+    
+    <h3 id="toc_exclude">Version 3.0 - 11/xx/2017</h3>
+    <p>- Changed attributes of classes into data dictionary</p>
+    <p>- Noted discrepancies between Python and PHP versions</p>
+    <p>- User no longer subclass of OrgMember</p>
+    <p>- Updated which requests library is used by PHP version</p>
+    <p>- Updated params of some API functions</p>
+    <p>- Removed get_api_versions function</p>
+    <p>- Specified abstract methods</p>
+    <p>- Added logging</p>
+    
+    <p>Authors: Troy Nechanicky</p>
+    
 </body>
 
 </html>
