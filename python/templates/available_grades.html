@@ -17,12 +17,12 @@
 							<a class="grade-link" href="{{ '/grades/{}/{}'.format(course.get_id(),grade_item.get_id())}}">{{ grade_item.get_name() }}</a>
 						{% endfor %}
 					{% else %}
-						<a>No grade items available.</a>
+						<a>No grade items available</a>
 					{% endif %}
 				</div>
 			</div>
 		{% endfor %}
 	{% else %}
-		<a>This user is not enrolled as a TA in any courses.</a>
+		<a>You do not have permission to set grades for any courses</a>
 	{% endif %}
 {% endblock %}
