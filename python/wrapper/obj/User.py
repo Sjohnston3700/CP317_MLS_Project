@@ -57,7 +57,7 @@ class User(object):
         """
         return self._context                
 
-    def get_course(self, id):
+    def get_course(self, id_val):
         """
         Returns a single course with id matching the given id, None if this 
         User does not have access to the course
@@ -69,7 +69,7 @@ class User(object):
             A single course object with matching id, None if this User cannot access that course
         """
         for course in self._courses:
-            if str( course.get_id() ) == str( id ):
+            if str( course.get_id() ) == str( id_val ):
                 return course
         return None        
         

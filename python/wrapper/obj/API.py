@@ -52,9 +52,9 @@ def get(route, user, route_params = {},additional_params={}):
         On failure:
             raises RuntimeError
     '''
-    route = update_route(route, route_params)
-    route = user.get_context().create_authenticated_url(route,method='GET')
-    r = requests.get(route, params=additional_params)
+    updated_route = update_route(route, route_params)
+    auth_route = user.get_context().create_authenticated_url(updated_route,method='GET')
+    r = requests.get(auth_route, params=additional_params)
     
     check_request(r)
     
