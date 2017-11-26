@@ -16,6 +16,7 @@ class OrgMember(object):
 
     def get_json(self):
         '''
+        Function to return objects json guts
         '''
         return self._json
     

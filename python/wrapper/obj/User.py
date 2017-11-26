@@ -20,8 +20,8 @@ class User(object):
             self._json = API.get_who_am_i(self)
             self._courses = API.get_courses(self)#still need to filter by role
         except Exception as e:
-            logger.error('Something went wrong. Unable to create User object')
-            raise e
+            logger.error('Something went wrong. Unable to create User object.')
+            raise
     
     def get_first_name(self):
         '''

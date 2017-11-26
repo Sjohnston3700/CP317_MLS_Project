@@ -73,24 +73,22 @@ def get_class_list(course):#is this the right name for this function?
     Preconditions:
         course : course object
     Postconditions:
-        returns list of enrolled orgMember objects
-        errors and exceptions are caught and logged
+        returns list of enrolled orgMember objects empty if None found our all died horrible deaths on creation
     '''
     try:
-        json = get(GET_COURSE_MEMBERS,course.get_user(),{'orgUnitId':course.get_id(),'version': course.get_user().get_host().get_api_version('lp')})
-    except RuntimeError as get_error:
-        logger.error('Failed get call : {}'.format(get_error) )
-    except Exception:
-        logger.exception("Something went wrong with a get call")
-            
-    members = []
-    for member in json['Items']:
-        try:
-            members.append( OrgMember.OrgMember(member) )
-        except Exception as inst:
-            logger.exception("Something went wrong")
-            continue
-    return members
+        json = get(GET_COURSE_MEMBERS,course.get_user(),{'orgUnitId':course.get_id(),'version': course.get_user().get_host().get_api_version('lp')})    
+        members = []
+        for member in json['Items']:
+            try:
+                members.append( OrgMember.OrgMember(member) )
+            except Exception as e:
+                logging.error("Unable to create Orgmember from {}. {}".format(member,e) )
+                continue
+        return members
+    except Exception as e:
+        logging.error("Something went wrong in get_class_list. {}".format(e) )
+        raise
+        return None
     
 def get_courses(user,roles=[]):
     '''
@@ -113,20 +111,10 @@ def get_courses(user,roles=[]):
         logger.info("Extracted {} of {} courses for {}".format( len(courses),len(json["Items"]),user.get_name() ) )
         return courses
     except Exception as e:
+        logging.error("Something went wrong in get_courses. {}".format(e) )
         raise
         return None
 
-def get_course_enrollments(course):
-    '''
-    Gets all the user that enrollments in the given course
-    Preconditions:
-    	course (Course Object): The Course object to retrieve GradeItems for.
-    
-    PostCondition:
-        course (Course Object): The Course ovject to retrieve from
-    '''
-    user = course.get_user()
-    return get(GET_COURSE_MEMBERS,user,{'version':user.get_host().get_api_version('le'),'orgUnitId': course.get_id()}) 
 
 def get_grade_items(course):
     """
