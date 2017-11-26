@@ -109,7 +109,6 @@ def get_courses(user,roles=[]):
             try:
                 courses.append( Course.Course(user,item) )
             except Exception as e:
-                logger.error('problem in get_courses with json = {}. {}'.format(item,e) )
                 continue
         logger.info("Extracted {} of {} courses for {}".format( len(courses),len(json["Items"]),user.get_name() ) )
         return courses

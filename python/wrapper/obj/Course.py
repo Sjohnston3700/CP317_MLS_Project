@@ -17,11 +17,16 @@ class Course(object):
         """
         self._json = course_params
         self._user = user
-        self._grade_items = API.get_grade_items(self)
-        self._members = API.get_class_list(self)
-    
+        try:
+            self._grade_items = API.get_grade_items(self)
+            self._members = API.get_class_list(self)
+        except Exception as e:
+            logger.error('Something went wrong. Unable to create Course object with json {}. {}'.format(self._json,e) )
+            raise
+            
     def get_json(self):
         '''
+        Function to return objects json guts
         '''
         return self._json
 
