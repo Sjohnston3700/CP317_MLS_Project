@@ -9,7 +9,7 @@
 		<h2>Select a Grade Item</h2>
 		{% for course in user.get_courses() %}
 			<div class = "course-item">
-				<a href = "#">Course Name</a>
+				<a href = "#">{{ course.get_name() }}</a>
 				<div class = "course-carat">▿</div>
 				<div class = "course-grades" style = "display: none;">
 					{% if course.get_grade_items() != [] %}
