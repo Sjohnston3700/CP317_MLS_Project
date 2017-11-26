@@ -50,13 +50,16 @@ def login():
 
 @app.route(app_config["route"])
 def auth_token_handler():
-    uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
-    # store the user context's
-    user = User(uc, host,['TA','Instructor'])
-    user_id = user.get_id()
-    session['user_id'] = user_id
-    app.config[user_id] = user
-    return redirect('/courses/')
+    try:
+        uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
+        # store the user context's
+        user = User(uc, host,['TA','Instructor'])
+        user_id = user.get_id()
+        session['user_id'] = user_id
+        app.config[user_id] = user
+        return redirect('/courses/')
+    except Exception as e:
+        return render_template('error.html',user=None,error=traceback.format_exc())
 
 @app.route('/courses/')
 def show_courses():

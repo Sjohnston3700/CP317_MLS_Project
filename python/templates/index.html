@@ -42,7 +42,7 @@
 			<li class="item"><a href="/courses">Courses</a></li>
 			<li class="item"><a href="#">Help</a></li>
 			<li class="name-section">
-			    <span>Welcome, {{user.get_name()}}</span>
+			    <span>Welcome, {{user.get_name() if user is not none else ""}}</span>
 				<button onclick="window.location.href='/logout'" class="btn">Logout</button>
 			</li>
 		</ul>
