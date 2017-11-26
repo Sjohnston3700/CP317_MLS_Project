@@ -64,13 +64,13 @@ def auth_token_handler():
 @app.route('/courses/')
 def show_courses():
     if 'user_id' not in session:
-        logger.error('Someone tried to access /courses/ without logging in')
+        logger.warning('Someone tried to access /courses/ without logging in')
         return redirect('/login')
     else:
         try:
             return render_template('available_grades.html', user=app.config[ session['user_id'] ] )
         except Exception as e :
-            logger.exception( "Something went wrong in /courses/\n{}" )
+            logger.exception( "Something went wrong in /courses/" )
             return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
 
 @app.route('/documentation/')
@@ -111,7 +111,7 @@ def show_upload(courseId, gradeItemId):
     No idea if this is correct... oh well
     """
     if 'user_id' not in session:
-        logger.error('Someone tried to access /grades/{}/{}/ without logging in'.format(courseId,gradeItemId))
+        logger.warning('Someone tried to access /grades/{}/{}/ without logging in'.format(courseId,gradeItemId))
         return redirect('/login')
     
     try:
@@ -141,7 +141,7 @@ def show_logout():
         session.clear()
         return redirect(LOGOUT_URL.format(host=app_config['lms_host']))
     else:
-        logger.error('Someone tried to logout without having logged in')
+        logger.warning('Someone tried to logout without having logged in')
         return redirect('/login')
                 
 
