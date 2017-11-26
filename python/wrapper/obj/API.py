@@ -120,7 +120,7 @@ def get_grade_items(course):
     """
     Function will return list of grade items
     return :
-            lists - grade item (Array of grade item object)
+            lists - grade item (Array of grade item object) - currenlty only supports Numeric
     """
     gradeitems = get(GET_GRADE_ITEMS,course.get_user(),{'orgUnitId':course.get_id(),'version':course.get_user().get_host().get_api_version('le')})
     items = []
@@ -129,22 +129,6 @@ def get_grade_items(course):
             items.append( GradeItem.NumericGradeItem(course, item) )
     return items
 
-    
-def get_user_enrollments(user):
-    '''
-    Retrieves the collection of users enrolled in the identified org unit.
-    
-    Preconditions:
-        course (Course object) : A Course object to retrieve grades from.
-        
-    Postconditions:
-        returns:
-        user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
-    '''
-    route_params = {'version':user.get_host().get_api_version('lp'), 'userId':user.get_id()}
-    r = get(GET_USER_ENROLLMENTS, user, route_params)
-    user_enrollments = r['Items']
-    return user_enrollments
 
 def get_who_am_i(user):
     '''
@@ -197,14 +181,10 @@ def put_grade(grade):
         'orgUnitId': grade.get_grade_item().get_course().get_id(), \
         'gradeObjectId': grade.get_grade_item().get_id(), \
         'userId' : grade.get_student().get_id() }
-    params = {"Comments": grade.get_comment(), "PrivateComments": ''} # For generic Grade
     
-    # TODO: Support other Grade types?
-    params['GradeObjectType'] = 1 # NumericGrade Type
-    params['PointsNumerator'] = grade.get_value() # For NumericGrade
-    
+    data = grade.get_json()
     # Make PUT request
-    put(SET_GRADE_ROUTE, user, route_params, params)
+    put(SET_GRADE_ROUTE, user, route_params, data)
     return
 
 def put_grade_item(grade_item):
@@ -221,7 +201,7 @@ def put_grade_item(grade_item):
     route_params = {'version' : user.get_host().get_api_version('le'), \
             'orgUnitId': grade_item.get_course().get_id(), \
             'gradeObjectId': grade_item.get_id() }
-    #params = { "MaxPoints": grade_item.get_max(), "CanExceedMaxPoints": grade_item.can_exceed(), "GradeType": "Numeric" }
+
     data = grade_item.get_json()
     put(SET_GRADEITEM_ROUTE, user, route_params, data)
     return
