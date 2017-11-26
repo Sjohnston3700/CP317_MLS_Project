@@ -11,33 +11,42 @@ class User(object):
         Preconditions:
             context: The Brightspace User context ()
             host: The Host object corresponding to the user (Host)
-            roles: List of roles, default: None (list)
+            roles: List of roles, default: [] (list)
         """
         self._context = context
         self._host = host
         
-        self._json = API.get_who_am_i(self)
-        self._courses = API.get_courses(self)#still need to filter by role
+        try:
+            self._json = API.get_who_am_i(self)
+            self._courses = API.get_courses(self)#still need to filter by role
+        except Exception as e:
+            logger.error('Something went wrong. Unable to create User object')
+            raise RuntimeError('Something went wrong. Unable to create User object')
     
     def get_first_name(self):
         '''
+        Function to return logged in users first name
         '''
         return self._json['FirstName']
     
     def get_last_name(self):
         '''
+        Function to return logged in users last name
         '''
         return self._json['LastName']
     
     def get_id(self):
         '''
+        Function to return loggeed in users internal Brightspace Id
         '''
         return self._json['Identifier']
     
     def get_name(self):
         '''
+        Function to return logged in users first and last name
         '''
         return '{} {}'.format( self.get_first_name(), self.get_last_name() )
+    
     def get_context(self):
         """
         Returns the user context belonging to this user
