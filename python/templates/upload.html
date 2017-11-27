@@ -109,7 +109,9 @@
 	</form>
 </div>
 <script>
-    var members = [];
+    var members     = [];
+    var courseId    = {{ course.get_id() }};
+    var gradeItemId = {{ grade_item.get_id() }};
     {% for member in course.get_members() %}
         {% if member.get_role() == 101 -%}
 		    members.push({name:"{{member.get_name()}}", id:"{{member.get_id()}}", org_id:"{{member.get_org_id()}}"});

@@ -3,7 +3,7 @@ import d2lvalence.auth as d2lauth
 import logging, json, logging.config
 
 
-from flask import Flask, redirect, request, render_template, url_for, session
+from flask import Flask, redirect, request, render_template, url_for, session, jsonify
 from werkzeug.utils import secure_filename
 from conf_basic import app_config
 from wrapper.obj import API
@@ -104,40 +104,99 @@ def show_design():
 @app.route('/documentation/design/wrapper')
 def show_design_wrapper():
     return render_template('design_wrapper.html')
+
+@app.errorhandler(Exception)
+def handle_error(e):
+    if 'user_id' not in session:
+        user = None
+    else:
+        user = app.config[ session['user_id'] ]
+    return render_template('error.html',user=user,error=traceback.format_exc())
     
-@app.route('/upload', methods = ['GET', 'POST'])
+    
+@app.route('/upload', methods = ['GET'])
 def show_upload():
     """
     Here goes something
     """
-    courseId    = request.args.get('courseId', default = None, type = int)
-    gradeItemId = request.args.get('gradeItemId', default = None, type = int)
+    
     
     if 'user_id' not in session:
-        logger.warning('Someone tried to access /upload without logging in'.format(courseId,gradeItemId))
+        logger.warning('Someone tried to access /upload without logging in')
         return redirect('/login')
+    
+    courseId    = request.args.get('courseId',    default = None, type = int)
+    gradeItemId = request.args.get('gradeItemId', default = None, type = int)
     
     try:
         user = app.config[session['user_id']]
         course = user.get_course(courseId)
         grade_item = course.get_grade_item(gradeItemId)
     except Exception as e:
-        logger.exception("Something went wrong in /grades/{}/{}/".format(courseId, gradeItemId))
+        logger.exception("Something went wrong in {}".format(request.get_url() ))
         return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
     
     if request.method == "GET":
-        return render_template('upload.html',user=user,course=course,grade_item=grade_item)
+       return render_template('upload.html',user=user,course=course,grade_item=grade_item)
     else:#It must have been a post
-        print()#place holder. Need to figure out what was posted        
+        if request.is_xhr or request.accept_mimetypes.accept_json:#It might have been AJAX
+            print("We were sent json")#place holder. Need to figure out what was posted        
+            return jsonify(43)
+
+
+@app.route('/update_gradeItem_max',methods=['POST'])
+def update_grade_max():
+    '''
+    Function to receive update grade max requests and try to execute them
+    '''
+    if 'user_id' not in session:
+        logger.warning('Someone tried to access /update_gradeItem_max without logging in')
+        return redirect('/login')
     
-    #else it is a POST
     try:
-        modify_grade_max(courseId, gradeItemId)
-        set_grades(courseId, gradeItemId)
+        print("Extracting")
+        new_max     = request.form['new_max']
+        courseId    = request.form['courseId']
+        gradeItemId = request.form['gradeItemId']
+        print("{} {} {}".format(new_max,courseId,gradeItemId) )
+         
+        user = app.config[session['user_id']]
+        course = user.get_course(courseId)
+        grade_item = course.get_grade_item(gradeItemId)
+        
+        print("checking")
+        errors = modify_grade_max(grade_item, new_max)
+        return jsonify(errors)
+        
     except Exception as e:
-        logger.exception("Something went wrong in modify_max_grade()")
+        logger.exception("Something went wrong in update_gradeItem_max")
         return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
     
+        
+
+def modify_grade_max(grade_item, new_max):
+    '''
+    Function to try and update grade max
+    '''
+    
+    errors = []
+    if new_max is None:
+        errors.append({'msg':'Missing new grade item maximum'})
+    else:
+        try:
+            new_max = float(new_max)
+        except:
+            errors.append({'msg':'Grade maximum must be a number'})
+            return errors
+            
+        if new_max < 0:
+            errors.append({'msg':'Grade maximum must be a non-negative number'})
+        else:
+            try:
+                grade_item.set_max( new_max )
+            except Exception as e:
+                errors.append({'msg':str(e)})
+    return errors
         
 @app.route('/logout/')
 def show_logout():
@@ -188,7 +247,7 @@ def set_grades(courseId, gradeItemId):
     gradesUrl = VIEW_GRADES_URL.format(host=user.get_host().get_lms_host(),gradeItemId=grade_item.Id,courseId=course.Id)
     logoutUrl = LOGOUT_URL.format(host=user.get_host().get_lms_host())
     return render_template("grades_uploaded.html",user=user,errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=grade_item,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
-
+'''
 def modify_grade_max(course_id, grade_item_id):
     """
         Update maximum grade points for the grade_item and put
@@ -209,7 +268,7 @@ def modify_grade_max(course_id, grade_item_id):
         return render_template('upload.html',user=user,course=course,grade_item=grade_item)
     else:
         raise RuntimeError("Max grade need to be greater than 0")
-
+'''
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))

@@ -163,7 +163,11 @@ def put(route, user, route_params, params):
     route = update_route(route,route_params)
     r = requests.put(user.get_context().create_authenticated_url(route,method='PUT'),json=params)
     # Check if request was valid
-    check_request(r)
+    try:
+        check_request(r)
+    except Exception as e:
+        print("{} with data {}".format(str(e),params) )
+        raise
     return
 
 def put_grade(grade):
@@ -201,8 +205,15 @@ def put_grade_item(grade_item):
     route_params = {'version' : user.get_host().get_api_version('le'), \
             'orgUnitId': grade_item.get_course().get_id(), \
             'gradeObjectId': grade_item.get_id() }
-
+    
     data = grade_item.get_json()
+    data.pop('Weight')
+    data.pop('GradeSchemeUrl')
+    data.pop('Id')
+    #data.pop('ActivityId')
+    data['Description'].pop('Text')
+    data['Description']['Html']='Blungerbigar'
+    data.pop('AssociatedTool')
     put(SET_GRADEITEM_ROUTE, user, route_params, data)
     return
     
