@@ -14,7 +14,7 @@
 				<div class = "course-grades" style = "display: none;">
 					{% if course.get_grade_items() != [] %}
 						{% for grade_item in course.get_grade_items() %}
-							<a class="grade-link" href="{{ '/grades/{}/{}'.format(course.get_id(),grade_item.get_id())}}">{{ grade_item.get_name() }}</a>
+							<a class="grade-link" href="{{ '/upload?courseId={}&gradeItemId={}'.format(course.get_id(),grade_item.get_id())}}">{{ grade_item.get_name() }}</a>
 						{% endfor %}
 					{% else %}
 						<a>No grade items available</a>

@@ -105,13 +105,16 @@ def show_design():
 def show_design_wrapper():
     return render_template('design_wrapper.html')
     
-@app.route('/grades/<int:courseId>/<int:gradeItemId>/', methods = ['GET', 'POST'])
-def show_upload(courseId, gradeItemId):
+@app.route('/upload', methods = ['GET', 'POST'])
+def show_upload():
     """
-    No idea if this is correct... oh well
+    Here goes something
     """
+    courseId    = request.args.get('courseId', default = None, type = int)
+    gradeItemId = request.args.get('gradeItemId', default = None, type = int)
+    
     if 'user_id' not in session:
-        logger.warning('Someone tried to access /grades/{}/{}/ without logging in'.format(courseId,gradeItemId))
+        logger.warning('Someone tried to access /upload without logging in'.format(courseId,gradeItemId))
         return redirect('/login')
     
     try:
@@ -124,6 +127,8 @@ def show_upload(courseId, gradeItemId):
     
     if request.method == "GET":
         return render_template('upload.html',user=user,course=course,grade_item=grade_item)
+    else:#It must have been a post
+        print()#place holder. Need to figure out what was posted        
     
     #else it is a POST
     try:
