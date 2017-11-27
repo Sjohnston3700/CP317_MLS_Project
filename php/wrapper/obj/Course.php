@@ -103,6 +103,15 @@
 			return list of Orgmembers
 		*/
 		function get_members($role = array()) {
+			if (empty($role) == false) {
+				$items = array();
+				foreach($this->members as $member) {
+					if (in_array($member->get_role(),$role)) {
+						array_push($items,$member);
+					}
+				}
+				return $items;
+			}
 			return $this->members;
 		}
 		/*
