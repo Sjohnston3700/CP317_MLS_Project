@@ -153,7 +153,14 @@ class NumericGradeItem(GradeItem):
         '''
         Function to update the max points for this grade object
         '''
+        old_max = self.get_max()
         self._json['MaxPoints'] = str(new_max)
-        API.put_grade_item(self)
-        return    
+        try:
+            API.put_grade_item(self)
+        except Exception as e:
+            logging.error('Failed to updated gradeItem {} max from {} to {}. {}'.format(self.get_id(), old_max, new_max, str(e) ) )
+            self._json['MaxPoints'] = str(old_max)
+            raise 
+        return  
+        
         

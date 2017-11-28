@@ -206,14 +206,14 @@ def put_grade_item(grade_item):
             'orgUnitId': grade_item.get_course().get_id(), \
             'gradeObjectId': grade_item.get_id() }
     
+    
     data = grade_item.get_json()
-    data.pop('Weight')
-    data.pop('GradeSchemeUrl')
-    data.pop('Id')
-    #data.pop('ActivityId')
-    data['Description'].pop('Text')
-    data['Description']['Html']='Blungerbigar'
-    data.pop('AssociatedTool')
+    to_remove = ['Weight', 'GradeSchemeUrl', 'Id', 'ActivityId']
+    for item in to_remove:
+        data.pop(item, None)
+    
+    data['Description']={'Content' : data['Description']['Html'], 'Type':'Html'}
+    
     put(SET_GRADEITEM_ROUTE, user, route_params, data)
     return
     
