@@ -1,4 +1,4 @@
-import re, logging
+import re, logging, copy
 
 import API
 import GradeItem
@@ -53,7 +53,7 @@ class Grade(object):
     def get_json(self):
         '''
         '''
-        return self._json
+        return copy.deepcopy(self._json)
         
     def get_comment(self):
         ''' Return comments for this student with respect to this GradeItem '''

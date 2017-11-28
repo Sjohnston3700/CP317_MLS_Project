@@ -18,7 +18,7 @@ class OrgMember(object):
         '''
         Function to return objects json guts
         '''
-        return self._json
+        return copy.deepcopy(self._json)
     
     def get_id(self):
         """

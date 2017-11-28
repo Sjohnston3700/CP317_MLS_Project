@@ -1,5 +1,5 @@
 import GradeItem, OrgMember, API
-import logging
+import logging, copy
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +28,7 @@ class Course(object):
         '''
         Function to return objects json guts
         '''
-        return self._json
+        return copy.deepcopy(self._json)
 
     def get_grade_items(self):
         """
