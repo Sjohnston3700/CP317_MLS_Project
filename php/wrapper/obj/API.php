@@ -16,6 +16,8 @@ $routes = array(
 	'GET_GRADE'			   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
 );
 
+#logger = logging.getLogger(__name__);
+
 //{
 //"GradeObjectType": 1, 
 //"PointsNumerator": 12
@@ -365,5 +367,36 @@ function valence_request($route, $verb, $json_to_send) {
 
 	$errors = curl_error($ch);
 	throw new Exception('Valence API call failed: $httpCode: $response');
+}
+
+/*
+Gets the courses dictionary
+Postconditions:
+	courses - dictionary of courses
+*/
+function get_courses($user, $roles = array()) {
+	try {
+		$json = get(GET_USER_ENROLLMENTS,$self,{'version':user.get_host().get_api_version('le'),'userId': user.get_id()}); #A bit iffy on how valid this is. 
+		$courses = array();
+		foreach($json['Items'] as $item) {
+			try {
+				$temp = new Course($user, item);
+				array_push($courses, $temp);
+				throw new Exception("error");
+			} catch(Exception $e) {
+				continue;
+			}
+			$courselen = sizeof($courses);
+			$itemlen = sizeof($json['Items']);
+			$name = $user->get_name();
+			error_log("Extracted $courselen of $itemlen courses for $name");
+			return $courses;
+		}
+		throw new Exception("error");
+	} catch(Exception $e) {
+		error_log("Something went wrong in get_courses. $e");
+		#raise equivalent in php?
+		return null;
+	}
 }
 ?>
