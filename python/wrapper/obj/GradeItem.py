@@ -1,4 +1,4 @@
-
+import copy
 import logging
 import API, Grade
 
@@ -25,8 +25,12 @@ class GradeItem(object):
 
     def get_json(self):
         '''
+		Gets the JSON data representing this GradeItem object.
+		Postconditions:
+			Returns:
+				self._json (dict) : COPY OF JSON data of this GradeItem. cause copy is good.
         '''
-        return self._json
+        return copy.deepcopy(self._json)
     
     def get_course(self):
         """ 
