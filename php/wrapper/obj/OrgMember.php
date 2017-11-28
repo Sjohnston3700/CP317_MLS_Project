@@ -61,7 +61,7 @@
 			$this->roles = $roles;
 			$this->json = get_who_am_i();
 			$this->id = $me['Identifier'];
-			$this->courses = $this->get_courses();
+			$this->courses = $this->get_course();
 		}
 		/*
 		Get First Name  (Getter)
@@ -144,4 +144,19 @@
 		function get_host() {
 			return $this->host;
 		}
+		/*
+		Gets the courses dictionary
+		Postconditions:
+			courses - dictionary of courses
+		*/
+#		function _get_courses() {
+#			$courses = array();
+#			foreach(get_user_enrollments($this) as $course) {
+#				if (in_array($course['Role']['Id'], $this->roles)) { // This is temp to make loading time quicker for development
+#					$courses[] = new Course($this, $course);
+#				}
+#				
+#			}
+#			return $courses;
+#		}
 	}
