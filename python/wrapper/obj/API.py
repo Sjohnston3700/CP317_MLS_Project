@@ -1,6 +1,6 @@
-import requests, traceback, sys,logging
+import requests, traceback, sys, logging
 
-#Can't do from Course import Course etc. It creates cirular imports and breaks the universe
+#Can't do from Course import Course etc. It creates circular imports and breaks the universe
 import Course
 import GradeItem
 import OrgMember
@@ -22,20 +22,20 @@ def check_request(request):
     Function to test if a request was valid.
 
     Preconditions:
-        request (str) : the request object to test.
+        request (str) : The request object to test.
         
     Postconditions:
-        on success:
+        On success:
             Request returns a valid SUCCESS status code, is a valid request.
-        on failure:
-            raises RuntimeError.
+        On failure:
+            Raises RuntimeError.
     '''
     if request.status_code != SUCCESS:
-        exception_message = 'Request {} returned status code : {}, text : {}'.format(request.url,request.status_code,request.text)
+        exception_message = 'Request {} returned status code : {}, text : {}'.format(request.url, request.status_code, request.text)
         raise  RuntimeError( exception_message )
     return 
 
-def get(route, user, route_params = {},additional_params={}):
+def get(route, user, route_params = {}, additional_params={}):
     '''
     Uses a GET request to get JSON.
 
@@ -45,15 +45,15 @@ def get(route, user, route_params = {},additional_params={}):
         route_params (dict) : A dictionary of parameters corresponding to route.
         additional_params (dict): A dictionary of extra parameters. Added to the end of the url as ?key=value.
         
-    Postconditions
+    Postconditions:
         On success:
             Returns:
             results (dict) : Python dict of JSON data from request result.
         On failure:
-            raises RuntimeError
+            Raises RuntimeError.
     '''
     updated_route = update_route(route, route_params)
-    auth_route = user.get_context().create_authenticated_url(updated_route,method='GET')
+    auth_route = user.get_context().create_authenticated_url(updated_route, method='GET')
     r = requests.get(auth_route, params=additional_params)
     
     check_request(r)
@@ -66,23 +66,29 @@ def get(route, user, route_params = {},additional_params={}):
         
     return results
 
-def get_class_list(course):#is this the right name for this function?
+#is this the right name for this function?
+def get_class_list(course):
     '''
-    Function to take a course object and return a list of enolled org members
+    Function to take a course object and return a list of enrolled OrgMembers.
     
     Preconditions:
-        course : course object
+        course (Course object) : A Course object.
     Postconditions:
-        returns list of enrolled orgMember objects empty if None found our all died horrible deaths on creation
+        On success:
+            Returns: 
+            members (list of OrgMembers) : List of enrolled OrgMember objects.
+        On failure:
+            Returns:
+            None if empty class or all died horrible deaths on creation.
     '''
     try:
-        json = get(GET_COURSE_MEMBERS,course.get_user(),{'orgUnitId':course.get_id(),'version': course.get_user().get_host().get_api_version('lp')})    
+        json = get(GET_COURSE_MEMBERS, course.get_user(), {'orgUnitId':course.get_id(), 'version': course.get_user().get_host().get_api_version('lp')})    
         members = []
         for member in json['Items']:
             try:
                 members.append( OrgMember.OrgMember(member) )
             except Exception as e:
-                logging.error("Unable to create Orgmember from {}. {}".format(member,e) )
+                logging.error("Unable to create OrgMember from {}. {}".format(member, e) )
                 continue
         return members
     except Exception as e:
@@ -90,25 +96,30 @@ def get_class_list(course):#is this the right name for this function?
         raise
         return None
     
-def get_courses(user,roles=[]):
+def get_courses(user, roles=[]):
     '''
-    Function to get all courses a logged in user is enrolled in (has accesss to)
+    Function to get all courses a logged in user is enrolled in (has access to).
     
     Preconditions:
-        user (User object) - logged in user
-        roles (list (eg : ['Instructor','TA','Student']) ) - roles to filter by, not yet implimented
+        user (User object) : Logged in user.
+        roles (list (eg : ['Instructor', 'TA', 'Student']) ) : Roles to filter by, not yet implemented.
     Postconditions:
-        courses (list of Course objects) - list of enrolled courses, empty if none found or all failed for some reason which is logged
+        On success:
+            Returns:
+            courses (list of Course objects) : List of courses user is enrolled in (has access to).
+        On failure:
+            Returns:
+            None if user has no classes or all failed for some reason and is logged.
     '''
     try:
-        json = get(GET_USER_ENROLLMENTS,user,{'version':user.get_host().get_api_version('le'),'userId': user.get_id()})
+        json = get(GET_USER_ENROLLMENTS, user, {'version':user.get_host().get_api_version('le'), 'userId': user.get_id()})
         courses = []
         for item in json['Items']:
             try:
-                courses.append( Course.Course(user,item) )
+                courses.append( Course.Course(user, item) )
             except Exception as e:
                 continue
-        logger.info("Extracted {} of {} courses for {}".format( len(courses),len(json["Items"]),user.get_name() ) )
+        logger.info("Extracted {} of {} courses for {}".format( len(courses), len(json["Items"]), user.get_name() ) )
         return courses
     except Exception as e:
         logging.error("Something went wrong in get_courses. {}".format(e) )
@@ -118,11 +129,16 @@ def get_courses(user,roles=[]):
 
 def get_grade_items(course):
     """
-    Function will return list of grade items
-    return :
-            lists - grade item (Array of grade item object) - currenlty only supports Numeric
+    Function to return list of grade items.
+    
+    Preconditions:
+        course (Course object) : A Course object.
+    
+    Postconditions:
+            Returns :
+            list (list of grade item objects) : currently only supports Numeric.
     """
-    gradeitems = get(GET_GRADE_ITEMS,course.get_user(),{'orgUnitId':course.get_id(),'version':course.get_user().get_host().get_api_version('le')})
+    gradeitems = get(GET_GRADE_ITEMS, course.get_user(), {'orgUnitId':course.get_id(), 'version':course.get_user().get_host().get_api_version('le')})
     items = []
     for item in gradeitems:
         if item['GradeType'] == 'Numeric':
@@ -132,14 +148,14 @@ def get_grade_items(course):
 
 def get_who_am_i(user):
     '''
-    Retrieve the current user context's user information as python dict JSON.
+    Retrieves the current user context's user information as python dict JSON.
     
     Preconditions:
         user (User object) : A User object corresponding to the current user.
         
     Postconditions:
-        returns:
-        Results (dict) : A dict containing WhoAmIUser JSON block for the current user context. 
+        Returns:
+        results (dict) : A dict containing WhoAmIUser JSON block for the current user context. 
     '''
 
     route_params = {'version' : user.get_host().get_api_version('lp')}
@@ -175,7 +191,7 @@ def put_grade(grade):
     Posts a Grade object to Brightspace using a PUT request.
     
     Preconditions:
-        grade (Grade object) : the Grade object to post to Brightspace.
+        grade (Grade object) : The Grade object to post to Brightspace.
         
     Postconditions:
         Grade object data as JSON is PUT to Brightspace.
@@ -232,7 +248,9 @@ def update_route(route,params):
         On failure:
             raises RuntimeError.
     '''
-    if params is not None:#Dont care about params={} for loop takes care of it
+    
+    # Dont care about params={} for loop takes care of it
+    if params is not None:
         for key in params:
             route = route.replace("({})".format( key ), str(params[key]) )
 

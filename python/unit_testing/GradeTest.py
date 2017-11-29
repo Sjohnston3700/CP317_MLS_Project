@@ -28,7 +28,7 @@ from GradeItem import NumericGradeItem
 from conf_basic import app_config
 from Host import Host
 import OrgMember
-from OrgMember import User
+import User
   
 LOGOUT_URL = 'https://{host}/d2l/logout'
   
@@ -71,7 +71,7 @@ def auth_token_handler():
 # do not change setUp and tearDown to snake case, it'll break
 class test_user(unittest.TestCase):
     def setUp(self):
-        self.user = app.config["User"] # gets user object
+        self.user = app.config["user"] # gets user object
         self.course = self.user.get_course(219318) # gets test course of user
         self.grade_item = self.course.get_grade_item(223607) # gets A1 of course of user
         self.grade = self.grade_item.get_grade() # gets grade of A1 of course of user
