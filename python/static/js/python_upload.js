@@ -3,7 +3,7 @@
 	 Author: Sarah Johnston
 	 Modified by Harold Hodgins to work with python and flask
 	 Usage: Controller used with upload.html. Functions and listeners used 
-			  to populate error checking modal, send JSON grade object to error_checking.php, 
+			  to populate error checking modal, send JSON grade object to error_checking, 
 			  and display error messages
  */
 

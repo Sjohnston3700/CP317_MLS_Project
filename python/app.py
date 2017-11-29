@@ -1,16 +1,16 @@
 import os, sys, requests, traceback
 import d2lvalence.auth as d2lauth
-import logging, json, logging.config
+import logging, logging.config
 
 
-from flask import Flask, redirect, request, render_template, url_for, session, jsonify
+from flask import Flask, redirect, request, render_template, url_for, session, jsonify, json
 from werkzeug.utils import secure_filename
 from conf_basic import app_config
 from wrapper.obj import API
 
 from wrapper.obj.User import User
 from wrapper.obj.Host import Host
-from grade_functions import parse_grades
+from grade_functions import parse_grades_csv
 
 #Setup logging - Should be moved to a separate function ultimately
 logger = logging.getLogger(__name__)
@@ -26,11 +26,12 @@ LOGOUT_URL          = 'https://{host}/d2l/logout'
 
 
 UPLOAD_FOLDER = './Uploaded_Files'
-ALLOWED_EXTENSIONS = set(['txt','dat'])
+ALLOWED_EXTENSIONS = set(['txt','dat','csv'])
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'e5ac358c-f0bf-11e5-9e39-d3b532c10a28'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER#should be moved to config file
 app.config["app_context"] = d2lauth.fashion_app_context(app_id=app_config['app_id'], app_key=app_config['app_key'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.jinja_env.trim_blocks = True
@@ -107,6 +108,9 @@ def show_design_wrapper():
 
 @app.errorhandler(Exception)
 def handle_error(e):
+    '''
+    Default error handler. If something goes wrong in a route this gets called.
+    '''
     if 'user_id' not in session:
         user = None
     else:
@@ -143,6 +147,48 @@ def show_upload():
             print("We were sent json")#place holder. Need to figure out what was posted        
             return jsonify(43)
 
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/file_parse',methods=['POST'])
+def file_parse():
+    '''
+    Function to accept uploaded file and parse it for errors
+    '''
+    if 'user_id' not in session:
+        logger.warning('Someone is trying to upload a file but is not logged in')
+        return redirect('/login')
+        
+    user = app.config[session['user_id']]   
+    
+    errors = []
+    # check if the post request has the file part
+    if 'file' not in request.files:
+        logger.error('No file part in request to /file_parse')
+        errors = [{'msg':'No file part in request'}]
+    else:
+        file = request.files['file']
+        
+        if file.filename == '':
+            logger.error('No selected file in /file_parse')
+            errors = [{'msg':'No file selected'}]
+        elif file and allowed_file(file.filename):
+            filename = user.get_id() + secure_filename(file.filename)
+            full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            os.makedirs(os.path.dirname(full_path), exist_ok=True)
+            file.save( full_path )
+            
+            #parse file in memory
+            with open(full_path,'r') as f:
+                results = parse_grades_csv(f)    
+                if len(errors) == 0:
+                    return json.dumps(results)
+            
+            os.remove(full_path)
+                    
+    return json.dumps(errors)
 
 @app.route('/update_gradeItem_max',methods=['POST'])
 def update_grade_max():

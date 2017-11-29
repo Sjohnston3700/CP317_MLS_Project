@@ -118,24 +118,35 @@ def parse_grades_csv( csv_file ):
         csv_file - The csv file to read from (file must be opened with 'r')
     Postconditions:
         returns
-        grades - A list of Grade objects corresponding to the data read from the CSV
-                 The max_value field of the Grade object will set to 0, this data is 
-                 not stored in the CSV and will be provided elsewhere
+        grades    - A list of json dictionary values corresponding to each line of the file
+        or errors - A list of json dictionary values corresponding to issues with the file
     '''
-    assert isinstance(csv, TextIOWrapper), "CSV file must be opened with 'r'"  # Check if csv is an instance of a file object
+    assert isinstance(csv_file, TextIOWrapper), "CSV file must be opened with 'r'"  # Check if csv is an instance of a file object
     grades = []
+    errors = []
     try:
         reader = csv.reader(csv_file, delimiter=',', quotechar='"')
-        for line in reader:
+        for line_number, line in enumerate(reader):
             # unescape any escaped characters read by csv.reader
-            comment = line[4]
-            for before, after in {'\\n':'\n', '\\r':'\r', '\\t':'\t', '\\"': '"', "\\'":"'"}:
-                comment = comment.replace(before, after)
-            #              ID         value         name     comment
-            grade = Grade(line[1], int(line[2]), 0, line[0], comment)
-            grades.append(grade)
-    except:
-        raise IOError("Invalid csv format")
+            if len(line) < 4:
+                errors.apppend( {'line':line_number,'msg':'Format must be brightspace_id, grade, student_name, comment'} )
+            else:
+                comment = line[3]
+                for before, after in {'\\n':'\n', '\\r':'\r', '\\t':'\t', '\\"': '"', "\\'":"'"}:
+                    comment = comment.replace(before, after)
+                #              ID         value         name     comment
+                keys = ['id','value','name','comment']
+                grade = {}
+                for index, key in enumerate(keys):
+                    grade[key]= line[index]
+            
+                grades.append( grade )
+    except Exception as e:
+        print(e)
+        errors = [{'msg' : 'Entire file is formatted incorrectly. Please ensure each student entry is formatted as student_name, brightspace_id, grade, comment'}]
     
-    return grades
+    if len(errors) != 0:
+        return errors
+    else:
+        return grades
 
