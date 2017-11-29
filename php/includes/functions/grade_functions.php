@@ -23,7 +23,7 @@ function parse_file($file)
 		{
 			$error = array(
 				'line' => $i,
-				'msg' => 'Format must be student_name, brightspace_id, grade, comment'
+				'msg' => 'Format must be brightspace_id, grade, student_name, comment'
 			);
 				
 			$num_errors++;
@@ -47,7 +47,7 @@ function parse_file($file)
 	{	
 		$msg = array();
 		$msg[] = array(
-			'msg' => 'Entire file is formatted incorrectly. Please ensure each student entry is formatted as student_name, brightspace_id, grade, comment'
+			'msg' => 'Entire file is formatted incorrectly. Please ensure each student entry is formatted as brightspace_id, grade, student_name, comment'
 		);
 		return $msg;
 	}
