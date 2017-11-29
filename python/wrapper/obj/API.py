@@ -35,12 +35,12 @@ def check_request(request):
         raise  RuntimeError( exception_message )
     return 
 
-def get(route, user, route_params = {}, additional_params={}):
+def get(route, user, route_params = {}, additional_params = {}):
     '''
     Uses a GET request to get JSON.
 
     Preconditions:
-        user (User object) : A User object corresponding to the current user.
+        user (User) : A User object corresponding to the current user.
         route (str) : The route to make a GET request to.
         route_params (dict) : A dictionary of parameters corresponding to route.
         additional_params (dict): A dictionary of extra parameters. Added to the end of the url as ?key=value.
@@ -72,7 +72,7 @@ def get_class_list(course):
     Function to take a course object and return a list of enrolled OrgMembers.
     
     Preconditions:
-        course (Course object) : A Course object.
+        course (Course) : A Course object.
     Postconditions:
         On success:
             Returns: 
@@ -101,7 +101,7 @@ def get_courses(user, roles=[]):
     Function to get all courses a logged in user is enrolled in (has access to).
     
     Preconditions:
-        user (User object) : Logged in user.
+        user (User) : Logged in user.
         roles (list (eg : ['Instructor', 'TA', 'Student']) ) : Roles to filter by, not yet implemented.
     Postconditions:
         On success:
@@ -132,7 +132,7 @@ def get_grade_items(course):
     Function to return list of grade items.
     
     Preconditions:
-        course (Course object) : A Course object.
+        course (Course) : A Course object.
     
     Postconditions:
             Returns :
@@ -151,7 +151,7 @@ def get_who_am_i(user):
     Retrieves the current user context's user information as python dict JSON.
     
     Preconditions:
-        user (User object) : A User object corresponding to the current user.
+        user (User) : A User object corresponding to the current user.
         
     Postconditions:
         Returns:
@@ -167,7 +167,7 @@ def put(route, user, route_params, params):
     Uses a PUT request to set JSON.
     
     Preconditions :
-        user (User object) : A User object corresponding to the current user.
+        user (User) : A User object corresponding to the current user.
         route (str) : The route to make a GET request to.
         route_params (dict) : A dictionary of parameters corresponding to route.
         params (dict) : A dictionary of JSON grade data to send.
@@ -176,8 +176,8 @@ def put(route, user, route_params, params):
         Brightspace data will be updated with params as JSON.
     '''
     # Make request to PUT grades
-    route = update_route(route,route_params)
-    r = requests.put(user.get_context().create_authenticated_url(route,method='PUT'),json=params)
+    route = update_route(route, route_params)
+    r = requests.put(user.get_context().create_authenticated_url(route, method='PUT'), json=params)
     # Check if request was valid
     try:
         check_request(r)
@@ -191,7 +191,7 @@ def put_grade(grade):
     Posts a Grade object to Brightspace using a PUT request.
     
     Preconditions:
-        grade (Grade object) : The Grade object to post to Brightspace.
+        grade (Grade) : The Grade object to post to Brightspace.
         
     Postconditions:
         Grade object data as JSON is PUT to Brightspace.
@@ -212,7 +212,7 @@ def put_grade_item(grade_item):
     Posts a GradeItem object to Brightspace using a PUT request.
     
     Preconditions:
-        grade_item (GradeItem object) : the GradeItem object to post to Brightspace.
+        grade_item (GradeItem) : The GradeItem object to post to Brightspace.
         
     Postconditions:
         grade_item data as JSON is PUT to Brightspace.
