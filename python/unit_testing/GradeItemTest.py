@@ -13,10 +13,12 @@ sys.path.append(os.path.abspath(obj_path))
 
 from conf_basic import app_config
 from Host import Host
-from OrgMember import User
+from User import User
 from Course import Course
 from GradeItem import GradeItem
 from GradeItem import NumericGradeItem
+from Grade import Grade
+from Grade import NumericGrade
 
 LOGOUT_URL = 'https://{host}/d2l/logout'
 
@@ -35,7 +37,8 @@ def auth_token_handler():
     print("Authentication successful.")
     
     uc = app.config["app_context"].create_user_context(result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
-    host = Host(app_config['lms_host'])
+    host = Host(app_config['lms_host'], versions=app_config['lms_ver'])
+
     # store the user context's
     user = User(uc, host)
     app.config['user'] = user
@@ -50,31 +53,24 @@ def auth_token_handler():
     thread.join()
     
     return "ok"
-#Test objects until we can call actual Grade objects
-d = {"User":
-        {"Identifier": 0, "DisplayName": 0, "OrgDefinedId": 0}, 
-    "Role": 
-        {"Id": 0}
-    }
-TEMP_GRADE = Grade(
-    GradeItem(
-        Course(
-            user, 
-            {"OrgUnit": {"Name": 0, "Id": 0}, "Role": {"Name": 0}}
-        ),
-        {"Name": "CP104", "Id": 0}
-    ),
-    OrgMember( d ),
-    "Good Job on this assignment."
-)
+
 # unit testing class
-# do not change setUp and tearDown to snake case, it'll break
+# do not change setUp, setupClass or tearDown to snake case, it'll break
 class TestGradeItem(unittest.TestCase):
+
+    # runs once before the tests start
+    @classmethod
+    def setUpClass(cls):
+        super(TestGradeItem, cls).setUpClass()
+        cls.user = app.config['user']
+        cls.course = cls.user.get_course(219318)
+        cls.grade_item_1 = cls.course.get_grade_item(223607)
+        cls.grade_item_2 = cls.course.get_grade_item(223608)
+        cls.max = cls.grade_item_1.get_json()['MaxPoints'] # can't use grade_item_1.get_max() because that's what we're testing
+        pass
+
+    # runs before every individual test
     def setUp(self):
-        self.user = app.config['user']
-        self.course = self.user.get_course(219318) # gets test course
-        self.grade_item_1 = self.course.get_grade_item(223607) # gets A1 Can NOT exceed
-        self.grade_item_2 = self.course.get_grade_item(223608) # gets A2 Can exceed
         pass
 
     def test_init_grade_item(self):
@@ -91,15 +87,15 @@ class TestGradeItem(unittest.TestCase):
         pass
 
     def test_get_max(self):
-        self.assertEqual(self.grade_item_1.get_max(), 34, "Maximum grade should be 34 for A1")
+        self.assertEqual(self.grade_item_1.get_max(), self.max, "Maximum grade should be {0} for A1".format(self.max))
         pass
 
     def test_within_max(self):
-        self.assertTrue(self.grade_item_1.within_max(33), "33 should be within maximum of 34 for A1")
+        self.assertTrue(self.grade_item_1.within_max(self.max - 1), "{0} should be within maximum of {1} for A1".format(self.max - 1, self.max))
         pass
 
     def test_not_within_max(self):
-        self.assertFalse(self.grade_item_1.within_max(35), "35 should not be within maximum of 34 for A1")
+        self.assertFalse(self.grade_item_1.within_max(self.max + 1), "{0} should not be within maximum of {1} for A1".format(self.max + 1, self.max))
         pass
 
     def test_get_course(self):
@@ -107,7 +103,7 @@ class TestGradeItem(unittest.TestCase):
         pass
 
     def test_get_id(self):
-        self.assertEqual(self.grade_item_1.get_id(), 223607, "A1 ID isn't 223607")
+        self.assertEqual(self.grade_item_1.get_id(), 223607, "A1 ID should be 223607")
         pass
     
     def test_get_name(self):
@@ -117,19 +113,17 @@ class TestGradeItem(unittest.TestCase):
     def test_get_user(self):
         self.assertIsInstance(self.grade_item_1.get_user(), User, "Not an instance of User")
         pass
-
-    def test_get_grade(self):
-        self.assertIsInstance(self.TEMP_GRADE.get_grade(), Grade, "Not an instance of Grade")
-        pass
     
     """
     @TODO Create the following tests: 
+            - test_get_grade
             - test_create_grade
             - test_get_grades
             - test_put_grade_item
             - test_put_grades
     """
 
+    # runs after every individual test
     def tearDown(self):
         pass
 
