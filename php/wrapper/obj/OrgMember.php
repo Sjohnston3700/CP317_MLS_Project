@@ -57,7 +57,7 @@
 			$host: The Host object corresponding to the user (Host)
 			$roles: List of roles, default: None (list)
 		*/
-		function __construct($context, $host, $roles = array()) {
+		function __construct($roles) {
 			$this->roles = $roles;
 			$this->json = get_who_am_i();
 			$this->id = $me['Identifier'];
