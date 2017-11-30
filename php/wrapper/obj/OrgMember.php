@@ -65,8 +65,8 @@
 			$this->full_name = $f_name . ' ' . $l_name;
 			$this->id = $me['Identifier'];
 			$this->courses = $this->_get_courses();
-		
 		}
+		
 		/*
 		Gets the courses dictionary
 		Postconditions:
@@ -89,11 +89,7 @@
 			Copy of a python list of all courses accessible by this user
 			*/
 		function get_courses() {
-			$copy = array();
-			foreach($this->courses as $i => $j) {
-				$copy[$i] = clone $j;
-			}
-			return $copy;
+			return $this->courses;
 		}
 		/*
 		Returns a single course with id matching the given id, None if this User does not have access to the course
