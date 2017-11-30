@@ -67,6 +67,7 @@ class TestGradeItem(unittest.TestCase):
         cls.grade_item_1 = cls.course.get_grade_item(223607)
         cls.grade_item_2 = cls.course.get_grade_item(223608)
         cls.max = cls.grade_item_1.get_json()['MaxPoints'] # can't use grade_item_1.get_max() because that's what we're testing
+        cls.me = cls.course.get_member(150565990) # gets my (Sumeet Jhand) OrgMember object
         pass
 
     # runs before every individual test
@@ -113,15 +114,20 @@ class TestGradeItem(unittest.TestCase):
     def test_get_user(self):
         self.assertIsInstance(self.grade_item_1.get_user(), User, "Not an instance of User")
         pass
+
+    def test_create_grade(self):
+        self.grade_item_1.create_grade(self.me, "This is a test.", 1)
+        pass
     
-    """
-    @TODO Create the following tests: 
-            - test_get_grade
-            - test_create_grade
-            - test_get_grades
-            - test_put_grade_item
-            - test_put_grades
-    """
+    def test_get_grade(self):
+        self.assertIsInstance(self.grade_item_1.get_grade(self.me), Grade, "Not an instance of Grade")
+        pass
+
+    def test_get_grades(self):
+        grades = self.grade_item_1.get_grades()
+        for grade in grades:
+            self.assertIsInstance(grade, Grade, "Not an instance of Grade")
+        pass
 
     # runs after every individual test
     def tearDown(self):

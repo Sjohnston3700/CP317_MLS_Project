@@ -1,6 +1,8 @@
 
 import logging
-import API, Grade
+import API
+from Grade import Grade
+from Grade import NumericGrade
 
 logger = logging.getLogger(__name__)
 
