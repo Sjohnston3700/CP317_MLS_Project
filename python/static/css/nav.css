@@ -1,6 +1,6 @@
 /* Vertical Nav */
 
-.vertical-nav 
+.vertical-nav
 {
 	background-color: black;
 	margin: 0px;
@@ -14,7 +14,7 @@
 	text-decoration: none;
 }
 
-ul.vertical-nav 
+ul.vertical-nav
 {
 	list-style-type: none;
 }
@@ -22,7 +22,7 @@ ul.vertical-nav
 .vertical-nav .item
 {
 	margin: 7px 25px;
-	
+
 }
 
 .vertical-nav .item a
@@ -68,7 +68,7 @@ ul.vertical-nav
 .name-section
 {
 	float: right !important;
-	margin-top: 25px;
+	margin-top: 23px;
 }
 
 .name-section span
@@ -77,27 +77,30 @@ ul.vertical-nav
 	margin-right: 15px;
 }
 
-.name-section .btn
+.name-section .btn i
 {
+	color: white;
 }
 
 /* Horizontal Nav */
 
-img#logo 
+img#logo
 {
 	width: 50px;
 	margin: 20px 10px;
 	border-radius: 50%;
 	float: left;
+  margin-bottom: 0;
 }
 
-ul.horiz-nav 
+ul.horiz-nav
 {
     list-style-type: none;
     margin: 0px;
     padding: 0px 10%;
     overflow: hidden;
     background-color: #330072;
+		border-bottom: 3px solid #f2a901;
 }
 
 .horiz-nav li
@@ -105,21 +108,27 @@ ul.horiz-nav
     float: left;
 }
 
-.horiz-nav li a
-{
-    display: block;
-    color: white;
-    text-align: bottom;
-    padding: 34px 16px 30px 16px;
-    text-decoration: none;
-	border-bottom: 4px solid #F2A900;
+.horiz-nav li.item a {
+	color: #ffe29f;
+  font-size: 16px;
 }
 
-.horiz-nav li.item a:hover 
+.horiz-nav li a
 {
-    background-color: #2a005e;
-	border-bottom: 4px solid #d89702;
+	display: block;
+	color: white;
+	text-align: bottom;
+	padding: 32px 16px 31px 16px;
+	text-decoration: none;
+	border-bottom: 0px solid #330072;
+	transition: border-bottom .3s, padding-bottom .3s;
+}
+
+.horiz-nav li.item a:hover
+{
+	border-bottom: 4px solid #f2a901;
 	box-sizing: border-box;
+	padding-bottom: 27px;
 }
 
 .horiz-nav li.brand
@@ -137,6 +146,7 @@ ul.horiz-nav
 	margin: 0px 50px 0px 12px;
 	padding: 0px;
 	border-bottom: 0px;
+  margin-right: 20px;
 }
 
 .horiz-nav .logo
