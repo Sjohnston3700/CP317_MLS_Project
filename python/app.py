@@ -42,15 +42,33 @@ host = Host(app_config['lms_host'], versions=app_config['lms_ver'])
 
 @app.route("/")
 def start():
-    return redirect('/login')
+    '''
+    Function runs at "/" URL, redirects to login.
+    Postconditions:
+        Redirect user to "/login/".
+    '''
+    return redirect('/login/')
 
 @app.route("/login/")
 def login():
+    '''
+    Function redirects user to Brightspace secure login page to authenticate user.
+    Postconditions:
+        Redirect to Brightspace login page.
+    '''
     aurl = app.config["app_context"].create_url_for_authentication(app_config["lms_host"], app_url)
     return redirect(aurl)
 
 @app.route(app_config["route"])
 def auth_token_handler():
+    '''
+    Authenticaion token handler - Creates User and user context.
+    Postcontitions:
+        On success:
+            Redirect to "/courses/".
+        On failure:
+            Renders "error.html".  
+    '''
     try:
         uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
         # store the user context's
@@ -64,9 +82,18 @@ def auth_token_handler():
 
 @app.route('/courses/')
 def show_courses():
+    '''
+    Runs when application pointed to "/courses/" URL.
+    Postconditions:
+        On success:
+            If user_id in session : Renders "available_grades.html".
+            Else : Redirects to "/login/".
+        On failure:
+            Renders "error.html".
+    '''
     if 'user_id' not in session:
         logger.warning('Someone tried to access /courses/ without logging in')
-        return redirect('/login')
+        return redirect('/login/')
     else:
         try:
             return render_template('available_grades.html', user=app.config[ session['user_id'] ] )
@@ -76,40 +103,84 @@ def show_courses():
 
 @app.route('/documentation/')
 def show_docs():
+    '''
+    Runs when application is pointed to "/documentation/".
+    Postconditions:
+        Renders "documentation.html".
+    '''
     return render_template('documentation.html')
 
 @app.route('/documentation/spmp/')
 def show_spmp():
+    '''
+    Runs when application is pointed to "/documentation/spmp/".
+    Postconditions:
+        Renders "spmp.html".
+    '''
     return render_template('spmp.html')
 
 @app.route('/documentation/requirements')
 def show_requirements():
+    '''
+    Runs when application is pointed to "/documentation/requirements/".
+    Postconditions:
+        Renders "requirements.html".
+    '''
     return render_template('requirements.html')
 
-@app.route('/documentation/requirements/wrapper')
+@app.route('/documentation/requirements/wrapper/')
 def show_requirements_wrapper():
+    '''
+    Runs when application is pointed to "/documentation/requirements/wrapper/".
+    Postconditions:
+        Renders "requirements_wrapper.html".
+    '''
     return render_template('requirements_wrapper.html')
 
-@app.route('/documentation/analysis')
+@app.route('/documentation/analysis/')
 def show_analysis():
+    '''
+    Runs when application is pointed to "/documentation/analysis/".
+    Postconditions:
+        Renders "analysis.html".
+    '''
     return render_template('analysis.html')
 
-@app.route('/documentation/analysis/wrapper')
+@app.route('/documentation/analysis/wrapper/')
 def show_analysis_wrapper():
+    '''
+    Runs when application is pointed to "/documentation/analysis/wrapper/".
+    Postconditions:
+        Renders "analysis_wrapper.html".
+    '''
     return render_template('analysis_wrapper.html')
 
-@app.route('/documentation/design')
+@app.route('/documentation/design/')
 def show_design():
+    '''
+    Runs when application is pointed to "/documentation/design/".
+    Postconditions:
+        Renders "design.html".
+    '''
     return render_template('design.html')
 
-@app.route('/documentation/design/wrapper')
+@app.route('/documentation/design/wrapper/')
 def show_design_wrapper():
+    '''
+    Runs when application is pointed to "/documentation/spmp/".
+    Postconditions:
+        Renders "design_wrapper.html".
+    '''
     return render_template('design_wrapper.html')
 
 @app.errorhandler(Exception)
 def handle_error(e):
     '''
     Default error handler. If something goes wrong in a route this gets called.
+    Preconditions:
+        e (Exception) : Exception that is being handled.
+    Postconditions:
+        Renders "error.html".
     '''
     if 'user_id' not in session:
         user = None
@@ -149,13 +220,27 @@ def show_upload():
 
 
 def allowed_file(filename):
+    '''
+    Helper function to file_parse(); Determines if file extension is valid.
+    Preconditions:
+        filename (string) : name of file in question.
+    Postconditions:
+        boolean : True if file is valid, False if not.
+    '''
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/file_parse',methods=['POST'])
 def file_parse():
     '''
-    Function to accept uploaded file and parse it for errors
+    Function to accept uploaded file and parse it for errors.
+    Preconditions:
+        file (file) : File sent through request.files.
+    Postconditions:
+        On success:
+            JSON dump of results
+        On failure:
+            JSON dump of errors
     '''
     if 'user_id' not in session:
         logger.warning('Someone is trying to upload a file but is not logged in')
@@ -184,16 +269,30 @@ def file_parse():
             with open(full_path,'r') as f:
                 results = parse_grades_csv(f)    
                 if len(errors) == 0:
+                    #I think you want to remove full_path, delete line if not
+                    os.remove(full_path)
                     return json.dumps(results)
-            
+  
             os.remove(full_path)
-                    
+
     return json.dumps(errors)
 
 @app.route('/update_gradeItem_max',methods=['POST'])
 def update_grade_max():
     '''
-    Function to receive update grade max requests and try to execute them
+    Function to receive update grade max requests and try to execute them.
+    Preconditions:
+        new_max (string) : New grade maximum, obtained through request.form.
+        courseId (string) : Course Id, obtained through request.form.
+        gradeItemId (string) : GradeItem Id, obtained through request.form.
+    Postconditions:
+        On success:
+            If 'user_id' in session:
+                JSON of any errors (if any).
+            Else:
+                Redirects to "/login/".
+        On failure:
+            Renders "error.html".
     '''
     if 'user_id' not in session:
         logger.warning('Someone tried to access /update_gradeItem_max without logging in')
@@ -222,7 +321,14 @@ def update_grade_max():
 
 def modify_grade_max(grade_item, new_max):
     '''
-    Function to try and update grade max
+    Function to try and update grade max.
+    Preconditions:
+        grade_item (GradeItem) : GradeItem object to be updated.
+        new_max (string) : New maximum grade for the grade_item.
+    Postconditions:
+        If successful, The GradeItem is updated through the API.
+        Returns:
+            Errors (list) : Any and all errors that may have occured.
     '''
     
     errors = []
@@ -246,16 +352,25 @@ def modify_grade_max(grade_item, new_max):
         
 @app.route('/logout/')
 def show_logout():
+    '''
+    Runs when application pointed to "/logout/" URL.
+    Postconditions:
+        If user_id in session : redirects user to Brightspace logout page.
+        Else : Redirects to "/login/".
+    '''
     if 'user_id' in session:
         app.config.pop( session['user_id'] )
         session.clear()
         return redirect(LOGOUT_URL.format(host=app_config['lms_host']))
     else:
         logger.warning('Someone tried to logout without having logged in')
-        return redirect('/login')
+        return redirect('/login/')
                 
 
 def set_grades(courseId, gradeItemId):
+    '''
+    '''
+    '''
     try:
         user=app.config[ session['user_id'] ]
         course = user.get_course(courseId)
