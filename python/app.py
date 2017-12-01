@@ -370,7 +370,6 @@ def show_logout():
 def set_grades(courseId, gradeItemId):
     '''
     '''
-    '''
     try:
         user=app.config[ session['user_id'] ]
         course = user.get_course(courseId)

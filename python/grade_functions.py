@@ -5,7 +5,7 @@ from wrapper.obj.API import get as getRoute, put as putRoute
 from wrapper.obj.Grade import Grade
 from io import TextIOWrapper # To check if file object is valid
 
--def parse_grades( grades_text ):
+def parse_grades( grades_text ):
     '''
     Function to turn a raw string of user formatted grades into a list of Grade Items
     
