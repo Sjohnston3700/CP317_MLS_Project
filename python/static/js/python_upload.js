@@ -98,16 +98,17 @@ function sendToErrorChecking(data) {
 	
 	var formData = {
 		'grades': data,
-		'grade_item': grade_item,
-		'course': course
+		'gradeItemId': gradeItemId,
+		'courseId': courseId
 	}
 
 	$.ajax({
 		type        : 'POST', 
-		url         : 'actions/error_checking.php', 
-		data        : formData, 
+		url         : '/error_checking', 
+		data        : JSON.stringify(formData), 
 		dataType    : 'json', 
 		encode      : true,
+		contentType: "application/json; charset=utf-8",
 		success     : function(data) {
 					
 						if (data.length > 0) {
@@ -153,7 +154,7 @@ function sendToErrorChecking(data) {
 						else {
 							closeModal('error-message-modal');
 							// Success, go to report page
-							window.location.href = 'index.php?page=report&course=' + course + '&grade_item=' + grade_item;
+							window.location.href = '/report?courseId=' + courseId + '&gradeItemId=' + gradeItemId;
 						}
 			
 						// Hide loading

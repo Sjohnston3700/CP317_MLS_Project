@@ -94,6 +94,9 @@ def show_courses():
     if 'user_id' not in session:
         logger.warning('Someone tried to access /courses/ without logging in')
         return redirect('/login/')
+    elif session.get('user_id', None) is None:
+        logger.warning('Session is out of sync on /courses')
+        return redirect('/login')
     else:
         try:
             return render_template('available_grades.html', user=app.config[ session['user_id'] ] )
@@ -199,7 +202,10 @@ def show_upload():
     if 'user_id' not in session:
         logger.warning('Someone tried to access /upload without logging in')
         return redirect('/login')
-    
+    elif session.get('user_id', None) is None:
+        logger.warning('Session is out of sync on /upload')
+        return redirect('/login')
+        
     courseId    = request.args.get('courseId',    default = None, type = int)
     gradeItemId = request.args.get('gradeItemId', default = None, type = int)
     
@@ -276,6 +282,23 @@ def file_parse():
             os.remove(full_path)
 
     return json.dumps(errors)
+
+@app.route('/error_checking',methods=['POST'])
+def grades_error_checking():
+    '''
+    '''
+    if 'user_id' not in session:
+        logger.warning('Someone is trying to error check grades but is not logged in')
+        return redirect('/login')
+    
+    grades_json = request.get_json()
+    print(grades_json)
+    
+    return json.dumps([])
+
+@app.route('/report',methods=['GET'])
+def report():
+    return json.dumps(23)
 
 @app.route('/update_gradeItem_max',methods=['POST'])
 def update_grade_max():
