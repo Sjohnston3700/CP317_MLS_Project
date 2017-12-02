@@ -70,8 +70,9 @@ def parse_grades_csv( csv_file ):
                     grade[key]= line[index]
             
                 grades.append( grade )
+        if len(grades) == 0:
+            raise Exception('File is empty')        
     except Exception as e:
-        print(e)
         errors = [{'msg' : 'Entire file is formatted incorrectly. Please ensure each student entry is formatted as student_name, brightspace_id, grade, comment'}]
     
     if len(errors) != 0:
