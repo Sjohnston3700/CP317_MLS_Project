@@ -2,7 +2,7 @@ import csv # To handle csv files
 import re,sys
 
 from wrapper.obj.API import get as getRoute, put as putRoute
-from wrapper.obj.Grade import Grade
+from wrapper.obj.Grade import Grade, NumericGrade
 from io import TextIOWrapper # To check if file object is valid
 
 def parse_grades( grades_text ):
@@ -80,3 +80,28 @@ def parse_grades_csv( csv_file ):
     else:
         return grades
 
+def check_grades(grades_json, grade_item):
+    '''
+    '''
+    grades = []
+    errors = []
+    course = grade_item.get_course()
+    for grade_json in grades_json:
+        try:
+            student_id  = grade_json['id']
+            grade_value = grade_json['value']
+            comment     = grade_json['comment']
+            
+            student = course.get_member(student_id)
+            if student is None:
+                raise Exception('Student with Org Id {} not found in course : {}'.format(student_id, course.get_name() ) )
+            grade = NumericGrade(grade_item, student, comment, grade_value)
+        except Exception as e:
+            error = grade_json
+            error['msg']  = str(e)
+            error['type'] = 1
+            
+            errors.append(error)
+            continue
+            
+    return errors

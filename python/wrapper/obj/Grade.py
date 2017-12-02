@@ -85,10 +85,20 @@ class NumericGrade(Grade):
             comment(feedbacks) string
             value(mark student scored) float
         """
+        assert is_numeric(value), 'Grade value must be numeric'
+        assert float(value) <= self.get_grade_item().get_max() and self.get_grade_item().can_exceed(), 'Grade value is greater then grade item max : {}'.format(self.get_grade_item().get_max() )
+        
         super().__init__(grade_item, student, comment)
         self._json['GradeObjectType'] = 1
-        self._json['PointsNumerator'] = value
+        self._json['PointsNumerator'] = float(value)
 
     def get_value(self):
         '''Returns value of the NumericGrade Item '''
         return self._json['PointsNumerator']
+        
+def is_numeric(value):
+    try:
+        float(value)
+        return true
+    except:
+        return false

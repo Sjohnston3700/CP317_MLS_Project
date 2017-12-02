@@ -10,7 +10,7 @@ from wrapper.obj import API
 
 from wrapper.obj.User import User
 from wrapper.obj.Host import Host
-from grade_functions import parse_grades_csv
+from grade_functions import parse_grades_csv, check_grades
 
 #Setup logging - Should be moved to a separate function ultimately
 logger = logging.getLogger(__name__)
@@ -251,6 +251,9 @@ def file_parse():
     if 'user_id' not in session:
         logger.warning('Someone is trying to upload a file but is not logged in')
         return redirect('/login')
+    elif session.get('user_id', None) is None:
+        logger.warning('Session is out of sync on /file_parse')
+        return redirect('/login')
         
     user = app.config[session['user_id']]   
     
@@ -290,11 +293,24 @@ def grades_error_checking():
     if 'user_id' not in session:
         logger.warning('Someone is trying to error check grades but is not logged in')
         return redirect('/login')
+    elif session.get('user_id', None) is None:
+        logger.warning('Session is out of sync on /error_checking')
+        return redirect('/login')
     
-    grades_json = request.get_json()
-    print(grades_json)
+    grades_json  = request.get_json()
+    grades       = grades_json['grades']
+    course_id    = grades_json['courseId']
+    grade_item_id = grades_json['gradeItemId']
     
-    return json.dumps([])
+    print("Validing grades = {}".format(grades) )
+    user       = app.config[ session['user_id' ] ]
+    course     = user.get_course(course_id)
+    grade_item = course.get_grade_item(grade_item_id)
+    
+    
+    errors = check_grades(grades, grade_item)
+    
+    return json.dumps(errors)
 
 @app.route('/report',methods=['GET'])
 def report():
