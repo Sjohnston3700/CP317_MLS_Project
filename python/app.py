@@ -94,7 +94,7 @@ def show_courses():
     if 'user_id' not in session:
         logger.warning('Someone tried to access /courses/ without logging in')
         return redirect('/login/')
-    elif session.get('user_id', None) is None:
+    elif app.config.get( session['user_id'] , None) is None:
         logger.warning('Session is out of sync on /courses')
         return redirect('/login')
     else:
@@ -202,7 +202,7 @@ def show_upload():
     if 'user_id' not in session:
         logger.warning('Someone tried to access /upload without logging in')
         return redirect('/login')
-    elif session.get('user_id', None) is None:
+    elif app.config.get( session['user_id'] , None) is None:
         logger.warning('Session is out of sync on /upload')
         return redirect('/login')
         
@@ -251,7 +251,7 @@ def file_parse():
     if 'user_id' not in session:
         logger.warning('Someone is trying to upload a file but is not logged in')
         return redirect('/login')
-    elif session.get('user_id', None) is None:
+    elif app.config.get( session['user_id'] , None) is None:
         logger.warning('Session is out of sync on /file_parse')
         return redirect('/login')
         
@@ -293,7 +293,7 @@ def grades_error_checking():
     if 'user_id' not in session:
         logger.warning('Someone is trying to error check grades but is not logged in')
         return redirect('/login')
-    elif session.get('user_id', None) is None:
+    elif app.config.get( session['user_id'] , None) is None:
         logger.warning('Session is out of sync on /error_checking')
         return redirect('/login')
     
@@ -336,9 +336,11 @@ def update_grade_max():
     if 'user_id' not in session:
         logger.warning('Someone tried to access /update_gradeItem_max without logging in')
         return redirect('/login')
-    
+    elif app.config.get( session['user_id'] , None) is None:
+        logger.warning('Session is out of sync on /update_gradeItem_return')
+        redirect('/login')
+
     try:
-        print("Extracting")
         new_max     = request.form['new_max']
         courseId    = request.form['courseId']
         gradeItemId = request.form['gradeItemId']
@@ -347,8 +349,7 @@ def update_grade_max():
         user = app.config[session['user_id']]
         course = user.get_course(courseId)
         grade_item = course.get_grade_item(gradeItemId)
-        
-        print("checking")
+
         errors = modify_grade_max(grade_item, new_max)
         return jsonify(errors)
         

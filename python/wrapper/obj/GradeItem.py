@@ -143,7 +143,7 @@ class NumericGradeItem(GradeItem):
         Postconditions:
             Returns: self._max_points - The max number of points this GradeItem can have for any one Grade ?? I think
         """
-        return self._json['MaxPoints']
+        return float(self._json['MaxPoints'])
         
     def within_max(self, value):
         """

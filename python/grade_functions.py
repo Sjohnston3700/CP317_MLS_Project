@@ -1,5 +1,5 @@
 import csv # To handle csv files
-import re,sys
+import re,sys, traceback
 
 from wrapper.obj.API import get as getRoute, put as putRoute
 from wrapper.obj.Grade import Grade, NumericGrade
