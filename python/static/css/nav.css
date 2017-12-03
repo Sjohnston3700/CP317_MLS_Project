@@ -27,7 +27,7 @@ ul.vertical-nav
 
 .vertical-nav .item a
 {
-	color: #F2A900;
+	color: white;
 }
 
 .vertical-nav .brand
@@ -100,7 +100,6 @@ ul.horiz-nav
     padding: 0px 10%;
     overflow: hidden;
     background-color: #330072;
-		border-bottom: 3px solid #f2a901;
 }
 
 .horiz-nav li
@@ -109,8 +108,8 @@ ul.horiz-nav
 }
 
 .horiz-nav li.item a {
-	color: #ffe29f;
-  font-size: 16px;
+	color: white;
+  	font-size: 16px;
 }
 
 .horiz-nav li a
@@ -121,7 +120,6 @@ ul.horiz-nav
 	padding: 32px 16px 31px 16px;
 	text-decoration: none;
 	border-bottom: 0px solid #330072;
-	transition: border-bottom .3s, padding-bottom .3s;
 }
 
 .horiz-nav li.item a:hover

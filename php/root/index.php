@@ -119,7 +119,7 @@
 			<li class="item"><a href="#">Help</a></li>
 			<li class="name-section">
 			    <span>Welcome, <?=$user->get_full_name()?></span>
-				<button onclick="window.location.href='index.php?page=logout'" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+				<button onclick="window.location.href='index.php?page=logout'" class="btn">Logout</button>
 			</li>
 		</ul>
 		<div class="page-content-horiz">

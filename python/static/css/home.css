@@ -14,10 +14,9 @@
 	width: 100%;
 	float: left;
 	display: block;
-	border: 2px solid #6c459b;
+	border: 2px solid #330072;
 	margin-bottom: 20px;
-	background-color: #f7f7f7;
-  position: relative;
+    position: relative;
 }
 
 .course-item > a {
@@ -30,7 +29,7 @@
 
 .course-item.active > a {
 	color: white;
-  background-color: #6c459b;
+  background-color: #330072;
 }
 
 .course-grades {
@@ -48,6 +47,10 @@
 	padding: 10px;
 	width: 200px;
 	background-color: white;
+}
+
+.course-grades {
+	transition: display 2s;
 }
 
 .course-item.active .course-grades {

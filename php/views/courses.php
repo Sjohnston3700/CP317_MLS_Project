@@ -10,7 +10,7 @@ $courses = $user->get_courses();
 <?php } ?>
 
 
-<h2>Select a Item</h2>
+<h2>Select a Grade Item</h2>
 <?php foreach ($courses as $c) { ?>
 	<div class="course-item">
 		<a href = "#"><?=$c->get_name()?></a>
