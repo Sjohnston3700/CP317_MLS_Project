@@ -207,6 +207,28 @@ def put_grade(grade):
     put(SET_GRADE_ROUTE, user, route_params, data)
     return
 
+def put_grades(grades):
+    '''
+    Function to post a list of grade objects to Brightspace
+    
+    Preconditions:
+        grades (list of grade objects) : The Grade objects to post
+    
+    Postconditions:
+        Returns successful_grades (list of Grade objects that didn't return errors)
+        failed_grades (list of dictionary objects) msg key holds error message, grade key holds grade object that failed
+    '''
+    successful_grades = []
+    failed_grades     = []
+    for grade in grades:
+        try:
+            put_grade(grade)
+            successful_grades.append( grade )
+        except Exception as e:
+            error = {'msg':str(e),'grade':grade}
+            failed_grades.append( error )
+    return successful_grades, failed_grades
+    
 def put_grade_item(grade_item):
     '''
     Posts a GradeItem object to Brightspace using a PUT request.

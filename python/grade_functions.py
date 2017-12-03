@@ -82,9 +82,19 @@ def parse_grades_csv( csv_file ):
 
 def check_grades(grades_json, grade_item):
     '''
+    Function to check if submitted grades are valid.
+    
+    Preconditions:
+        grades_json (list of json grades) : The grades to validate
+        grade_item (GradeItem) : The gradeitem these grades are associated with
+        
+    Postconditions:
+        errors (list of json formatted errors )  : The grades that are invalid and the associated error
+        valid_grades (list to of grade objects ) : The grades that were valid
     '''
-    grades = []
+    valid_grades = []
     errors = []
+    
     course = grade_item.get_course()
     for grade_json in grades_json:
         try:
@@ -96,6 +106,8 @@ def check_grades(grades_json, grade_item):
             if student is None:
                 raise Exception('Student with Org Id {} not found in course : {}'.format(student_id, course.get_name() ) )
             grade = NumericGrade(grade_item, student, comment, grade_value)
+            
+            valid_grades.append(grade)
         except Exception as e:
             error = grade_json
             error['msg']  = str(e)
@@ -104,4 +116,4 @@ def check_grades(grades_json, grade_item):
             errors.append(error)
             continue
             
-    return errors
+    return errors, valid_grades

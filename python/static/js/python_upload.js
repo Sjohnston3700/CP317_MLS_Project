@@ -51,7 +51,13 @@ $('#upload-target').on('load', function() {
 function updateGlobalGrades(grades) {
 	var index;
 	var grade;
-	for (var i = 0; i < globalGrades.length; i++) {
+	console.log("Updating globalgrades with");
+	console.log(grades);
+	
+/*    for (var i = 0; i < globalGrades.length; i++) {
+        console.log("Inspecting element");
+        console.log(i);
+        
 		index = findGrade(globalGrades[i].id, grades);
 		if (index > -1) {
 			grade = grades[index];
@@ -61,10 +67,29 @@ function updateGlobalGrades(grades) {
 			globalGrades[i].name = grade.name;
 		} 
 		else {
+		    console.log("Removing element");
+		    console.log(i);
 			globalGrades.splice(i, 1);
 			i--;
+			console.log("New i = ");
+			console.log(i);
 		}
 	}
+    console.log("New global grades = ");
+    console.log(globalGrades);
+    */
+    for (var i = 0; i<grades.length;i++)
+    {
+        grade = grades[i];
+        index = findGrade( grade.id, globalGrades );
+        if (index > -1)
+        {
+            globalGrades[index].id      = grade.id;
+            globalGrades[index].value   = grade.value;
+            globalGrades[index].comment = grade.comment;
+            globalGrades[index].name    = grade.name;
+        }        
+    }
 }
 
 /**
@@ -183,6 +208,10 @@ $('.remove-student-error').click(function() {
 	
 	// Remove all error messages for that person
 	$('.error-msg-' + id).remove();
+	
+	//Now remove them from globalGrades
+	var index = findGrade( grade.id, globalGrades );
+	globalGrades.splice(index,1);
 });
 
 /**
