@@ -187,6 +187,9 @@ def handle_error(e):
     '''
     if 'user_id' not in session:
         user = None
+    elif app.config.get( session['user_id'] , None) is None:
+        logger.warning('Session is out of sync')
+        return redirect('/login')
     else:
         user = app.config[ session['user_id'] ]
     return render_template('error.html',user=user,error=traceback.format_exc())
@@ -206,13 +209,13 @@ def show_upload():
         logger.warning('Session is out of sync on /upload')
         return redirect('/login')
         
-    courseId    = request.args.get('courseId',    default = None, type = int)
-    gradeItemId = request.args.get('gradeItemId', default = None, type = int)
+    course_id    = request.args.get('courseId',    default = None, type = int)
+    grade_item_id = request.args.get('gradeItemId', default = None, type = int)
     
     try:
         user = app.config[session['user_id']]
-        course = user.get_course(courseId)
-        grade_item = course.get_grade_item(gradeItemId)
+        course = user.get_course(course_id)
+        grade_item = course.get_grade_item(grade_item_id)
     except Exception as e:
         logger.exception("Something went wrong in {}".format(request.get_url() ))
         return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
@@ -342,15 +345,16 @@ def update_grade_max():
 
     try:
         new_max     = request.form['new_max']
-        courseId    = request.form['courseId']
-        gradeItemId = request.form['gradeItemId']
-        print("{} {} {}".format(new_max,courseId,gradeItemId) )
+        course_id    = request.form['courseId']
+        grade_item_id = request.form['gradeItemId']
+        print("{} {} {}".format(new_max,course_id,grade_item_id) )
          
         user = app.config[session['user_id']]
-        course = user.get_course(courseId)
-        grade_item = course.get_grade_item(gradeItemId)
+        course = user.get_course(course_id)
+        grade_item = course.get_grade_item(grade_item_id)
 
         errors = modify_grade_max(grade_item, new_max)
+        
         return jsonify(errors)
         
     except Exception as e:
@@ -386,6 +390,7 @@ def modify_grade_max(grade_item, new_max):
         else:
             try:
                 grade_item.set_max( new_max )
+                return new_max
             except Exception as e:
                 errors.append({'msg':str(e)})
     return errors
@@ -406,9 +411,10 @@ def show_logout():
         logger.warning('Someone tried to logout without having logged in')
         return redirect('/login/')
                 
-
+"""
 def set_grades(courseId, gradeItemId):
     '''
+    Is this even used anymore? It doesn't work
     '''
     try:
         user=app.config[ session['user_id'] ]
@@ -447,7 +453,7 @@ def set_grades(courseId, gradeItemId):
     gradesUrl = VIEW_GRADES_URL.format(host=user.get_host().get_lms_host(),gradeItemId=grade_item.Id,courseId=course.Id)
     logoutUrl = LOGOUT_URL.format(host=user.get_host().get_lms_host())
     return render_template("grades_uploaded.html",user=user,errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=grade_item,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
-
+"""
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
