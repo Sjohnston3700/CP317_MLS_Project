@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+
+{% block title %}
+	<title>ezMarking | Grades Uploaded</title>
+{% endblock %}
+
+{% block content %}
+<div class="page-section">
+	<h1>Upload Complete</h1>
+	<h3>{{ '{} of {} grades uploaded successfully for {} - {}'.format(successful_grades|length, num_grades,course.get_name(),grade_item.get_name() ) }} </h3>
+	{% if errors != [] %}
+	<h3> Errors </h3>
+    <ul id="navigation">
+    	{% for error in errors %}
+        <li>{{ error }}</li>   
+    	{% endfor %}
+    </ul>
+	{% endif %}
+	<hr>
+	<table>
+	{%for successful_grade in successful_grades %} 
+		<tr>
+			<th>{{ successful_grade.get_student().get_name() }}</th>
+			<th>{{ successful_grade.get_value() }}</th>
+		</tr>
+	{% endfor %}	
+	</table> 
+</div>
+<script>
+</script>
+{% endblock %}

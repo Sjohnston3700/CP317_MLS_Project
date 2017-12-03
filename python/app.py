@@ -311,13 +311,38 @@ def grades_error_checking():
     grade_item = course.get_grade_item(grade_item_id)
     
     
-    errors = check_grades(grades, grade_item)
+    errors, valid_grades = check_grades(grades, grade_item)
+    print(errors, valid_grades)
+    if len(errors) == 0:
+        successful_grades, failed_grades = API.put_grades(valid_grades)
+        report = {'successful_grades':successful_grades, 'failed_grades':failed_grades}
+        
+        key = '{}_report'.format(user.get_id() )
+        app.config[key] = report
     
     return json.dumps(errors)
 
 @app.route('/report',methods=['GET'])
 def report():
-    return json.dumps(23)
+    if 'user_id' not in session:
+        logger.warning('Someone is trying to get a report but is not logged in')
+        return redirect('/login')
+    elif app.config.get( session['user_id'] , None) is None:
+        logger.warning('Session is out of sync on /report')
+        return redirect('/login')
+    
+    course_id    = request.args.get('courseId',    default = None, type = int)
+    grade_item_id = request.args.get('gradeItemId', default = None, type = int)
+    
+    user       = app.config[ session['user_id'] ]
+    course     = user.get_course(course_id)
+    grade_item = course.get_grade_item( grade_item_id )
+    
+    key = '{}_report'.format( user.get_id() )
+    report = app.config[key]
+    num_grades = len(report['successful_grades']) + len(report['failed_grades'])
+            
+    return render_template('report.html', user=user,num_grades=num_grades, successful_grades=report['successful_grades'], failed_grades=report['failed_grades'],course=course,grade_item=grade_item)
 
 @app.route('/update_gradeItem_max',methods=['POST'])
 def update_grade_max():
