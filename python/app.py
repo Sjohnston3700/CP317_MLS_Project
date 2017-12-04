@@ -188,8 +188,8 @@ def handle_error(e):
     if 'user_id' not in session:
         user = None
     elif app.config.get( session['user_id'] , None) is None:
-        logger.warning('Session is out of sync')
-        return redirect('/login')
+        logger.warning('Session is out of sync while handling error')
+        user = None
     else:
         user = app.config[ session['user_id'] ]
     return render_template('error.html',user=user,error=traceback.format_exc())
