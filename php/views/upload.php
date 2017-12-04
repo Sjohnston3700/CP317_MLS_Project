@@ -6,6 +6,7 @@
 		if ($course == null)
 		{
 			header('Location: index.php?page=courses');
+			die();
 		}
 		
 		$grade_item = $course->get_grade_item($_GET['grade_item']);
@@ -13,11 +14,13 @@
 		if ($grade_item == null)
 		{
 			header('Location: index.php?page=courses');
+			die();
 		}
 	}
 	else 
 	{
 		header('Location: index.php?page=courses');
+		die();
 	}
 ?>
 <div class="loader-box hidden">

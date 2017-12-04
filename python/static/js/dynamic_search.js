@@ -46,7 +46,7 @@
 		if (checked) {
 			for (var i in options.data) {
 				var name = options.data[i].name; 
-				var id = options.data[i].org_id;
+				var id = options.data[i].id;
 				if (!formExists(id)) createForm(name, id);
 			}
 		} 

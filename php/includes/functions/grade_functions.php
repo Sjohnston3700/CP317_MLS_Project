@@ -71,15 +71,26 @@ function error_checking($grades, $course_id, $grade_item_id)
 	$course = get_course($user, $course_id);
 	$course = new Course($user, $course);
 	$grade_item = $course->get_grade_item($grade_item_id);
+	
 	$ids = array();
 	
-	//****** TO DO ERROR HANDLING check if course and grade_item actually exist and if user has permission ******
 	// Error object to return
 	$errors = array();
 
 	foreach ($grades as $g)
 	{
-		if ($g['value'] == '')
+		if ($course->get_member($g['id']) == null)
+		{
+			$errors[] = array ( 
+				'id' => $g['id'],
+				'value' => $g['value'],
+				'name' => $g['name'],
+				'comment' => $g['comment'],
+				'msg' => 'Student ID not found for course',
+				'type' => '1' 
+			);
+		}
+		else if ($g['value'] == '')
 		{
 			$errors[] = array ( 
 				'id' => $g['id'],
@@ -174,9 +185,17 @@ function upload_grades($grades, $course, $grade_item)
 		$id = $g['id'];
 		$student = $course->get_member($id);
 		$grade = new NumericGrade($grade_item, $student, $g['comment'], $g['value']);
+		
+	
+		
 		if (sizeof(put_grade($grade) == 0))
 		{
 			$success++;
+		}
+		else 
+		{
+			print_r(put_grade($grade));
+			die();
 		}
 	}
 	if (sizeof($errors) == 0)
@@ -203,19 +222,19 @@ function modify_grade_max($course_id, $grade_item_id, $max)
 	if ($max === '')
 	{
 		$errors[] = array ( 
-			'msg' => 'Missing grade maximum',
+			'msg' => 'Missing grade maximum'
 		);
 	}
 	else if (!is_numeric($max))
 	{
 		$errors[] = array ( 
-			'msg' => 'Grade maximum must be a number',
+			'msg' => 'Grade maximum must be a number'
 		);
 	}
 	else if (floatval($max) < 0)
 	{
 		$errors[] = array ( 
-			'msg' => 'Grade maximum must be a positive number',
+			'msg' => 'Grade maximum must be a positive number'
 		);
 	}
 
