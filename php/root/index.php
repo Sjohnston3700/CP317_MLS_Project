@@ -115,7 +115,7 @@
 					ezMarker
 				</a>
 			</li>
-			<li class="item"><a href="/courses">Courses</a></li>
+			<li class="item"><a href="index.php?page=courses">Courses</a></li>
 			<li class="item"><a href="#">Help</a></li>
 			<li class="name-section">
 			    <span>Welcome, <?=$user->get_full_name()?></span>
