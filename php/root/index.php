@@ -2,7 +2,7 @@
 	require_once '../wrapper/obj/OrgMember.php';
 	require_once '../wrapper/obj/API.php';
     require_once 'config.php';
-	
+
 	ob_start();
     session_start();
 
@@ -12,13 +12,13 @@
 
     $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'courses';
 
-	if ($page == 'token' && isset($_GET['x_a']) && isset($_GET['x_b'])) 
+	if ($page == 'token' && isset($_GET['x_a']) && isset($_GET['x_b']))
 	{
 		header('Location: token.php?x_a=' . $_GET['x_a'] . '&x_b=' . $_GET['x_b']);
 		die();
 	}
 
-	if ($page == 'logout' && isset($_SESSION['userId']) && isset($_SESSION['userKey'])) 
+	if ($page == 'logout' && isset($_SESSION['userId']) && isset($_SESSION['userKey']))
 	{
 		unset($_SESSION['userId']);
 		unset($_SESSION['userKey']);
@@ -26,7 +26,7 @@
 		die();
 	}
 
-	if (!isset($_SESSION['userId']) || !isset($_SESSION['userKey'])) 
+	if (!isset($_SESSION['userId']) || !isset($_SESSION['userKey']))
 	{
 		$redirectPage = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
 		$authContextFactory = new D2LAppContextFactory();
@@ -36,7 +36,7 @@
 		header('Location:' . $url);
 		die();
 	}
-	
+
 	// TA: 102, Instructor: 103
 	$roles = array(102, 103);
 	$user = new User($roles);
@@ -119,7 +119,7 @@
 			<li class="item"><a href="#">Help</a></li>
 			<li class="name-section">
 			    <span>Welcome, <?=$user->get_full_name()?></span>
-				<button onclick="window.location.href='index.php?page=logout'" class="btn">Logout</button>
+				<button onclick="window.location.href='index.php?page=logout'" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
 			</li>
 		</ul>
 		<div class="page-content-horiz">

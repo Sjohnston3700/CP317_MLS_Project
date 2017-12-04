@@ -1,8 +1,8 @@
-/* 
+/*
 
-Legend: 
+Legend:
 
-primary colour, nav bar background: #330072 
+primary colour, nav bar background: #330072
 nav hover border: #F2A900
 nav hover: #2a005e
 text color: #2a005e
@@ -11,7 +11,7 @@ input border: #c4bebe
 input border hover: #9e9696
 button: #F2A900
 button color: white
-button border, button hover: #d89702 
+button border, button hover: #d89702
 
 */
 
@@ -45,4 +45,3 @@ body
 {
 	display: inline;
 }
-
