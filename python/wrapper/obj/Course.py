@@ -126,7 +126,7 @@ class Course(object):
                 None
         """
         for member in self._members:
-            if str(member.get_org_id()) == str(org_id):
+            if str(member.get_identifier()) == str(org_id):
                 return member
         return None        
 
