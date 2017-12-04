@@ -1,7 +1,23 @@
 <?php
-	if ($_GET['grade_item'] && $_GET['course']) {
+	if (isset($_GET['grade_item']) && isset($_GET['course'])) 
+	{
 		$course = $user->get_course($_GET['course']);
+		
+		if ($course == null)
+		{
+			header('Location: index.php?page=courses');
+		}
+		
 		$grade_item = $course->get_grade_item($_GET['grade_item']);
+		
+		if ($grade_item == null)
+		{
+			header('Location: index.php?page=courses');
+		}
+	}
+	else 
+	{
+		header('Location: index.php?page=courses');
 	}
 ?>
 <div class="loader-box hidden">
