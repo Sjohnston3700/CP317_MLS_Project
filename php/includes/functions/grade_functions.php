@@ -112,15 +112,19 @@ function error_checking($grades, $course_id, $grade_item_id)
 			);
 		}
 		else if ($g['value'] > $grade_item->get_max() && $grade_item->get_can_exceed())
-		{
-			$errors[] = array ( 
-				'id' => $g['id'],
-				'value' => $g['value'],
-				'name' => $g['name'],
-				'comment' => $g['comment'],
-				'msg' => 'Grade is more than the grade maximum',
-				'type' => '0'
-			);
+		{	
+			
+			if (!isset($g['is_warning']) || isset($g['is_warning']) && $g['is_warning'] == false)
+			{
+				$errors[] = array ( 
+					'id' => $g['id'],
+					'value' => $g['value'],
+					'name' => $g['name'],
+					'comment' => $g['comment'],
+					'msg' => 'Grade is more than the grade maximum',
+					'type' => '0'
+				);
+			} 
 		}
 		else if ($g['value'] > $grade_item->get_max() && !$grade_item->get_can_exceed())
 		{

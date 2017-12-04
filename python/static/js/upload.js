@@ -50,8 +50,6 @@ $('#upload-target').on('load', function() {
 function updateGlobalGrades(grades) {
 	var index;
 	var grade;
-	console.log("Updating globalgrades with");
-	console.log(grades);
 	
 /*    for (var i = 0; i < globalGrades.length; i++) {
         console.log("Inspecting element");
@@ -87,6 +85,11 @@ function updateGlobalGrades(grades) {
             globalGrades[index].value   = grade.value;
             globalGrades[index].comment = grade.comment;
             globalGrades[index].name    = grade.name;
+			if (grade.hasOwnProperty('is_warning')) {
+				globalGrades[index].is_warning = grade.is_warning;
+			} else {
+				globalGrades[index].is_warning = false;
+			}
         }        
     }
 }
@@ -119,7 +122,6 @@ function sendToErrorChecking(data) {
 	
 	// Set data to global variable in case user re-submits
 	globalGrades = data;
-	
 	var formData = {
 		'grades': data,
 		'grade_item': grade_item,
@@ -159,6 +161,7 @@ function sendToErrorChecking(data) {
 								if (data[i].type == 0) {
 									error = $('.templates .modal-warning-template').clone(true, true);
 									error.removeClass('modal-warning-template');
+									errorForm.addClass('is-warning');
 									msg = '<strong>WARNING: </strong> ';
 								} 
 								else if (data[i].type == 1) {
@@ -207,8 +210,8 @@ $('.remove-student-error').click(function() {
 	// Remove all error messages for that person
 	$('.error-msg-' + id).remove();
 	
-	//Now remove them from globalGrades
-	var index = findGrade( grade.id, globalGrades );
+	// Now remove them from globalGrades
+	var index = findGrade(grade.id, globalGrades);
 	globalGrades.splice(index,1);
 });
 
@@ -224,7 +227,8 @@ $('#resubmit').click(function() {
 		var formId = forms[i].id;
 		var id = formId.slice(11);
 		var form = $('#' + formId);
-
+		
+		grade.is_warning = forms[i].classList.contains('is-warning');
 		grade.id = id;
 		grade.value = form.find('#grade').val();
 		grade.comment = form.find('#comment').val();
@@ -269,7 +273,7 @@ $('#manual-upload').click(function() {
 
 		grades.push(grade);
 	}
-	sendToErrorChecking(grades)
+	sendToErrorChecking(grades);
 });
 
 /**
