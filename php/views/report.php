@@ -22,14 +22,27 @@ if ($grade_item == null)
 	die();
 }
 
-$grades = get_grade_values($course, $grade_item);
-$success = $_SESSION['report']['successful'];
-$total = $_SESSION['report']['total'];
-$ids = $_SESSION['report']['successful_ids'];
+if (isset($_SESSION['report']['errors']))
+{
+	$errors = $_SESSION['report']['errors'];
+}
+else 
+{
+	$grades = get_grade_values($course, $grade_item);
+	$success = $_SESSION['report']['successful'];
+	$total = $_SESSION['report']['total'];
+	$ids = $_SESSION['report']['successful_ids'];
+}
+
 ?>
 <div class="page-section">
 	<h1>Upload Complete</h1>
 	<h3><?=$success?> of <?=$total?> grades uploaded successfully</h3>
+	<?php if (isset($errors)) { ?>
+		<?php foreach ($errors as $e) { ?>
+			<p><?=$e['msg']?></p>
+		<?php } ?>
+	<?php } ?>
 	<hr>
 	<table>
 		<tr>

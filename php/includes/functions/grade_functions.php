@@ -72,8 +72,6 @@ function error_checking($grades, $course_id, $grade_item_id)
 	$course = new Course($user, $course);
 	$grade_item = $course->get_grade_item($grade_item_id);
 	
-	$ids = array();
-	
 	// Error object to return
 	$errors = array();
 
@@ -153,32 +151,43 @@ function error_checking($grades, $course_id, $grade_item_id)
 				'type' => '1'
 			);
 		}
-		else
-		{
-			$ids[]= $g['id'];
-		}
 	}
 
 	if (sizeof($errors) == 0)
 	{
 		$errors = upload_grades($grades, $course, $grade_item);
-
-		if (is_numeric($errors)) 
-		{
+		
+		// If $errors is empty or the first element is numeric, go to report page. 
+		// If the value is numeric, this means $errors is a list of successful $ids
+		if (sizeof($errors) == 0 || (isset($errors[0]) && is_numeric($errors[0]))) 
+		{	
+			$successful_ids = $errors;
 			$_SESSION['report'] = array(
 				'total' => sizeof($grades),
-				'successful' => $errors,
-				'successful_ids' => $ids
+				'successful' => sizeof($successful_ids),
+				'successful_ids' => $successful_ids
 			);
+			
 		} 
+		else
+		{
+			$_SESSION['report'] = array(
+				'errors' => $errors
+			);
+		}
+		return array();
 	}
-	return $errors;
+	else 
+	{
+		return $errors;
+	}
+	
 }
 
 function upload_grades($grades, $course, $grade_item)
 {
 	$errors = array();
-	$success = 0;
+	$sucessful_ids = array();
 	
 	foreach ($grades as $g)
 	{	
@@ -186,21 +195,15 @@ function upload_grades($grades, $course, $grade_item)
 		$student = $course->get_member($id);
 		$grade = new NumericGrade($grade_item, $student, $g['comment'], $g['value']);
 		
-	
-		
+		// If no errors, add to successful_ids array
 		if (sizeof(put_grade($grade) == 0))
 		{
-			$success++;
-		}
-		else 
-		{
-			print_r(put_grade($grade));
-			die();
+			$sucessful_ids[] = $id;
 		}
 	}
 	if (sizeof($errors) == 0)
 	{
-		return $success;	
+		return $sucessful_ids;	
 	}
 	return $errors;
 }
