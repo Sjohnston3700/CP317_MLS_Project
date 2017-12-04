@@ -3,7 +3,11 @@
 session_start();
 require_once('../../includes/functions/grade_functions.php');
 
-// Need error checkinf for grades, course, grade_item etc
+if (!isset($_REQUEST['grades']) || !isset($_REQUEST['course']) || !isset($_SESSION['userId']) || !isset($_SESSION['userKey']))
+{
+	die();
+}
+
 $grades = $_REQUEST['grades'];
 $course = $_REQUEST['course'];
 $grade_item = $_REQUEST['grade_item'];
