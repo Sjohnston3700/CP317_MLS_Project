@@ -43,6 +43,14 @@ class OrgMember(object):
             The organization defined ID of the OrgMember (str)
         """
         return self._json['User']['OrgDefinedId']
+        
+    def get_identifier(self):
+        """
+        Postconditions:
+            returns
+            The Brightspace defined ID of the OrgMember (str)
+        """
+        return self._json['User']['Identifier']
 
     def get_role(self):
         """
