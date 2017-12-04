@@ -1,14 +1,20 @@
 <?php 
 
+if (!isset($_SESSION['report']))
+{
+	header('Location: index.php?page=courses');
+}
+
 $course = $_GET['course'];
 $grade_item = $_GET['grade_item'];
-
 $grades = get_grade_values($course, $grade_item);
-
+$success = $_SESSION['report']['successful'];
+$total = $_SESSION['report']['total'];
+$ids = $_SESSION['report']['successful_ids'];
 ?>
 <div class="page-section">
 	<h1>Upload Complete</h1>
-	<h3>5 of 10 grades uploaded successfully</h3>
+	<h3><?=$success?> of <?=$total?> grades uploaded successfully</h3>
 	<hr>
 	<table>
 		<tr>
@@ -16,10 +22,12 @@ $grades = get_grade_values($course, $grade_item);
 			<th>Grade</th>
 		</tr>
 		<?php foreach ($grades as $g) { ?>
+			<?php if (in_array($g['User']['Identifier'], $ids)) { ?>
 		<tr>
 			<td><?=$g['User']['DisplayName']?></td>
 			<td><?=$g['GradeValue']['DisplayedGrade']?> ( <?=$g['GradeValue']['PointsNumerator'] . '/' . $g['GradeValue']['PointsDenominator'] ?> )</td>
 		</tr>
+			<?php } ?>
 		<?php } ?>
 	</table> 
 </div>

@@ -71,6 +71,7 @@ function error_checking($grades, $course_id, $grade_item_id)
 	$course = get_course($user, $course_id);
 	$course = new Course($user, $course);
 	$grade_item = $course->get_grade_item($grade_item_id);
+	$ids = array();
 	
 	//****** TO DO ERROR HANDLING check if course and grade_item actually exist and if user has permission ******
 	// Error object to return
@@ -125,6 +126,10 @@ function error_checking($grades, $course_id, $grade_item_id)
 					'type' => '0'
 				);
 			} 
+			else 
+			{
+				$ids[]= $g['id'];
+			}
 		}
 		else if ($g['value'] > $grade_item->get_max() && !$grade_item->get_can_exceed())
 		{
@@ -137,11 +142,24 @@ function error_checking($grades, $course_id, $grade_item_id)
 				'type' => '1'
 			);
 		}
+		else
+		{
+			$ids[]= $g['id'];
+		}
 	}
 
 	if (sizeof($errors) == 0)
 	{
-		return upload_grades($grades, $course, $grade_item);
+		$errors = upload_grades($grades, $course, $grade_item);
+
+		if (is_numeric($errors)) 
+		{
+			$_SESSION['report'] = array(
+				'total' => sizeof($grades),
+				'successful' => $errors,
+				'successful_ids' => $ids
+			);
+		} 
 	}
 	return $errors;
 }
@@ -149,15 +167,22 @@ function error_checking($grades, $course_id, $grade_item_id)
 function upload_grades($grades, $course, $grade_item)
 {
 	$errors = array();
+	$success = 0;
 	
 	foreach ($grades as $g)
 	{	
 		$id = $g['id'];
 		$student = $course->get_member($id);
 		$grade = new NumericGrade($grade_item, $student, $g['comment'], $g['value']);
-		put_grade($grade);
+		if (sizeof(put_grade($grade) == 0))
+		{
+			$success++;
+		}
 	}
-	
+	if (sizeof($errors) == 0)
+	{
+		return $success;	
+	}
 	return $errors;
 }
 /**
