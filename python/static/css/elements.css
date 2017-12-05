@@ -99,9 +99,13 @@ button.accordion
     outline: none;
     transition: 0.4s;
 	border: 2px solid #6c459b;
-	margin-bottom: 5px;
 	font-weight: bold;
 	font-size: 15px;
+}
+
+button.accordion.active
+{
+	margin-bottom: 0px;
 }
 
 button.accordion.active, button.accordion:hover
@@ -116,8 +120,16 @@ div.panel
     background-color: white;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.2s ease-out;
+    transition: max-height 0.1s ease-out;
+	margin-bottom: 15px;
 }
+
+div.panel.open
+{
+	padding: 20px 18px;;
+	border: 2px solid #6c459b;
+}
+
 
 button.accordion:after 
 {
@@ -132,6 +144,26 @@ button.accordion.active:after
     content: "\2796"; /* Unicode character for "minus" sign (-) */
 	color: white;
 }
+
+.grade-link 
+{
+	text-decoration: none;
+	display: block;
+	margin: 5px;
+	float: left;
+	border: 1px solid black;
+	padding: 10px;
+	width: 200px;
+	background-color: white;
+}
+
+.grade-link:hover
+{
+	background-color: #6c459b;
+	color: white;
+	text-decoration: none;
+}
+
 
 /* Modal */
 
