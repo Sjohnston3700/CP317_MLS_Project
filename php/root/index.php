@@ -52,6 +52,9 @@
         case 'upload':
             $contents = '../views/upload.php';
             break;
+		 case 'help':
+            $contents = '../views/help.php';
+            break;
  		case 'spmp':
  			$contents = $PATH_TO_DOCS . 'spmp.html';
  			break;
@@ -116,7 +119,7 @@
 				</a>
 			</li>
 			<li class="item"><a href="index.php?page=courses">Courses</a></li>
-			<li class="item"><a href="#">Help</a></li>
+			<li class="item"><a href="index.php?page=help">Help</a></li>
 			<li class="name-section">
 			    <span>Welcome, <?=$user->get_full_name()?></span>
 				<button onclick="window.location.href='index.php?page=logout'" class="btn">Logout</button>
