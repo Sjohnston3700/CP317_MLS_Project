@@ -6,7 +6,8 @@ if (!isset($_SESSION['report']) || !isset($_GET['course']) || !isset($_GET['grad
 	die();
 }
 
-$course = $_GET['course'];
+
+$course = $user->get_course($_GET['course']);
 
 if ($course == null)
 {
@@ -14,7 +15,7 @@ if ($course == null)
 	die();
 }
 
-$grade_item = $_GET['grade_item'];
+$grade_item = $course->get_grade_item($_GET['grade_item']);
 
 if ($grade_item == null)
 {
@@ -22,13 +23,14 @@ if ($grade_item == null)
 	die();
 }
 
+
 if (isset($_SESSION['report']['errors']))
 {
 	$errors = $_SESSION['report']['errors'];
 }
 else 
 {
-	$grades = get_grade_values($course, $grade_item);
+	$grades = get_grade_values($_GET['course'], $_GET['grade_item']);
 	$success = $_SESSION['report']['successful'];
 	$total = $_SESSION['report']['total'];
 	$ids = $_SESSION['report']['successful_ids'];
@@ -36,7 +38,7 @@ else
 
 ?>
 <div class="page-section">
-	<h1>Upload Complete</h1>
+	<h1>Upload Complete for <?=$course->get_name()?>, <?=$grade_item->get_name()?></h1>
 	<h3><?=$success?> of <?=$total?> grades uploaded successfully</h3>
 	<?php if (isset($errors)) { ?>
 		<?php foreach ($errors as $e) { ?>
