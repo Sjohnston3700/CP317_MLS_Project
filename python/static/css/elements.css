@@ -52,6 +52,7 @@
 .btn-remove 
 {
 	float: right;
+	margin-right: -10px;
 }
 
 .btn-error:hover

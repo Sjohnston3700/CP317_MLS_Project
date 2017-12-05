@@ -120,6 +120,10 @@ function sendToErrorChecking(data) {
 	// Show loading 
 	$('.loader-box').removeClass('hidden');
 	
+	// Hide update max form on modal and <hr> 
+	$('#update-max-form-modal').addClass('hidden');
+	$('.hr').addClass('hidden');
+	
 	// Set data to global variable in case user re-submits
 	globalGrades = data;
 	var formData = {
@@ -155,10 +159,12 @@ function sendToErrorChecking(data) {
 								errorForm.removeClass('modal-form-template');
 								errorForm.find('#comment').text(data[i].comment);
 								errorForm.find('#grade').val(data[i].value);
+								errorForm.find('#grade').addClass('grade-input-warning');
 								errorForm.appendTo('#error-message-modal .modal-body');
 								errorForm.find('.remove-student-error').attr('id', 'remove-' + data[i].id);
 
 								if (data[i].type == 0) {
+									
 									error = $('.templates .modal-warning-template').clone(true, true);
 									error.removeClass('modal-warning-template');
 									errorForm.addClass('is-warning');
@@ -174,6 +180,12 @@ function sendToErrorChecking(data) {
 								error.removeClass('hidden');
 								error.insertBefore(errorForm);
 							}
+							// If there is a warning message, this means the user is being warned a grade is over max. 
+							// If user the form to change grade max if they wish
+							if ($('.is-warning')[0]){
+								$('#update-max-form-modal').removeClass('hidden');
+								$('.hr').removeClass('hidden');
+							}
 							showModalWithoutClose('error-message-modal');
 							$('.modal').animate({ scrollTop: 0 }, 'slow');
 						}
@@ -182,7 +194,7 @@ function sendToErrorChecking(data) {
 							// Success, go to report page
 							window.location.href = 'index.php?page=report&course=' + course + '&grade_item=' + grade_item;
 						}
-			
+				
 						// Hide loading
 						$('.loader-box').addClass('hidden');
 					} 
@@ -363,7 +375,9 @@ function updateMax(max, id) {
 								var msg;
 							
 								$('#out-of').text(data);
+								$('#max-grade-modal').attr('placeholder', data);
 								$('#max-grade').attr('placeholder', data);
+								$('.grade-label').text('/' + data);
 							
 								success = $('.templates .modal-success-template').clone(true, true);
 								msg = 'Grade maximum updated successfully';

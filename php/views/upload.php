@@ -35,7 +35,7 @@
 <div class="page-section">
 	<form class="form-wide" id="update-max-form">
 		<div id="update-max-error"></div>
-		<input type="number" class="input" id="max-grade" placeholder="<?=$grade_item->get_max()?>">
+		<input type="number" class="input" id="max-grade" min="0" placeholder="<?=$grade_item->get_max()?>">
 		<button type="button" modal-form="0" class="btn open-confirm-max-grade">Update grade maximum</button>
 	</form>
 </div>
@@ -71,13 +71,13 @@
 		<div class="modal-header">
 			<span class="close">&times;</span>
 			<h2>Errors With Your Grade Upload</h2>
-			<hr>
+			<hr class="hr">
 			<form class="form-wide" id="update-max-form-modal">
 				<div id="update-max-error-modal"></div>
-				<input type="number" class="input" id="max-grade-modal" placeholder="Grade item is now out of...">
+				<input type="number" class="input" id="max-grade-modal" min="0" placeholder="<?=$grade_item->get_max()?>">
 				<button type="button" modal-form="1" class="btn open-confirm-max-grade">Update grade maximum</button>
 			</form>
-			<hr>
+			<hr class="hr">
 		</div>
 		<div class="modal-body">
 		</div>
@@ -111,16 +111,17 @@
 	<form class="modal-form-template form-wide hidden" id="modal-form-template">
 		<h3><div id="name" class="inline"></div><button type="button" class="btn btn-error btn-remove inline remove-student-error">x</button></h3>
 		<div class="form-group">
-			<label>Grade: </label>
-			<input type="text" name="grade" id="grade" placeholder="Enter grade">
+			<input class="grade-input" type="text" name="grade" id="grade" placeholder="Enter grade">
+			<p class="grade-label"></p>
 		</div>	
 		<textarea class="input" name="comment" id="comment" placeholder="Student feedback..." resize="false"></textarea>
 	</form>
 	<form class="upload-form upload-form-template form-med-wide hidden">
 		<h3><div id="name" class="inline"></div><button type="button" class="btn btn-error btn-remove inline remove-student">x</button></h3>
 		<div class="form-group">
-			<label>Grade: </label>
-			<input id="grade" name="grade" type="text" placeholder="Enter grade...">
+			
+			<input class="grade-input" id="grade" name="grade" type="text" placeholder="Enter grade...">
+			<p class="grade-label"></p>
 		</div>	
 		<textarea id="comment" name="comment" class="input" placeholder="Student feedback..." resize="false"></textarea>
 	</form>
@@ -139,6 +140,9 @@
 		
 		?>
 	];
+	
+	// Set value of grade labels (ex /150)
+	$('.grade-label').text('/<?=$grade_item->get_max()?>');
 
 </script>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/upload.js"></script>

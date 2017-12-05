@@ -7,12 +7,12 @@ form
 
 .form-wide
 {
-	width: 100%;
+	width: 98%;
 }
 
 .form-med-wide
 {
-	width: 70%;
+	width: 50%;
 }
 
 textarea 
@@ -28,8 +28,8 @@ input, textarea
 .form-group input, .form-group textarea
 {
 	padding: 10px;
-	float: right;
-	width: 70%;
+	margin-left: 10px;
+	width: 100%;
 	border: 1px solid #c4bebe;
 }
 
@@ -37,7 +37,7 @@ input, textarea
 {
 	resize: none;
 	display: block;
-	width: 70%;
+	width: 100%;
 	border: 1px solid #c4bebe;
 }
 
@@ -77,13 +77,13 @@ input[type="checkbox"]
 
 textarea.input 
 {
-	margin-left: 30%;
+	margin-left: 10px;
 }
 
 .input
 {
 	padding: 10px;
-	width: 70%;
+	width: 100%;
 	border: 1px solid #c4bebe;
 }
 
@@ -127,4 +127,15 @@ textarea.input
 #comment
 {
 	height: 150px;
+}
+
+.grade-input
+{
+	width: 20% !important;
+}
+
+.grade-label
+{
+	width: 20%;
+	display: inline;
 }
