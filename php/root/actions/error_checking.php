@@ -3,8 +3,19 @@
 session_start();
 require_once('../../includes/functions/grade_functions.php');
 
-if (!isset($_REQUEST['grades']) || !isset($_REQUEST['course']) || !isset($_SESSION['userId']) || !isset($_SESSION['userKey']))
+// If no course or user tokens set, the user is doing something suspicious, so don't continue
+if (!isset($_REQUEST['course']) || !isset($_SESSION['userId']) || !isset($_SESSION['userKey']))
 {
+	die();
+}
+
+// If user submits no grades, send error to frontend and don't continue
+if (!isset($_REQUEST['grades'])) 
+{
+	$errors = array();
+	$msg = array( 'error' => "You didn't submit any grades");
+	$errors[] = $msg;
+	echo json_encode($errors);	
 	die();
 }
 

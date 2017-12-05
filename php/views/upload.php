@@ -64,6 +64,7 @@
 	</form>
 	<hr>
 	<div id="manual-grade-input"></div>
+	<div id="grade-submit-error"></div>
 	<button type="button" id="manual-upload" class="btn submit-btn">Upload grades to MLS</button>
 </div>
 <div id="error-message-modal" class="modal">

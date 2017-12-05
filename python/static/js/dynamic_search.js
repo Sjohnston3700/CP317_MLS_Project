@@ -1,4 +1,6 @@
 	function createForm(name,id) {
+		// Remove error messages where form will go
+		$('.error-msg').remove();
 		var form = $('.templates .upload-form-template').clone(true, true);
 		
 		form.removeClass('upload-form-template');

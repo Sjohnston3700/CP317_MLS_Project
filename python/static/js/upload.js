@@ -124,6 +124,9 @@ function sendToErrorChecking(data) {
 	$('#update-max-form-modal').addClass('hidden');
 	$('.hr').addClass('hidden');
 	
+	// Remove previous error messages
+	$('.error-msg').remove();
+	
 	// Set data to global variable in case user re-submits
 	globalGrades = data;
 	var formData = {
@@ -142,6 +145,21 @@ function sendToErrorChecking(data) {
 					
 						if (data.length > 0) {
 							
+							if (data[0].hasOwnProperty('error')) {
+								// Overall error, not just error with one student (ex. they didn't submit any grades)
+								error = $('.templates .modal-error-template').clone(true, true);
+								error.removeClass('modal-error-template');
+								msg = '<strong>ERROR: </strong> ';
+								error.html(msg + data[0].error);
+								error.removeClass('hidden');
+								error.addClass('error-msg');
+								error.insertBefore('#grade-submit-error');
+								
+								// Hide loading
+								$('.loader-box').addClass('hidden');
+								
+								return;
+							}
 							// Clear all previous forms and error messages
 							$('#error-message-modal .error-form').remove();
 							$('#error-message-modal .modal-body').html('');
