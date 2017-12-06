@@ -2,6 +2,9 @@
 
 $PATH_TO_STATIC = '/static';
 $PATH_TO_DOCS = '../views/';
+$redirectPage = 'http://somethingdumb.ca/index.php?page=token';
+
+Must update config.php to have live API keys
 
 // Heroku Deployment //
 git push heroku `git subtree split --prefix python heroku`:master --force
