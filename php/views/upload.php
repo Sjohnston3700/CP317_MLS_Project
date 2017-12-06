@@ -112,7 +112,7 @@
 	<form class="modal-form-template form-wide hidden" id="modal-form-template">
 		<h3><div id="name" class="inline"></div><button type="button" class="btn btn-error btn-remove inline remove-student-error">x</button></h3>
 		<div class="form-group">
-			<input class="grade-input" type="text" name="grade" id="grade" placeholder="Enter grade">
+			<input class="grade-input" type="text" name="grade" id="grade" placeholder="Enter grade...">
 			<p class="grade-label"></p>
 		</div>	
 		<textarea class="input" name="comment" id="comment" placeholder="Student feedback..." resize="false"></textarea>
