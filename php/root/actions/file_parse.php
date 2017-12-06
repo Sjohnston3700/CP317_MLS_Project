@@ -17,6 +17,18 @@ if (!isset($_FILES['file']) || $_FILES['file']['tmp_name'] == '')
 	die();
 }
 
+//test if proper file type
+//no point in checking each line for validity if wrong type
+$allowed =  array('csv','txt');
+$ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+if(!in_array($ext, $allowed) ) {
+    $msg = array( 'msg' => 'Incorrect file type. Must be .csv or .txt' );
+	$error = array();
+	$error[] = $msg;
+	echo json_encode($error);
+	die();
+}
+
 // Open CSV
 $file = fopen($_FILES['file']['tmp_name'], 'r');
 
