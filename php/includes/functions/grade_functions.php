@@ -237,10 +237,10 @@ function modify_grade_max($course_id, $grade_item_id, $max)
 			'msg' => 'Grade maximum must be a number'
 		);
 	}
-	else if (floatval($max) < 0)
+	else if (floatval($max) <= $grade_item->get_max())
 	{
 		$errors[] = array ( 
-			'msg' => 'Grade maximum must be a positive number'
+			'msg' => 'New grade maximum must be larger than current maximum'
 		);
 	}
 
