@@ -10,39 +10,57 @@
 	$PATH_TO_STATIC = '../../python/static';
 	$PATH_TO_DOCS = '../../python/templates/';
 
-    $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'courses';
+    $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'home';
+	$login_required = array('courses', 'upload', 'report');
+	$authenticated = false;
 
-	if ($page == 'token' && isset($_GET['x_a']) && isset($_GET['x_b']))
+	// Only check for credentials if on one of these pages. Docs, home, and help do not require login
+	if (in_array($page, $login_required))
 	{
-		header('Location: token.php?x_a=' . $_GET['x_a'] . '&x_b=' . $_GET['x_b']);
-		die();
+		if ($page == 'token' && isset($_GET['x_a']) && isset($_GET['x_b']))
+		{
+			header('Location: token.php?x_a=' . $_GET['x_a'] . '&x_b=' . $_GET['x_b']);
+			die();
+		}
+
+		if ($page == 'logout' && isset($_SESSION['userId']) && isset($_SESSION['userKey']))
+		{
+			unset($_SESSION['userId']);
+			unset($_SESSION['userKey']);
+			header("location: https://" . $config['lms_host'] . "/d2l/logout");
+			die();
+		}
+
+		if (!isset($_SESSION['userId']) || !isset($_SESSION['userKey']))
+		{
+			$redirectPage = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
+			$authContextFactory = new D2LAppContextFactory();
+			$authContext = $authContextFactory->createSecurityContext($config['appId'], $config['appKey']);
+			$hostSpec = new D2LHostSpec($config['lms_host'], $config['lms_port'], $config['protocol']);
+			$url = $authContext->createUrlForAuthenticationFromHostSpec($hostSpec, $redirectPage);
+			header('Location:' . $url);
+			die();
+		}
+		
+
+		// TA: 102, Instructor: 103
+		$roles = array(102, 103);
+		$user = new User($roles);
+		if ($user != null)
+		{
+			$authenticated = true;
+		}
 	}
 
-	if ($page == 'logout' && isset($_SESSION['userId']) && isset($_SESSION['userKey']))
-	{
-		unset($_SESSION['userId']);
-		unset($_SESSION['userKey']);
-		header("location: https://" . $config['lms_host'] . "/d2l/logout");
-		die();
-	}
-
-	if (!isset($_SESSION['userId']) || !isset($_SESSION['userKey']))
-	{
-		$redirectPage = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
-		$authContextFactory = new D2LAppContextFactory();
-		$authContext = $authContextFactory->createSecurityContext($config['appId'], $config['appKey']);
-		$hostSpec = new D2LHostSpec($config['lms_host'], $config['lms_port'], $config['protocol']);
-		$url = $authContext->createUrlForAuthenticationFromHostSpec($hostSpec, $redirectPage);
-		header('Location:' . $url);
-		die();
-	}
-
-	// TA: 102, Instructor: 103
-	$roles = array(102, 103);
-	$user = new User($roles);
 
     switch ($page)
     {
+		case 'home':
+            $contents = '../views/home.php';
+            break;
+		case 'docs':
+            $contents = '../views/docs.php';
+            break;
 		case 'report':
             $contents = '../views/report.php';
             break;
@@ -77,7 +95,7 @@
  			$contents = $PATH_TO_DOCS . 'design_wrapper.html';
  			break;
 		default:
-            $contents = '../views/courses.php';
+            $contents = '../views/home.php';
             break;
     }
 
@@ -119,11 +137,14 @@
 				</a>
 			</li>
 			<li class="item"><a href="index.php?page=courses">Courses</a></li>
+			<li class="item"><a href="index.php?page=docs">Docs</a></li>
 			<li class="item"><a href="index.php?page=help">Help</a></li>
+			<?php if ($authenticated) { ?>
 			<li class="name-section">
 			    <span>Welcome, <?=$user->get_full_name()?></span>
 				<button onclick="window.location.href='index.php?page=logout'" class="btn">Logout</button>
 			</li>
+			<?php } ?>
 		</ul>
 		<div class="page-content-horiz">
 			<?php require_once($contents); ?>
