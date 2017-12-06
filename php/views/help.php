@@ -105,7 +105,7 @@
         <p>- Added reference links.</p>
         <p>Author: Hind Althabi</p>
 		<h3 id="toc_exclude">Version 3.0 - 12/05/2017</h3>
-        <p>- Redid document, too many spelling mistakes.</p>
+        <p>- Fixed spelling and grammar</p>
         <p>- Updated images to current UI.</p>
         <p>Author: Sarah Johnston</p>
         
