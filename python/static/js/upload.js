@@ -253,6 +253,10 @@ $('.remove-student-error').click(function() {
 	// Now remove them from globalGrades
 	var index = findGrade(grade.id, globalGrades);
 	globalGrades.splice(index,1);
+
+	if (globalGrades.length == 0) {
+		closeModal('error-message-modal');
+	}	
 });
 
 /**
