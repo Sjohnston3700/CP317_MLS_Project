@@ -22,7 +22,7 @@
 	{
 		unset($_SESSION['userId']);
 		unset($_SESSION['userKey']);
-		header("location: index.php");
+		header("location: https://" . $config['lms_host'] . "/d2l/logout");
 		die();
 	}
 
