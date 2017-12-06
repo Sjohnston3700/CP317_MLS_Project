@@ -121,7 +121,10 @@ function error_checking($grades, $course_id, $grade_item_id)
 				'type' => '1'
 			);
 		}
-		else if ($g['value'] > $grade_item->get_max() && $grade_item->get_can_exceed())
+		//for if you want to send a warning msg if grade > max and that is allowed by gradeitem
+		//client, as of Dec. 6, 2017, does not want this feature
+		//but leaving in file in case someone desires this later
+		/* else if ($g['value'] > $grade_item->get_max() && $grade_item->get_can_exceed())
 		{	
 			
 			if (!isset($g['is_warning']) || isset($g['is_warning']) && $g['is_warning'] == false)
@@ -139,7 +142,7 @@ function error_checking($grades, $course_id, $grade_item_id)
 			{
 				$ids[]= $g['id'];
 			}
-		}
+		} */
 		else if ($g['value'] > $grade_item->get_max() && !$grade_item->get_can_exceed())
 		{
 			$errors[] = array ( 

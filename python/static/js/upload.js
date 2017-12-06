@@ -144,6 +144,7 @@ function sendToErrorChecking(data) {
 		success     : function(data) {
 					
 						if (data.length > 0) {
+							$greater_than_max_err = false;
 							
 							if (data[0].hasOwnProperty('error')) {
 								// Overall error, not just error with one student (ex. they didn't submit any grades)
@@ -191,16 +192,25 @@ function sendToErrorChecking(data) {
 								else if (data[i].type == 1) {
 									error = $('.templates .modal-error-template').clone(true, true);
 									error.removeClass('modal-error-template');
+									errorForm.addClass('is-error');
 									msg = '<strong>ERROR: </strong> ';
+
+									//checks if word "max" is in error msg
+									//if true, means error is grade > max (not allowed for this gradeitem, since error)
+									//so set var that later says to show update max form on modal
+									if  (data[i].msg.indexOf('max') !== -1) {
+										$greater_than_max_err = true;
+									}
 								}
 								error.addClass('error-msg-' + data[i].id);
 								error.html(msg + data[i].msg);
 								error.removeClass('hidden');
 								error.insertBefore(errorForm);
 							}
-							// If there is a warning message, this means the user is being warned a grade is over max. 
-							// If user the form to change grade max if they wish
-							if ($('.is-warning')[0]){
+							
+							//if a grade > max error was found when iterating through errors
+							//then display update max form
+							if ($greater_than_max_err){
 								$('#update-max-form-modal').removeClass('hidden');
 								$('.hr').removeClass('hidden');
 							}
