@@ -1,4 +1,7 @@
 /* Buttons */
+button {
+	border-radius: 0;
+}
 
 .btn
 {
@@ -9,7 +12,6 @@
 	background: #F2A900;
 	transition: 0.4s;
 	border: 1px solid #F2A900;
-	border-radius: 0;
 }
 
 .block
