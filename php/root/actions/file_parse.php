@@ -29,9 +29,21 @@ if(!in_array($ext, $allowed) ) {
 	die();
 }
 
+
+//check for empty file
+if (filesize($_FILES['file']['tmp_name']) == 0) 
+{
+	$msg = array( 'msg' => 'Empty file submitted' );
+	$error = array();
+	$error[] = $msg;
+	echo json_encode($error);
+	die();
+}
+
 // Open CSV
 $file = fopen($_FILES['file']['tmp_name'], 'r');
 
+//TODO: ask Sarah if this can be deleted (seems like job is done by code above)
 if (!$file)
 {
 	$msg = array( 'msg' => 'No file was submitted' );
