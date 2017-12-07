@@ -164,6 +164,8 @@ function sendToErrorChecking(data) {
 							// Clear all previous forms and error messages
 							$('#error-message-modal .error-form').remove();
 							$('#error-message-modal .modal-body').html('');
+							$('.update-max-error').remove();
+							$('#update-max-form-modal').find('#max-grade-modal').val('');
 							
 							for (var i = 0; i < data.length; i++) {
 								var errorForm = $('.templates .modal-form-template').clone(true, true);
