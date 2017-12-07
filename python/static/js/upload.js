@@ -23,17 +23,33 @@ $('#upload-target').on('load', function() {
 			sendToErrorChecking(json);
 		} 
 		else {
+			var error = $('.templates .modal-error-template').clone(true, true);
+			error.removeClass('modal-error-template');
+			error.removeClass('hidden');
+			error.addClass('upload-file-error');
+
+			//if whole file was bad, just need to display 1 error msg describing problem
+			//line property only exists if only problem with some lines
+			if (!json[0].hasOwnProperty('line')) {
+				msg = '<strong>ERROR: </strong>' + json[0].msg;
+				error.html(msg);
+				error.insertBefore($('#file-error'));
+				return;
+			}
+
+			//else, problem with just some lines
+			//dislay msg saying required format first
+			msg = '<strong>ERROR: </strong>' + 'Format must be brightspace_id, grade, student_name, comment';
+			error.html(msg);
+			error.insertBefore($('#file-error'));
+
+			//display msgs for each bad line
 			for (var i = 0; i < json.length; i++) {
 				var error = $('.templates .modal-error-template').clone(true, true);
 				error.removeClass('modal-error-template');
 				error.removeClass('hidden');
 				error.addClass('upload-file-error');
-				if (json[i].hasOwnProperty('line')) {
-					msg = '<strong>ERROR (line ' + json[i].line + '): </strong>' + json[i].msg;
-				}
-				else {
-					msg = '<strong>ERROR: </strong>' + json[i].msg;
-				}
+				msg = '<strong>ERROR (line ' + json[i].line + '): </strong>' + json[i].msg;
 				
 				error.html(msg);
 				error.insertBefore($('#file-error'));
@@ -144,6 +160,7 @@ function sendToErrorChecking(data) {
 		success     : function(data) {
 					
 						if (data.length > 0) {
+							//tracks if this error appears
 							$greater_than_max_err = false;
 							
 							if (data[0].hasOwnProperty('error')) {
@@ -165,8 +182,29 @@ function sendToErrorChecking(data) {
 							$('#error-message-modal .error-form').remove();
 							$('#error-message-modal .modal-body').html('');
 							$('.update-max-error').remove();
+							//need to clear val in the case that the user tried to update to a bad max before re-uploading
+							//don't want them to see that bad value displayed as max in field
 							$('#update-max-form-modal').find('#max-grade-modal').val('');
-							
+
+							if (data[0].type == 2) {
+								//display msgs for each bad line
+								for (var i = 0; i < data.length; i++) {
+									var error = $('.templates .modal-error-template').clone(true, true);
+									error.removeClass('modal-error-template');
+									error.removeClass('hidden');
+									error.addClass('upload-file-error');
+									msg = '<strong>ERROR (Brightspace ID ' + data[i].id + '): </strong>' + data[i].msg;
+									
+									error.html(msg);
+									error.insertBefore($('#file-error'));
+								}
+
+								// Hide loading
+								$('.loader-box').addClass('hidden');
+
+								return;
+							}
+						
 							for (var i = 0; i < data.length; i++) {
 								var errorForm = $('.templates .modal-form-template').clone(true, true);
 								var formId = 'error-form-' + data[i].id;
@@ -256,6 +294,7 @@ $('.remove-student-error').click(function() {
 	var index = findGrade(grade.id, globalGrades);
 	globalGrades.splice(index,1);
 
+	//if all students have been removed, close modal
 	if (globalGrades.length == 0) {
 		closeModal('error-message-modal');
 	}	
@@ -388,6 +427,7 @@ function updateMax(max, id) {
 						// Clear all previous forms and error messages
 						$('.update-max-error').remove();
 						
+						//if error
 						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
 								var error;
@@ -407,11 +447,17 @@ function updateMax(max, id) {
 								
 								var success;
 								var msg;
+
+								//Value is properly updated, but after update data is int 
+								//b/c of this, need to use max to update fields since can be float
+								//could've set data = parseFloat(data), but not sure of the side effects of modifying data
+								//(don't understand how it is populated in the first place)
+								max = parseFloat(max);
 							
-								$('#out-of').text(data);
-								$('#max-grade-modal').attr('placeholder', data);
-								$('#max-grade').attr('placeholder', data);
-								$('.grade-label').text('/' + data);
+								$('#out-of').text(max);
+								$('#max-grade-modal').attr('placeholder', max);
+								$('#max-grade').attr('placeholder', max);
+								$('.grade-label').text('/' + max);
 							
 								success = $('.templates .modal-success-template').clone(true, true);
 								msg = 'Grade maximum updated successfully';

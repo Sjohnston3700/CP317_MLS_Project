@@ -23,7 +23,7 @@ function parse_file($file)
 		{
 			$error = array(
 				'line' => $i,
-				'msg' => 'Format must be brightspace_id, grade, student_name, comment'
+				'msg' => $row
 			);
 				
 			$num_errors++;
@@ -73,19 +73,19 @@ function error_checking($grades, $course_id, $grade_item_id)
 	$grade_item = $course->get_grade_item($grade_item_id);
 	
 	// Error object to return
-	$errors = array();
+	$errors = array(); 
+	//object to track errors that result in error-modal not displaying
+	//errors so bad they completely 'fail' upload. If any fail errors, only those returned
+	$fail_errors = array(); 
 
 	foreach ($grades as $g)
 	{
 		if ($course->get_member($g['id']) == null)
 		{
-			$errors[] = array ( 
+			$fail_errors[] = array ( 
 				'id' => $g['id'],
-				'value' => $g['value'],
-				'name' => $g['name'],
-				'comment' => $g['comment'],
-				'msg' => 'Student ID not found for course',
-				'type' => '1' 
+				'msg' => 'Student '. $g['name'] . ' not found for course',
+				'type' => '2' 
 			);
 		}
 		else if ($g['value'] == '')
@@ -124,6 +124,7 @@ function error_checking($grades, $course_id, $grade_item_id)
 		//for if you want to send a warning msg if grade > max and that is allowed by gradeitem
 		//client, as of Dec. 6, 2017, does not want this feature
 		//but leaving in file in case someone desires this later
+		//implementing this again would require minor changes to upload.sendToErrorChecking
 		/* else if ($g['value'] > $grade_item->get_max() && $grade_item->get_can_exceed())
 		{	
 			
@@ -156,6 +157,11 @@ function error_checking($grades, $course_id, $grade_item_id)
 		}
 	}
 
+	//only return 1 error object. fail_errors is priority (upload not worth sending to modal)
+	if (sizeof($fail_errors) != 0) {
+	 	$errors = $fail_errors;
+	}
+	
 	if (sizeof($errors) == 0)
 	{
 		$errors = upload_grades($grades, $course, $grade_item);
