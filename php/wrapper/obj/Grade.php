@@ -1,8 +1,8 @@
 <?php 
 
 	require_once 'API.php';
-	$FEEDBACK_PATTERN = '\-{3,}?.*?(\d{5,7}).*?^([\w|\s]*?)$(.+?(?:Total:\s+(\d+)\s+\/\s+(\d+).*?)?)\-{3,}?';
 
+	
 class Grade {
 	/*
 	Constructor:
