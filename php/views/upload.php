@@ -35,7 +35,7 @@
 <div class="page-section">
 	<form class="form-wide" id="update-max-form">
 		<div id="update-max-error"></div>
-		<input type="number" class="input" id="max-grade" min="0" placeholder="<?=$grade_item->get_max()?>">
+		<input type="text" class="input" id="max-grade" min="0" placeholder="<?=$grade_item->get_max()?>">
 		<button type="button" modal-form="0" class="btn open-confirm-max-grade">Update grade maximum</button>
 	</form>
 </div>
@@ -75,7 +75,7 @@
 			<hr class="hr">
 			<form class="form-wide" id="update-max-form-modal">
 				<div id="update-max-error-modal"></div>
-				<input type="number" class="input" id="max-grade-modal" min="0" placeholder="<?=$grade_item->get_max()?>">
+				<input type="text" class="input" id="max-grade-modal" min="0" placeholder="<?=$grade_item->get_max()?>">
 				<button type="button" modal-form="1" class="btn open-confirm-max-grade">Update grade maximum</button>
 			</form>
 			<hr class="hr">
