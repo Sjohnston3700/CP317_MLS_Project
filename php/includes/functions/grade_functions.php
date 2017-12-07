@@ -60,7 +60,24 @@ function parse_file($file)
 }
 
 /**
+ * @param {Array} array - parent array to search
+ * @param {String} key - key to use in subarray
+ * @param {String} val - val to look for  in subarray
+ * @return {Array} subarray containing val for key
+ */
+function findSubarray($array, $key, $val) {
+	for ($i = 0; $i < sizeof($array); $i++) {
+		if ($array[$i][$key] == $val) {
+			return $i;
+		}
+	}
+
+	return -1;
+}
+
+/**
  * Error checking for array of grades object. Returns array of errors.
+ * Expects that array is ordered like the file (if applicable). For putting line# in error msg
  * @param {Array} grades - array of grades objects
  * @param {Integer} grade_item_id
  * @return {Array} Array of errors and error messages to be sent to frontend
@@ -77,12 +94,38 @@ function error_checking($grades, $course_id, $grade_item_id)
 	//object to track errors that result in error-modal not displaying
 	//errors so bad they completely 'fail' upload. If any fail errors, only those returned
 	$fail_errors = array(); 
+	//counts occurences of each id. Used to check for duplicate ids (possible if uploaded from file)
+	$id_count = array_count_values(array_column($grades, 'id'));
+	//for tracking the line number (used if error is one that only file upload would have)
+	$i = 0;
 
 	foreach ($grades as $g)
-	{
+	{	
+		$i++;
+		//if duplicate id
+		if($id_count[$g['id']] > 1) {
+			//if haven't already recorded duplicate error
+			if(!in_array($g['id'], array_column($fail_errors, 'id'))) {
+				$fail_errors[] = array ( 
+					'line' => $i,
+					'id' => $g['id'],
+					'msg' => 'MLS ID '. $g['id'] . ' is duplicated',
+					'type' => '2' 
+				);
+			}
+			//if have already recorded duplicate error, add new line# to existing entry
+			else {
+				$index = findSubarray($fail_errors, 'id', $g['id']);
+				if ($index >= 0) {
+					$fail_errors[$index]['line'] = $fail_errors[$index]['line'] . ', ' . $i;
+				}
+				continue;
+			}
+		}
 		if ($course->get_member($g['id']) == null)
 		{
 			$fail_errors[] = array ( 
+				'line' => $i,
 				'id' => $g['id'],
 				'msg' => 'Student '. $g['name'] . ' not found for course',
 				'type' => '2' 

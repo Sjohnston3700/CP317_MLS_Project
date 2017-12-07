@@ -193,7 +193,7 @@ function sendToErrorChecking(data) {
 									error.removeClass('modal-error-template');
 									error.removeClass('hidden');
 									error.addClass('upload-file-error');
-									msg = '<strong>ERROR (Brightspace ID ' + data[i].id + '): </strong>' + data[i].msg;
+									msg = '<strong>ERROR (line ' + data[i].line + '): </strong>' + data[i].msg;
 									
 									error.html(msg);
 									error.insertBefore($('#file-error'));
