@@ -145,6 +145,10 @@
 	// Set value of grade labels (ex /150)
 	$('.grade-label').text('/<?=$grade_item->get_max()?>');
 
+	//stop from automatically scrolling to last position on page
+	//looks bad since starts at top then flashes to bottom
+	history.scrollRestoration = "manual"
+
 </script>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/upload.js"></script>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/jquery.easy-autocomplete.js"></script>
