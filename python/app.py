@@ -6,7 +6,7 @@ from flask import Flask, redirect, request, render_template, url_for, session, j
 from werkzeug.utils import secure_filename
 from conf_basic import app_config
 
-from wrapper.obj.API import API
+from wrapper.obj import API
 from wrapper.obj.User import User
 from wrapper.obj.Host import Host
 from grade_functions import parse_grades_csv, check_grades
@@ -119,7 +119,7 @@ def show_spmp():
     '''
     return render_template('spmp.html')
 
-@app.route('/documentation/requirements')
+@app.route('/documentation/requirements/')
 def show_requirements():
     '''
     Runs when application is pointed to "/documentation/requirements/".
@@ -201,10 +201,10 @@ def show_upload():
     
     if 'user_id' not in session:
         logger.warning('Someone tried to access /upload without logging in')
-        return redirect('/login')
+        return redirect('/login/')
     elif app.config.get( session['user_id'] , None) is None:
-        logger.warning('Session is out of sync on /upload')
-        return redirect('/login')
+        logger.warning('Session is out of sync on /upload/')
+        return redirect('/login/')
         
     course_id    = request.args.get('courseId',    default = None, type = int)
     grade_item_id = request.args.get('gradeItemId', default = None, type = int)
@@ -236,7 +236,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/file_parse',methods=['POST'])
+@app.route('/file_parse/',methods=['POST'])
 def file_parse():
     '''
     Function to accept uploaded file and parse it for errors.
@@ -250,23 +250,23 @@ def file_parse():
     '''
     if 'user_id' not in session:
         logger.warning('Someone is trying to upload a file but is not logged in')
-        return redirect('/login')
+        return redirect('/login/')
     elif app.config.get( session['user_id'] , None) is None:
-        logger.warning('Session is out of sync on /file_parse')
-        return redirect('/login')
+        logger.warning('Session is out of sync on /file_parse/')
+        return redirect('/login/')
         
     user = app.config[session['user_id']]   
     
     errors = []
     # check if the post request has the file part
     if 'file' not in request.files:
-        logger.error('No file part in request to /file_parse')
+        logger.error('No file part in request to /file_parse/')
         errors = [{'msg':'No file part in request'}]
     else:
         file = request.files['file']
         
         if file.filename == '':
-            logger.error('No selected file in /file_parse')
+            logger.error('No selected file in /file_parse/')
             errors = [{'msg':'No file selected'}]
         elif file and allowed_file(file.filename):
             filename = user.get_id() + secure_filename(file.filename)
@@ -286,17 +286,17 @@ def file_parse():
 
     return json.dumps(errors)
 
-@app.route('/error_checking',methods=['POST'])
+@app.route('/error_checking/',methods=['POST'])
 def grades_error_checking():
     '''
-	Checks grades submitted from form.
-	Preconditions:
-		grades_json (dict) : json information for each grade being checked.
-	Postconditions:
-		if error with User:
-			returns redirect to "/login"
-		else:
-			returns json.dump(errors) (str) : success/errors messages for grades.
+    Checks grades submitted from form.
+    Preconditions:
+        grades_json (dict) : json information for each grade being checked.
+    Postconditions:
+        if error with User:
+            returns redirect to "/login"
+        else:
+            returns json.dump(errors) (str) : success/errors messages for grades.
     '''
     if 'user_id' not in session:
         logger.warning('Someone is trying to error check grades but is not logged in')
@@ -327,22 +327,22 @@ def grades_error_checking():
     
     return json.dumps(errors)
 
-@app.route('/report')
+@app.route('/report/')
 def report():
-	'''
-	Displays report page.
-	Postconditions:
-		if error with user:
-			Returns redirect to "/login"
-		else:
-			renders "report.html"
-	'''
+    '''
+    Displays report page.
+    Postconditions:
+        if error with user:
+            Returns redirect to "/login"
+        else:
+            renders "report.html"
+    '''
     if 'user_id' not in session:
         logger.warning('Someone is trying to get a report but is not logged in')
-        return redirect('/login')
+        return redirect('/login/')
     elif app.config.get( session['user_id'] , None) is None:
         logger.warning('Session is out of sync on /report')
-        return redirect('/login')
+        return redirect('/login/')
     
     course_id    = request.args.get('courseId',    default = None, type = int)
     grade_item_id = request.args.get('gradeItemId', default = None, type = int)
@@ -357,7 +357,7 @@ def report():
             
     return render_template('report.html', user=user,num_grades=num_grades, successful_grades=report['successful_grades'], failed_grades=report['failed_grades'],course=course,grade_item=grade_item)
 
-@app.route('/update_gradeItem_max',methods=['POST'])
+@app.route('/update_gradeItem_max/',methods=['POST'])
 def update_grade_max():
     '''
     Function to receive update grade max requests and try to execute them.
@@ -376,10 +376,10 @@ def update_grade_max():
     '''
     if 'user_id' not in session:
         logger.warning('Someone tried to access /update_gradeItem_max without logging in')
-        return redirect('/login')
+        return redirect('/login/')
     elif app.config.get( session['user_id'] , None) is None:
         logger.warning('Session is out of sync on /update_gradeItem_return')
-        redirect('/login')
+        redirect('/login/')
 
     try:
         new_max       = request.form['new_max']
