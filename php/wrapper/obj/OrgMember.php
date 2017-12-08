@@ -73,9 +73,15 @@
 			courses - dictionary of courses
 		*/
 		function _get_courses() {
+			global $config;
+
 			$courses = array();
 			foreach(get_user_enrollments($this) as $course) {
-				if (in_array($course['Role']['Id'], $this->roles)) { // This is temp to make loading time quicker for development
+				if ($config['testMyEnrollments']) {
+					$courses[] = new Course($this, $course);
+					continue;
+				}
+				if (in_array($course['Role']['Id'], $this->roles)) {
 					$courses[] = new Course($this, $course);
 				}
 				

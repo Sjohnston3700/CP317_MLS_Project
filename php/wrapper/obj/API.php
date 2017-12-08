@@ -10,6 +10,7 @@ $routes = array(
 	'GET_COURSE_MEMBERS'   => '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/',
 	'GET_USER_ENROLLMENTS' => '/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/',
 	'GET_USER_ENROLLMENT'  => '/d2l/api/le/(version)/(orgUnitId)/grades/',
+	'GET_MY_ENROLLMENTS'   => '/d2l/api/lp/(version)/enrollments/myenrollments/',
 	'GET_WHO_AM_I'         => '/d2l/api/lp/(version)/users/whoami',
 	'GET_GRADE_VALUES'	   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/',
 	'SET_GRADE_MAX'		   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)',
@@ -241,7 +242,13 @@ function get_user_enrollments($user){
 		'userId' => $user->get_id(),
 	);
 
-	$response = get($routes['GET_USER_ENROLLMENTS'], $route_params);
+	if ($config['testMyEnrollments']) {
+		unset($route_params['userId']);
+		$response = get($routes['GET_MY_ENROLLMENTS'], $route_params);
+	}
+	else {
+		$response = get($routes['GET_USER_ENROLLMENTS'], $route_params);
+	}
 	
 	return $response['Items'];
 }
