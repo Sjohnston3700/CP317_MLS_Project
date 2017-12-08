@@ -361,11 +361,15 @@ $('#manual-upload').click(function() {
 	sendToErrorChecking(grades);
 });
 
+$('.open-confirm-max-grade').click(function(e) {
+	showConfirmMax($(this).attr('modal-form'), e);
+});
+
 /**
  * Opens modal to confirm if user wants to change grade maximum
  */
-$('.open-confirm-max-grade').click(function() {
-	var isModal = parseInt($(this).attr('modal-form'));
+function showConfirmMax(isModal, e) {
+	e.preventDefault();
 	if (isModal) {
 		$('#update-max').addClass('hidden');
 		$('#update-max-modal').removeClass('hidden');
@@ -375,14 +379,15 @@ $('.open-confirm-max-grade').click(function() {
 		$('#update-max-modal').addClass('hidden');
 	}
 	showModal('confirm-max-grade');
-});
+}
+
 
 /**
  * Listens for submitting of update max.
  */
 $('#update-max').click(function() {
 	closeModal('confirm-max-grade');
-	var form = $('#update-max-form');
+	var form = $();
 	var max = form.find('#max-grade').val();
 	updateMax(max, 'update-max-error');
 });

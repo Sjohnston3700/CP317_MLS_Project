@@ -9,7 +9,20 @@
 		form.find('.remove-student').attr('id', 'remove-' + id);
 		form.attr('id', 'student-' + id);
 		
-		$("#manual-grade-input").append(form);
+		$("#manual-grade-input").append(form); 
+
+		//remove previous msg, if exists
+		$('.search-msg').remove();
+
+		//define msg and insert above search bar
+		success = $('.templates .modal-success-template').clone(true, true);
+		msg = name + ' added successfully';
+		success.removeClass('hidden');
+		success.removeClass('modal-success-template');
+		success.addClass('update-max-error');
+		success.addClass('search-msg');
+		success.html(msg);
+		success.insertBefore('#members');
 	}
 	
 	function formExists(id) {
@@ -56,7 +69,7 @@
 			$("#manual-grade-input").empty();
 		}
 	}
-	
+
 	// unticks Select All checkbox when a student is removed
 	$(".remove-student").click(function() {
 		$("#members-cb").prop("checked", false);
@@ -89,6 +102,22 @@
 				
 				// Only make grade form if one doesn't exist for that student yet
 				if (!formExists(id)) createForm(name,id);
+				//display error msg that student already added
+				else {
+					//remove previous success msg, if exists
+					$('.search-msg').remove();
+					//define msg and insert above search bar
+					error = $('.templates .modal-error-template').clone(true, true);
+					error.removeClass('modal-error-template');
+					error.removeClass('hidden');
+					//error.removeClass('modal-success');
+					error.addClass('update-max-error');
+					error.addClass('search-msg');
+					msg = name + ' already added'
+					error.html(msg);
+					error.insertBefore('#members');
+							
+				}
 			}
 		},
 		template: {
@@ -99,5 +128,4 @@
 		}
 	};
 	
-
 	$("#members").easyAutocomplete(options);

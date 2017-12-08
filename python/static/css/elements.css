@@ -44,6 +44,11 @@ button {
 	border: 1px solid #73ad56;
 }
 
+.btn-success:focus
+{
+	border: 1.5px solid #41a3ff;
+}
+
 .btn-error
 {
 	background: #d1554f;
@@ -52,15 +57,20 @@ button {
 	margin: 0px;
 }
 
+.btn-error:hover
+{
+	background: #ad4641;
+}
+
+.btn-error:focus
+{
+	border: 1.5px solid #41a3ff;
+}
+
 .btn-remove
 {
 	float: right;
 	margin-right: -10px;
-}
-
-.btn-error:hover
-{
-	background: #ad4641;
 }
 
 .btn-block
@@ -249,6 +259,11 @@ button.accordion.active:after
 	padding: 10px;
 	padding-left: 20px;
 	text-align: left;
+}
+
+.search-msg
+{
+	margin-bottom: 10px;
 }
 
 .modal-warning strong

@@ -33,7 +33,7 @@
 <hr>
 <h2>Change Grade Maximum</h2>
 <div class="page-section">
-	<form class="form-wide" id="update-max-form">
+	<form class="form-wide" id="update-max-form" onsubmit="showConfirmMax(0, event)">
 		<div id="update-max-error"></div>
 		<input type="text" class="input" id="max-grade" min="0" placeholder="<?=$grade_item->get_max()?>">
 		<button type="button" modal-form="0" class="btn open-confirm-max-grade">Update grade maximum</button>
@@ -55,7 +55,7 @@
 <h2>Manual Grade Input</h2>
 <div class="page-section">
 	<h4>Search to add a student: </h4>
-	<form>	
+	<form onsubmit="return false">	
 		<input id="members" class="input" type="text" onkeyup="handleInputKeyUp()" placeholder="Enter Student Name or ID...">
 		<div class="form-checkbox">
 			<input id="members-cb" type="checkbox" onchange="handleCheckboxChange()">
@@ -73,7 +73,7 @@
 			<span class="close">&times;</span>
 			<h2>Errors With Your Grade Upload</h2>
 			<hr class="hr">
-			<form class="form-wide" id="update-max-form-modal">
+			<form class="form-wide" id="update-max-form-modal" onsubmit="showConfirmMax(1, event)">
 				<div id="update-max-error-modal"></div>
 				<input type="text" class="input" id="max-grade-modal" min="0" placeholder="<?=$grade_item->get_max()?>">
 				<button type="button" modal-form="1" class="btn open-confirm-max-grade">Update grade maximum</button>
@@ -109,7 +109,7 @@
 	<p class="modal-success modal-success-template hidden"></p>
 	<p class="modal-warning modal-warning-template hidden"></p>
 	<p class="modal-error modal-error-template hidden"></p>
-	<form class="modal-form-template form-wide hidden" id="modal-form-template">
+	<form class="modal-form-template form-wide hidden" id="modal-form-template" onsubmit="return false">
 		<h3><div id="name" class="inline"></div><button type="button" class="btn btn-error btn-remove inline remove-student-error">x</button></h3>
 		<div class="form-group">
 			<input class="grade-input" type="text" name="grade" id="grade" placeholder="Enter grade...">
@@ -117,7 +117,7 @@
 		</div>	
 		<textarea class="input" name="comment" id="comment" placeholder="Student feedback..." resize="false"></textarea>
 	</form>
-	<form class="upload-form upload-form-template form-med-wide hidden">
+	<form class="upload-form upload-form-template form-med-wide hidden" onsubmit="return false">
 		<h3><div id="name" class="inline"></div><button type="button" class="btn btn-error btn-remove inline remove-student">x</button></h3>
 		<div class="form-group">
 			
