@@ -20,12 +20,36 @@ function parse_file($file)
 	{	
 		$row = fgetcsv($file);
 		if (sizeof($row) < 4)
-		{
+		{	
+			//no error if last line is empty (common occurence if manually editing in Excel, for example)
+			if ($row == NULL) {
+				if (feof($file)) {
+					$i++;
+					break;
+				}
+				//else
+				$error = array(
+					'line' => $i,
+					'msg' => ''
+				);
+			}
+			else {
+				$error = array(
+					'line' => $i,
+					'msg' => $row
+				);
+			}
+				
+			$num_errors++;
+			$errors[] = $error;
+		}
+		//require that there must be some value for id, grade, name
+		else if (trim($row[0]) == '' || trim($row[1]) == '' || trim($row[2]) == '') {
 			$error = array(
 				'line' => $i,
 				'msg' => $row
 			);
-				
+					
 			$num_errors++;
 			$errors[] = $error;
 		}
