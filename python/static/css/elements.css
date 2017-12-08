@@ -247,7 +247,8 @@ button.accordion.active:after
 	width: 100%;
 	margin: 0px;
 	padding: 10px;
-	text-align: center;
+	padding-left: 20px;
+	text-align: left;
 }
 
 .modal-warning strong
