@@ -11,7 +11,7 @@
 	$PATH_TO_DOCS = '../../python/templates/';
 
     $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'home';
-	$login_required = array('courses', 'upload', 'report');
+	$login_required = array('token', 'courses', 'upload', 'report', 'logout');
 	$authenticated = false;
 
 	// Only check for credentials if on one of these pages. Docs, home, and help do not require login
@@ -27,6 +27,7 @@
 		{
 			unset($_SESSION['userId']);
 			unset($_SESSION['userKey']);
+			unset($_SESSION['userName']);
 			header("location: https://" . $config['lms_host'] . "/d2l/logout");
 			die();
 		}
@@ -47,11 +48,15 @@
 		$roles = array(102, 103);
 		$user = new User($roles);
 		if ($user != null)
-		{
-			$authenticated = true;
+		{	
+			$_SESSION['userName'] = $user->get_full_name();
 		}
 	}
 
+	//assume authenticated if name set
+	if (isset($_SESSION['userName'])) {
+		$authenticated = true;
+	}
 
     switch ($page)
     {
@@ -95,7 +100,7 @@
  			$contents = $PATH_TO_DOCS . 'design_wrapper.html';
  			break;
 		default:
-            $contents = '../views/home.php';
+			$contents = '../views/home.php';
             break;
     }
 
@@ -132,16 +137,18 @@
 		<ul class="horiz-nav">
 			<img id="logo" src="<?=$PATH_TO_STATIC?>/img/logo.png">
 			<li class="brand">
-				<a href="/">
+				<a href="index.php?page=home">
 					ezMarker
 				</a>
 			</li>
-			<li class="item"><a href="index.php?page=courses">Courses</a></li>
-			<li class="item"><a href="index.php?page=docs">Docs</a></li>
+			<?php if ($authenticated) { ?>
+				<li class="item"><a href="index.php?page=courses">Courses</a></li>
+			<?php } ?>
+			<!--<li class="item"><a href="index.php?page=docs">Docs</a></li>-->
 			<li class="item"><a href="index.php?page=help">Help</a></li>
 			<?php if ($authenticated) { ?>
 			<li class="name-section">
-			    <span>Welcome, <?=$user->get_full_name()?></span>
+			    <span>Welcome, <?=$_SESSION['userName']?></span>
 				<button onclick="window.location.href='index.php?page=logout'" class="btn">Logout</button>
 			</li>
 			<?php } ?>
