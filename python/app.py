@@ -2,12 +2,11 @@ import os, sys, requests, traceback
 import d2lvalence.auth as d2lauth
 import logging, logging.config
 
-
 from flask import Flask, redirect, request, render_template, url_for, session, jsonify, json
 from werkzeug.utils import secure_filename
 from conf_basic import app_config
-from wrapper.obj import API
 
+from wrapper.obj.API import API
 from wrapper.obj.User import User
 from wrapper.obj.Host import Host
 from grade_functions import parse_grades_csv, check_grades
@@ -17,8 +16,6 @@ logger = logging.getLogger(__name__)
 with open('logging_config.json', 'rt') as f:
     config = json.load(f)
     logging.config.dictConfig(config)
-
-
 
 EDIT_GRADE_ITEM_URL = 'https://{host}/d2l/lms/grades/admin/manage/item_props_newedit.d2l?objectId={gradeItemId}&gradesArea=1&ou={courseId}'
 VIEW_GRADES_URL     = 'https://{host}/d2l/lms/grades/admin/enter/grade_item_edit.d2l?objectId={gradeItemId}&ou={courseId}'
@@ -195,7 +192,7 @@ def handle_error(e):
     return render_template('error.html',user=user,error=traceback.format_exc())
     
     
-@app.route('/upload', methods = ['GET'])
+@app.route('/upload')
 def show_upload():
     """
     Here goes something
@@ -292,6 +289,14 @@ def file_parse():
 @app.route('/error_checking',methods=['POST'])
 def grades_error_checking():
     '''
+	Checks grades submitted from form.
+	Preconditions:
+		grades_json (dict) : json information for each grade being checked.
+	Postconditions:
+		if error with User:
+			returns redirect to "/login"
+		else:
+			returns json.dump(errors) (str) : success/errors messages for grades.
     '''
     if 'user_id' not in session:
         logger.warning('Someone is trying to error check grades but is not logged in')
@@ -322,8 +327,16 @@ def grades_error_checking():
     
     return json.dumps(errors)
 
-@app.route('/report',methods=['GET'])
+@app.route('/report')
 def report():
+	'''
+	Displays report page.
+	Postconditions:
+		if error with user:
+			Returns redirect to "/login"
+		else:
+			renders "report.html"
+	'''
     if 'user_id' not in session:
         logger.warning('Someone is trying to get a report but is not logged in')
         return redirect('/login')
@@ -369,8 +382,8 @@ def update_grade_max():
         redirect('/login')
 
     try:
-        new_max     = request.form['new_max']
-        course_id    = request.form['courseId']
+        new_max       = request.form['new_max']
+        course_id     = request.form['courseId']
         grade_item_id = request.form['gradeItemId']
         print("{} {} {}".format(new_max,course_id,grade_item_id) )
          
@@ -435,50 +448,6 @@ def show_logout():
     else:
         logger.warning('Someone tried to logout without having logged in')
         return redirect('/login/')
-                
-"""
-def set_grades(courseId, gradeItemId):
-    '''
-    Is this even used anymore? It doesn't work
-    '''
-    try:
-        user=app.config[ session['user_id'] ]
-        course = user.get_course(courseId)
-        grade_item = course.get_grade_item(gradeItemId)
-    except Exception as e:
-        logger.exception("Something went wrong in /grades/{}/{}/".format(courseId,gradeItemId) )
-        return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
-        
-    f = request.files['file']
-    grades = parse_grades( f.read().decode("utf-8") )
-        
-    errors = []
-    successful_grades = 0
-    for grade in grades:
-        try:
-            if float(grade.maxValue) != grade_item.maxPoints:
-                updateUrl = EDIT_GRADE_ITEM_URL.format(host=user.uc.host,gradeItemId=grade_item.get_id(),courseId=course.get_id())
-                message = 'Grade for {} is out of {}. The Max Points for {} is {}'.format(grade.studentName,grade.maxValue,grade_item.name,grade_item.maxPoints)
-                #return render_template("update_grade_item.html",gradeUrl=updateUrl,message=message)
-            
-            userId,gradeValue,PublicFeedback = grade.userId,grade.value,grade.public_feedback
-            gradeItem.setUserGrade(userId,courseId,gradeValue,PublicFeedback,PrivateFeedback='')
-            successful_grades += 1
-        
-        except RuntimeError as e:
-            error = str(e)
-            errors.append(error)             
-            continue
-            
-        except AssertionError as e:
-            error = '{} for {}'.format(e,grade.studentName)
-            errors.append( error )
-            continue
-    
-    gradesUrl = VIEW_GRADES_URL.format(host=user.get_host().get_lms_host(),gradeItemId=grade_item.Id,courseId=course.Id)
-    logoutUrl = LOGOUT_URL.format(host=user.get_host().get_lms_host())
-    return render_template("grades_uploaded.html",user=user,errors=errors,successful_grades=successful_grades,grades=grades,course=course,gradeItem=grade_item,gradesUrl=gradesUrl,logoutUrl=logoutUrl)
-"""
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
