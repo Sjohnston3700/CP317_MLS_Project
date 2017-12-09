@@ -1,3 +1,4 @@
+
 import d2lvalence.auth as d2lauth
 from threading import Thread, Event
 import logging
@@ -61,6 +62,7 @@ class test_user(unittest.TestCase):
         self.course = self.user.get_course(219318) # gets test course
     # prints list of grade itmes
     def test_get_grade_items(self):
+        
         print('get_grade_items test'+'\n')
         print(self.course.get_grade_items())
         print('\n')
