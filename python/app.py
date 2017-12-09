@@ -53,7 +53,7 @@ def help():
     Postconditions:
         returns redirect to ezMarker help page.
     '''
-    return render_template("help.html")
+    return render_template("help.html", user=app.config[ session['user_id'] ])
 
 @app.route("/login/")
 def login():

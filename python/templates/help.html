@@ -1,8 +1,10 @@
-<html>
+{% extends "index.html" %}
     
-    <head>
-        <title>ezMarker - Design</title>
-    </head>
+{% block title %}
+    <title>ezMarker - Design</title>
+{% endblock %}
+
+{% block content %}
     <body>
         <script src="../static/js/toc_generator.js"></script>
         <h1>ezMarker - Help</h1>
@@ -108,6 +110,8 @@
         <p>Author: Sarah Johnston</p>
         
     </body>
+    {% endblock %}
+    
     <style>
         #file-structure {
             list-style: none;
@@ -120,4 +124,3 @@
     }
     </style>
     
-</html>
