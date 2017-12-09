@@ -9,7 +9,9 @@
 		<h1 class="page-title">Welcome to ezMarker!</h1>
 		<div class="btn-row">
 			<a class="btn btn-xl" href="/documentation">Docs</a>
+            {% if user is none %}
 			<a class="btn btn-xl" href="/login">Login</a>
+            {% endif %}
 		</div>
 	</div>
 	

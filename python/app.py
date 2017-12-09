@@ -44,7 +44,21 @@ def start():
     Postconditions:
         Redirect user to "/login/".
     '''
-    return redirect('/login/')
+    return redirect('/home/')
+    
+@app.route("/home/")
+def home():
+    '''
+    Home page, Directs user to login or view docs.
+    postconditions:
+        Renders template of home.html.
+    '''
+    if 'user_id' not in session:
+        user = None
+    else:
+        user = app.config.get( session['user_id'] , None)
+        logger.warning('Session is out of sync on /home')
+    return render_template('home.html', user=user)
     
 @app.route("/help/")
 def help():
@@ -54,12 +68,11 @@ def help():
         returns redirect to ezMarker help page.
     '''
     if 'user_id' not in session:
-        logger.warning('Someone tried to access /courses/ without logging in')
-        return redirect('/login/')
-    elif app.config.get( session['user_id'] , None) is None:
-        logger.warning('Session is out of sync on /courses')
-        return redirect('/login')
-    return render_template("help.html", user=app.config[ session['user_id'] ])
+        user = None
+    else:
+        user = app.config.get( session['user_id'] , None)
+        logger.warning('Session is out of sync on /help')  
+    return render_template("help.html", user=user)
 
 @app.route("/login/")
 def login():
@@ -123,7 +136,12 @@ def show_docs():
     Postconditions:
         Renders "documentation.html".
     '''
-    return render_template('documentation.html')
+    if 'user_id' not in session:
+        user = None
+    else:
+        user = app.config.get( session['user_id'] , None)
+        logger.warning('Session is out of sync on /documentation')
+    return render_template('documentation.html',user=user)
 
 @app.route('/documentation/spmp/')
 def show_spmp():
@@ -132,7 +150,12 @@ def show_spmp():
     Postconditions:
         Renders "spmp.html".
     '''
-    return render_template('spmp.html')
+    if 'user_id' not in session:
+        user = None
+    else:
+        user = app.config.get( session['user_id'] , None)
+        logger.warning('Session is out of sync on /documentation/spmp')
+    return render_template('spmp.html',user=user)
 
 @app.route('/documentation/requirements/')
 def show_requirements():
@@ -141,7 +164,12 @@ def show_requirements():
     Postconditions:
         Renders "requirements.html".
     '''
-    return render_template('requirements.html')
+    if 'user_id' not in session:
+        user = None
+    else:
+        user = app.config.get( session['user_id'] , None)
+        logger.warning('Session is out of sync on /documentation/requirements')
+    return render_template('requirements.html',user=user)
 
 @app.route('/documentation/requirements/wrapper/')
 def show_requirements_wrapper():
@@ -150,7 +178,12 @@ def show_requirements_wrapper():
     Postconditions:
         Renders "requirements_wrapper.html".
     '''
-    return render_template('requirements_wrapper.html')
+    if 'user_id' not in session:
+        user = None
+    else:
+        user = app.config.get( session['user_id'] , None)
+        logger.warning('Session is out of sync on /documentation/requirements/wrapper')
+    return render_template('requirements_wrapper.html',user=user)
 
 @app.route('/documentation/analysis/')
 def show_analysis():
@@ -159,7 +192,12 @@ def show_analysis():
     Postconditions:
         Renders "analysis.html".
     '''
-    return render_template('analysis.html')
+    if 'user_id' not in session:
+        user = None
+    else:
+        user = app.config.get( session['user_id'] , None)
+        logger.warning('Session is out of sync on /documentation/analysis')
+    return render_template('analysis.html', user=user)
 
 @app.route('/documentation/analysis/wrapper/')
 def show_analysis_wrapper():
@@ -168,7 +206,12 @@ def show_analysis_wrapper():
     Postconditions:
         Renders "analysis_wrapper.html".
     '''
-    return render_template('analysis_wrapper.html')
+    if 'user_id' not in session:
+        user = None
+    else:
+        user = app.config.get( session['user_id'] , None)
+        logger.warning('Session is out of sync on /documentation/analysis/wrapper')
+    return render_template('analysis_wrapper.html',user=user)
 
 @app.route('/documentation/design/')
 def show_design():
@@ -177,7 +220,12 @@ def show_design():
     Postconditions:
         Renders "design.html".
     '''
-    return render_template('design.html')
+    if 'user_id' not in session:
+        user = None
+    else:
+        user = app.config.get( session['user_id'] , None)
+        logger.warning('Session is out of sync on /documentation/design')
+    return render_template('design.html',user=user)
 
 @app.route('/documentation/design/wrapper/')
 def show_design_wrapper():
@@ -186,7 +234,12 @@ def show_design_wrapper():
     Postconditions:
         Renders "design_wrapper.html".
     '''
-    return render_template('design_wrapper.html')
+    if 'user_id' not in session:
+        user = None
+    else:
+        user = app.config.get( session['user_id'] , None)
+        logger.warning('Session is out of sync on /documentation/design/wrapper')
+    return render_template('design_wrapper.html',user=user)
 
 @app.errorhandler(Exception)
 def handle_error(e):
