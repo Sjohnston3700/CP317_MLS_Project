@@ -9,12 +9,11 @@ root_path = os.path.abspath(os.path.join(file_path, "..", ".."))
 obj_path = os.path.realpath(os.path.join(file_path, "..", "..", 'wrapper', 'obj'))
 sys.path.append(os.path.abspath(root_path))
 sys.path.append(os.path.abspath(obj_path))
-from wrapper.obj.OrgMember import User
-from wrapper.obj.User import User
-from wrapper.obj.Host import Host
+
 from conf_basic import app_config
+from Host import Host
 import Course 
-from wrapper.obj.User import User
+from OrgMember import User
 import Grade
 from Grade import NumericGrade
 LOGOUT_URL = 'https://{host}/d2l/logout'
@@ -36,7 +35,7 @@ def auth_token_handler():
     uc = app.config["app_context"].create_user_context(result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
     host = Host(app_config['lms_host'])
     # store the user context's
-    user=User(uc,host,[])
+    user = User(uc, host)
     
     
     app.config['user'] = user
