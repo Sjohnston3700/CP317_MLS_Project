@@ -39,12 +39,16 @@
 					ezMarker
 				</a>
 			</li>
-			<li class="item"><a href="/courses">Courses</a></li>
-			<li class="item"><a href="/help">Help</a></li>
-			<li class="name-section">
-			    <span>Welcome, {{user.get_name() if user is not none else ""}}</span>
-				<button onclick="window.location.href='/logout'" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
-			</li>
+            {% if user is not none %}
+                <li class="item"><a href="/courses">Courses</a></li>
+			{% endif %}
+            <li class="item"><a href="/help">Help</a></li>
+            {% if user is not none %}
+                <li class="name-section">
+			        <span>{{"Welcome, "+user.get_name() if user is not none else ""}}</span>
+				    <button onclick="window.location.href='/logout'" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+			    </li>
+            {% endif %}
 		</ul>
 		<div class="page-content-horiz">
 			{% block content %}
