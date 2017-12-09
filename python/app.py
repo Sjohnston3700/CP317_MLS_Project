@@ -45,6 +45,15 @@ def start():
         Redirect user to "/login/".
     '''
     return redirect('/login/')
+    
+@app.route("/help/")
+def help():
+    '''
+    Redirects user to help page.
+    Postconditions:
+        returns redirect to ezMarker help page.
+    '''
+    return render_template("help.html")
 
 @app.route("/login/")
 def login():
