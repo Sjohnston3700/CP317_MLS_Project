@@ -7,20 +7,17 @@
 {% block content %}
 	{% if user.get_courses() != [] %}
 		<h2>Select a Grade Item</h2>
-		{% for course in user.get_courses() %}
-			<div class = "course-item">
-				<a href = "#">{{ course.get_name() }}</a>
-				<div class = "course-carat">▿</div>
-				<div class = "course-grades" style = "display: none;">
-					{% if course.get_grade_items() != [] %}
-						{% for grade_item in course.get_grade_items() %}
-							<a class="grade-link" href="{{ '/upload?courseId={}&gradeItemId={}'.format(course.get_id(),grade_item.get_id())}}">{{ grade_item.get_name() }}</a>
-						{% endfor %}
-					{% else %}
-						<a>No grade items available</a>
-					{% endif %}
-				</div>
-			</div>
+        {% for course in user.get_courses() %}
+		<button class="accordion">{{course.get_name()}}</button>
+        <div class="panel">
+            {% if course.get_grade_items() != [] %}
+                {% for grade_item in course.get_grade_items() %}
+                    <a class="grade-link" href="{{ '/upload?courseId={}&gradeItemId={}'.format(course.get_id(),grade_item.get_id())}}">{{ grade_item.get_name() }}</a>
+                {% endfor %}
+            {% else %}
+                <p>No grade items for this course.</p>
+            {% endif %}
+        </div>
 		{% endfor %}
 	{% else %}
 		<a>You do not have permission to set grades for any courses</a>
@@ -29,3 +26,15 @@
 {% block scripts %}
     <script type="text/javascript" src="/static/js/accordion.js"></script>
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
