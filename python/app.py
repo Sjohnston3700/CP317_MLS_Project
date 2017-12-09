@@ -53,6 +53,12 @@ def help():
     Postconditions:
         returns redirect to ezMarker help page.
     '''
+    if 'user_id' not in session:
+        logger.warning('Someone tried to access /courses/ without logging in')
+        return redirect('/login/')
+    elif app.config.get( session['user_id'] , None) is None:
+        logger.warning('Session is out of sync on /courses')
+        return redirect('/login')
     return render_template("help.html", user=app.config[ session['user_id'] ])
 
 @app.route("/login/")
