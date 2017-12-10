@@ -155,7 +155,7 @@ def show_spmp():
     else:
         user = app.config.get( session['user_id'] , None)
         logger.warning('Session is out of sync on /documentation/spmp')
-    return render_template('spmp.html',user=user)
+    return render_template('index.html',user=user,doc='spmp')
 
 @app.route('/documentation/requirements/')
 def show_requirements():
@@ -169,7 +169,7 @@ def show_requirements():
     else:
         user = app.config.get( session['user_id'] , None)
         logger.warning('Session is out of sync on /documentation/requirements')
-    return render_template('requirements.html',user=user)
+    return render_template('index.html',user=user,doc='requirements')
 
 @app.route('/documentation/requirements/wrapper/')
 def show_requirements_wrapper():
@@ -183,7 +183,7 @@ def show_requirements_wrapper():
     else:
         user = app.config.get( session['user_id'] , None)
         logger.warning('Session is out of sync on /documentation/requirements/wrapper')
-    return render_template('requirements_wrapper.html',user=user)
+    return render_template('index.html',user=user,doc='requirements_wrapper')
 
 @app.route('/documentation/analysis/')
 def show_analysis():
@@ -197,7 +197,7 @@ def show_analysis():
     else:
         user = app.config.get( session['user_id'] , None)
         logger.warning('Session is out of sync on /documentation/analysis')
-    return render_template('analysis.html', user=user)
+    return render_template('index.html', user=user,doc='analysis')
 
 @app.route('/documentation/analysis/wrapper/')
 def show_analysis_wrapper():
@@ -211,7 +211,7 @@ def show_analysis_wrapper():
     else:
         user = app.config.get( session['user_id'] , None)
         logger.warning('Session is out of sync on /documentation/analysis/wrapper')
-    return render_template('analysis_wrapper.html',user=user)
+    return render_template('index.html',user=user,doc='analysis_wrapper')
 
 @app.route('/documentation/design/')
 def show_design():
@@ -225,7 +225,7 @@ def show_design():
     else:
         user = app.config.get( session['user_id'] , None)
         logger.warning('Session is out of sync on /documentation/design')
-    return render_template('design.html',user=user)
+    return render_template('index.html',user=user,doc='design')
 
 @app.route('/documentation/design/wrapper/')
 def show_design_wrapper():
@@ -239,7 +239,7 @@ def show_design_wrapper():
     else:
         user = app.config.get( session['user_id'] , None)
         logger.warning('Session is out of sync on /documentation/design/wrapper')
-    return render_template('design_wrapper.html',user=user)
+    return render_template('index.html',user=user,doc='design_wrapper')
 
 @app.errorhandler(Exception)
 def handle_error(e):

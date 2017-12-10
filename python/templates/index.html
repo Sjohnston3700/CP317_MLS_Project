@@ -52,6 +52,23 @@
 		</ul>
 		<div class="page-content-horiz">
 			{% block content %}
+                {% if doc is defined %}
+                    {% if doc == 'spmp' %}
+                        {% include 'spmp.html' %}
+                    {% elif doc == 'requirements' %}
+                        {% include 'requirements.html' %}
+                    {% elif doc == 'requirements_wrapper' %}
+                        {% include 'requirements_wrapper.html' %}
+                    {% elif doc == 'analysis' %}
+                        {% include 'analysis.html' %}
+                    {% elif doc == 'analysis_wrapper' %}
+                        {% include 'analysis_wrapper.html' %}
+                    {% elif doc == 'design' %}
+                        {% include 'design.html' %}
+                    {% elif doc == 'design_wrapper' %}
+                        {% include 'design_wrapper.html' %}
+                    {% endif %}
+                {% endif %}
 			{% endblock %}
 		</div>
 	</body>
