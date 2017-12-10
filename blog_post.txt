@@ -1,0 +1,11 @@
+This semester, the CP317 class was tasked with working with over 20 other poeple to complete a software engineering project over
+the course of 3 months. Our group, ezMarker, completed the task through the frustration and hard work that came with such an assignment.
+Many challanges were faced as we learned to work with so many other people. Each person was assigned to a section of the project that
+highlighted their skills and qualities. The writers were assigned to documentation, the good coders were assigned to back or front end,
+and the thorough analysts were assigned to testing. The qualities of each person shone through their work in each section. The writers 
+wrote, the coders coded, and the testers tested to the best of their ability and it really showed. The front and back end team were tasked
+with actually implementing the project discussed. Through the challenges and frustration that came with coding such a big project with
+so many others, they delivered a product that is sure to make david brown's jaw drop. The final product was so vigorous and thoroughly
+tested that and error is not be found. The whole process to get where we are is well documented in all the documentation associated with 
+the project. As explained, all the teams learned how to work with each other collaborated well to create a polished final product that will
+hopefully give us the A that we are all striving to get.
