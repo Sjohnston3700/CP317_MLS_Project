@@ -387,7 +387,7 @@ function showConfirmMax(isModal, e) {
  */
 $('#update-max').click(function() {
 	closeModal('confirm-max-grade');
-	var form = $();
+	var form = $('#update-max-form');
 	var max = form.find('#max-grade').val();
 	updateMax(max, 'update-max-error');
 });
