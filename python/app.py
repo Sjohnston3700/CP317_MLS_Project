@@ -44,9 +44,9 @@ def start():
     Postconditions:
         Redirect user to "/login/".
     '''
-    return redirect('/home/')
+    return redirect('/home')
     
-@app.route("/home/")
+@app.route("/home")
 def home():
     '''
     Home page, Directs user to login or view docs.
@@ -101,24 +101,24 @@ def auth_token_handler():
         user_id = user.get_id()
         session['user_id'] = user_id
         app.config[user_id] = user
-        return redirect('/courses/')
+        return redirect('/courses')
     except Exception as e:
         return render_template('error.html',user=None,error=traceback.format_exc())
 
-@app.route('/courses/')
+@app.route('/courses')
 def show_courses():
     '''
-    Runs when application pointed to "/courses/" URL.
+    Runs when application pointed to "/courses" URL.
     Postconditions:
         On success:
             If user_id in session : Renders "available_grades.html".
-            Else : Redirects to "/login/".
+            Else : Redirects to "/login".
         On failure:
             Renders "error.html".
     '''
     if 'user_id' not in session:
-        logger.warning('Someone tried to access /courses/ without logging in')
-        return redirect('/login/')
+        logger.warning('Someone tried to access /courses without logging in')
+        return redirect('/login')
     elif app.config.get( session['user_id'] , None) is None:
         logger.warning('Session is out of sync on /courses')
         return redirect('/login')
@@ -126,13 +126,13 @@ def show_courses():
         try:
             return render_template('available_grades.html', user=app.config[ session['user_id'] ] )
         except Exception as e :
-            logger.exception( "Something went wrong in /courses/" )
+            logger.exception( "Something went wrong in /courses" )
             return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
 
 @app.route('/documentation/')
 def show_docs():
     '''
-    Runs when application is pointed to "/documentation/".
+    Runs when application is pointed to "/documentation".
     Postconditions:
         Renders "documentation.html".
     '''
@@ -146,7 +146,7 @@ def show_docs():
 @app.route('/documentation/spmp/')
 def show_spmp():
     '''
-    Runs when application is pointed to "/documentation/spmp/".
+    Runs when application is pointed to "/documentation/spmp".
     Postconditions:
         Renders "spmp.html".
     '''
@@ -160,7 +160,7 @@ def show_spmp():
 @app.route('/documentation/requirements/')
 def show_requirements():
     '''
-    Runs when application is pointed to "/documentation/requirements/".
+    Runs when application is pointed to "/documentation/requirements".
     Postconditions:
         Renders "requirements.html".
     '''
@@ -174,7 +174,7 @@ def show_requirements():
 @app.route('/documentation/requirements/wrapper/')
 def show_requirements_wrapper():
     '''
-    Runs when application is pointed to "/documentation/requirements/wrapper/".
+    Runs when application is pointed to "/documentation/requirements/wrapper".
     Postconditions:
         Renders "requirements_wrapper.html".
     '''
@@ -188,7 +188,7 @@ def show_requirements_wrapper():
 @app.route('/documentation/analysis/')
 def show_analysis():
     '''
-    Runs when application is pointed to "/documentation/analysis/".
+    Runs when application is pointed to "/documentation/analysis".
     Postconditions:
         Renders "analysis.html".
     '''
@@ -202,7 +202,7 @@ def show_analysis():
 @app.route('/documentation/analysis/wrapper/')
 def show_analysis_wrapper():
     '''
-    Runs when application is pointed to "/documentation/analysis/wrapper/".
+    Runs when application is pointed to "/documentation/analysis/wrapper".
     Postconditions:
         Renders "analysis_wrapper.html".
     '''
@@ -216,7 +216,7 @@ def show_analysis_wrapper():
 @app.route('/documentation/design/')
 def show_design():
     '''
-    Runs when application is pointed to "/documentation/design/".
+    Runs when application is pointed to "/documentation/design".
     Postconditions:
         Renders "design.html".
     '''
@@ -230,7 +230,7 @@ def show_design():
 @app.route('/documentation/design/wrapper/')
 def show_design_wrapper():
     '''
-    Runs when application is pointed to "/documentation/spmp/".
+    Runs when application is pointed to "/documentation/spmp".
     Postconditions:
         Renders "design_wrapper.html".
     '''
@@ -269,10 +269,10 @@ def show_upload():
     
     if 'user_id' not in session:
         logger.warning('Someone tried to access /upload without logging in')
-        return redirect('/login/')
+        return redirect('/login')
     elif app.config.get( session['user_id'] , None) is None:
-        logger.warning('Session is out of sync on /upload/')
-        return redirect('/login/')
+        logger.warning('Session is out of sync on /upload')
+        return redirect('/login')
         
     course_id    = request.args.get('courseId',    default = None, type = int)
     grade_item_id = request.args.get('gradeItemId', default = None, type = int)
@@ -304,7 +304,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/file_parse/',methods=['POST'])
+@app.route('/file_parse',methods=['POST'])
 def file_parse():
     '''
     Function to accept uploaded file and parse it for errors.
@@ -318,23 +318,23 @@ def file_parse():
     '''
     if 'user_id' not in session:
         logger.warning('Someone is trying to upload a file but is not logged in')
-        return redirect('/login/')
+        return redirect('/login')
     elif app.config.get( session['user_id'] , None) is None:
-        logger.warning('Session is out of sync on /file_parse/')
-        return redirect('/login/')
+        logger.warning('Session is out of sync on /file_parse')
+        return redirect('/login')
         
     user = app.config[session['user_id']]   
     
     errors = []
     # check if the post request has the file part
     if 'file' not in request.files:
-        logger.error('No file part in request to /file_parse/')
+        logger.error('No file part in request to /file_parse')
         errors = [{'msg':'No file part in request'}]
     else:
         file = request.files['file']
         
         if file.filename == '':
-            logger.error('No selected file in /file_parse/')
+            logger.error('No selected file in /file_parse')
             errors = [{'msg':'No file selected'}]
         elif file and allowed_file(file.filename):
             filename = user.get_id() + secure_filename(file.filename)
@@ -354,7 +354,7 @@ def file_parse():
 
     return json.dumps(errors)
 
-@app.route('/error_checking/',methods=['POST'])
+@app.route('/error_checking',methods=['POST'])
 def grades_error_checking():
     '''
     Checks grades submitted from form.
@@ -395,7 +395,7 @@ def grades_error_checking():
     
     return json.dumps(errors)
 
-@app.route('/report/')
+@app.route('/report')
 def report():
     '''
     Displays report page.
@@ -407,10 +407,10 @@ def report():
     '''
     if 'user_id' not in session:
         logger.warning('Someone is trying to get a report but is not logged in')
-        return redirect('/login/')
+        return redirect('/login')
     elif app.config.get( session['user_id'] , None) is None:
         logger.warning('Session is out of sync on /report')
-        return redirect('/login/')
+        return redirect('/login')
     
     course_id    = request.args.get('courseId',    default = None, type = int)
     grade_item_id = request.args.get('gradeItemId', default = None, type = int)
@@ -425,7 +425,7 @@ def report():
             
     return render_template('report.html', user=user,num_grades=num_grades, successful_grades=report['successful_grades'], failed_grades=report['failed_grades'],course=course,grade_item=grade_item)
 
-@app.route('/update_gradeItem_max/',methods=['POST'])
+@app.route('/update_gradeItem_max',methods=['POST'])
 def update_grade_max():
     '''
     Function to receive update grade max requests and try to execute them.
@@ -442,12 +442,13 @@ def update_grade_max():
         On failure:
             Renders "error.html".
     '''
+    print("inside")
     if 'user_id' not in session:
         logger.warning('Someone tried to access /update_gradeItem_max without logging in')
-        return redirect('/login/')
+        return redirect('/login')
     elif app.config.get( session['user_id'] , None) is None:
         logger.warning('Session is out of sync on /update_gradeItem_return')
-        redirect('/login/')
+        redirect('/login')
 
     try:
         new_max       = request.form['new_max']
@@ -461,7 +462,7 @@ def update_grade_max():
 
         errors = modify_grade_max(grade_item, new_max)
         
-        return jsonify(errors)
+        return json.dumps(errors)
         
     except Exception as e:
         logger.exception("Something went wrong in update_gradeItem_max")
@@ -515,7 +516,7 @@ def show_logout():
         return redirect(LOGOUT_URL.format(host=app_config['lms_host']))
     else:
         logger.warning('Someone tried to logout without having logged in')
-        return redirect('/login/')
+        return redirect('/login')
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))

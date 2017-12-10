@@ -323,7 +323,7 @@ function updateMax(new_max, id) {
 	// Show loading 
 	$('.loader-box').removeClass('hidden');
 	
-	var formData = {
+    var formData = {
 		'new_max': new_max,
 		'gradeItemId': gradeItemId,
 		'courseId': courseId
@@ -336,10 +336,8 @@ function updateMax(new_max, id) {
 		dataType    : 'json', 
 		encode      : true,
 		success     : function(data) {
-							
 						// Clear all previous forms and error messages
 						$('.update-max-error').remove();
-						
 						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
 								var error;
@@ -362,6 +360,8 @@ function updateMax(new_max, id) {
 							
 								$('#out-of').text(data);
 								$('#max-grade').attr('placeholder', data);
+                                $('#max-grade-modal').attr('placeholder', data);
+                                $('.grade-label').text('/' + data);
 							
 								success = $('.templates .modal-success-template').clone(true, true);
 								msg = 'Grade maximum updated successfully';
