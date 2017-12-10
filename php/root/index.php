@@ -135,7 +135,7 @@
 	</head>
 	<body>
 		<ul class="horiz-nav">
-			<img id="logo" src="<?=$PATH_TO_STATIC?>/img/logo.png">
+			<a href="index.php?page=home"><img id="logo" src="<?=$PATH_TO_STATIC?>/img/logo.png" ></a>
 			<li class="brand">
 				<a href="index.php?page=home">
 					ezMarker
