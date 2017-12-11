@@ -9,7 +9,7 @@ class Course(object):
     '''
     
     def __init__(self, user, course_params):
-        """
+        '''
         Constructor for a Course object.
         
         Preconditions:
@@ -22,8 +22,8 @@ class Course(object):
             On failure:
                 Error message is logged and raises exception.
                 
-        Does not error checking to validate course_params 
-        """
+        Does no error checking to validate course_params.
+        '''
         self._json = course_params
         self._user = user
         try:
@@ -47,7 +47,7 @@ class Course(object):
         return copy.deepcopy(self._json)
 
     def get_grade_items(self):
-        """
+        '''
         Function to return all the current grade item objects (Numeric) for current course.
         
         Preconditions:
@@ -58,12 +58,12 @@ class Course(object):
                 Returns:
                 self._grade_items (list) : List of current grade items.
             On failure:
-                Grade items not found, returns NameError
-        """
+                Grade items not found, returns NameError.
+        '''
         return self._grade_items
 
     def get_grade_item(self,grade_item_id):
-        """
+        '''
         Function to return a specific grade item object (Numeric).
         
         Preconditions:
@@ -75,15 +75,15 @@ class Course(object):
                 Returns:
                 item (GradeItem) : GradeItem object.
             On failure:
-                Grade item not found, returns NameError
-        """
+                Grade item not found, returns NameError.
+        '''
         for item in self._grade_items:
             if str(item.get_id() ) == str(grade_item_id):
                 return item
         raise NameError('Unable to find grade_item with id = {} in course : {}'.format(grade_item_id,self.get_name() ) )
     
     def get_id(self):
-        """
+        '''
         Function to return the id for the current course.
         
         Preconditions:
@@ -92,11 +92,11 @@ class Course(object):
         PostConditions:
             Returns:
             self.id (int) : Id for the current course.
-        """
+        '''
         return self._json['OrgUnit']['Id']   
     
     def get_name(self):
-        """
+        '''
         Function to return the name of course.
         
         Preconditions:
@@ -105,11 +105,11 @@ class Course(object):
         PostConditions:
             Returns:
             self.name (str) : Current course name.
-        """
+        '''
         return self._json['OrgUnit']['Name']
 
     def get_member(self,org_id):
-        """
+        '''
         Function to return the member request if it exist, 
         Otherwise, returns None.
         
@@ -124,7 +124,7 @@ class Course(object):
             On failure:
                 Returns:
                 None
-        """
+        '''
         for member in self._members:
             if str(member.get_id()) == str(org_id):
                 return member
@@ -133,7 +133,7 @@ class Course(object):
         return None        
 
     def get_members(self,role=[]):
-        """
+        '''
         Function to return all the users for the current course.
         
         Preconditions:
@@ -146,7 +146,7 @@ class Course(object):
                 items (list) : All OrgMembers of a specific role in current Course.
                 OR
                 self._members : All OrgMembers in current Course.
-        """
+        '''
         if role != []:
             items=[]
             for member in self._members:
@@ -156,7 +156,7 @@ class Course(object):
         return self._members
         
     def get_user(self):
-        """
+        '''
         Function will return the user object.
         
         Preconditions:
@@ -165,11 +165,11 @@ class Course(object):
         Postconditions:
             Returns:
             self._user (User) : Current User object. 
-        """
+        '''
         return self._user
         
     def get_user_role(self):
-        """
+        '''
         Function will return the user role for current course.
         
         Preconditions:
@@ -178,5 +178,5 @@ class Course(object):
         Postcondition:
             Returns:
             self.user_role (str) : User role for current course.
-        """
+        '''
         return self._json['Role']['Name']

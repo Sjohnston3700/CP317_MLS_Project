@@ -128,16 +128,16 @@ def get_courses(user, roles=[]):
 
 
 def get_grade_items(course):
-    """
+    '''
     Function to return list of grade items.
     
     Preconditions:
         course (Course) : A Course object.
     
     Postconditions:
-            Returns :
+            Returns:
             list (list of grade item objects) : currently only supports Numeric.
-    """
+    '''
     gradeitems = get(GET_GRADE_ITEMS, course.get_user(), {'orgUnitId':course.get_id(), 'version':course.get_user().get_host().get_api_version('le')})
     items = []
     for item in gradeitems:
@@ -155,7 +155,7 @@ def get_who_am_i(user):
         
     Postconditions:
         Returns:
-        results (dict) : A dict containing WhoAmIUser JSON block for the current user context. 
+        results (dict) : A dictionary containing WhoAmIUser JSON block for the current user context. 
     '''
 
     route_params = {'version' : user.get_host().get_api_version('lp')}
@@ -182,7 +182,7 @@ def put(route, user, route_params, params):
     try:
         check_request(r)
     except Exception as e:
-        print("{} with data {}".format(str(e),params) )
+        print("{} with data {}".format(str(e), params) )
         raise
     return
 
@@ -215,7 +215,8 @@ def put_grades(grades):
         grades (list of grade objects) : The Grade objects to post
     
     Postconditions:
-        Returns successful_grades (list of Grade objects that didn't return errors)
+        Returns:
+        successful_grades (list of Grade objects that didn't return errors)
         failed_grades (list of dictionary objects) msg key holds error message, grade key holds grade object that failed
     '''
     successful_grades = []
@@ -255,7 +256,7 @@ def put_grade_item(grade_item):
     put(SET_GRADEITEM_ROUTE, user, route_params, data)
     return
     
-def update_route(route,params):
+def update_route(route, params):
     '''
     Function to update api route by replace (...) with the appropriate value.
     
