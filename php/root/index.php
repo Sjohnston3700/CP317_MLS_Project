@@ -43,7 +43,6 @@
 			die();
 		}
 		
-
 		// TA: 102, Instructor: 103
 		$roles = array(102, 103);
 		$user = new User($roles);
@@ -103,7 +102,6 @@
 			$contents = '../views/home.php';
             break;
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -135,11 +133,9 @@
 	</head>
 	<body>
 		<ul class="horiz-nav">
-			<a href="index.php?page=home"><img id="logo" src="<?=$PATH_TO_STATIC?>/img/logo.png" ></a>
+			<img id="logo" src="<?=$PATH_TO_STATIC?>/img/logo.png">
 			<li class="brand">
-				<a href="index.php?page=home">
-					ezMarker
-				</a>
+				<a href="index.php?page=home">ezMarker</a>
 			</li>
 			<?php if ($authenticated) { ?>
 				<li class="item"><a href="index.php?page=courses">Courses</a></li>
@@ -147,10 +143,10 @@
 			<!--<li class="item"><a href="index.php?page=docs">Docs</a></li>-->
 			<li class="item"><a href="index.php?page=help">Help</a></li>
 			<?php if ($authenticated) { ?>
-			<li class="name-section">
-			    <span>Welcome, <?=$_SESSION['userName']?></span>
-				<button onclick="window.location.href='index.php?page=logout'" class="btn">Logout</button>
-			</li>
+				<li class="name-section">
+					<span>Welcome, <?=$_SESSION['userName']?></span>
+					<button onclick="window.location.href='index.php?page=logout'" class="btn">Logout</button>
+				</li>
 			<?php } ?>
 		</ul>
 		<div class="page-content-horiz">

@@ -23,6 +23,8 @@
 		die();
 	}
 ?>
+
+<!--Loading animation-->
 <div class="loader-box hidden">
 	<div class="loader-msg">Talking to Brightspace API</div>
 	<div class="loader"></div> 
@@ -138,7 +140,6 @@
 				echo("{name: '" . $m->get_name() . "', id: '" . $m->get_id() . "', org_id: '" . $m->get_org_id() . "'},");
 			}
 		} 
-		
 		?>
 	];
 	
@@ -148,8 +149,8 @@
 	//stop from automatically scrolling to last position on page
 	//looks bad since starts at top then flashes to bottom
 	history.scrollRestoration = "manual"
-
 </script>
+
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/upload.js"></script>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/jquery.easy-autocomplete.js"></script>
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/dynamic_search.js"></script>
