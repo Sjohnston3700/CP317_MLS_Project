@@ -367,15 +367,11 @@ $('#manual-upload').click(function() {
 	sendToErrorChecking(grades);
 });
 
-$('.open-confirm-max-grade').click(function(e) {
-	showConfirmMax($(this).attr('modal-form'), e);
-});
-
 /**
  * Opens modal to confirm if user wants to change grade maximum
  */
-function showConfirmMax(isModal, e) {
-	e.preventDefault();
+$('.open-confirm-max-grade').click(function() {
+	var isModal = parseInt($(this).attr('modal-form'));
 	if (isModal) {
 		$('#update-max').addClass('hidden');
 		$('#update-max-modal').removeClass('hidden');
@@ -385,8 +381,7 @@ function showConfirmMax(isModal, e) {
 		$('#update-max-modal').addClass('hidden');
 	}
 	showModal('confirm-max-grade');
-}
-
+});
 
 /**
  * Listens for submitting of update max.
@@ -416,20 +411,20 @@ $('#update-max-modal').click(function() {
  * @param {String} max - grade max from input
  * @param {String} id - element id to put the error messages before
  */
-function updateMax(max, id) { 
+function updateMax(new_max, id) { 
 	
 	// Show loading 
 	$('.loader-box').removeClass('hidden');
 	
 	var formData = {
-		'new_max': max,
+		'new_max': new_max,
 		'gradeItemId': gradeItemId,
 		'courseId': courseId
 	}
 
 	$.ajax({
 		type        : 'POST', 
-		url         : '/update_gradeItem_max', 
+		url         : 'update_gradeItem_max', 
 		data        : formData, 
 		dataType    : 'json', 
 		encode      : true,
@@ -438,7 +433,6 @@ function updateMax(max, id) {
 						// Clear all previous forms and error messages
 						$('.update-max-error').remove();
 						
-						//if error
 						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
 								var error;
@@ -458,17 +452,11 @@ function updateMax(max, id) {
 								
 								var success;
 								var msg;
-
-								//Value is properly updated, but after update data is int 
-								//b/c of this, need to use max to update fields since can be float
-								//could've set data = parseFloat(data), but not sure of the side effects of modifying data
-								//(don't understand how it is populated in the first place)
-								max = parseFloat(max);
 							
-								$('#out-of').text(max);
-								$('#max-grade-modal').attr('placeholder', max);
-								$('#max-grade').attr('placeholder', max);
-								$('.grade-label').text('/' + max);
+								$('#out-of').text(data);
+								$('#max-grade').attr('placeholder', data);
+                                $('#max-grade-modal').attr('placeholder', max);
+                                $('.grade-label').text('/' + max);
 							
 								success = $('.templates .modal-success-template').clone(true, true);
 								msg = 'Grade maximum updated successfully';
@@ -485,4 +473,4 @@ function updateMax(max, id) {
 					} 
 					
 		});
-}		
+}	
