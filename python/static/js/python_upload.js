@@ -135,9 +135,7 @@ function sendToErrorChecking(data) {
 		encode      : true,
 		contentType: "application/json; charset=utf-8",
 		success     : function(data) {
-					
 						if (data.length > 0) {
-							
 							// Clear all previous forms and error messages
 							$('#error-message-modal .error-form').remove();
 							$('#error-message-modal .modal-body').html('');
@@ -212,6 +210,11 @@ $('.remove-student-error').click(function() {
 	//Now remove them from globalGrades
 	var index = findGrade( grade.id, globalGrades );
 	globalGrades.splice(index,1);
+    
+    //if all students have been removed, close modal
+	if (globalGrades.length == 0) {
+		closeModal('error-message-modal');
+	}
 });
 
 /**
