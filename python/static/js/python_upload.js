@@ -16,9 +16,19 @@ var globalGrades = [];
  * iframe and calls error checking function.
  */
 $('#upload-target').on('load', function() {
-		$('.upload-file-error').remove();
 		var result = $(this).contents().find('body').html();
-		var json = JSON.parse(result);
+		
+        //this listener is called on every page load/reload
+        //if no file uploaded, then result = html of page, so parse fails
+        //don't need to do anything if no file
+        try {
+            var json = JSON.parse(result);
+        } catch(e) {
+            return;
+        }
+        
+        //remove any existing error msgs
+        $('.upload-file-error').remove();
 		
 		if (json.length > 0 && json[0].hasOwnProperty('id')) {
 			sendToErrorChecking(json);
@@ -455,8 +465,8 @@ function updateMax(new_max, id) {
 							
 								$('#out-of').text(data);
 								$('#max-grade').attr('placeholder', data);
-                                $('#max-grade-modal').attr('placeholder', max);
-                                $('.grade-label').text('/' + max);
+                                $('#max-grade-modal').attr('placeholder', new_max);
+                                $('.grade-label').text('/' + new_max);
 							
 								success = $('.templates .modal-success-template').clone(true, true);
 								msg = 'Grade maximum updated successfully';
