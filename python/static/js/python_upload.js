@@ -1,7 +1,7 @@
 /*
 	 Automated upload and manual upload JS functions
 	 Author: Sarah Johnston
-	 Modified by Harold Hodgins to work with python and flask
+        Modified by Harold Hodgins to work with python and flask
 	 Usage: Controller used with upload.html. Functions and listeners used 
 			  to populate error checking modal, send JSON grade object to error_checking, 
 			  and display error messages
@@ -24,17 +24,33 @@ $('#upload-target').on('load', function() {
 			sendToErrorChecking(json);
 		} 
 		else {
+			var error = $('.templates .modal-error-template').clone(true, true);
+			error.removeClass('modal-error-template');
+			error.removeClass('hidden');
+			error.addClass('upload-file-error');
+
+			//if whole file was bad, just need to display 1 error msg describing problem
+			//line property only exists if only problem with some lines
+			if (!json[0].hasOwnProperty('line')) {
+				msg = '<strong>ERROR: </strong>' + json[0].msg;
+				error.html(msg);
+				error.insertBefore($('#file-error'));
+				return;
+			}
+
+			//else, problem with just some lines
+			//dislay msg saying required format first
+			msg = '<strong>ERROR: </strong>' + 'Format must be brightspace_id, grade, student_name, comment';
+			error.html(msg);
+			error.insertBefore($('#file-error'));
+
+			//display msgs for each bad line
 			for (var i = 0; i < json.length; i++) {
 				var error = $('.templates .modal-error-template').clone(true, true);
 				error.removeClass('modal-error-template');
 				error.removeClass('hidden');
 				error.addClass('upload-file-error');
-				if (json[i].hasOwnProperty('line')) {
-					msg = '<strong>ERROR (line ' + json[i].line + '): </strong>' + json[i].msg;
-				}
-				else {
-					msg = '<strong>ERROR: </strong>' + json[i].msg;
-				}
+				msg = '<strong>ERROR (line ' + json[i].line + '): </strong>' + json[i].msg;
 				
 				error.html(msg);
 				error.insertBefore($('#file-error'));
@@ -51,8 +67,6 @@ $('#upload-target').on('load', function() {
 function updateGlobalGrades(grades) {
 	var index;
 	var grade;
-	console.log("Updating globalgrades with");
-	console.log(grades);
 	
 /*    for (var i = 0; i < globalGrades.length; i++) {
         console.log("Inspecting element");
@@ -88,6 +102,11 @@ function updateGlobalGrades(grades) {
             globalGrades[index].value   = grade.value;
             globalGrades[index].comment = grade.comment;
             globalGrades[index].name    = grade.name;
+			if (grade.hasOwnProperty('is_warning')) {
+				globalGrades[index].is_warning = grade.is_warning;
+			} else {
+				globalGrades[index].is_warning = false;
+			}
         }        
     }
 }
@@ -118,28 +137,80 @@ function sendToErrorChecking(data) {
 	// Show loading 
 	$('.loader-box').removeClass('hidden');
 	
+	// Hide update max form on modal and <hr> 
+	$('#update-max-form-modal').addClass('hidden');
+	$('.hr').addClass('hidden');
+	
+	// Remove previous error messages
+	$('.error-msg').remove();
+	
 	// Set data to global variable in case user re-submits
 	globalGrades = data;
+    console.log('data being sent');
 	
-	var formData = {
+    var formData = {
 		'grades': data,
 		'gradeItemId': gradeItemId,
 		'courseId': courseId
 	}
 
+    console.log(JSON.stringify(formData));
+    
 	$.ajax({
 		type        : 'POST', 
 		url         : '/error_checking', 
 		data        : JSON.stringify(formData), 
 		dataType    : 'json', 
 		encode      : true,
-		contentType: "application/json; charset=utf-8",
 		success     : function(data) {
+                        console.log('Something got returned!');
+                        console.log(data);
 						if (data.length > 0) {
+							//tracks if this error appears
+							$greater_than_max_err = false;
+							
+							if (data[0].hasOwnProperty('error')) {
+								// Overall error, not just error with one student (ex. they didn't submit any grades)
+								error = $('.templates .modal-error-template').clone(true, true);
+								error.removeClass('modal-error-template');
+								msg = '<strong>ERROR: </strong> ';
+								error.html(msg + data[0].error);
+								error.removeClass('hidden');
+								error.addClass('error-msg');
+								error.insertBefore('#grade-submit-error');
+								
+								// Hide loading
+								$('.loader-box').addClass('hidden');
+								
+								return;
+							}
 							// Clear all previous forms and error messages
 							$('#error-message-modal .error-form').remove();
 							$('#error-message-modal .modal-body').html('');
-							
+							$('.update-max-error').remove();
+							//need to clear val in the case that the user tried to update to a bad max before re-uploading
+							//don't want them to see that bad value displayed as max in field
+							$('#update-max-form-modal').find('#max-grade-modal').val('');
+
+							if (data[0].type == 2) {
+								//display msgs for each bad line
+								for (var i = 0; i < data.length; i++) {
+									var error = $('.templates .modal-error-template').clone(true, true);
+									error.removeClass('modal-error-template');
+									error.removeClass('hidden');
+									error.addClass('upload-file-error');
+									msg = '<strong>ERROR (line ' + data[i].line + '): </strong>' + data[i].msg;
+									
+									error.html(msg);
+									error.insertBefore($('#file-error'));
+								}
+
+								// Hide loading
+								$('.loader-box').addClass('hidden');
+
+								return;
+							}
+						
 							for (var i = 0; i < data.length; i++) {
 								var errorForm = $('.templates .modal-form-template').clone(true, true);
 								var formId = 'error-form-' + data[i].id;
@@ -153,23 +224,41 @@ function sendToErrorChecking(data) {
 								errorForm.removeClass('modal-form-template');
 								errorForm.find('#comment').text(data[i].comment);
 								errorForm.find('#grade').val(data[i].value);
+								errorForm.find('#grade').addClass('grade-input-warning');
 								errorForm.appendTo('#error-message-modal .modal-body');
 								errorForm.find('.remove-student-error').attr('id', 'remove-' + data[i].id);
 
 								if (data[i].type == 0) {
+									
 									error = $('.templates .modal-warning-template').clone(true, true);
 									error.removeClass('modal-warning-template');
+									errorForm.addClass('is-warning');
 									msg = '<strong>WARNING: </strong> ';
 								} 
 								else if (data[i].type == 1) {
 									error = $('.templates .modal-error-template').clone(true, true);
 									error.removeClass('modal-error-template');
+									errorForm.addClass('is-error');
 									msg = '<strong>ERROR: </strong> ';
+
+									//checks if word "max" is in error msg
+									//if true, means error is grade > max (not allowed for this gradeitem, since error)
+									//so set var that later says to show update max form on modal
+									if  (data[i].msg.indexOf('max') !== -1) {
+										$greater_than_max_err = true;
+									}
 								}
 								error.addClass('error-msg-' + data[i].id);
 								error.html(msg + data[i].msg);
 								error.removeClass('hidden');
 								error.insertBefore(errorForm);
+							}
+							
+							//if a grade > max error was found when iterating through errors
+							//then display update max form
+							if ($greater_than_max_err){
+								$('#update-max-form-modal').removeClass('hidden');
+								$('.hr').removeClass('hidden');
 							}
 							showModalWithoutClose('error-message-modal');
 							$('.modal').animate({ scrollTop: 0 }, 'slow');
@@ -179,7 +268,7 @@ function sendToErrorChecking(data) {
 							// Success, go to report page
 							window.location.href = '/report?courseId=' + courseId + '&gradeItemId=' + gradeItemId;
 						}
-			
+				
 						// Hide loading
 						$('.loader-box').addClass('hidden');
 					} 
@@ -207,14 +296,14 @@ $('.remove-student-error').click(function() {
 	// Remove all error messages for that person
 	$('.error-msg-' + id).remove();
 	
-	//Now remove them from globalGrades
-	var index = findGrade( grade.id, globalGrades );
+	// Now remove them from globalGrades
+	var index = findGrade(grade.id, globalGrades);
 	globalGrades.splice(index,1);
-    
-    //if all students have been removed, close modal
+
+	//if all students have been removed, close modal
 	if (globalGrades.length == 0) {
 		closeModal('error-message-modal');
-	}
+	}	
 });
 
 /**
@@ -229,7 +318,8 @@ $('#resubmit').click(function() {
 		var formId = forms[i].id;
 		var id = formId.slice(11);
 		var form = $('#' + formId);
-
+		
+		grade.is_warning = forms[i].classList.contains('is-warning');
 		grade.id = id;
 		grade.value = form.find('#grade').val();
 		grade.comment = form.find('#comment').val();
@@ -274,14 +364,18 @@ $('#manual-upload').click(function() {
 
 		grades.push(grade);
 	}
-	sendToErrorChecking(grades)
+	sendToErrorChecking(grades);
+});
+
+$('.open-confirm-max-grade').click(function(e) {
+	showConfirmMax($(this).attr('modal-form'), e);
 });
 
 /**
  * Opens modal to confirm if user wants to change grade maximum
  */
-$('.open-confirm-max-grade').click(function() {
-	var isModal = parseInt($(this).attr('modal-form'));
+function showConfirmMax(isModal, e) {
+	e.preventDefault();
 	if (isModal) {
 		$('#update-max').addClass('hidden');
 		$('#update-max-modal').removeClass('hidden');
@@ -291,7 +385,8 @@ $('.open-confirm-max-grade').click(function() {
 		$('#update-max-modal').addClass('hidden');
 	}
 	showModal('confirm-max-grade');
-});
+}
+
 
 /**
  * Listens for submitting of update max.
@@ -321,26 +416,29 @@ $('#update-max-modal').click(function() {
  * @param {String} max - grade max from input
  * @param {String} id - element id to put the error messages before
  */
-function updateMax(new_max, id) { 
+function updateMax(max, id) { 
 	
 	// Show loading 
 	$('.loader-box').removeClass('hidden');
 	
-    var formData = {
-		'new_max': new_max,
+	var formData = {
+		'new_max': max,
 		'gradeItemId': gradeItemId,
 		'courseId': courseId
 	}
 
 	$.ajax({
 		type        : 'POST', 
-		url         : 'update_gradeItem_max', 
+		url         : '/update_gradeItem_max', 
 		data        : formData, 
 		dataType    : 'json', 
 		encode      : true,
 		success     : function(data) {
+							
 						// Clear all previous forms and error messages
 						$('.update-max-error').remove();
+						
+						//if error
 						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
 								var error;
@@ -360,11 +458,17 @@ function updateMax(new_max, id) {
 								
 								var success;
 								var msg;
+
+								//Value is properly updated, but after update data is int 
+								//b/c of this, need to use max to update fields since can be float
+								//could've set data = parseFloat(data), but not sure of the side effects of modifying data
+								//(don't understand how it is populated in the first place)
+								max = parseFloat(max);
 							
-								$('#out-of').text(data);
-								$('#max-grade').attr('placeholder', data);
-                                $('#max-grade-modal').attr('placeholder', data);
-                                $('.grade-label').text('/' + data);
+								$('#out-of').text(max);
+								$('#max-grade-modal').attr('placeholder', max);
+								$('#max-grade').attr('placeholder', max);
+								$('.grade-label').text('/' + max);
 							
 								success = $('.templates .modal-success-template').clone(true, true);
 								msg = 'Grade maximum updated successfully';
@@ -381,4 +485,4 @@ function updateMax(new_max, id) {
 					} 
 					
 		});
-}	
+}		

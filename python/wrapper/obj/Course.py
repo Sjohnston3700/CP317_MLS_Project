@@ -128,8 +128,8 @@ class Course(object):
         for member in self._members:
             if str(member.get_id()) == str(org_id):
                 return member
-            if str(member.get_org_id()) == str(org_id):
-                return member
+            #if str(member.get_org_id()) == str(org_id):
+             #   return member
         return None        
 
     def get_members(self,role=[]):

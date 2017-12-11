@@ -370,8 +370,8 @@ def grades_error_checking():
     elif app.config.get( session['user_id'] , None) is None:
         logger.warning('Session is out of sync on /error_checking')
         return redirect('/login')
-    
-    grades_json  = request.get_json()
+        
+    grades_json  = request.get_json(force=True)
     grades       = grades_json['grades']
     course_id    = grades_json['courseId']
     grade_item_id = grades_json['gradeItemId']
@@ -380,7 +380,6 @@ def grades_error_checking():
     user       = app.config[ session['user_id' ] ]
     course     = user.get_course(course_id)
     grade_item = course.get_grade_item(grade_item_id)
-    
     
     errors, valid_grades = check_grades(grades, grade_item)
     print(errors, valid_grades)
@@ -440,7 +439,6 @@ def update_grade_max():
         On failure:
             Renders "error.html".
     '''
-    print("inside")
     if 'user_id' not in session:
         logger.warning('Someone tried to access /update_gradeItem_max without logging in')
         return redirect('/login')

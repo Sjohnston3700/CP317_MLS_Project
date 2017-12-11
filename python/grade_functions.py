@@ -94,6 +94,8 @@ def check_grades(grades_json, grade_item):
     '''
     valid_grades = []
     errors = []
+    fail_errors = []
+    line = 0
     
     course = grade_item.get_course()
     for grade_json in grades_json:
@@ -101,19 +103,64 @@ def check_grades(grades_json, grade_item):
             student_id  = grade_json['id']
             grade_value = grade_json['value']
             comment     = grade_json['comment']
-            
-            student = course.get_member(student_id)
-            if student is None:
-                raise Exception('Student with Org Id {} not found in course : {}'.format(student_id, course.get_name() ) )
-            grade = NumericGrade(grade_item, student, comment, grade_value)
-            
-            valid_grades.append(grade)
         except Exception as e:
             error = grade_json
             error['msg']  = str(e)
             error['type'] = 1
-            
+            error['line'] = str(line)
             errors.append(error)
+            line += 1
+            continue   
+        
+        student = course.get_member(student_id)
+        #student doesn't exist
+        if student is None:
+            error = grade_json
+            error['msg'] = 'Student {} not found for course'.format(grade_json['name'])
+            error['type'] = 2
+            error['line'] = str(line)
+            fail_errors.append(error)
+            line += 1
             continue
-            
+        print('here')
+        try:
+            numberTest = float(grade_json['value'])
+        except Exception as e:
+            #not numeric
+            error = grade_json
+            error['msg']  = 'Grade must be an number'
+            error['type'] = 1
+            error['line'] = str(line)
+            errors.append(error)
+            line +=1 
+            continue
+        if float(grade_json['value']) < 0:
+            error = grade_json
+            error['msg']  = 'Grade cannot be negative'
+            error['type'] = 1
+            error['line'] = str(line)
+            errors.append(error)
+        elif (float(grade_json['value']) > grade_item.get_max() and not grade_item.can_exceed()):
+            error = grade_json
+            error['msg']  = 'Grade is more than the grade maximum'
+            error['type'] = 1
+            error['line'] = str(line)
+            errors.append(error)
+        else:
+            print('past max check')
+            try:
+                print('sending away')
+                grade = NumericGrade(grade_item, student, comment, grade_value)        
+                valid_grades.append(grade)
+            except Exception as e:
+                error = grade_json
+                error['msg']  = str(e)
+                error['type'] = 1
+                error['line'] = str(line)
+                errors.append(error)
+        line += 1
+    
+    if fail_errors != []:
+        errors = fail_errors
+        
     return errors, valid_grades
