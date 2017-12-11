@@ -346,8 +346,6 @@ def file_parse():
             with open(full_path,'r') as f:
                 results = parse_grades_csv(f)    
                 if len(errors) == 0:
-                    #I think you want to remove full_path, delete line if not
-                    os.remove(full_path)
                     return json.dumps(results)
   
             os.remove(full_path)
