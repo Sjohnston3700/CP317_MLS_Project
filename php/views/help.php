@@ -89,8 +89,8 @@
         
         
         <h2>Report Page</h2>
-        <p>The report page gives a summary of the user's upload. It shows how many grades were successfully set by the Brightspace API, any errors from the API, 
-			and a summary of the students that had grades changed. 
+        <p>The report page shows a summary of the user's upload. It shows how many grades were successfully set by the Brightspace API, any errors from the API, 
+			and a summary of the students that had their grades changed. 
 		</p>
         <img class="prototype-img" src="<?=$PATH_TO_STATIC?>/img/report_page_help.png">
 		
