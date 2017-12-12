@@ -91,6 +91,7 @@ function handleCheckboxChange() {
 // unticks Select All checkbox when a student is removed
 $(".remove-student").click(function() {
 	$("#members-cb").prop("checked", false);
+    addErrorMsg($(this).prev("div.inline").text() +' removed');
 });
 
 options = {
