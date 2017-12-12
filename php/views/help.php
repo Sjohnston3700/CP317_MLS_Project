@@ -6,8 +6,8 @@
     <body>
         <script src="<?=$PATH_TO_STATIC?>/js/toc_generator.js"></script>
         <h1>ezMarker - Help</h1>
-        <p>Version 3.0</p>
-        <p>Last updated: December 5, 2017</p>
+        <p>Version 5.0</p>
+        <p>Last updated: December 12, 2017</p>
         
         <div id="toc">
             <h2>Table of Contents</h2>
@@ -27,10 +27,10 @@
 		
 
         <h2>Course List Page</h2>
-        <p>After login, a user is presented with a list of courses that they have premission to access and upload grades to it.</p>
+        <p>After login, a user is presented with a list of courses they have permission to access and upload grades to.</p>
         <img class="prototype-img" src="<?=$PATH_TO_STATIC?>/img/course_list_page.png">
 
-        <p>To modify a specific course, the user must select that course and expand it to shows the course's grade items.</p>
+        <p>To modify a specific course, the user can select that course and expand it to show the course's grade items.</p>
         <img class="prototype-img" src="<?=$PATH_TO_STATIC?>/img/grade_items.png">
         
         <h2>Grade Item page</h2>
@@ -69,21 +69,21 @@
 		</p>
 		<img class="prototype-img" src="<?=$PATH_TO_STATIC?>/img/automated_upload_error.png">
 		
-        <h3>Manual Upoad</h3>
+        <h3>Manual Upload</h3>
         <p>
-			The user can also upload grades manually. Start by searching by student name or Laurier ID in the the search provided. There is a select all button for quickly adding input boxes for all students.
+         The user can also upload grades manually. A student can be added in two ways. Search for a student using their full name or using their Laurier ID. The select all option will quickly add input boxes for all students.
 		</p>
          <img class="prototype-img" src="<?=$PATH_TO_STATIC?>/img/manual_upload.png">
     
         <p>
-			The grade is required and must be a positive number. Some grade items allow for the grade to exceed the maximum grade value, while others do not. The 
-			comment is not required. 
+        Grade input is required and must be a positive number. Some grade items allow for the grade to
+            exceed the maximum grade value, while others do not. The
+            comment for student feedback is not required.
 		</p>
 		<p>
-			If there are any errors with the user's upload, a pop-up will appear with warning and error messages. The user must fix these issues and re-submit, otherwise 
-			cancel their upload. If a warning message appears saying the grade exceeds the grade item's maximum grade value, this can be ignored. The UI is just confirming 
-			with the user that this was their intention. However, if the grade item does not allow the mark to exceed the maximum grade value, it will appear as an error message and
-			the user is forced to give a grade less than the maximum grade value.
+        If there are any errors with the user's upload, a pop-up will appear with an appropriate warning or error message. The user must fix these issues and re-submit to successfully upload student grade, otherwise
+            cancel their upload. A warning message saying the inputted grade exceeds the grade item's maximum grade value may be ignored. The UI is just confirming
+            with the user that this was their intention. However, an error message will appear if the grade item does not allow the inputted grade to exceed the maximum grade value. In this case, the user is forced to input a grade less than or equal to the maximum grade value.
 		</p>
          <img class="prototype-img" src="<?=$PATH_TO_STATIC?>/img/manual_upload_error.png">
         
@@ -97,6 +97,11 @@
         <h2>Logout</h2>
         <p>The user can logout (end their MLS session) by pressing the logout button of the navigation bar. </p>
         <img class="prototype-img" src="<?=$PATH_TO_STATIC?>/img/logout.png">
+        
+        <p>Note: </p>
+        <ul>
+        <li><strong>Logging out will not direct the user to ezMarker. Instead the user will be directed to the Brightspace instance.</strong></li>
+        </ul>
   
         <h3 id="toc_exclude">Version 1.0 - 11/14/2017</h3>
         <p>Author: Hind Althabi</p>
@@ -108,6 +113,15 @@
         <p>- Fixed spelling and grammar</p>
         <p>- Updated images to current UI.</p>
         <p>Author: Sarah Johnston</p>
+        <h3 id="toc_exclude">Version 4.0 - 12/09/2017</h3>
+        <p>- Updated to be similar to php help document.</p>
+        <p>- Fixed image border.</p>
+        <p>Author: Hind Althabi</p>
+        <h3 id="toc_exclude">Version 5.0 - 12/12/2017</h3>
+        <p>- Added note regarding logging out redirect.</p>
+        <p>- Added note regarding manual upload.</p>
+        <p>- Fixed spelling and grammar.</p>
+        <p>Author: Shuaib Reeyaz</p>
         
     </body>
     <style>
