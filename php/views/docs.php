@@ -1,5 +1,6 @@
 <div class="center">
 	<h1 class="page-title">Check Out the Docs</h1>
+    <p>The following links can be used as reference for the design, planning and overall understanding of the ezMarker project. </p>
 	<div class="btn-row">
 
 		<a class="btn btn-xl" href="index.php?page=spmp">Software Planning</a><br>
