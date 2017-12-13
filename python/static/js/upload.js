@@ -354,7 +354,7 @@ $('.open-confirm-max-grade').click(function(e) {
  */
 function showConfirmMax(isModal, e) {
 	e.preventDefault();
-	if (isModal) {
+	if (parseInt(isModal)) {
 		$('#update-max').addClass('hidden');
 		$('#update-max-modal').removeClass('hidden');
 	}
