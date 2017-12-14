@@ -53,8 +53,8 @@ function formExists(id) {
 }
 
 // switches search type from name to id if a number is entered and vice-versa
-function handleInputKeyUp() {
-	var value = document.getElementById("members").value;
+$("#members").keyup(function() {
+	var value = $("members").value;
 
 	if (/\d/g.test(value) && options.getValue == "name") {
 		options.getValue = "org_id";
@@ -68,10 +68,10 @@ function handleInputKeyUp() {
 		$("#members").easyAutocomplete(options);
 		$("#members").focus();
 	}
-}
+});
 
 // adds all students when ticked, removes them when unticked
-function handleCheckboxChange() {
+$("#members-cb").change(function() {
 	var checked = $("#members-cb").is(":checked");
 
 	if (checked) {
@@ -86,7 +86,7 @@ function handleCheckboxChange() {
 		$("#manual-grade-input").empty();
 		addErrorMsg('All students removed');
 	}
-}
+});
 
 // unticks Select All checkbox when a student is removed
 $(".remove-student").click(function() {
@@ -115,7 +115,7 @@ options = {
 				time: 200,
 				callback: function() {}
 			},
-			onClickEvent: function() {
+			onChooseEvent: function() {
 				var name = $("#members").getSelectedItemData().name;
 				var id = $("#members").getSelectedItemData().id;
 
