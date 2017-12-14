@@ -13,7 +13,10 @@ GET_GRADE_ITEMS      = '/d2l/api/le/(version)/(orgUnitId)/grades/'
 SET_GRADE_ROUTE      = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)'
 GET_COURSE_MEMBERS   = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/'
 GET_USER_ENROLLMENTS = '/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/'
+GET_MY_ENROLLMENTS   = '/d2l/api/lp/(version)/enrollments/myenrollments/'
 GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
+
+Course_Offering = 3
 
 logger = logging.getLogger(__name__)
 
@@ -112,11 +115,12 @@ def get_courses(user, roles=[]):
             None if user has no classes or all failed for some reason and is logged.
     '''
     try:
-        json = get(GET_USER_ENROLLMENTS, user, {'version':user.get_host().get_api_version('le'), 'userId': user.get_id()})
+        json = get(GET_MY_ENROLLMENTS, user, { 'version':user.get_host().get_api_version('le') })
         courses = []
         for item in json['Items']:
             try:
-                courses.append( Course.Course(user, item) )
+                if item['OrgUnit']['Type']['Id'] == Course_Offering:
+                    courses.append( Course.Course(user, item) )
             except Exception as e:
                 continue
         logger.info("Extracted {} of {} courses for {}".format( len(courses), len(json["Items"]), user.get_name() ) )
