@@ -263,7 +263,17 @@ def handle_error(e):
 @app.route('/upload')
 def show_upload():
     """
-    Here goes something
+    Displays the upload page.
+    Preconditions:
+        course_id (int) : Brightspace ID of current course. Passed through URL.
+        gradeItemId (int) : Brightspace ID of current GradeItem. Passed through URL.
+    Postconditions:
+        if error with User:
+            returns redirect to "/login".
+        On success:
+            Renders upload page.
+        On failure:
+            Renders error page.
     """
     
     
@@ -490,6 +500,10 @@ def modify_grade_max(grade_item, new_max):
             
         if new_max < 0:
             errors.append({'msg':'Grade maximum must be a non-negative number'})
+        
+        elif new_max <= grade_item.get_max():
+            errors.append({'msg':'New grade maximum must be larger than current maximum'})
+        
         else:
             try:
                 grade_item.set_max( new_max )
@@ -502,6 +516,9 @@ def modify_grade_max(grade_item, new_max):
 def show_logout():
     '''
     Runs when application pointed to "/logout/" URL.
+    Preconditions:
+        course_id (int) : Brightspace ID of current course. Passed through URL.
+        gradeItemId (int) : Brightspace ID of current GradeItem. Passed through URL.
     Postconditions:
         If user_id in session : redirects user to Brightspace logout page.
         Else : Redirects to "/login/".
