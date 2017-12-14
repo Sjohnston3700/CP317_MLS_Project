@@ -58,7 +58,14 @@ def parse_grades_csv( csv_file ):
         for line_number, line in enumerate(reader):
             # unescape any escaped characters read by csv.reader
             if len(line) < 4:
-                errors.append( {'line':line_number+1,'msg':'Format must be brightspace_id, grade, student_name, comment'} )
+                if len(line) == 0:
+                    errors.append({'line': line_number+1, 'msg':''})
+                else:
+                    errors.append({'line': line_number+1, 'msg':line})
+            
+            elif line[0]=='' or line[1]=='' or line[2]=='':
+                errors.append({'line':line_number+1, 'msg':line})
+            
             else:
                 comment = line[3]
                 for before, after in {'\\n':'\n', '\\r':'\r', '\\t':'\t', '\\"': '"', "\\'":"'"}:
