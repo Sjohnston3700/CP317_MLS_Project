@@ -32,7 +32,34 @@ class Course(object):
         except Exception as e:
             logger.error('Something went wrong. Unable to create Course object with JSON {}. {}'.format(self._json,e) )
             raise
-            
+    
+    def __lt__(self, other):
+        '''
+        Function to implement < comparitor
+        Returns True if self < other by start, end date (alphabetical if both have null for start and end date)
+        '''
+        my_start    = self.get_start_date()
+        other_start = other.get_start_date()
+        
+        my_end    = self.get_end_date()
+        other_end = other.get_end_date()
+        
+        
+        if my_start is not None and other_start is not None:
+            return my_start < other_start
+        elif my_end is not None and other_end is not None:
+            return my_end < other_end
+        else:
+            return self.get_name() < other.get_name()    
+    
+    
+    def __eq__(self, other):
+        '''
+        Function to implement the == comparitor
+        Returns True if start dates, end dates, and name are the same
+        '''
+        return self.get_start_date() == other.get_start_date() and self.get_end_date() == other.get_end_date() and self.get_name() == other.get_name()
+        
     def get_json(self):
         '''
         Function to return objects JSON gets.
@@ -178,3 +205,15 @@ class Course(object):
             self.user_role (str) : User role for current course.
         '''
         return self._json['Access']['ClasslistRoleName']
+        
+    def get_start_date(self):
+        '''
+        Function to return course start date
+        '''
+        return self._json['Access']['StartDate']
+        
+    def get_end_date(self):
+        '''
+        Function to return course end date
+        '''
+        return self._json['Access']['EndDate']

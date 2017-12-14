@@ -7,7 +7,7 @@
 {% block content %}
 	{% if user.get_courses() != [] %}
 		<h2>Select a Grade Item</h2>
-        {% for course in user.get_courses() %}
+        {% for course in user.get_courses() |sort(reverse=True) %}
 		<button class="accordion">{{course.get_name()}}</button>
         <div class="panel">
             {% if course.get_grade_items() != [] %}
