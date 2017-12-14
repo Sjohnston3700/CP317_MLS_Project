@@ -53,8 +53,8 @@ function formExists(id) {
 }
 
 // switches search type from name to id if a number is entered and vice-versa
-$("#members").keyup(function() {
-	var value = $("members").value;
+function handleInputKeyUp() {
+	var value = $("#members").val();
 
 	if (/\d/g.test(value) && options.getValue == "name") {
 		options.getValue = "org_id";
@@ -68,7 +68,7 @@ $("#members").keyup(function() {
 		$("#members").easyAutocomplete(options);
 		$("#members").focus();
 	}
-});
+}
 
 // adds all students when ticked, removes them when unticked
 $("#members-cb").change(function() {

@@ -58,7 +58,7 @@
 <div class="page-section">
 	<h4>Search to add a student: </h4>
 	<form onsubmit="return false">	
-		<input id="members" class="input" type="text" placeholder="Enter Student Name or ID...">
+		<input id="members" class="input" type="text" onkeyup="handleInputKeyUp()" placeholder="Enter Student Name or ID...">
 		<div class="form-checkbox">
 			<input id="members-cb" type="checkbox">
 			<label class="mini">Select all</label>
