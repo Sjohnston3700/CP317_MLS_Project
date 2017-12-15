@@ -50,12 +50,12 @@
 			header('Location:' . $url);
 			die();
 		}
-		
+
 		// TA: 102, Instructor: 103
 		$roles = array(102, 103);
 		$user = new User($roles);
 		if ($user != null)
-		{	
+		{
 			$_SESSION['userName'] = $user->get_full_name();
 		}
 	}
@@ -147,9 +147,11 @@
 	</head>
 	<body>
 		<ul class="horiz-nav">
-			<img id="logo" src="<?=$PATH_TO_STATIC?>/img/logo.png">
+			<a href="/home"><img id="logo" src="<?=$PATH_TO_STATIC?>/img/logo.png"></a>
 			<li class="brand">
-				<a href="index.php?page=home">ezMarker</a>
+				<a href="/home">
+					ezMarker
+				</a>
 			</li>
 			<?php if ($authenticated) { ?>
 				<li class="item"><a href="index.php?page=courses">Courses</a></li>
