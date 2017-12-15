@@ -1311,7 +1311,9 @@ var EasyAutocomplete = (function(scope) {
 								} else {
 									hideContainer();
 								}
-								
+
+								selectedElement = 0;																						
+								selectElement(selectedElement);									
 							}
 
 
@@ -1615,6 +1617,17 @@ var EasyAutocomplete = (function(scope) {
 
 		if (inputId !== undefined) {
 			return EasyAutocomplete.getHandle(inputId).getSelectedItemData();
+		}
+
+		return -1;
+	};
+
+	$.fn.getSelectedItemIndex = function() {
+
+		var inputId = $(this).attr("id");
+		
+		if (inputId !== undefined) {
+			return EasyAutocomplete.getHandle(inputId).getSelectedItemIndex();
 		}
 
 		return -1;

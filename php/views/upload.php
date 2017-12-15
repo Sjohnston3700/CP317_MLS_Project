@@ -60,7 +60,7 @@
 	<form onsubmit="return false">	
 		<input id="members" class="input" type="text" onkeyup="handleInputKeyUp()" placeholder="Enter Student Name or ID...">
 		<div class="form-checkbox">
-			<input id="members-cb" type="checkbox" onchange="handleCheckboxChange()">
+			<input id="members-cb" type="checkbox">
 			<label class="mini">Select all</label>
 		</div>
 	</form>
