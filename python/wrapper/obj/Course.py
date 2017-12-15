@@ -1,5 +1,7 @@
 import GradeItem, OrgMember, API
-import logging, copy
+import logging, copy, datetime
+
+SEMESTERS = ['Winter']*4 + ['Spring']*4 + ['Fall']*4
 
 logger = logging.getLogger(__name__)
 
@@ -217,3 +219,25 @@ class Course(object):
         Function to return course end date
         '''
         return self._json['Access']['EndDate']
+        
+        
+    def get_semester(self):
+        '''
+        Function to return course semester based on start date. '' if no start date.
+        '''
+        start_date = self.get_start_date()
+        if start_date is not None:
+            month = datetime.datetime.strptime(start_date,"%Y-%m-%dT%H:%M:%S.%fZ").month
+            return SEMESTERS[month-1]
+        else:
+            return ''
+            
+    def get_year(self):
+        '''
+        Function to return course year bassed on start date. '' if no start date.
+        '''
+        start_date = self.get_start_date()
+        if start_date is not None:
+            return datetime.datetime.strptime(start_date,"%Y-%m-%dT%H:%M:%S.%fZ").year
+        else:
+            return ''
