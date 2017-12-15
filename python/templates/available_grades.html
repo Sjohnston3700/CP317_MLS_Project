@@ -5,9 +5,15 @@
 {% endblock %}
 
 {% block content %}
+    {#
+    
     {% set courses = user.get_courses()|sort(reverse=True) %}
 	{% if courses != [] %}
 		<h2>Select a Grade Item</h2>
+		<div id="available-courses"></div>
+		
+		
+		
         {% for course in courses %}
             {% if loop.index0 != 0 %}
                 {% if courses[loop.index0].get_year() != courses[loop.index0-1].get_year() or courses[loop.index0].get_semester() != courses[loop.index0-1].get_semester() %}
@@ -35,7 +41,39 @@
 	{% else %}
 		<a>You do not have permission to set grades for any courses</a>
 	{% endif %}
+	
+	#}
+	
+<!--Loading animation-->
+<div class="loader-box hidden">
+	<div class="loader-msg">Getting Available Courses</div>
+	<div class="loader"></div> 
+</div>
+<!-- Template HTML -->
+<div class="templates">
+	<p class="modal-success modal-success-template hidden"></p>
+	<p class="modal-warning modal-warning-template hidden"></p>
+	<p class="modal-error modal-error-template hidden"></p>
+	<form class="modal-form-template form-wide hidden" id="modal-form-template" onsubmit="return false">
+		<h3><div id="name" class="inline"></div><button type="button" class="btn btn-error btn-remove inline remove-student-error">x</button></h3>
+		<div class="form-group">
+			<input class="grade-input" type="text" name="grade" id="grade" placeholder="Enter grade...">
+			<p class="grade-label"></p>
+		</div>	
+		<textarea class="input" name="comment" id="comment" placeholder="Student feedback..." resize="false"></textarea>
+	</form>
+	<form class="upload-form upload-form-template form-med-wide hidden" onsubmit="return false">
+		<h3><div id="name" class="inline"></div><button type="button" class="btn btn-error btn-remove inline remove-student">x</button></h3>
+		<div class="form-group">
+			
+			<input class="grade-input" id="grade" name="grade" type="text" placeholder="Enter grade...">
+			<p class="grade-label"></p>
+		</div>	
+		<textarea id="comment" name="comment" class="input" placeholder="Student feedback..." resize="false"></textarea>
+	</form>
+</div>
 {% endblock %}
 {% block scripts %}
     <script type="text/javascript" src="/static/js/accordion.js"></script>
+    <script type="text/javascript" src="/static/js/python_courses.js"></script>
 {% endblock %}

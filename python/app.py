@@ -2,7 +2,7 @@ import os, sys, requests, traceback
 import d2lvalence.auth as d2lauth
 import logging, logging.config
 
-from flask import Flask, redirect, request, render_template, url_for, session, jsonify, json
+from flask import Flask, redirect, request, render_template, url_for, session, jsonify, json, abort
 from werkzeug.utils import secure_filename
 from conf_basic import app_config
 
@@ -104,6 +104,20 @@ def auth_token_handler():
         return redirect('/courses')
     except Exception as e:
         return render_template('error.html',user=None,error=traceback.format_exc())
+
+@app.route('/get_courses',methods=['POST'])
+def get_courses():
+    '''
+    Function to handle ajax requests for courses.
+    Postconditions:
+        On success:
+            If user_id in session : Renders "available_grades.html".
+            Else : Redirects to "/login".
+        On failure:
+            aborts with 404 response.
+    '''
+    return json.dumps([])
+    
 
 @app.route('/courses')
 def show_courses():
