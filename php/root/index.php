@@ -5,7 +5,7 @@
 
 	ob_start();
     session_start();
-
+	
 	$DEBUG = true;
 	$PATH_TO_STATIC = '../../python/static';
 	$PATH_TO_DOCS = '../../python/templates/';
@@ -19,8 +19,16 @@
 	{
 		if ($page == 'token' && isset($_GET['x_a']) && isset($_GET['x_b']))
 		{
-			header('Location: token.php?x_a=' . $_GET['x_a'] . '&x_b=' . $_GET['x_b']);
+			session_start();
+			$_SESSION['userId'] = $_GET['x_a'];
+			$_SESSION['userKey']= $_GET['x_b'];
+			session_write_close();
+			header('Location: page=courses');
+			header('Location: x_a=' . $_GET['x_a'] . '&x_b=' . $_GET['x_b']);
 			die();
+		}else {
+			throw new Exception('If you are seeing this page you probably navigated here directly. ' .
+							'The LMS redirects the user to this page on succesful login, passing the user credentials in the x_a, x_b query parameters.');
 		}
 
 		if ($page == 'logout' && isset($_SESSION['userId']) && isset($_SESSION['userKey']))
