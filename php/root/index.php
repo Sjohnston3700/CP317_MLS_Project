@@ -74,9 +74,15 @@
         case 'upload':
             $contents = '../views/upload.php';
             break;
-		 case 'help':
+		case 'help':
             $contents = '../views/help.php';
             break;
+		case 'final_submission':
+ 			$contents = '../views/final_submission/final_submission.php';
+ 			break;
+		case 'final_submission_doc':
+ 			$contents = '../views/final_submission/final_submission_doc.php';
+ 			break;
  		case 'spmp':
  			$contents = $PATH_TO_DOCS . 'spmp.html';
  			break;

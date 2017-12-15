@@ -1,0 +1,3 @@
+Task ID,Created At,Completed At,Last Modified,Name,Assignee,Start Date,Due Date,Tags,Notes,Projects,Parent Task,Task Type,Resolution
+504427351347410,2017-12-15,,2017-12-15,Have loading icon when loading courses and when loading grade item,Harold,,,High Priority,">30 courses lags a lot (I tested this by returning all courses, not just ones I'm a TA in). And >100 students lags too.",Front-end Python,,,
+504425329516257,2017-12-15,,2017-12-15,Sort courses within semester by name,Harold,,,,change _lt_?,Front-end Python,,,
