@@ -1,6 +1,6 @@
 <?php
-	//require_once "Grade.php";
-	require_once "API.php";
+//require_once "Grade.php";
+require_once "API.php";
 
 class GradeItem {
 	public function __construct($course, $grade_item_params){
@@ -94,7 +94,6 @@ class GradeItem {
         return $this->course;
 	}
 }
-
 class NumericGradeItem extends GradeItem {
 	public function __construct($course, $grade_item_params){
 		/*

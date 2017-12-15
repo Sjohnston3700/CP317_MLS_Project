@@ -16,12 +16,6 @@ $routes = array(
 	'SET_GRADE_MAX'		   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)',
 	'GET_GRADE'			   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
 );
-
-//{
-//"GradeObjectType": 1, 
-//"PointsNumerator": 12
-//}
-
 /*
 Uses a GET request to get JSON
 
@@ -43,13 +37,7 @@ function get($route, $route_params){
 	
 	$route = update_route($routes['BASE_URL'] . $route, $route_params);
 	$response = valence_request($route, 'GET', array());
-//	//Keywords such as true, fase and null must all be in lower case 
-//	if (in_array('PagingInfo', results.keys()) && $results['PagingInfo']['HasMoreItems']){
-//		$bookmark = $results['PagingInfo']['Bookmark'];
-//		$next_results = get($route, $user, $route_params, $additional_params = array('Bookmark' => $bookmark));
-//
-//		$results['Items'] = $results['Items'] + $next_results['Items']; 
-//	}
+
 	return $response;
 }
 
@@ -66,8 +54,7 @@ function put($route, $route_params, $json_to_send) {
 	global $routes;
 
 	$route = update_route($routes['BASE_URL'] . $route, $route_params);
-//	print_r(json_encode($json_to_send));
-//	die();
+
 	$response = valence_request($route, 'PUT', json_encode($json_to_send));
 
 	return $response;

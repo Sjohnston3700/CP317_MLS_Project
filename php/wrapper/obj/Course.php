@@ -1,9 +1,7 @@
 <?php
-
 	require_once 'API.php';
 	require_once 'GradeItem.php';
 	require_once 'OrgMember.php';
-
 	/*
 	user (user object) - info about user
 	course_params - info about course (Enrollment.MyOrgUnitInfo) 
@@ -15,11 +13,6 @@
 			$this->id = $course_params['OrgUnit']['Id'];
 			$this->grade_items = $this->_get_grade_items();
 			$this->members = $this->_get_members();
-//			foreach(get($GET_MEMBERS,$user,array('orgUnitID'=>$this->id))['Items'] as $member) {
-//				array_push($members,$member);
-//			}
-			
-			//[OrgMember($member) foreach(API-($GET_MEMBERS,$user,array('orgUnitID'=>$this->id)['Items'] as $member))];
 		}
 		/*
 		Function will return list of grade items
