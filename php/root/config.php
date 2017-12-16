@@ -10,7 +10,10 @@ $config = array(
 	'route'      => '/token',
 	'appId'     => 'FNWvubihLM8CICkHONZ_aw',
 	'appKey'    => 'OrL8HleCxiyuG8JBd7DEPg', 
-	'LP_Version' => '1.0',
+	'lms_ver' => array(
+		'lp' => '1.20',
+		'le' => '1.26',
+		'ep' => '2.5'),
 	'testMyEnrollments' => '0'
 );
 

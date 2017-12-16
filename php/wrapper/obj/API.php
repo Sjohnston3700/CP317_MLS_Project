@@ -3,18 +3,17 @@ require_once __DIR__.'/../../root/config.php';
 require_once __DIR__.'/../../D2Llib/D2LAppContextFactory.php';
 
 $routes = array(
-	'BASE_URL' 				=> $config['protocol'] . '://' . $config['lms_host'],
+	'BASE_URL' 			   => $config['protocol'] . '://' . $config['lms_host'],
 	'GET_API_VERSIONS' 	   => '/d2l/api/versions/',
-	'GET_GRADES'     	   => '/d2l/api/le/(version)/(orgUnitId)/grades/',
+	'GET_GRADE_ITEMS'      => '/d2l/api/le/(version)/(orgUnitId)/grades/',
 	'SET_GRADE'            => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)',
 	'GET_COURSE_MEMBERS'   => '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/',
 	'GET_USER_ENROLLMENTS' => '/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/',
-	'GET_USER_ENROLLMENT'  => '/d2l/api/le/(version)/(orgUnitId)/grades/',
 	'GET_MY_ENROLLMENTS'   => '/d2l/api/lp/(version)/enrollments/myenrollments/',
 	'GET_WHO_AM_I'         => '/d2l/api/lp/(version)/users/whoami',
 	'GET_GRADE_VALUES'	   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/',
-	'SET_GRADE_MAX'		   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)',
-	'GET_GRADE'			   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
+	'SET_GRADE_ITEM'		   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)',
+	'GET_GRADE_ITEM'	   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
 );
 /*
 Uses a GET request to get JSON
@@ -93,11 +92,11 @@ function get_grade_items($course){
 	global $routes;
 
 	$route_params = array(
-		 'version' => $config['LP_Version'],
+		 'version' => $config['lms_ver']['le'],
 		 'orgUnitId' => $course->get_id()
 		);
 
-	$response = get($routes['GET_GRADES'], $route_params);
+	$response = get($routes['GET_GRADE_ITEMS'], $route_params);
 	return $response;
 }
 
@@ -106,12 +105,12 @@ function get_grade_item($course_id, $grade_item_id) {
 	global $routes;
 
 	$route_params = array(
-		 'version' => $config['LP_Version'],
+		 'version' => $config['lms_ver']['le'],
 		 'orgUnitId' => $course_id, 
 		 'gradeObjectId' => $grade_item_id
 	);
 
-	$response = get($routes['GET_GRADE'], $route_params);
+	$response = get($routes['GET_GRADE_ITEM'], $route_params);
 	
 	return $response;
 }
@@ -130,7 +129,7 @@ function put_grade($grade){
 	global $routes;
 	
 	$route_params = array(
-		'version'=> '1.12',
+		'version'=> $config['lms_ver']['le'],
 		'orgUnitId' => $grade->get_grade_item()->get_course()->get_id(),
 		'gradeObjectId' => $grade->get_grade_item()->get_id(),
 		'userId' => $grade->get_student()->get_id(),
@@ -162,7 +161,7 @@ function put_grade_item($grade_item, $original){
 	global $routes;
 	
 	$route_params = array(
-		'version' => $config['LP_Version'],
+		'version' => $config['lms_ver']['le'],
 		'orgUnitId' => $grade_item->get_course()->get_id(),
 		'gradeObjectId' => $grade_item->get_id()
 	);
@@ -183,7 +182,7 @@ function put_grade_item($grade_item, $original){
 		'Description' => array('Content' => $original['Description']['Html'], 'Type' => 'Html')
 	);
 	
-	$response = put($routes['SET_GRADE_MAX'], $route_params, $params);
+	$response = put($routes['SET_GRADE_ITEM'], $route_params, $params);
 	if (isset($response['MaxPoints'])) {
 		//can't use response `MaxPoints` since due to api bug, int val returned in response even when decimal set
 		return $grade_item->get_max();
@@ -207,7 +206,7 @@ function get_user_enrollments($user){
 	global $routes;
 
 	$route_params = array(
-		'version' => $config['LP_Version'],
+		'version' => $config['lms_ver']['lp'],
 		'userId' => $user->get_id(),
 	);
 
@@ -239,7 +238,7 @@ function get_course($user, $course_id){
 	global $routes;
 
 	$route_params = array(
-		'version' => $config['LP_Version'],
+		'version' => $config['lms_ver']['lp'],
 		'userId' => $user->get_id(),
 	);
 
@@ -257,7 +256,7 @@ function get_who_am_i() {
 	global $config;
 	global $routes;
 	
-	$route_params = array('version' => $config['LP_Version']);
+	$route_params = array('version' => $config['lms_ver']['lp']);
 	$response = get($routes['GET_WHO_AM_I'], $route_params);
 	
 	return $response;
@@ -268,7 +267,7 @@ function get_grade_values($course_id, $grade_item_id) {
 	global $routes;
 	
 	$route_params = array(
-		'version' => '1.8',
+		'version' => $config['lms_ver']['le'],
 		'orgUnitId' => $course_id,
 		'gradeObjectId' => $grade_item_id
 	);
@@ -281,7 +280,7 @@ function get_members($course) {
 	global $routes;
 	
 	$route_params = array(
-		'version' => $config['LP_Version'],
+		'version' => $config['lms_ver']['lp'],
 		'orgUnitId' => $course->get_id(),
 	);
 	
