@@ -14,9 +14,9 @@
 <a href="index.php?page=design_wrapper">Wrapper Design</a><br>
 
 <h3>Logs</h3>
-<a href="logs/git">Git logs</a><br>
-<a href="logs/sqa">SQA logs</a><br>
-<a href="logs/hours">Hour logs</a><br>
+<a href="logs/git">Git logs (supported by GitHub)</a><br>
+<a href="logs/sqa">SQA logs (supported by Asana)</a><br>
+<a href="logs/hours">Hour logs (supported by ezEmployee)</a><br>
 
 <h3>The Code</h3>
 <a href="https://github.com/Sjohnston3700/CP317_MLS_Project">Github Repository</a><br>

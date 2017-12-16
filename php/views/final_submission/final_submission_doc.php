@@ -35,8 +35,8 @@
 		</ul>
 		<li>Log files</li>
 		<ul>
-			<li>Git logs</li>
-			<li>SQA logs</li>
+			<li>Git logs (supported by GitHub)</li>
+			<li>SQA logs (supported by Asana)</li>
 			<li>Hour logs (supported by ezEmployee)</li>
 		</ul>
 	</ul>
