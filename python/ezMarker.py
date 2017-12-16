@@ -62,35 +62,34 @@ def index():
         if page == 'token':
             return auth_token_handler()
         
-        #If it's the logout page the pass off to the logout function
-        elif page == 'logout':
-            return logout()
-        
-        #Otherwise we check for valid user
+        #Check for valid user
         #If not logged in send them to home page
-        if 'user_id' not in session:
+        if 'user_id' not in session and page != 'token':
             logger.warning('Someone tried to access {} but isn\'t logged in.'.format( request.url ) )
-            return home()
+            return home(None)
         
         #if session is out of sync (eg. the server rebooted) send them to home
         elif app.config.get( session['user_id'], None) is None:
             logger.warning('Session is out of sync on {}.'.format( request.url) )
-            return home()     
+            return home(None)
+        
+    user = app.config.get( session['user_id'], None)
+        
+        
+    if page is None:
+        return home(user)         
+    
+    
+    
     
     return "43"
     
-@app.route("/home")
-def home():
+def home(user):
     '''
     Home page, Directs user to login or view docs.
     postconditions:
         Renders template of home.html.
     '''
-    if 'user_id' not in session:
-        user = None
-    else:
-        user = app.config.get( session['user_id'] , None)
-        logger.warning('Session is out of sync on /home')
     return render_template('home.html', user=user)
     
 @app.route("/help/")
@@ -559,7 +558,6 @@ def modify_grade_max(grade_item, new_max):
                 errors.append({'msg':str(e)})
     return errors
         
-@app.route('/logout/')
 def show_logout():
     '''
     Runs when application pointed to "/logout/" URL.
