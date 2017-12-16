@@ -124,7 +124,7 @@ def auth_token_handler():
     Authenticaion token handler - Creates User and user context.
     Postcontitions:
         On success:
-            Redirect to "/courses/".
+            Redirect to "/index.py?page=courses".
         On failure:
             Renders "error.html".  
     '''
