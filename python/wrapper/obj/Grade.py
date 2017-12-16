@@ -131,7 +131,7 @@ class NumericGrade(Grade):
             NumericGrade object for grade item and student is initialized.
         '''
         max_value = grade_item.get_max()
-        assert is_numeric(value), 'Grade value must be numeric'
+        assert float(value), 'Grade value must be numeric'
         assert float(value) <= max_value or grade_item.can_exceed(), 'Grade value is greater then grade item max : {}'.format( max_value )
         assert float(value) >= 0, 'Grade value must be non-negative'
         
@@ -152,19 +152,3 @@ class NumericGrade(Grade):
         '''
         return self._json['PointsNumerator']
         
-def is_numeric(value):
-    '''
-    Returns a boolean to determine if a value is numeric or not.
-    
-    Preconditions:
-        value (float) : Grade student obtained on the grade item.
-        
-    Postconditions:
-        Returns:
-            True if value is numeric or false if not.
-    '''
-    try:
-        float(value)
-        return True
-    except:
-        return False
