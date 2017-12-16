@@ -4,6 +4,7 @@ Functions used to render pages
 from app import app
 from flask import render_template, redirect, request, session, abort
 from conf_basic import app_config
+import traceback
 
 from wrapper.obj.User import User
 from wrapper.obj.Host import Host
@@ -49,7 +50,7 @@ def index():
             logger.warning('Session is out of sync on {}.'.format( request.url) )
             return home(None)
         
-    user = app.config.get( session['user_id'], None)
+    user = app.config.get( session.get('user_id',None), None)
         
         
     if page is None:
@@ -152,7 +153,7 @@ def show_courses(user):
             Renders "error.html".
     '''
 
-    return render_template('available_grades.html', user=app.config[ session['user_id'] ] )
+    return render_template('available_courses.html', user=app.config[ session['user_id'] ] )
     
     
 def show_docs(user):

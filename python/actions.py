@@ -26,7 +26,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/actions/get_courses',methods=['POST'])
+@app.route('/actions/get_courses.py',methods=['POST'])
 def get_courses():
     '''
     Function to handle ajax requests for courses.
@@ -35,9 +35,11 @@ def get_courses():
             If user_id in session : Renders "available_grades.html".
             Else : Redirects to "/login".
         On failure:
-            aborts with 404 response.
+            aborts with a 404 response.
     '''
-    return json.dumps([])
+    
+    
+    return json.dumps([{'name':'Test Course','id':12,'grade_items':[]}])
 
 @app.route('/file_parse',methods=['POST'])
 def file_parse():

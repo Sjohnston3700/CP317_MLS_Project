@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block content %}
+    
+    <div id="available-courses"></div>
     {#
     
     {% set courses = user.get_courses()|sort(reverse=True) %}
@@ -26,7 +28,7 @@
             {% else %}    
                 <h2>{{  '{} {}'.format(courses[0].get_semester(), courses[0].get_year() ) }}</h2>
             {% endif %}
-            
+
 		    <button class="accordion">{{ course.get_name() }}</button>
             <div class="panel">
                 {% if course.get_grade_items() != [] %}
@@ -37,12 +39,14 @@
                     <p>No grade items for this course.</p>
                 {% endif %}
             </div>
+            
 		{% endfor %}
 	{% else %}
 		<a>You do not have permission to set grades for any courses</a>
 	{% endif %}
-	
 	#}
+	
+	
 	
 <!--Loading animation-->
 <div class="loader-box hidden">
@@ -51,26 +55,8 @@
 </div>
 <!-- Template HTML -->
 <div class="templates">
-	<p class="modal-success modal-success-template hidden"></p>
-	<p class="modal-warning modal-warning-template hidden"></p>
-	<p class="modal-error modal-error-template hidden"></p>
-	<form class="modal-form-template form-wide hidden" id="modal-form-template" onsubmit="return false">
-		<h3><div id="name" class="inline"></div><button type="button" class="btn btn-error btn-remove inline remove-student-error">x</button></h3>
-		<div class="form-group">
-			<input class="grade-input" type="text" name="grade" id="grade" placeholder="Enter grade...">
-			<p class="grade-label"></p>
-		</div>	
-		<textarea class="input" name="comment" id="comment" placeholder="Student feedback..." resize="false"></textarea>
-	</form>
-	<form class="upload-form upload-form-template form-med-wide hidden" onsubmit="return false">
-		<h3><div id="name" class="inline"></div><button type="button" class="btn btn-error btn-remove inline remove-student">x</button></h3>
-		<div class="form-group">
-			
-			<input class="grade-input" id="grade" name="grade" type="text" placeholder="Enter grade...">
-			<p class="grade-label"></p>
-		</div>	
-		<textarea id="comment" name="comment" class="input" placeholder="Student feedback..." resize="false"></textarea>
-	</form>
+	<button class="accordion accordion-template hidden"></button>
+	<div class="panel panel-template hidden"></div>
 </div>
 {% endblock %}
 {% block scripts %}
