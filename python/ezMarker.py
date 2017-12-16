@@ -39,7 +39,7 @@ host = Host(app_config['lms_host'], versions=app_config['lms_ver'])
 
 
 PAGES_NEEDING_LOGIN = ['token', 'courses', 'upload', 'report', 'logout']
-PAGES = PAGES_NEEDING_LOGIN + ['help','login',]
+PAGES = PAGES_NEEDING_LOGIN + ['help','login','documentation']
 
 
 @app.route("/")
@@ -87,10 +87,12 @@ def index():
             return help(user)
         elif page == 'login':
             return login()
-        elif page=='courses':
+        elif page == 'courses':
             return show_courses(user)
-    
-    
+        elif page == 'upload':
+            return show_upload(user)
+        elif page == 'documentation':
+            return show_docs(user)
     
     return "43"
     
@@ -137,21 +139,6 @@ def auth_token_handler():
     session['user_id']  = user_id
     app.config[user_id] = user
     return redirect('/index.py?page=courses')
-
-
-
-@app.route('/get_courses',methods=['POST'])
-def get_courses():
-    '''
-    Function to handle ajax requests for courses.
-    Postconditions:
-        On success:
-            If user_id in session : Renders "available_grades.html".
-            Else : Redirects to "/login".
-        On failure:
-            aborts with 404 response.
-    '''
-    return json.dumps([])
     
 
 def show_courses(user):
@@ -168,18 +155,12 @@ def show_courses(user):
     return render_template('available_grades.html', user=app.config[ session['user_id'] ] )
 
 
-@app.route('/documentation/')
-def show_docs():
+def show_docs(user):
     '''
     Runs when application is pointed to "/documentation".
     Postconditions:
         Renders "documentation.html".
     '''
-    if 'user_id' not in session:
-        user = None
-    else:
-        user = app.config.get( session['user_id'] , None)
-        logger.warning('Session is out of sync on /documentation')
     return render_template('documentation.html',user=user)
 
 @app.route('/documentation/spmp/')
@@ -299,8 +280,7 @@ def handle_error(e):
     return render_template('error.html',user=user,error=traceback.format_exc())
     
     
-@app.route('/upload')
-def show_upload():
+def show_upload(user):
     """
     Displays the upload page.
     Preconditions:
@@ -314,33 +294,14 @@ def show_upload():
         On failure:
             Renders error page.
     """
-    
-    
-    if 'user_id' not in session:
-        logger.warning('Someone tried to access /upload without logging in')
-        return redirect('/login')
-    elif app.config.get( session['user_id'] , None) is None:
-        logger.warning('Session is out of sync on /upload')
-        return redirect('/login')
-        
+      
     course_id    = request.args.get('courseId',    default = None, type = int)
     grade_item_id = request.args.get('gradeItemId', default = None, type = int)
-    
-    try:
-        user = app.config[session['user_id']]
-        course = user.get_course(course_id)
-        grade_item = course.get_grade_item(grade_item_id)
-    except Exception as e:
-        logger.exception("Something went wrong in {}".format(request.get_url() ))
-        return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
-    
-    if request.method == "GET":
-       return render_template('upload.html',user=user,course=course,grade_item=grade_item)
-    else:#It must have been a post
-        if request.is_xhr or request.accept_mimetypes.accept_json:#It might have been AJAX
-            print("We were sent json")#place holder. Need to figure out what was posted        
-            return jsonify(43)
 
+    course = user.get_course(course_id)
+    grade_item = course.get_grade_item(grade_item_id)
+
+    return render_template('upload.html',user=user,course=course,grade_item=grade_item)
 
 def allowed_file(filename):
     '''
@@ -352,6 +313,19 @@ def allowed_file(filename):
     '''
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/get_courses',methods=['POST'])
+def get_courses():
+    '''
+    Function to handle ajax requests for courses.
+    Postconditions:
+        On success:
+            If user_id in session : Renders "available_grades.html".
+            Else : Redirects to "/login".
+        On failure:
+            aborts with 404 response.
+    '''
+    return json.dumps([])
 
 @app.route('/file_parse',methods=['POST'])
 def file_parse():
