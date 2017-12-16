@@ -87,7 +87,8 @@ def index():
             return help(user)
         elif page == 'login':
             return login()
-        
+        elif page=='courses':
+            return show_courses(user)
     
     
     
@@ -119,7 +120,6 @@ def login():
     aurl = app.config["app_context"].create_url_for_authentication(app_config["lms_host"], app_url)
     return redirect(aurl)
 
-@app.route(app_config["route"])
 def auth_token_handler():
     '''
     Authenticaion token handler - Creates User and user context.
@@ -129,16 +129,16 @@ def auth_token_handler():
         On failure:
             Renders "error.html".  
     '''
-    try:
-        uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
-        # store the user context's
-        user = User(uc, host,['TA','Instructor'])
-        user_id = user.get_id()
-        session['user_id'] = user_id
-        app.config[user_id] = user
-        return redirect('/courses')
-    except Exception as e:
-        return render_template('error.html',user=None,error=traceback.format_exc())
+    uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
+    # store the user context's
+    user    = User(uc, host,['TA','Instructor'])
+    user_id = user.get_id()
+    
+    session['user_id']  = user_id
+    app.config[user_id] = user
+    return redirect('/index.py?page=courses')
+
+
 
 @app.route('/get_courses',methods=['POST'])
 def get_courses():
@@ -154,8 +154,7 @@ def get_courses():
     return json.dumps([])
     
 
-@app.route('/courses')
-def show_courses():
+def show_courses(user):
     '''
     Runs when application pointed to "/courses" URL.
     Postconditions:
@@ -165,18 +164,9 @@ def show_courses():
         On failure:
             Renders "error.html".
     '''
-    if 'user_id' not in session:
-        logger.warning('Someone tried to access /courses without logging in')
-        return redirect('/login')
-    elif app.config.get( session['user_id'] , None) is None:
-        logger.warning('Session is out of sync on /courses')
-        return redirect('/login')
-    else:
-        try:
-            return render_template('available_grades.html', user=app.config[ session['user_id'] ] )
-        except Exception as e :
-            logger.exception( "Something went wrong in /courses" )
-            return render_template('error.html',user=app.config[ session['user_id'] ],error=traceback.format_exc())
+
+    return render_template('available_grades.html', user=app.config[ session['user_id'] ] )
+
 
 @app.route('/documentation/')
 def show_docs():
