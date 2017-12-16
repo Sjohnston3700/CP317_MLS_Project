@@ -37,6 +37,9 @@ app.jinja_env.lstrip_blocks = True
 app_url = '{0}://{1}:{2}{3}'.format(app_config['scheme'], app_config['host'], app_config['port'], app_config["route"])
 host = Host(app_config['lms_host'], versions=app_config['lms_ver'])
 
+
+PAGES_NEEDING_LOGIN = ['token', 'courses', 'upload', 'report', 'logout']
+
 @app.route("/")
 def start():
     '''
@@ -51,8 +54,28 @@ def index():
     '''
     Function to handle all page requests  via Get parameters
     '''
+    #Get which page was requested
+    page = request.args.get('page',None)
     
-    
+    if page in PAGES_NEEDING_LOGIN:
+        #If it's the token page then pass off to authentication function
+        if page == 'token':
+            return auth_token_handler()
+        
+        #If it's the logout page the pass off to the logout function
+        elif page == 'logout':
+            return logout()
+        
+        #Otherwise we check for valid user
+        #If not logged in send them to home page
+        if 'user_id' not in session:
+            logger.warning('Someone tried to access {} but isn\'t logged in.'.format( request.url ) )
+            return home()
+        
+        #if session is out of sync (eg. the server rebooted) send them to home
+        elif app.config.get( session['user_id'], None) is None:
+            logger.warning('Session is out of sync on {}.'.format( request.url) )
+            return home()     
     
     return "43"
     
