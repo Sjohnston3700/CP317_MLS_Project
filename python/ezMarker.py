@@ -85,6 +85,9 @@ def index():
             abort(404)
         elif page == 'help':
             return help(user)
+        elif page == 'login':
+            return login()
+        
     
     
     
@@ -107,7 +110,6 @@ def help(user):
     '''
     return render_template("help.html", user=user)
 
-@app.route("/login/")
 def login():
     '''
     Function redirects user to Brightspace secure login page to authenticate user.
