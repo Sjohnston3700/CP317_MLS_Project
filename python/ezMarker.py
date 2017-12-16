@@ -39,7 +39,8 @@ host = Host(app_config['lms_host'], versions=app_config['lms_ver'])
 
 
 PAGES_NEEDING_LOGIN = ['token', 'courses', 'upload', 'report', 'logout']
-PAGES = PAGES_NEEDING_LOGIN + ['help','login','documentation','spmp','requirements','analysis','design','requirements_wrapper','analysis_wrapper','design_wrapper']
+DOCUMENTATION_PAGES = ['spmp','requirements','analysis','design','requirements_wrapper','analysis_wrapper','design_wrapper']
+PAGES = PAGES_NEEDING_LOGIN + DOCUMENTATION_PAGES + ['help','login','documentation']
 
 
 @app.route("/")
@@ -93,20 +94,8 @@ def index():
             return show_upload(user)
         elif page == 'documentation':
             return show_docs(user)
-        elif page == 'spmp':
-            return show_spmp(user)
-        elif page == 'requirements':
-            return show_requirements(user)
-        elif page == 'analysis':
-            return show_analysis(user)
-        elif page == 'design':
-            return show_design(user)
-        elif page == 'requirements_wrapper':
-            return show_requirements_wrapper(user)
-        elif page == 'analysis_wrapper':
-            return show_analysis_wrapper(user)
-        elif page == 'design_wrapper':
-            return show_design_wrapper(user)
+        elif page in DOCUMENTATION_PAGES:
+            return show_documentation(user, page)
             
     return "43"
     
@@ -178,66 +167,12 @@ def show_docs(user):
     return render_template('documentation.html',user=user)
 
 
-def show_spmp(user):
+def show_documentation(user, page):
     '''
-    Runs when application is pointed to "/documentation/spmp".
-    Postconditions:
-        Renders "spmp.html".
+    Function to display one of the documentation pages.
     '''
-    return render_template('index.html',user=user,doc='spmp')
-
-def show_requirements(user):
-    '''
-    Runs when application is pointed to "/documentation/requirements".
-    Postconditions:
-        Renders "requirements.html".
-    '''
-    return render_template('index.html',user=user,doc='requirements')
-
-
-def show_requirements_wrapper(user):
-    '''
-    Runs when application is pointed to "/documentation/requirements/wrapper".
-    Postconditions:
-        Renders "requirements_wrapper.html".
-    '''
-    return render_template('index.html',user=user,doc='requirements_wrapper')
-
-
-def show_analysis(user):
-    '''
-    Runs when application is pointed to "/documentation/analysis".
-    Postconditions:
-        Renders "analysis.html".
-    '''
-    return render_template('index.html', user=user,doc='analysis')
-
-
-def show_analysis_wrapper(user):
-    '''
-    Runs when application is pointed to "/documentation/analysis/wrapper".
-    Postconditions:
-        Renders "analysis_wrapper.html".
-    '''
-    return render_template('index.html',user=user,doc='analysis_wrapper')
-
-
-def show_design(user):
-    '''
-    Runs when application is pointed to "/documentation/design".
-    Postconditions:
-        Renders "design.html".
-    '''
-    return render_template('index.html',user=user,doc='design')
-
-
-def show_design_wrapper(user):
-    '''
-    Runs when application is pointed to "/documentation/spmp".
-    Postconditions:
-        Renders "design_wrapper.html".
-    '''
-    return render_template('index.html',user=user,doc='design_wrapper')
+    assert page in DOCUMENTATION_PAGES, '{} is not a valid documentation page'.format(page)
+    return render_template('index.html',user=user,doc=page)
 
 @app.errorhandler(Exception)
 def handle_error(e):
