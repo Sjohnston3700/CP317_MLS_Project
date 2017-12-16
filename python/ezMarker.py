@@ -40,11 +40,21 @@ host = Host(app_config['lms_host'], versions=app_config['lms_ver'])
 @app.route("/")
 def start():
     '''
-    Function runs at "/" URL, redirects to login.
+    Function runs at "/" URL, redirects to index.py.
     Postconditions:
-        Redirect user to "/login/".
+        Redirect user to "/index.py".
     '''
-    return redirect('/home')
+    return redirect('/index.py')
+
+@app.route("/index.py")
+def index():
+    '''
+    Function to handle all page requests  via Get parameters
+    '''
+    
+    
+    
+    return "43"
     
 @app.route("/home")
 def home():
