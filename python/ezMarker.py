@@ -99,7 +99,14 @@ def index():
             return show_requirements(user)
         elif page == 'analysis':
             return show_analysis(user)
-            
+        elif page == 'design':
+            return show_design(user)
+        elif page == 'requirements_wrapper':
+            return show_requirements_wrapper(user)
+        elif page == 'analysis_wrapper':
+            return show_analysis_wrapper(user)
+        elif page == 'design_wrapper':
+            return show_design_wrapper(user)
             
     return "43"
     
@@ -187,18 +194,13 @@ def show_requirements(user):
     '''
     return render_template('index.html',user=user,doc='requirements')
 
-@app.route('/documentation/requirements/wrapper/')
-def show_requirements_wrapper():
+
+def show_requirements_wrapper(user):
     '''
     Runs when application is pointed to "/documentation/requirements/wrapper".
     Postconditions:
         Renders "requirements_wrapper.html".
     '''
-    if 'user_id' not in session:
-        user = None
-    else:
-        user = app.config.get( session['user_id'] , None)
-        logger.warning('Session is out of sync on /documentation/requirements/wrapper')
     return render_template('index.html',user=user,doc='requirements_wrapper')
 
 
@@ -210,46 +212,31 @@ def show_analysis(user):
     '''
     return render_template('index.html', user=user,doc='analysis')
 
-@app.route('/documentation/analysis/wrapper/')
-def show_analysis_wrapper():
+
+def show_analysis_wrapper(user):
     '''
     Runs when application is pointed to "/documentation/analysis/wrapper".
     Postconditions:
         Renders "analysis_wrapper.html".
     '''
-    if 'user_id' not in session:
-        user = None
-    else:
-        user = app.config.get( session['user_id'] , None)
-        logger.warning('Session is out of sync on /documentation/analysis/wrapper')
     return render_template('index.html',user=user,doc='analysis_wrapper')
 
-@app.route('/documentation/design/')
-def show_design():
+
+def show_design(user):
     '''
     Runs when application is pointed to "/documentation/design".
     Postconditions:
         Renders "design.html".
     '''
-    if 'user_id' not in session:
-        user = None
-    else:
-        user = app.config.get( session['user_id'] , None)
-        logger.warning('Session is out of sync on /documentation/design')
     return render_template('index.html',user=user,doc='design')
 
-@app.route('/documentation/design/wrapper/')
-def show_design_wrapper():
+
+def show_design_wrapper(user):
     '''
     Runs when application is pointed to "/documentation/spmp".
     Postconditions:
         Renders "design_wrapper.html".
     '''
-    if 'user_id' not in session:
-        user = None
-    else:
-        user = app.config.get( session['user_id'] , None)
-        logger.warning('Session is out of sync on /documentation/design/wrapper')
     return render_template('index.html',user=user,doc='design_wrapper')
 
 @app.errorhandler(Exception)
