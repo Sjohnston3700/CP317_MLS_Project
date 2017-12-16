@@ -95,7 +95,12 @@ def index():
             return show_docs(user)
         elif page == 'spmp':
             return show_spmp(user)
-    
+        elif page == 'requirements':
+            return show_requirements(user)
+        elif page == 'analysis':
+            return show_analysis(user)
+            
+            
     return "43"
     
 def home(user):
@@ -174,17 +179,12 @@ def show_spmp(user):
     '''
     return render_template('index.html',user=user,doc='spmp')
 
-def show_requirements():
+def show_requirements(user):
     '''
     Runs when application is pointed to "/documentation/requirements".
     Postconditions:
         Renders "requirements.html".
     '''
-    if 'user_id' not in session:
-        user = None
-    else:
-        user = app.config.get( session['user_id'] , None)
-        logger.warning('Session is out of sync on /documentation/requirements')
     return render_template('index.html',user=user,doc='requirements')
 
 @app.route('/documentation/requirements/wrapper/')
@@ -201,18 +201,13 @@ def show_requirements_wrapper():
         logger.warning('Session is out of sync on /documentation/requirements/wrapper')
     return render_template('index.html',user=user,doc='requirements_wrapper')
 
-@app.route('/documentation/analysis/')
-def show_analysis():
+
+def show_analysis(user):
     '''
     Runs when application is pointed to "/documentation/analysis".
     Postconditions:
         Renders "analysis.html".
     '''
-    if 'user_id' not in session:
-        user = None
-    else:
-        user = app.config.get( session['user_id'] , None)
-        logger.warning('Session is out of sync on /documentation/analysis')
     return render_template('index.html', user=user,doc='analysis')
 
 @app.route('/documentation/analysis/wrapper/')
