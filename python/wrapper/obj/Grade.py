@@ -6,27 +6,6 @@ import GradeItem
 logger = logging.getLogger(__name__)
 
 class Grade(object):
-    '''
-    Object to hold an actual student numeric grade with a value and public/private feedback.
-    '''
-    '''
-    def __init__(self,userId,value,maxValue,name='',public_feedback='',private_feedback=''):
-
-        Preconditions :
-            userId (str or int) : The Value userId
-            value (int)  : The grade value (asssumed numeric)
-            maxValue (int)      : What the grade  is out of
-            name (str) : The student name (optional - default = '')
-            public_feedback (str) : The public feedback (optional - default = '')
-            private_feedback (str) : The private feedback (optional - default = '')
-
-        self.userId = userId
-        self.studentName = name
-        self.maxValue = maxValue
-        self.value  = int(value)
-        self.public_feedback  = public_feedback
-        self.private_feedback = private_feedback
-    '''
     
     def __init__(self, grade_item, student, comment):
         '''
@@ -40,6 +19,8 @@ class Grade(object):
         Postconditions:
             Grade object for grade item and student is initialized.
         '''
+        if type(self) == Grade:
+            raise TypeError("Grade must be subclassed")
         self._json = {
                     "UserId": student.get_id(),
                     "OrgUnitId": student.get_org_id(),
