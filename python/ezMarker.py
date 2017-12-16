@@ -39,7 +39,7 @@ host = Host(app_config['lms_host'], versions=app_config['lms_ver'])
 
 
 PAGES_NEEDING_LOGIN = ['token', 'courses', 'upload', 'report', 'logout']
-PAGES = PAGES_NEEDING_LOGIN + ['help','login','documentation']
+PAGES = PAGES_NEEDING_LOGIN + ['help','login','documentation','spmp','requirements','analysis','design','requirements_wrapper','analysis_wrapper','design_wrapper']
 
 
 @app.route("/")
@@ -93,6 +93,8 @@ def index():
             return show_upload(user)
         elif page == 'documentation':
             return show_docs(user)
+        elif page == 'spmp':
+            return show_spmp(user)
     
     return "43"
     
@@ -163,21 +165,15 @@ def show_docs(user):
     '''
     return render_template('documentation.html',user=user)
 
-@app.route('/documentation/spmp/')
-def show_spmp():
+
+def show_spmp(user):
     '''
     Runs when application is pointed to "/documentation/spmp".
     Postconditions:
         Renders "spmp.html".
     '''
-    if 'user_id' not in session:
-        user = None
-    else:
-        user = app.config.get( session['user_id'] , None)
-        logger.warning('Session is out of sync on /documentation/spmp')
     return render_template('index.html',user=user,doc='spmp')
 
-@app.route('/documentation/requirements/')
 def show_requirements():
     '''
     Runs when application is pointed to "/documentation/requirements".
