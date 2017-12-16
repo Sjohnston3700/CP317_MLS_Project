@@ -1,9 +1,7 @@
 <?php 
-
 	require_once 'API.php';
 
-	
-class Grade {
+	class Grade {
 	/*
 	Constructor:
 		grade_item(GradeItem Object)
@@ -46,7 +44,7 @@ class Grade {
 
 	}
 }
-class NumericGrade extends Grade{
+	class NumericGrade extends Grade{
 	/*
 	Constructor:
 		grade_item(GradeItem Object)
@@ -69,6 +67,5 @@ class NumericGrade extends Grade{
 	}
 	
 }
-
 
 ?>

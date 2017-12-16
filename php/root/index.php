@@ -5,7 +5,7 @@
 
 	ob_start();
     session_start();
-
+	
 	$DEBUG = true;
 	$PATH_TO_STATIC = '../../python/static';
 	$PATH_TO_DOCS = '../../python/templates/';
@@ -17,12 +17,21 @@
 	// Only check for credentials if on one of these pages. Docs, home, and help do not require login
 	if (in_array($page, $login_required))
 	{
-		if ($page == 'token' && isset($_GET['x_a']) && isset($_GET['x_b']))
+		if ($page == 'token')
 		{
-			header('Location: token.php?x_a=' . $_GET['x_a'] . '&x_b=' . $_GET['x_b']);
-			die();
+			if (isset($_GET['x_a']) && isset($_GET['x_b']))
+			{
+				$_SESSION['userId'] = $_GET['x_a'];
+				$_SESSION['userKey']= $_GET['x_b'];
+				header('Location: index.php?page=courses');
+				die();
+			}
+			else
+			{
+				throw new Exception('If you are seeing this page you probably navigated here directly. ' .
+					'The LMS redirects the user to this page on succesful login, passing the user credentials in the x_a, x_b query parameters.');
+			}
 		}
-
 		if ($page == 'logout' && isset($_SESSION['userId']) && isset($_SESSION['userKey']))
 		{
 			unset($_SESSION['userId']);
@@ -74,9 +83,15 @@
         case 'upload':
             $contents = '../views/upload.php';
             break;
-		 case 'help':
+		case 'help':
             $contents = '../views/help.php';
             break;
+		case 'final_submission':
+ 			$contents = '../views/final_submission/final_submission.php';
+ 			break;
+		case 'final_submission_doc':
+ 			$contents = '../views/final_submission/final_submission_doc.php';
+ 			break;
  		case 'spmp':
  			$contents = $PATH_TO_DOCS . 'spmp.html';
  			break;
@@ -133,7 +148,7 @@
 	</head>
 	<body>
 		<ul class="horiz-nav">
-			<img id="logo" src="<?=$PATH_TO_STATIC?>/img/logo.png">
+		<a href="index.php?page=home"><img id="logo" src="<?=$PATH_TO_STATIC?>/img/logo.png"></a>
 			<li class="brand">
 				<a href="index.php?page=home">ezMarker</a>
 			</li>

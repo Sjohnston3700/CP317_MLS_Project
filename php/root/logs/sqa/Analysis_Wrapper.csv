@@ -1,0 +1,30 @@
+Task ID,Created At,Completed At,Last Modified,Name,Assignee,Start Date,Due Date,Tags,Notes,Projects,Parent Task,Task Type,Resolution
+497032762349240,2017-12-06,,2017-12-06,Add note about object diagram,Troy Nechanicky,,,,,Analysis_Wrapper,,,
+487629264210255,2017-11-25,,2017-11-25,Update class diagram,Troy Nechanicky,,,,,Analysis_Wrapper,,,
+480421361945053,2017-11-15,2017-11-20,2017-11-20,Add table of contents and put section numbers before headers like analysis doc,Tyler Gwynn,,,Low Priority,,Analysis_Wrapper,,Feedback,Completed
+480421361945051,2017-11-15,2017-11-20,2017-11-20,Entity object for Host has not been updated to the change reflected in the same section in ezMarker analysis,Troy Nechanicky,,,Medium Priority,,Analysis_Wrapper,,Feedback,Completed
+480412218491545,2017-11-15,2017-11-20,2017-11-20,Note for org member inconsistency with actual diagram,Troy Nechanicky,,,Medium Priority,The note states that the navigability line between User and Course will be deleted after a bi directional navigability is set between OrgMembers and Course. But currently there is no navigability showing between User and Course and also no bi directional navigability between OrgMembers and Coure (only in one direction).,Analysis_Wrapper,,Feedback,Cancelled
+480392928445577,2017-11-15,2017-11-20,2017-11-20,Class diagram very small on my screen (not sure if it is different for other devices),Tyler Gwynn,,,Low Priority,,Analysis_Wrapper,,Feedback,Completed
+477002078746859,2017-11-12,2017-11-20,2017-11-20,Introduction not consistent with wrapper design and wrapper requirements doc introductions,Troy Nechanicky,,,Medium Priority,"Brightspace is not hyperlinked like in the wrapper design and wrapper requirements docs.
+
+Wrapper analysis introduction does not contain information on HTTP requests consisting of a URL and a verb and how the wrapper makes requests with GET or PUT (unknown if this was intended).
+
+New line spacing on wrapper design is not consistent with wrapper requirements or wrapper analysis doc.",Analysis_Wrapper,,Feedback,Completed
+477002078746865,2017-11-12,2017-11-20,2017-11-20,Spelling mistake in Entity objects section for courses (registerated instead of registered),Tyler Gwynn,,,Low Priority,,Analysis_Wrapper,,Feedback,Completed
+477002078746867,2017-11-12,2017-11-20,2017-11-20,"Typo for extra ""a"" in Entity objects section for OrgMember (""... information about a a member..."")",Tyler Gwynn,,,Low Priority,,Analysis_Wrapper,,Feedback,Completed
+477005887343406,2017-11-12,2017-11-20,2017-11-20,Recommend copying Design intro for added info,Tyler Gwynn,,,Medium Priority,,Analysis_Wrapper,,Feedback,Completed
+460422079432984,2017-10-23,2017-11-20,2017-11-20,Get new analysis image using design diagram,Troy Nechanicky,,,High Priority,,Analysis_Wrapper,,Feedback,Completed
+458272739881177,2017-10-19,2017-10-23,2017-10-23,Investigate use of Host and Context,Harold,,,High Priority,,Analysis_Wrapper,,Task,Completed
+455599327121112,2017-10-17,2017-11-20,2017-11-20," Remove ""abstract"" parts of entities",Troy Nechanicky,,,High Priority,,Analysis_Wrapper,,Feedback,Completed
+454492777855011,2017-10-16,2017-10-16,2017-10-16,Add Credentials class to diagram,Chongju Mai,,,High Priority,,Analysis_Wrapper,,Feedback,Completed
+454492777855007,2017-10-16,2017-10-16,2017-10-16,Class diagram should be in snake case,Chongju Mai,,,Medium Priority,,Analysis_Wrapper,,Feedback,Completed
+454492777854976,2017-10-16,2017-10-23,2017-10-23,Changes to Class diagram,Chongju Mai,,,High Priority,,Analysis_Wrapper,,Feedback,Completed
+454492777854979,2017-10-16,2017-10-16,2017-10-16,rename scheme attribute to protocol,Chongju Mai,,,,,,Changes to Class diagram,,
+454492777854980,2017-10-16,2017-10-16,2017-10-16,remove student attribute,Chongju Mai,,,,,,Changes to Class diagram,,
+454492777854981,2017-10-16,2017-10-16,2017-10-17,remove grade_items attribute,Chongju Mai,,,,,,Changes to Class diagram,,
+454492777854982,2017-10-16,2017-10-16,2017-10-16,rename laurier_id attribute to university_id,Chongju Mai,,,,,,Changes to Class diagram,,
+454492777854983,2017-10-16,2017-10-17,2017-10-17,"add ""can't exist without"" arrow to GradeItems, because GradeItems can't exist w/o Course",Chongju Mai,,,,,,Changes to Class diagram,,
+454492777854984,2017-10-16,2017-10-16,2017-10-17,remove type attribute from GradeItem,Chongju Mai,,,,,,Changes to Class diagram,,
+454492777854987,2017-10-16,2017-10-17,2017-10-17,move feedback attributes to Grade,Chongju Mai,,,,,,Changes to Class diagram,,
+454492777855018,2017-10-16,2017-10-16,2017-10-17,Add credentials attribute to Credentials class,Chongju Mai,,,,,,Changes to Class diagram,,
+455550654344394,2017-10-17,2017-10-17,2017-10-17,add max_value attribute to NumericGradeItem,Chongju Mai,,,,,,Changes to Class diagram,,

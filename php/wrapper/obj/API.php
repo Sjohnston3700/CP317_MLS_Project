@@ -16,12 +16,6 @@ $routes = array(
 	'SET_GRADE_MAX'		   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)',
 	'GET_GRADE'			   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
 );
-
-//{
-//"GradeObjectType": 1, 
-//"PointsNumerator": 12
-//}
-
 /*
 Uses a GET request to get JSON
 
@@ -43,13 +37,7 @@ function get($route, $route_params){
 	
 	$route = update_route($routes['BASE_URL'] . $route, $route_params);
 	$response = valence_request($route, 'GET', array());
-//	//Keywords such as true, fase and null must all be in lower case 
-//	if (in_array('PagingInfo', results.keys()) && $results['PagingInfo']['HasMoreItems']){
-//		$bookmark = $results['PagingInfo']['Bookmark'];
-//		$next_results = get($route, $user, $route_params, $additional_params = array('Bookmark' => $bookmark));
-//
-//		$results['Items'] = $results['Items'] + $next_results['Items']; 
-//	}
+
 	return $response;
 }
 
@@ -66,8 +54,7 @@ function put($route, $route_params, $json_to_send) {
 	global $routes;
 
 	$route = update_route($routes['BASE_URL'] . $route, $route_params);
-//	print_r(json_encode($json_to_send));
-//	die();
+
 	$response = valence_request($route, 'PUT', json_encode($json_to_send));
 
 	return $response;
@@ -91,25 +78,6 @@ function update_route($route, $params) {
 		} 
 	}
 	return $route;
-}
-
-/*
-Function to test if a request was valid.
-
-Preconditions:
-	request : the request object to test
-*/
-function check_request($request){
-	if (!(var_dump($request->success))) { //Keywords such as true, fase and null must be in lower case 
-
-		/*Line in API.py is:
-		exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
-		I'm not sure what the equivalent for request.text is in this case
-		*/
-		$exception_message = 'Request returned status code : ' . $request->$status_code . ', text : '; 
-		throw new RuntimeException($exception_message);
-	}
-
 }
 
 /*
@@ -217,7 +185,8 @@ function put_grade_item($grade_item, $original){
 	
 	$response = put($routes['SET_GRADE_MAX'], $route_params, $params);
 	if (isset($response['MaxPoints'])) {
-		return $response['MaxPoints'];
+		//can't use response `MaxPoints` since due to api bug, int val returned in response even when decimal set
+		return $grade_item->get_max();
 	}
 	return json_encode($response);
 }

@@ -33,7 +33,7 @@
 	</head>
 	<body>
 		<ul class="horiz-nav">
-			<img id="logo" src="/static/img/logo.png">
+			<a href="/home"><img id="logo" src="/static/img/logo.png"></a>
 			<li class="brand">
 				<a href="/">
 					ezMarker
@@ -47,7 +47,7 @@
                 <li class="name-section">
 			        <span>{{"Welcome, "+user.get_name() if user is not none else ""}}</span>
 				    <button onclick="window.location.href='/index.py?page=logout'" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
-			    </li>
+               </li>
             {% endif %}
 		</ul>
 		<div class="page-content-horiz">
@@ -75,5 +75,5 @@
 	<!-- JS Files -->
 	{% block scripts %}
 	{% endblock %}
-    
+
 </html>

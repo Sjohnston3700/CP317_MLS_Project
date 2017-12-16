@@ -41,7 +41,7 @@ class User(object):
         '''
         return self._json['Identifier']
     
-    def get_name(self):
+    def get_full_name(self):
         '''
         Function to return logged in users first and last name
         '''
