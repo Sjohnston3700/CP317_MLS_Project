@@ -1,4 +1,5 @@
-import requests, traceback, sys, logging
+import requests, traceback, sys, logging, importlib
+from API_config_file import API_PROTOCOL, API_HOST, API_VERSIONS
 
 #Can't do from Course import Course etc. It creates circular imports and breaks the universe
 import Course
@@ -16,7 +17,7 @@ GET_USER_ENROLLMENTS = '/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnit
 GET_MY_ENROLLMENTS   = '/d2l/api/lp/(version)/enrollments/myenrollments/'
 GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
 
-Course_Offering = 3
+COURSE_OFFERING = 3
 
 logger = logging.getLogger(__name__)
 
@@ -119,7 +120,7 @@ def get_courses(user, roles=[]):
         courses = []
         for item in json['Items']:
             try:
-                if item['OrgUnit']['Type']['Id'] == Course_Offering:
+                if item['OrgUnit']['Type']['Id'] == COURSE_OFFERING:
                     courses.append( Course.Course(user, item) )
             except Exception as e:
                 continue
@@ -186,7 +187,6 @@ def put(route, user, route_params, params):
     try:
         check_request(r)
     except Exception as e:
-        print("{} with data {}".format(str(e), params) )
         raise
     return
 

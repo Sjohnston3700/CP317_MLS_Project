@@ -5,9 +5,17 @@
 {% endblock %}
 
 {% block content %}
+    
+    <div id="available-courses"></div>
+    {#
+    
     {% set courses = user.get_courses()|sort(reverse=True) %}
 	{% if courses != [] %}
 		<h2>Select a Grade Item</h2>
+		<div id="available-courses"></div>
+		
+		
+		
         {% for course in courses %}
             {% if loop.index0 != 0 %}
                 {% if courses[loop.index0].get_year() != courses[loop.index0-1].get_year() or courses[loop.index0].get_semester() != courses[loop.index0-1].get_semester() %}
@@ -20,7 +28,7 @@
             {% else %}    
                 <h2>{{  '{} {}'.format(courses[0].get_semester(), courses[0].get_year() ) }}</h2>
             {% endif %}
-            
+
 		    <button class="accordion">{{ course.get_name() }}</button>
             <div class="panel">
                 {% if course.get_grade_items() != [] %}
@@ -31,11 +39,27 @@
                     <p>No grade items for this course.</p>
                 {% endif %}
             </div>
+            
 		{% endfor %}
 	{% else %}
 		<a>You do not have permission to set grades for any courses</a>
 	{% endif %}
+	#}
+	
+	
+	
+<!--Loading animation-->
+<div class="loader-box hidden">
+	<div class="loader-msg">Getting Available Courses</div>
+	<div class="loader"></div> 
+</div>
+<!-- Template HTML -->
+<div class="templates">
+	<button class="accordion accordion-template hidden"></button>
+	<div class="panel panel-template hidden"></div>
+</div>
 {% endblock %}
 {% block scripts %}
     <script type="text/javascript" src="/static/js/accordion.js"></script>
+    <script type="text/javascript" src="/static/js/python_courses.js"></script>
 {% endblock %}

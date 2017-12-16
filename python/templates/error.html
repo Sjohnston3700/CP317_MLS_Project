@@ -9,8 +9,8 @@
 {% block content %}
 <div class="page-section">
 	<h1>Something went wrong</h1>
-    <p> I'm sorry {{ user.get_full_name() if user is not none else 'None' }} something has gone horribly wrong and the sky is falling. Please tell your system administrator how you got here and the following :</p>
-    <p> Something failed catastrophically on page {{ request.url }} for user {{ user.get_full_name() if user is not none else "None" }} MLS ID {{ user.get_id() if user is not none else 'None'  }}</p>
+    <p> I'm sorry {{ user.get_full_name() if user is not none else '' }}, something has gone horribly wrong and the sky is falling. Please tell your system administrator how you got here and the following :</p>
+    <p> Something failed catastrophically on page {{ request.url }}{{ " for user "+user.get_full_name() if user is not none else "" }}{{ " with MLS ID "+user.get_id() if user is not none else ''  }}.</p>
     <p> {{ error }} </p>
 <script>
 </script>

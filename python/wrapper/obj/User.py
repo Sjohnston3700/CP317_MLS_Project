@@ -18,7 +18,7 @@ class User(object):
         
         try:
             self._json = API.get_who_am_i(self)
-            self._courses = API.get_courses(self)#still need to filter by role
+            self._courses = None
         except Exception as e:
             logger.error('Something went wrong. Unable to create User object.')
             raise
@@ -68,7 +68,7 @@ class User(object):
             returns
             A single course object with matching id, None if this User cannot access that course
         """
-        for course in self._courses:
+        for course in self.get_courses():
             if str( course.get_id() ) == str( id_val ):
                 return course
         return None        
@@ -81,6 +81,8 @@ class User(object):
             returns
             Copy of a python list of all courses accessible by this user
         """
+        if self._courses is None:
+            self._courses = API.get_courses(self)#still need to filter by role
         return self._courses
 
     def get_host(self):

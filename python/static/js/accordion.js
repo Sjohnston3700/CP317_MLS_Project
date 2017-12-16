@@ -1,4 +1,4 @@
-$(document).ready(function() {
+function accordion() {
 	var acc = $('.accordion');
 	var i;
 
@@ -16,4 +16,4 @@ $(document).ready(function() {
 			}
 		}
 	}
-}); 
+}; 

@@ -23,8 +23,8 @@
 #   route -- the trusted url route 
 
 app_config = {
-               'app_id': 'rzQ2Fl48OyGpabNiVo5wYQ', # DEV KEY 'rzQ2Fl48OyGpabNiVo5wYQ',
-               'app_key': 'BpBbSId5iAVG988lMvgj5g',# DEV KEY 'BpBbSId5iAVG988lMvgj5g',
+               'app_id': '4cCvnIU0scbTxUqmC9jExw',
+               'app_key': 'uKmh_y4cfKsRTpiTZuzjLw',
                'host': 'localhost',
                'port': '8080',
                'scheme':'http',
@@ -34,5 +34,5 @@ app_config = {
                'verify' : False,
                'lms_ver': {'lp':'1.1','le':'1.1','ep':'2.1'},
                'debug': True,
-               'route':'/token',
+               'route':'/index.py?page=token',
                }
