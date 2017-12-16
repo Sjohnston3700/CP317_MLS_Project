@@ -11,7 +11,7 @@ function getCourses()
 	
 	$.ajax({
 		type        : 'POST', 
-		url         : '/get_courses', 
+		url         : '/actions/get_courses', 
 		dataType    : 'json',
 		success     : showCourses
 		});

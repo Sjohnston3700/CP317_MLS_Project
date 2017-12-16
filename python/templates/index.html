@@ -40,13 +40,13 @@
 				</a>
 			</li>
             {% if user is not none %}
-                <li class="item"><a href="/courses">Courses</a></li>
+                <li class="item"><a href="/index.py?page=courses">Courses</a></li>
 			{% endif %}
-            <li class="item"><a href="/help">Help</a></li>
+            <li class="item"><a href="/index.py?page=help">Help</a></li>
             {% if user is not none %}
                 <li class="name-section">
 			        <span>{{"Welcome, "+user.get_name() if user is not none else ""}}</span>
-				    <button onclick="window.location.href='/logout'" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+				    <button onclick="window.location.href='/index.py?page=logout'" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
 			    </li>
             {% endif %}
 		</ul>
