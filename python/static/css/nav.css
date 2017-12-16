@@ -86,11 +86,11 @@ ul.vertical-nav
 
 img#logo
 {
-	width: 50px;
-	margin: 20px 10px;
-	border-radius: 50%;
-	float: left;
-  margin-bottom: 0;
+	width: 70px;
+  padding: 20px 10px;
+  float: left;
+  border-radius: 50%;
+  padding-bottom: 18px;
 }
 
 ul.horiz-nav
@@ -141,10 +141,11 @@ ul.horiz-nav
 {
 	display: inline;
 	font-size: 30px;
-	margin: 0px 50px 0px 12px;
+	margin: 0px 50px 0px 0;
 	padding: 0px;
 	border-bottom: 0px;
-  margin-right: 20px;
+	margin-right: 20px;
+	padding-left: 12px;
 }
 
 .horiz-nav .logo
