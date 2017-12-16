@@ -77,31 +77,7 @@ $('#upload-target').on('load', function() {
 function updateGlobalGrades(grades) {
 	var index;
 	var grade;
-	
-/*    for (var i = 0; i < globalGrades.length; i++) {
-        console.log("Inspecting element");
-        console.log(i);
-        
-		index = findGrade(globalGrades[i].id, grades);
-		if (index > -1) {
-			grade = grades[index];
-			globalGrades[i].id = grade.id;
-			globalGrades[i].value = grade.value;
-			globalGrades[i].comment = grade.comment;
-			globalGrades[i].name = grade.name;
-		} 
-		else {
-		    console.log("Removing element");
-		    console.log(i);
-			globalGrades.splice(i, 1);
-			i--;
-			console.log("New i = ");
-			console.log(i);
-		}
-	}
-    console.log("New global grades = ");
-    console.log(globalGrades);
-    */
+
     for (var i = 0; i<grades.length;i++)
     {
         grade = grades[i];
@@ -465,8 +441,8 @@ function updateMax(new_max, id) {
 							
 								$('#out-of').text(data);
 								$('#max-grade').attr('placeholder', data);
-                                $('#max-grade-modal').attr('placeholder', new_max);
-                                $('.grade-label').text('/' + new_max);
+                                $('#max-grade-modal').attr('placeholder', data);
+                                $('.grade-label').text('/' + data);
 							
 								success = $('.templates .modal-success-template').clone(true, true);
 								msg = 'Grade maximum updated successfully';

@@ -2,7 +2,7 @@
 
 require_once('../../wrapper/obj/API.php');
 require_once('../../wrapper/obj/OrgMember.php');
-require_once('../../wrapper/obj/Grade.php');
+require_once('../../wrapper/obj/GradeItem.php');
 /**
  * Error checking for max. If success, updates max grade value
  * @param {Integer} grade_item_id

@@ -416,7 +416,7 @@ function updateMax(max, id) {
 			// Clear all previous forms and error messages
 			$('.update-max-error').remove();
 
-			//if error
+			//if error data is array of errors
 			if (data.length > 0) {
 				for (var i = 0; i < data.length; i++) {
 					var error;
@@ -432,21 +432,15 @@ function updateMax(max, id) {
 					error.insertBefore('#' + id);
 				}
 			}
+			//if no error, data is value of new max
 			else if (parseInt(data) != NaN) {
-
 				var success;
 				var msg;
 
-				//Value is properly updated, but after update data is int 
-				//b/c of this, need to use max to update fields since can be float
-				//could've set data = parseFloat(data), but not sure of the side effects of modifying data
-				//(don't understand how it is populated in the first place)
-				max = parseFloat(max);
-
-				$('#out-of').text(max);
-				$('#max-grade-modal').attr('placeholder', max);
-				$('#max-grade').attr('placeholder', max);
-				$('.grade-label').text('/' + max);
+				$('#out-of').text(data);
+				$('#max-grade-modal').attr('placeholder', data);
+				$('#max-grade').attr('placeholder', data);
+				$('.grade-label').text('/' + data);
 
 				success = $('.templates .modal-success-template').clone(true, true);
 				msg = 'Grade maximum updated successfully';

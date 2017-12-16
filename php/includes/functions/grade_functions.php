@@ -3,6 +3,7 @@
 require_once('../../wrapper/obj/API.php');
 require_once('../../wrapper/obj/OrgMember.php');
 require_once('../../wrapper/obj/Grade.php');
+require_once('../../wrapper/obj/GradeItem.php');
 /**
  * Parses Grade file (csv). Goes through file object and creates 
  * array of JSON grade objects.

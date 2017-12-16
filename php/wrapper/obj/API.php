@@ -81,25 +81,6 @@ function update_route($route, $params) {
 }
 
 /*
-Function to test if a request was valid.
-
-Preconditions:
-	request : the request object to test
-*/
-function check_request($request){
-	if (!(var_dump($request->success))) { //Keywords such as true, fase and null must be in lower case 
-
-		/*Line in API.py is:
-		exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
-		I'm not sure what the equivalent for request.text is in this case
-		*/
-		$exception_message = 'Request returned status code : ' . $request->$status_code . ', text : '; 
-		throw new RuntimeException($exception_message);
-	}
-
-}
-
-/*
 Function to get grade items from Brightspace of a certain course
 
 Preconditions:
@@ -204,7 +185,8 @@ function put_grade_item($grade_item, $original){
 	
 	$response = put($routes['SET_GRADE_MAX'], $route_params, $params);
 	if (isset($response['MaxPoints'])) {
-		return $response['MaxPoints'];
+		//can't use response `MaxPoints` since due to api bug, int val returned in response even when decimal set
+		return $grade_item->get_max();
 	}
 	return json_encode($response);
 }

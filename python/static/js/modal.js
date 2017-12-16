@@ -1,21 +1,3 @@
-//not used. Left for future use
-/* function showModalOnBtnClick(modalId, btnId) {
-	console.log('hib');
-	
-	var modal = $('#' + modalId);
-	var btn = $('#' + btnId);
-	
-	btn.click(function() {
-  		modal.css('display', 'block');
-	});
-
-	$(window).click(function(event) {
-		if (event.target.id == modalId) {
-			modal.css('display', 'none');
-		}
-	});
-} */
-
 // Close only if close button is clicked
 function showModalWithoutClose(modalId) {
 	var modal = $('#' + modalId);
