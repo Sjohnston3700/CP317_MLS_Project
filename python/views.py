@@ -149,7 +149,7 @@ def show_courses(user):
             Renders "error.html".
     '''
 
-    return render_template('available_courses.html', user=app.config[ session['user_id'] ] )
+    return render_template('courses.html', user=app.config[ session['user_id'] ] )
     
     
 def show_docs(user):
