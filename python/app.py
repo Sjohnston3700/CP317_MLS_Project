@@ -9,7 +9,7 @@ from conf_basic import app_config
 from wrapper.obj import API
 from wrapper.obj.User import User
 from wrapper.obj.Host import Host
-from grade_functions import parse_grades_csv, check_grades
+from grade_functions import parse_grades, check_grades
 
 #Setup logging - Should be moved to a separate function ultimately
 logger = logging.getLogger(__name__)
@@ -354,7 +354,7 @@ def file_parse():
             
             #parse file in memory
             with open(full_path,'r') as f:
-                results = parse_grades_csv(f)    
+                results = parse_grades(f)    
                 if len(errors) == 0:
                     return json.dumps(results)
   

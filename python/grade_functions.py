@@ -6,7 +6,7 @@ from wrapper.obj.Grade import Grade, NumericGrade
 from io import TextIOWrapper # To check if file object is valid
 
 
-def parse_grades_csv( csv_file ):
+def parse_grades( csv_file ):
     '''
     Parses Grade objects from a CSV file in the format
         student_name, mls_id, grade, comment
@@ -97,7 +97,6 @@ def check_grades(grades_json, grade_item):
             fail_errors.append(error)
             line += 1
             continue
-        print('here')
         try:
             numberTest = float(grade_json['value'])
         except Exception as e:
@@ -122,9 +121,7 @@ def check_grades(grades_json, grade_item):
             error['line'] = str(line)
             errors.append(error)
         else:
-            print('past max check')
             try:
-                print('sending away')
                 grade = NumericGrade(grade_item, student, comment, grade_value)        
                 valid_grades.append(grade)
             except Exception as e:
