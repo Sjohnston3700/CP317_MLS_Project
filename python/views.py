@@ -88,13 +88,7 @@ def handle_error(e):
     Postconditions:
         Renders "error.html".
     '''
-    if 'user_id' not in session:
-        user = None
-    elif app.config.get( session['user_id'] , None) is None:
-        logger.warning('Session is out of sync while handling error')
-        user = None
-    else:
-        user = app.config[ session['user_id'] ]
+    user = app.config.get( session.get('user_id',None), None )
     return render_template('error.html',user=user,error=traceback.format_exc())
 
 
