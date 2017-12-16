@@ -68,6 +68,8 @@ def index():
             return show_courses(user)
         elif page == 'upload':
             return show_upload(user)
+        elif page == 'report':
+            return show_report(user)
         elif page == 'documentation':
             return show_docs(user)
         elif page in DOCUMENTATION_PAGES:
@@ -195,7 +197,7 @@ def show_upload(user):
 
     return render_template('upload.html',user=user,course=course,grade_item=grade_item)
     
-def report(user):
+def show_report(user):
     '''
     Displays report page.
     Postconditions:

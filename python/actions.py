@@ -1,14 +1,15 @@
 '''
 Functions that interact with the frontend via AJAX requests.
 '''
+import os
 from app import app
-from flask import json, session
+from flask import json, session, request
 from werkzeug.utils import secure_filename
 
 from wrapper.obj import API
 from wrapper.obj.User import User
 from wrapper.obj.Host import Host
-from grade_functions import parse_grades_csv, check_grades
+from grade_functions import parse_grades, check_grades
 
 
 
@@ -57,7 +58,7 @@ def get_courses():
     
     
 
-@app.route('/file_parse',methods=['POST'])
+@app.route('/actions/file_parse.py',methods=['POST'])
 def file_parse():
     '''
     Function to accept uploaded file and parse it for errors.
@@ -97,7 +98,7 @@ def file_parse():
             
             #parse file in memory
             with open(full_path,'r') as f:
-                results = parse_grades_csv(f)    
+                results = parse_grades(f)    
                 if len(errors) == 0:
                     return json.dumps(results)
   
@@ -105,7 +106,7 @@ def file_parse():
 
     return json.dumps(errors)
 
-@app.route('/error_checking',methods=['POST'])
+@app.route('/actions/error_checking.py',methods=['POST'])
 def grades_error_checking():
     '''
     Checks grades submitted from form.
@@ -148,7 +149,7 @@ def grades_error_checking():
 
 
 
-@app.route('/update_gradeItem_max',methods=['POST'])
+@app.route('/actions/update_max.py',methods=['POST'])
 def update_grade_max():
     '''
     Function to receive update grade max requests and try to execute them.
