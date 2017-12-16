@@ -2,7 +2,7 @@
 Functions that interact with the frontend via AJAX requests.
 '''
 from app import app
-from flask import json
+from flask import json, session
 from werkzeug.utils import secure_filename
 
 from wrapper.obj import API
@@ -32,14 +32,30 @@ def get_courses():
     Function to handle ajax requests for courses.
     Postconditions:
         On success:
-            If user_id in session : Renders "available_grades.html".
-            Else : Redirects to "/login".
+            If user_id in session : Returns json list of courses and gradeitems
         On failure:
-            aborts with a 404 response.
+            aborts with a 403 response.
     '''
+    try:
+        if 'user_id' not in session or app.config.get( session.get('user_id',None), None) is None:
+            abort(403)
+        else:
+            courses = []
+            user = app.config.get( session.get('user_id',None), None)
+            for course in user.get_courses():
+                data = {}
+                data['name'] = course.get_name()
+                data['id']   = course.get_id()
+                
+                data['grade_items'] = []
+                for grade_item in course.get_grade_items():
+                    data['grade_items'].append( {'name':grade_item.get_name(), 'id':grade_item.get_id()} ) 
+                courses.append(data)
+            return json.dumps(courses)
+    except:
+        abort(404)
     
     
-    return json.dumps([{'name':'Test Course','id':12,'grade_items':[]}])
 
 @app.route('/file_parse',methods=['POST'])
 def file_parse():

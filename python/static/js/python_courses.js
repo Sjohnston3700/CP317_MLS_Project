@@ -56,8 +56,8 @@ function showCourses(courses)
 	    new_grade_items.removeClass('panel-template');
 	    
 	    
-	    new_course.insertAfter('#available-courses'); 
-	    new_grade_items.insertAfter( $( ".accordion, ."+course.id.toString() ) );
+	    new_course.insertAfter('#available-courses');
+	    new_grade_items.insertAfter( $( ".accordion."+course.id.toString() ) );
 	    
 	       
 	
