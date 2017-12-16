@@ -26,7 +26,6 @@ function showModal(modalId) {
 	}
 
 	$(window).keydown(function(e) {
-		//console.log(e.keyCode);
 		//focus cancel (right button) on right arrow press
 		if (e.keyCode == 39) {
 			e.preventDefault();

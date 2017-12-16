@@ -132,7 +132,6 @@ function sendToErrorChecking(data) {
 	
 	// Set data to global variable in case user re-submits
 	globalGrades = data;
-    console.log('data being sent');
 	
     var formData = {
 		'grades': data,
@@ -140,7 +139,6 @@ function sendToErrorChecking(data) {
 		'courseId': courseId
 	}
 
-    console.log(JSON.stringify(formData));
     
 	$.ajax({
 		type        : 'POST', 
@@ -149,8 +147,6 @@ function sendToErrorChecking(data) {
 		dataType    : 'json', 
 		encode      : true,
 		success     : function(data) {
-                        console.log('Something got returned!');
-                        console.log(data);
 						if (data.length > 0) {
 							//tracks if this error appears
 							$greater_than_max_err = false;
