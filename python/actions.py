@@ -130,13 +130,11 @@ def grades_error_checking():
     course_id    = grades_json['courseId']
     grade_item_id = grades_json['gradeItemId']
     
-    print("Validing grades = {}".format(grades) )
     user       = app.config[ session['user_id' ] ]
     course     = user.get_course(course_id)
     grade_item = course.get_grade_item(grade_item_id)
     
     errors, valid_grades = check_grades(grades, grade_item)
-    print(errors, valid_grades)
     if len(errors) == 0:
         successful_grades, failed_grades = API.put_grades(valid_grades)
         report = {'successful_grades':successful_grades, 'failed_grades':failed_grades}

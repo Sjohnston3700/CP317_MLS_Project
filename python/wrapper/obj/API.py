@@ -1,4 +1,5 @@
-import requests, traceback, sys, logging
+import requests, traceback, sys, logging, importlib
+from API_config_file import API_PROTOCOL, API_HOST, API_VERSIONS
 
 #Can't do from Course import Course etc. It creates circular imports and breaks the universe
 import Course
@@ -186,7 +187,6 @@ def put(route, user, route_params, params):
     try:
         check_request(r)
     except Exception as e:
-        print("{} with data {}".format(str(e), params) )
         raise
     return
 
