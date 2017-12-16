@@ -39,6 +39,8 @@ host = Host(app_config['lms_host'], versions=app_config['lms_ver'])
 
 
 PAGES_NEEDING_LOGIN = ['token', 'courses', 'upload', 'report', 'logout']
+PAGES = PAGES_NEEDING_LOGIN + ['help','login',]
+
 
 @app.route("/")
 def start():
@@ -78,7 +80,11 @@ def index():
         
     if page is None:
         return home(user)         
-    
+    else:
+        if page not in PAGES:
+            abort(404)
+        elif page == 'help':
+            return help(user)
     
     
     
@@ -92,18 +98,13 @@ def home(user):
     '''
     return render_template('home.html', user=user)
     
-@app.route("/help/")
-def help():
+
+def help(user):
     '''
     Redirects user to help page.
     Postconditions:
         returns redirect to ezMarker help page.
     '''
-    if 'user_id' not in session:
-        user = None
-    else:
-        user = app.config.get( session['user_id'] , None)
-        logger.warning('Session is out of sync on /help')  
     return render_template("help.html", user=user)
 
 @app.route("/login/")
