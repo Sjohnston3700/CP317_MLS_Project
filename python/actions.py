@@ -130,9 +130,7 @@ def grades_error_checking():
     errors, valid_grades = check_grades(grades, grade_item)
     
     if len(errors) == 0:
-        print('no errors')
         successful_grades, failed_grades = API.put_grades(valid_grades)
-        print(successful_grades)
         report = {'successful_grades':successful_grades, 'failed_grades':failed_grades}
         
         key = '{}_report'.format(user.get_id() )
