@@ -10,7 +10,7 @@ import traceback
 from wrapper.obj.User import User
 from wrapper.obj.Host import Host
 
-LOGOUT_URL          = 'https://{host}/d2l/logout'
+LOGOUT_URL = 'https://{host}/d2l/logout'
 
 OUR_HOST = Host(app_config['lms_host'], versions=app_config['lms_ver'])
 PAGES_NEEDING_LOGIN = ['token', 'courses', 'upload', 'report', 'logout']
@@ -40,7 +40,7 @@ def index():
         if page == 'token':
             return auth_token_handler()
         
-        #Check for valid user
+        #Otherwises check for valid user
         #If not logged in send them to home page
         if 'user_id' not in session and page != 'token':
             logger.warning('Someone tried to access {} but isn\'t logged in.'.format( request.url ) )
@@ -75,8 +75,10 @@ def index():
             return show_docs(user)
         elif page in DOCUMENTATION_PAGES:
             return show_documentation(user, page)
-            
-    abort(404)#Should never be actually called
+    
+    #Should never be actually called        
+    abort(404)
+    
     
 
 
@@ -124,10 +126,7 @@ def auth_token_handler():
     '''
     Authenticaion token handler - Creates User and user context.
     Postcontitions:
-        On success:
-            Redirect to "/index.py?page=courses".
-        On failure:
-            Renders "error.html".  
+        Redirects to "/index.py?page=courses". 
     '''
     uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
     # store the user context's
@@ -141,15 +140,11 @@ def auth_token_handler():
 
 def show_courses(user):
     '''
-    Runs when application pointed to "/courses" URL.
+    Runs when application pointed to "/index.py?page=courses" URL.
     Postconditions:
-        On success:
-            If user_id in session : Renders "available_grades.html".
-            Else : Redirects to "/login".
-        On failure:
-            Renders "error.html".
+         Renders courses.html
     '''
-    return render_template('courses.html', user=app.config[ session['user_id'] ] )
+    return render_template('courses.html', user=user )
     
     
 def show_docs(user):
@@ -170,17 +165,12 @@ def show_documentation(user, page):
     
 def show_upload(user):
     """
-    Displays the upload page.
+    Displays the upload page /index.py?page=upload.
     Preconditions:
-        course_id (int) : Brightspace ID of current course. Passed through URL.
+        course_id (int)   : Brightspace ID of current course. Passed through URL.
         gradeItemId (int) : Brightspace ID of current GradeItem. Passed through URL.
     Postconditions:
-        if error with User:
-            returns redirect to "/login".
-        On success:
-            Renders upload page.
-        On failure:
-            Renders error page.
+        Renders upload page.
     """
       
     course_id    = request.args.get('courseId',    default = None, type = int)
@@ -193,12 +183,9 @@ def show_upload(user):
     
 def show_report(user):
     '''
-    Displays report page.
+    Displays the report page /index.py?page=report.
     Postconditions:
-        if error with user:
-            Returns redirect to "/login"
-        else:
-            renders "report.html"
+        Renders "report.html"
     '''
     
     course_id    = request.args.get('courseId',    default = None, type = int)
@@ -215,13 +202,10 @@ def show_report(user):
     
 def show_logout(user):
     '''
-    Runs when application pointed to "/logout/" URL.
-    Preconditions:
-        course_id (int) : Brightspace ID of current course. Passed through URL.
-        gradeItemId (int) : Brightspace ID of current GradeItem. Passed through URL.
+    Runs when application pointed to /index.py?page=logout.
+    Removes user infromation from session and app context
     Postconditions:
-        If user_id in session : redirects user to Brightspace logout page.
-        Else : Redirects to "/login/".
+        Redirects to Brightspace logout page
     '''
     app.config.pop( session['user_id'] )
     session.clear()
