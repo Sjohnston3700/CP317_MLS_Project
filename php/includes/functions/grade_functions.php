@@ -147,7 +147,7 @@ function check_grades($grades, $course_id, $grade_item_id)
 				continue;
 			}
 		}
-		if ($course->get_member($g['id']) == null)
+		if ($course->get_member($g['id'], array(101)) == null)
 		{
 			$fail_errors[] = array ( 
 				'line' => $i,
