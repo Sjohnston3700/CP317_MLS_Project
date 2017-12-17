@@ -16,39 +16,35 @@ class OrgMember(object):
 
     def get_json(self):
         '''
-        Function to return objects json guts
+        Function to return a copy of the objects json guts
         '''
         return copy.deepcopy(self._json)
     
     def get_id(self):
         """
         Postconditions:
-            returns
-            The Brightspace ID of the OrgMember (str)
+            returns the Brightspace ID of the OrgMember (str)
         """
         return self._json['User']['Identifier']
         
     def get_name(self):
         """
         Postconditions:
-            returns
-            The name of the OrgMember (str)
+            returns the name of the OrgMember (str)
         """
         return self._json['User']['DisplayName']
     
     def get_org_id(self):
         """
         Postconditions:
-            returns
-            The organization defined ID of the OrgMember (str)
+            returns the organization defined ID of the OrgMember (str)
         """
         return self._json['User']['OrgDefinedId']
 
     def get_role(self):
         """
         Postconditions:
-            returns
-            The role id of the OrgMember (str)
+            returns the role id of the OrgMember (str)
         """
         return self._json['Role']['Id']
 

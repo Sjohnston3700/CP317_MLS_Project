@@ -21,14 +21,10 @@ class Grade(object):
         '''
         if type(self) == Grade:
             raise TypeError("Grade must be subclassed")
+        #There bits are common to all grade objects
         self._json = {
                     "UserId": student.get_id(),
                     "OrgUnitId": student.get_org_id(),
-#                    "DisplayedGrade": <string>,
-#                    "GradeObjectIdentifier": <string:D2LID>,
-#                    "GradeObjectName": <string>,
-#                    "GradeObjectType": <number:GRADEOBJ_T>,
-#                    "GradeObjectTypeName": <string>|null,
                     "Comments": {"Content":comment,"Type":"Text"},
                     "PrivateComments": {"Content":"", "Type":"Text"}
                     }
@@ -43,8 +39,7 @@ class Grade(object):
             self (Grade) : Grade object instance.
             
         Postconditions:
-            Returns:
-                A deep copy of the JSON object for the student with respect to this GradeItem.
+            Returns a deep copy of the JSON object for the student with respect to this GradeItem.
         '''
         return copy.deepcopy(self._json)
         
@@ -56,8 +51,7 @@ class Grade(object):
             self (Grade) : Grade object instance.
         
         Postconditions:
-            Returns:
-                A comment's content (str) in the JSON object for the student with respect to this GradeItem.
+            Returns a comment's content (str) in the JSON object for the student with respect to this GradeItem.
         '''
         return self._json['Comments']['Content']
 
@@ -69,8 +63,7 @@ class Grade(object):
             self (Grade) : Grade object instance.
             
         Postconditions:
-            Returns:
-                The GradeItem object that this Grade object belongs to.
+            Returns the GradeItem object that this Grade object belongs to.
         '''
         return self._grade_item        
         
@@ -82,8 +75,7 @@ class Grade(object):
             self (Grade) : Grade object instance.
         
         Postconditions:
-            Returns:
-                The OrgMember object for the student that owns this grade.
+            Returns the OrgMember object for the student that owns this grade.
         '''
         return self._student
         
@@ -150,5 +142,5 @@ class NumericGrade(Grade):
             Returns:
                 A float grade value in the JSON object for the student with respect to this GradeItem.
         '''
-        return self._json['PointsNumerator']
+        return float(self._json['PointsNumerator'])
         

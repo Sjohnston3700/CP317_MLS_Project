@@ -36,7 +36,7 @@ def get_courses():
         On success:
             If user_id in session : Returns json list of courses and gradeitems
         On failure:
-            aborts with a 403 response.
+            aborts with a 403 if not logged in, aborts with 404 if anything else goes wrong.
     '''
     try:
         if 'user_id' not in session or app.config.get( session.get('user_id',None), None) is None:
@@ -57,7 +57,8 @@ def get_courses():
             #Sort courses by name before returning them   
             courses.sort(key = lambda x: x['name'] )    
             return json.dumps(courses)
-    except:
+    except Exception as e:
+        logger.error('Something went wrong in /actions/get_courses.py : {}'.format(e) )
         abort(404)
     
     
@@ -69,10 +70,11 @@ def file_parse():
     Preconditions:
         file (file) : File sent through request.files.
     Postconditions:
+        Returns JSON list of errors or grade items
         On success:
-            JSON dump of results
+            JSON list of grade items
         On failure:
-            JSON dump of errors
+            JSON list of errors
     '''
         
     user = app.config[session['user_id']]   
@@ -98,11 +100,11 @@ def file_parse():
             with open(full_path,'r') as f:
                 results = parse_grades(f)    
                 if len(errors) == 0:
+                    os.remove(full_path)
                     return json.dumps(results)
-  
-            os.remove(full_path)
+                else:
+                    return json.dumps(errors)
 
-    return json.dumps(errors)
 
 @app.route('/actions/error_checking.py',methods=['POST'])
 def grades_error_checking():
@@ -111,10 +113,7 @@ def grades_error_checking():
     Preconditions:
         grades_json (dict) : json information for each grade being checked.
     Postconditions:
-        if error with User:
-            returns redirect to "/login"
-        else:
-            returns json.dump(errors) (str) : success/errors messages for grades.
+        returns json.dump(errors) (str) : success/errors messages for grades.
     '''
     
     grades_json  = request.get_json(force=True)
@@ -144,17 +143,11 @@ def update_grade_max():
     '''
     Function to receive update grade max requests and try to execute them.
     Preconditions:
-        new_max (string) : New grade maximum, obtained through request.form.
-        courseId (string) : Course Id, obtained through request.form.
+        new_max (string)     : New grade maximum, obtained through request.form.
+        courseId (string)    : Course Id, obtained through request.form.
         gradeItemId (string) : GradeItem Id, obtained through request.form.
     Postconditions:
-        On success:
-            If 'user_id' in session:
-                JSON of any errors (if any).
-            Else:
-                Redirects to "/login/".
-        On failure:
-            Renders "error.html".
+        returns JSON list of errors [] if none
     '''
     new_max       = request.form['new_max']
     course_id     = request.form['courseId']

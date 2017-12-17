@@ -30,8 +30,7 @@ class GradeItem(object):
         '''
         Gets the JSON data representing this GradeItem object.
  -		Postconditions:
- -			Returns:
- -				self._json (dict) : COPY OF JSON data of this GradeItem. DON'T REVERT THIS, COPY NEEDED
+ -			Returns a copy of self._json (dict) : COPY OF JSON data of this GradeItem.
         '''
         return copy.deepcopy(self._json)
     
@@ -151,7 +150,7 @@ class NumericGradeItem(GradeItem):
         preconditions:
             value: the value to check against max_points
         Postconditions:
-            Returns: Boolean - false if not value larger than maxa points 
+            Returns: Boolean - false if not value larger than maximum points 
         """
         
         return value <= self.get_max()
@@ -159,11 +158,18 @@ class NumericGradeItem(GradeItem):
     def set_max(self,new_max):
         '''
         Function to update the max points for this grade object
+        
+        Preconditions:
+            new_max (float) : value to update grade item to
+        Postconditions:
+            On success returns True
+            On failure raises an exception and resets max value to old value
         '''
         old_max = self.get_max()
         self._json['MaxPoints'] = str(new_max)
         try:
             API.put_grade_item(self)
+            return True
         except Exception as e:
             logging.error('Failed to updated gradeItem {} max from {} to {}. {}'.format(self.get_id(), old_max, new_max, str(e) ) )
             self._json['MaxPoints'] = str(old_max)
