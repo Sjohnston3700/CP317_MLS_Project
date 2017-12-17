@@ -8,8 +8,7 @@ class GradeItem {
     private $course;
     private $grades;
 
-	public function __construct($course, $grade_item_params){
-		/*
+	/*
         Preconditions:
             $course (Course object) - the course the GradeItem is for
             $grade_item_params (json) - info about GradeItem  
@@ -17,6 +16,8 @@ class GradeItem {
         Postconditions:
             parent constructor to all GradeItem types. contains data common to all types
         */
+	
+	public function __construct($course, $grade_item_params){
 
         if (!is_subclass_of($this, 'GradeItem')) {
 			throw new Exception('GradeItem must be subclassed');
@@ -31,39 +32,48 @@ class GradeItem {
         return $this->json;
     }
 
-	function get_name(){
-		/*
+	/*
         Getter function
+	
         Postconditions:
             Returns: $this->name - name of the GradeItem
         */
+	function get_name(){
 		return $this->json['Name'];
 	}
-	function get_id(){
-        /*
+	
+	/*
         Getter function
-        Postconditions:
+        
+	Postconditions:
             Returns: $this->id - Id of the GradeItem
-		*/
+	*/
+	function get_id(){
         return $this->json['Id'];
     }
-    function get_grades(){
-        /*
-        Getter function
-        Postconditions:
+	
+    /*
+    Getter function
+    
+    Postconditions:
             Returns: List of Grade objects associated with this GradeItem
-        */
+    */
+    function get_grades(){
         return $this->grades;
     }    
-    function get_grade($student){
-		/*
-        Gets grade for a given student
-        Preconditions:
-            $student: OrgMember -> student whose grade we are looking for
-        Postconditions:
+	
+    /*
+    Gets grade for a given student
+
+    Preconditions:
+        $student: OrgMember -> student whose grade we are looking for        
+    
+    Postconditions:
             Returns: Grade object if there is a grade belonging to the student
                      Returns None if student grqade is not found
-        */
+     */
+    function get_grade($student){
+	
         foreach($this->grades as $grade){
             if ($student->get_id() == $grade->get_student()->get_id()){
                 return $grade;
@@ -72,45 +82,47 @@ class GradeItem {
         return null; 
 	}
 	
+    /*
+    Calls $grade->put_grade() for each Grade object
+    */	
     function put_grades(){
-        /*
-        Calls $grade->put_grade() for each Grade object
-        */
+        
         foreach ($this->grades as $grade){
             $grade->put_grade();
 		}
         return;
 	}
 		
+    /*
+    Puts grade item to Brightspace
+    */
     function put_grade_item(){
-        /*
-        Puts grade item to Brightspace
-        */
         put_grade_item($this);
         return;
     }    
 	
+     /*
+     Getter function
+     
+     Postconditions:
+        Returns: User object - User associated with the GradeItem
+     */
     function get_user(){
-        /*
-        Getter function
-        Postconditions:
-            Returns: User object - User associated with the GradeItem
-        */
         return ($this->course->get_user());
 	}
 	
+   /* 
+   Getter function
+   
+   Postconditions:
+       Returns: $this->course - Course that the GradeItem belongs to
+    */
     function get_course(){
-        /*
-        Getter function
-        Postconditions:
-            Returns: $this->course - Course that the GradeItem belongs to
-        */
         return $this->course;
 	}
 }
 class NumericGradeItem extends GradeItem {
-	public function __construct($course, $grade_item_params){
-		/*
+	/*
         Preconditions:
             $course (Course object) - the course the NumericGradeItem is for
             $grade_item_params (json) - info about GradeItem (Grade.GradeObject: GradeType must be numeric!) 
@@ -118,6 +130,8 @@ class NumericGradeItem extends GradeItem {
         Postconditions:
             creates object of type NumericGradeItem
         */
+	public function __construct($course, $grade_item_params){
+	
 		
 		if ($grade_item_params["GradeType"] != "Numeric") {
 			$course_id = $course->get_id();
@@ -128,32 +142,37 @@ class NumericGradeItem extends GradeItem {
         parent::__construct($course, $grade_item_params);                    
 	}
 	
-	function create_grade($student, $comment, $value){
-        /*
+	/*
         Creates a NumericGrade object and adds to the list (Called by ezMarker)
-        Preconditions:
+        
+	Preconditions:
             $student: OrgMember object
             $grade_params: Python dictionary of parameters required to initialize a NumericGrade
         */
+	function create_grade($student, $comment, $value){
+  
         array_push($this->grades, NumericGrade($this, $student, $comment, $value));
         return;
 	}
 	
-	function get_max(){
-        /*
+	/*
         Getter function
-        Postconditions:
+        
+	Postconditions:
             Returns: $this->max_points - The max number of points this GradeItem can have for any one Grade
         */
+	function get_max(){
+        
         return $this->json['MaxPoints'];
 	}
 	
-	function get_can_exceed(){
-        /*
+	/*
         Getter function
-        Postconditions:
+        
+	Postconditions:
             returns: $this->can_exceed_max_points
         */
+	function get_can_exceed(){
         return $this->json['CanExceedMaxPoints'];
 	}
 	
@@ -170,15 +189,16 @@ class NumericGradeItem extends GradeItem {
        return;
 	}
 	
-	function within_max($value){
-        /*
+	/*
         Checks if a value is within below the max points of the grade object
-        preconditions:
+        
+	Preconditions:
             $value: the value to check against max_points
-        Postconditions:
+        
+	Postconditions:
             Returns: Boolean - false if not value larger than maxa points 
         */
-        
+	function within_max($value){
         return ($value <= ($this->get_max()));
 	}
 }
