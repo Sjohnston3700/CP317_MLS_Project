@@ -137,9 +137,9 @@
 		<?php 
 		foreach ($course->get_members() as $m) { 
 			if ($m->get_role() == 101) {
-				echo("{name: '" . $m->get_name() . "', id: '" . $m->get_id() . "', org_id: '" . $m->get_org_id() . "'},");
+				echo("{name: '" . str_replace('\'', '\\\'', $m->get_name()) . "', id: '" . $m->get_id() . "', org_id: '" . $m->get_org_id() . "'},");
 			}
-		} 
+		}
 		?>
 	];
 	
@@ -148,7 +148,7 @@
 
 	//stop from automatically scrolling to last position on page
 	//looks bad since starts at top then flashes to bottom
-	history.scrollRestoration = "manual"
+	history.scrollRestoration = "manual";
 </script>
 
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/upload.js"></script>

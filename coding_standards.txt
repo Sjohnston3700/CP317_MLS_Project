@@ -14,6 +14,8 @@
 -Singular comments should be placed above the line of code it intends to explain, NOT beside it
 -Capatilize first letter, UNLESS it is an identifier(variable/method name).
 
+PHP
+{} brackets should be on their own lines
 //PHP Comments:
 - Comment blocks must be on top of method/functions
 - Each file should have a docblock at the top. Purpose is to explain what file consists of:
