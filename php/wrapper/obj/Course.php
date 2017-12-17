@@ -16,32 +16,9 @@
 		function __construct ($user, $course_params) {
 			$this->json = $course_params;
 			$this->user = $user;
-			try {
-				$this->grade_items = get_grade_items($this);
-				$this->members = get_course_enrollments($this);
-			}
-			catch (Exception $e) {
-				error_log('Something went wrong. Unable to create Course object with JSON ' . json_encode($this->json) . '. ' . $e, 0);
-				//echo json_encode($this->json) . 'M' . $e;
-				throw $e;
-			}
+			$this->grade_items = get_grade_items($this);
+			$this->members = get_course_enrollments($this);
 		}
-
-/* 		static function compare($a, $b) {
-			$a_start = $a.get_start_date();
-			$b_start = $b.get_start_date();
-			$a_end = $a.get_end_date();
-			$b_end = $b.get_end_date();
-
-			if (!is_null($a_start) && !is_null($b_start)) {
-				return $a_start < $b_start;
-			}
-			else if (!is_null($a_end) && !is_null($b_end)) {
-				return $a_end < $b_end;
-			}
-			//else
-			return $a.get_name() < $b.get_name();
-		} */
 
 		function get_json() {
 			return $this->json;
@@ -127,25 +104,5 @@
 			}
 			return null;
 		}
-
-/* 		function get_start_date() {
-			return $this->json['Access']['StartDate'];
-		}
-
-		function get_end_date() {
-			return $this->json['Access']['EndDate'];
-		}
-
-		function get_semester() {
-			$start_date = $this.get_start_date();
-			if (!is_null($start_date)) {
-				$month = 
-			}
-		}
-
-		function get_year()) {
-			return $this->json['Access']['StartDate'];
-		} */
-
 	}
 ?>
