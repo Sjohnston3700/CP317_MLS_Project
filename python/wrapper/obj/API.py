@@ -118,7 +118,7 @@ def get_courses(user, roles=[]):
         courses = []
         for item in json['Items']:
             try:
-                if item['OrgUnit']['Type']['Name'] == 'Course Offering' and roles != [] and  item['Role']['Name'] in roles:
+                if item['OrgUnit']['Type']['Name'] == 'Course Offering' and (roles== [] or  item['Role']['Name'] in roles):
                     courses.append( Course.Course(user, item) )
             except Exception as e:
                 continue
