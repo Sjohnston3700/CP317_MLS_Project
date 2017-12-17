@@ -502,6 +502,14 @@ function updateMax(max, id) {
 				$('#max-grade').attr('placeholder', max);
 				$('.grade-label').text('/' + max);
 
+				//don't need to check grades if max was updated from upload page
+				if (id == 'update-max-error') {
+					displayUpdateMaxMsg(id);
+					$('.loader-box').addClass('hidden');
+					$('.modal').animate({ scrollTop: 0 }, 'slow');
+					return;
+				}
+
 				data = globalGrades;
 
 				var formData = {
@@ -526,16 +534,8 @@ function updateMax(max, id) {
 							handleIfNoErrors();
 
 							//need to show success msg after displayGradeErrors b/c that function wipes all msgs
-
-							success = $('.templates .modal-success-template').clone(true, true);
-							msg = 'Grade maximum updated successfully';
-			
-							success.removeClass('hidden');
-							success.removeClass('modal-success-template');
-							success.addClass('update-max-error');
-							success.html(msg);
-							success.insertBefore('#' + id);
-
+							displayUpdateMaxMsg(id);
+							
 							$('.loader-box').addClass('hidden');
 							$('.modal').animate({ scrollTop: 0 }, 'slow');
 					}
@@ -543,4 +543,16 @@ function updateMax(max, id) {
 			}
 		}
 	});
-}	
+}
+
+function displayUpdateMaxMsg(id) {
+	success = $('.templates .modal-success-template').clone(true, true);
+	msg = 'Grade maximum updated successfully';
+
+	success.removeClass('hidden');
+	success.removeClass('modal-success-template');
+	success.addClass('update-max-error');
+	success.html(msg);
+	success.insertBefore('#' + id);
+
+}
