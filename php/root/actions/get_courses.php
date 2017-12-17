@@ -4,6 +4,10 @@ require_once('../../wrapper/obj/User.php');
 
 session_start();
 
+function comp($item1, $item2) {
+    return strcmp($item2['name'], $item1['name']);
+}
+
 // If no course or user tokens set, the user is doing something suspicious, so don't continue
 if (!isset($_SESSION['user']))
 {
@@ -28,6 +32,8 @@ foreach($user->get_courses() as $course) {
     }
     array_push($courses, $data);
 }
+
+usort($courses, 'comp');
 
 echo json_encode($courses);
 

@@ -20,10 +20,7 @@ function getCourses()
 * Function to display returned courses
 */
 function showCourses(courses)
-{
-   // Hide loader
-	$('.loader-box').addClass('hidden');
-	
+{		
 	for (var i = 0; i < courses.length; i++)
 	{
 	    var course = courses[i];
@@ -33,8 +30,7 @@ function showCourses(courses)
 	    new_course.removeClass('hidden');
 	    new_course.addClass( course.id.toString() );
 	    
-	    
-	    var grade_items = course.grade_items;
+		var grade_items = course.grade_items;
 	    new_grade_items = $('.templates .panel').clone(true, true);
 	    if (grade_items.length == 0)
 	    {
@@ -51,12 +47,15 @@ function showCourses(courses)
 	        new_grade_items.html( new_html );
 	    }
 	    new_grade_items.removeClass('hidden');
-	    new_grade_items.removeClass('panel-template');
-	    
+		new_grade_items.removeClass('panel-template');    
 	    
 	    new_course.insertAfter('#available-courses');
 	    new_grade_items.insertAfter( $( ".accordion."+course.id.toString() ) );
-    }
+	}
+	
+	// Hide loader
+	$('.loader-box').addClass('hidden');
+
 	accordion();
 }
 
