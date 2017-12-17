@@ -26,7 +26,7 @@ function showCourses(courses)
    // Hide loader
 	$('.loader-box').addClass('hidden');
 	
-	for (var i = 0; i < courses.length; i++)
+	for (var i = courses.length-1; i >= 0; i--)
 	{
 	    var course = courses[i];
 	    new_course = $('.templates .accordion').clone(true, true);

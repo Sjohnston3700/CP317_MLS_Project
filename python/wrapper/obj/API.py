@@ -1,5 +1,4 @@
-import requests, traceback, sys, logging, importlib
-from API_config_file import API_PROTOCOL, API_HOST, API_VERSIONS
+import requests, traceback, sys, logging
 
 #Can't do from Course import Course etc. It creates circular imports and breaks the universe
 import Course
@@ -116,12 +115,11 @@ def get_courses(user, roles=[]):
             None if user has no classes or all failed for some reason and is logged.
     '''
     try:
-        json = get(GET_MY_ENROLLMENTS, user, { 'version':user.get_host().get_api_version('le') })
+        json = get(GET_USER_ENROLLMENTS, user, { 'version':user.get_host().get_api_version('le'), 'userId':user.get_id() })
         courses = []
         for item in json['Items']:
             try:
-                if item['OrgUnit']['Type']['Id'] == COURSE_OFFERING:
-                    courses.append( Course.Course(user, item) )
+                courses.append( Course.Course(user, item) )
             except Exception as e:
                 continue
         logger.info("Extracted {} of {} courses for {}".format( len(courses), len(json["Items"]), user.get_full_name() ) )

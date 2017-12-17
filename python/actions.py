@@ -53,6 +53,9 @@ def get_courses():
                 for grade_item in course.get_grade_items():
                     data['grade_items'].append( {'name':grade_item.get_name(), 'id':grade_item.get_id()} ) 
                 courses.append(data)
+            
+            #Sort courses by name before returning them   
+            courses.sort(key = lambda x: x['name'] )    
             return json.dumps(courses)
     except:
         abort(404)

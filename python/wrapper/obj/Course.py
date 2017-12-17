@@ -16,7 +16,7 @@ class Course(object):
         
         Preconditions:
             user (User) : Info about user.
-            course_params (dict) : Info about course (Enrollment.MyOrgUnitInfo).
+            course_params (dict) : Info about course ( Enrollment.UserOrgUnit).
         
         Postconditions:
             On success:
@@ -34,33 +34,6 @@ class Course(object):
         except Exception as e:
             logger.error('Something went wrong. Unable to create Course object with JSON {}. {}'.format(self._json,e) )
             raise
-    
-    def __lt__(self, other):
-        '''
-        Function to implement < comparitor
-        Returns True if self < other by start, end date (alphabetical if both have null for start and end date)
-        '''
-        my_start    = self.get_start_date()
-        other_start = other.get_start_date()
-        
-        my_end    = self.get_end_date()
-        other_end = other.get_end_date()
-        
-        
-        if my_start is not None and other_start is not None:
-            return my_start < other_start
-        elif my_end is not None and other_end is not None:
-            return my_end < other_end
-        else:
-            return self.get_name() < other.get_name()    
-    
-    
-    def __eq__(self, other):
-        '''
-        Function to implement the == comparitor
-        Returns True if start dates, end dates, and name are the same
-        '''
-        return self.get_start_date() == other.get_start_date() and self.get_end_date() == other.get_end_date() and self.get_name() == other.get_name()
         
     def get_json(self):
         '''
@@ -206,38 +179,5 @@ class Course(object):
             Returns:
             self.user_role (str) : User role for current course.
         '''
-        return self._json['Access']['ClasslistRoleName']
+        return self._json['Role']
         
-    def get_start_date(self):
-        '''
-        Function to return course start date
-        '''
-        return self._json['Access']['StartDate']
-        
-    def get_end_date(self):
-        '''
-        Function to return course end date
-        '''
-        return self._json['Access']['EndDate']
-        
-        
-    def get_semester(self):
-        '''
-        Function to return course semester based on start date. '' if no start date.
-        '''
-        start_date = self.get_start_date()
-        if start_date is not None:
-            month = datetime.datetime.strptime(start_date,"%Y-%m-%dT%H:%M:%S.%fZ").month
-            return SEMESTERS[month-1]
-        else:
-            return ''
-            
-    def get_year(self):
-        '''
-        Function to return course year bassed on start date. '' if no start date.
-        '''
-        start_date = self.get_start_date()
-        if start_date is not None:
-            return datetime.datetime.strptime(start_date,"%Y-%m-%dT%H:%M:%S.%fZ").year
-        else:
-            return ''
