@@ -22,7 +22,7 @@ function parse_file($file)
 		$row = fgetcsv($file);
 		if (sizeof($row) < 4)
 		{	
-			//no error if last line is empty (common occurence if manually editing in Excel, for example)
+			// No error if last line is empty (common occurrence if manually editing in Excel, for example)
 			if ($row == NULL) {
 				if (feof($file)) {
 					$i++;
@@ -44,7 +44,7 @@ function parse_file($file)
 			$num_errors++;
 			$errors[] = $error;
 		}
-		//require that there must be some value for id, grade, name
+		// Require that there must be some value for id, grade, name
 		else if (trim($row[0]) == '' || trim($row[1]) == '' || trim($row[2]) == '') {
 			$error = array(
 				'line' => $i,
@@ -87,7 +87,7 @@ function parse_file($file)
 /**
  * @param {Array} array - parent array to search
  * @param {String} key - key to use in subarray
- * @param {String} val - val to look for  in subarray
+ * @param {String} val - val to look for in subarray
  * @return {Array} subarray containing val for key
  */
 function findSubarray($array, $key, $val) {
@@ -116,12 +116,12 @@ function error_checking($grades, $course_id, $grade_item_id)
 	
 	// Error object to return
 	$errors = array(); 
-	//object to track errors that result in error-modal not displaying
-	//errors so bad they completely 'fail' upload. If any fail errors, only those returned
+	// Object to track errors that result in error-modal not displaying
+	// Errors so bad they completely 'fail' upload. If any fail errors, only those returned
 	$fail_errors = array(); 
-	//counts occurences of each id. Used to check for duplicate ids (possible if uploaded from file)
+	// Counts occurrences of each id. Used to check for duplicate ids (possible if uploaded from file)
 	$id_count = array_count_values(array_column($grades, 'id'));
-	//for tracking the line number (used if error is one that only file upload would have)
+	// For tracking the line number (used if error is one that only file upload would have)
 	$i = 0;
 
 	foreach ($grades as $g)
@@ -189,10 +189,10 @@ function error_checking($grades, $course_id, $grade_item_id)
 				'type' => '1'
 			);
 		}
-		//for if you want to send a warning msg if grade > max and that is allowed by gradeitem
-		//client, as of Dec. 6, 2017, does not want this feature
-		//but leaving in file in case someone desires this later
-		//implementing this again would require minor changes to upload.sendToErrorChecking
+		// For if you want to send a warning msg if grade > max and that is allowed by gradeitem
+		// Client, as of Dec. 6, 2017, does not want this feature
+		// But leaving in file in case someone desires this later
+		// Implementing this again would require minor changes to upload.sendToErrorChecking
 		/* else if ($g['value'] > $grade_item->get_max() && $grade_item->get_can_exceed())
 		{	
 			
@@ -225,7 +225,7 @@ function error_checking($grades, $course_id, $grade_item_id)
 		}
 	}
 
-	//only return 1 error object. fail_errors is priority (upload not worth sending to modal)
+	// Only return 1 error object. fail_errors is priority (upload not worth sending to modal)
 	if (sizeof($fail_errors) != 0) {
 	 	$errors = $fail_errors;
 	}
