@@ -96,10 +96,13 @@
 		Function will return the member request if it exist, 
 		Otherwise, it return None
 		*/
-		function get_member($id) {
+		function get_member($id, $roles = array()) {
 			foreach ($this->members as $member) {
 				if($member->get_id() == $id) {
-					return $member;
+					if (empty($roles) || in_array($member->get_role(), $roles)) {
+						return $member;
+					}
+					return null;
 				}
 			}
 			return null;
