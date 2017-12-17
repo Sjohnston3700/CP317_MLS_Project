@@ -32,10 +32,11 @@ app_config = {
                'lms_port': '443',
                'encrypt_requests': True,
                'verify' : False,
-               'lms_ver': {'lp':'1.1','le':'1.1','ep':'2.1'},
+               'lms_ver': {'lp':'1.20','le':'1.26','ep':'2.5'},
                'debug': True,
                'route':'/index.py?page=token',
                }
 
 USER_ROLES = ['TA','Instructor']
-
+ALLOWED_EXTENSIONS = set(['txt','dat','csv'])
+UPLOAD_FOLDER = './Uploaded_Files'

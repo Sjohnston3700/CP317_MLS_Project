@@ -5,6 +5,7 @@ import os
 from app import app
 from flask import json, session, request
 from werkzeug.utils import secure_filename
+from conf_basic import ALLOWED_EXTENSIONS, UPLOAD_FOLDER
 
 from wrapper.obj import API
 from wrapper.obj.User import User
@@ -14,8 +15,7 @@ from grade_item_functions import *
 
 
 
-ALLOWED_EXTENSIONS = set(['txt','dat','csv'])
-UPLOAD_FOLDER = './Uploaded_Files'
+
 
 def allowed_file(filename):
     '''
