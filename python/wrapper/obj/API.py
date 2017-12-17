@@ -114,7 +114,7 @@ def get_courses(user, roles=[]):
             None if user has no classes or all failed for some reason and is logged.
     '''
     try:
-        json = get(GET_USER_ENROLLMENTS, user, { 'version':user.get_host().get_api_version('le'), 'userId':user.get_id() })
+        json = get(GET_USER_ENROLLMENTS, user, { 'version':user.get_host().get_api_version('lp'), 'userId':user.get_id() })
         courses = []
         for item in json['Items']:
             try:
