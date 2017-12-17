@@ -20,11 +20,14 @@ window.onload = function() {
 		i5 = 0;
 
 	toc = toc.appendChild(document.createElement("ul"));
-
-	var nodes = document.body.childNodes;
+	
+	var nodes;	
 	var contents = document.getElementsByClassName("page-content-horiz");
-	if (contents != null) {
+	
+	if (contents.length > 0) {
 		nodes = contents[0].childNodes;
+	} else {
+		nodes = document.body.childNodes;
 	}
 
 	for (var i = 0; i < nodes.length; ++i) {

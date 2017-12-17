@@ -33,6 +33,9 @@ foreach($user->get_courses() as $course) {
     array_push($courses, $data);
 }
 
+//store user object that now has courses
+$_SESSION['user'] = serialize($user);
+
 usort($courses, 'comp');
 
 echo json_encode($courses);

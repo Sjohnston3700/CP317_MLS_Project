@@ -41,7 +41,7 @@ function get($route, $route_params, $additional_params = array()){
 		
 		$updated_route = update_route($routes['BASE_URL'] . $route, $route_params, $additional_params);
 		$response = valence_request($updated_route, 'GET', array());
-	
+
 		if (array_key_exists('PagingInfo', $response) && $response['PagingInfo']['HasMoreItems'] == 'true'){
 			$bookmark = $response['PagingInfo']['Bookmark'];
 			$next_results = get($route, $route_params, $additional_params = array('bookmark='.$bookmark));
@@ -52,6 +52,16 @@ function get($route, $route_params, $additional_params = array()){
 				array_push($response['Items'], $item);
 			}		
 		}
+		else if (array_key_exists('Next', $response) && !is_null($response['Next'])) {
+			$next_results = get($response['Next'], array());
+
+			//have to loop through since php adds '[' and ']' to append Items
+			//if just use array_push($response['Items'], $next_results['Items'])
+			foreach($next_results['Objects'] as $item) {
+				array_push($response['Objects'], $item);
+			}	
+		}
+
 		return $response;
 	}
 	
@@ -283,7 +293,9 @@ function get_grade_values($course_id, $grade_item_id) {
 		'orgUnitId' => $course_id,
 		'gradeObjectId' => $grade_item_id
 	);
-	$response = get($routes['GET_GRADE_VALUES'], $route_params);
+	$additional_params = array('pageSize=200');
+
+	$response = get($routes['GET_GRADE_VALUES'], $route_params, $additional_params);
 	return $response['Objects'];
 }
 

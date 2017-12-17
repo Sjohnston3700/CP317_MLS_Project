@@ -23,6 +23,8 @@
 		echo '<br><b>message:</b> ' . $e->getMessage();
 		echo '<br><b>trace:</b>';
 		echo '<pre>' . $e->getTraceAsString() . '</pre>';
+
+		error_log($e, 0);
 	}
 	  
 	set_exception_handler('myException');
@@ -95,7 +97,6 @@
             $contents = '../views/courses.php';
             break;
 		case 'upload':
-		//	if(isset($_SESSION['report'])) { unset($_SESSION['report']); }
             $contents = '../views/upload.php';
             break;
 		case 'help':
@@ -187,4 +188,5 @@
 	<!-- JS Files -->
 	<script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/accordion.js"></script>
 	<script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/modal.js"></script>
+	<script src="<?=$PATH_TO_STATIC?>/js/toc_generator.js"></script>
 </html>

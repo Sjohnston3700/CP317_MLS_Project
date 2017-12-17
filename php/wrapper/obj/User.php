@@ -6,7 +6,8 @@ require_once 'Course.php';
 class User {
     private $context;
     private $json;
-    private $courses;
+	private $courses;
+	private $roles;
 
 
 		/*
@@ -17,11 +18,8 @@ class User {
 			$roles: List of roles, default: None (list)
 		*/
 		function __construct($roles) {
-
-
             $this->json = get_who_am_i();
-            $this->courses = get_user_enrollments($this, $roles);
-
+            $this->courses = null;
 			$this->roles = $roles;
 		}
 
@@ -36,6 +34,10 @@ class User {
 			Copy of a python list of all courses accessible by this user
 			*/
 		function get_courses() {
+			if (is_null($this->courses)) {
+				$this->courses = get_user_enrollments($this, $this->roles);
+			}
+			
 			return $this->courses;
 		}
 		/*
@@ -47,6 +49,10 @@ class User {
 			A single course object with matching id, None if this User cannot access that course
 		*/
 		function get_course($id) {
+			if (is_null($this->courses)) {
+				$this->courses = get_user_enrollments($this, $this->roles);
+			}
+
 			foreach($this->courses as $course) {
 				if($course->get_id() == $id) {
 					return $course;
