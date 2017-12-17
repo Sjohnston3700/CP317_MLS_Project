@@ -6,7 +6,7 @@ from wrapper.obj.Grade import Grade, NumericGrade
 from io import TextIOWrapper # To check if file object is valid
 
 
-def parse_grades_csv( csv_file ):
+def parse_grades( csv_file ):
     '''
     Parses Grade objects from a CSV file in the format
         student_name, mls_id, grade, comment
@@ -42,11 +42,11 @@ def parse_grades_csv( csv_file ):
                 keys = ['id','value','name','comment']
                 grade = {}
                 for index, key in enumerate(keys):
-                    grade[key]= line[index]
+                    grade[key] = line[index]
             
                 grades.append( grade )
         if len(grades) == 0:
-            raise Exception('File is empty')        
+            errors=[{'msg':'File is empty'}]        
     except Exception as e:
         errors = [{'msg' : 'Entire file is formatted incorrectly. Please ensure each student entry is formatted as student_name, brightspace_id, grade, comment'}]
     
@@ -91,48 +91,21 @@ def check_grades(grades_json, grade_item):
         #student doesn't exist
         if student is None:
             error = grade_json
-            error['msg'] = 'Student {} not found for course'.format(grade_json['name'])
+            error['msg'] = 'Student {} not found in course'.format(grade_json['name'])
             error['type'] = 2
             error['line'] = str(line)
             fail_errors.append(error)
             line += 1
             continue
-        print('here')
         try:
-            numberTest = float(grade_json['value'])
+            grade = NumericGrade(grade_item, student, comment, grade_value)        
+            valid_grades.append(grade)
         except Exception as e:
-            #not numeric
             error = grade_json
-            error['msg']  = 'Grade must be an number'
+            error['msg']  = str(e)
             error['type'] = 1
             error['line'] = str(line)
             errors.append(error)
-            line +=1 
-            continue
-        if float(grade_json['value']) < 0:
-            error = grade_json
-            error['msg']  = 'Grade cannot be negative'
-            error['type'] = 1
-            error['line'] = str(line)
-            errors.append(error)
-        elif (float(grade_json['value']) > grade_item.get_max() and not grade_item.can_exceed()):
-            error = grade_json
-            error['msg']  = 'Grade is more than the grade maximum'
-            error['type'] = 1
-            error['line'] = str(line)
-            errors.append(error)
-        else:
-            print('past max check')
-            try:
-                print('sending away')
-                grade = NumericGrade(grade_item, student, comment, grade_value)        
-                valid_grades.append(grade)
-            except Exception as e:
-                error = grade_json
-                error['msg']  = str(e)
-                error['type'] = 1
-                error['line'] = str(line)
-                errors.append(error)
         line += 1
     
     if fail_errors != []:

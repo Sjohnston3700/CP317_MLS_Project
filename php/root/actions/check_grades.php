@@ -23,7 +23,7 @@ $grades = $_REQUEST['grades'];
 $course = $_REQUEST['course'];
 $grade_item = $_REQUEST['grade_item'];
 
-$errors = error_checking($grades, $course, $grade_item);
+$errors = check_grades($grades, $course, $grade_item);
 
 if (sizeof($errors) > 0)
 {

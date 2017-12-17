@@ -18,10 +18,19 @@ window.onload = function() {
 		i3 = 0,
 		i4 = 0,
 		i5 = 0;
+
 	toc = toc.appendChild(document.createElement("ul"));
-	for (var i = 0; i < document.body.childNodes.length; ++i) {
-		var node = document.body.childNodes[i];
+
+	var nodes = document.body.childNodes;
+	var contents = document.getElementsByClassName("page-content-horiz");
+	if (contents != null) {
+		nodes = contents[0].childNodes;
+	}
+
+	for (var i = 0; i < nodes.length; ++i) {
+		var node = nodes[i];
 		var tagName = node.nodeName.toLowerCase();
+
 		if (node.id != "toc_exclude") {
 			if (tagName == "h5") {
 				++i5;

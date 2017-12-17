@@ -1,7 +1,7 @@
 /*
 	 Automated upload and manual upload JS functions
 	 Author: Sarah Johnston
-        Modified by Harold Hodgins to work with python and flask
+     Modified by Harold Hodgins to work with python and flask
 	 Usage: Controller used with upload.html. Functions and listeners used 
 			  to populate error checking modal, send JSON grade object to error_checking, 
 			  and display error messages
@@ -77,31 +77,7 @@ $('#upload-target').on('load', function() {
 function updateGlobalGrades(grades) {
 	var index;
 	var grade;
-	
-/*    for (var i = 0; i < globalGrades.length; i++) {
-        console.log("Inspecting element");
-        console.log(i);
-        
-		index = findGrade(globalGrades[i].id, grades);
-		if (index > -1) {
-			grade = grades[index];
-			globalGrades[i].id = grade.id;
-			globalGrades[i].value = grade.value;
-			globalGrades[i].comment = grade.comment;
-			globalGrades[i].name = grade.name;
-		} 
-		else {
-		    console.log("Removing element");
-		    console.log(i);
-			globalGrades.splice(i, 1);
-			i--;
-			console.log("New i = ");
-			console.log(i);
-		}
-	}
-    console.log("New global grades = ");
-    console.log(globalGrades);
-    */
+
     for (var i = 0; i<grades.length;i++)
     {
         grade = grades[i];
@@ -156,7 +132,6 @@ function sendToErrorChecking(data) {
 	
 	// Set data to global variable in case user re-submits
 	globalGrades = data;
-    console.log('data being sent');
 	
     var formData = {
 		'grades': data,
@@ -164,17 +139,14 @@ function sendToErrorChecking(data) {
 		'courseId': courseId
 	}
 
-    console.log(JSON.stringify(formData));
     
 	$.ajax({
 		type        : 'POST', 
-		url         : '/error_checking', 
+		url         : '/actions/error_checking.py', 
 		data        : JSON.stringify(formData), 
 		dataType    : 'json', 
 		encode      : true,
 		success     : function(data) {
-                        console.log('Something got returned!');
-                        console.log(data);
 						if (data.length > 0) {
 							//tracks if this error appears
 							$greater_than_max_err = false;
@@ -276,7 +248,7 @@ function sendToErrorChecking(data) {
 						else {
 							closeModal('error-message-modal');
 							// Success, go to report page
-							window.location.href = '/report?courseId=' + courseId + '&gradeItemId=' + gradeItemId;
+							window.location.href = '/index.py?page=report&courseId=' + courseId + '&gradeItemId=' + gradeItemId;
 						}
 				
 						// Hide loading
@@ -434,7 +406,7 @@ function updateMax(new_max, id) {
 
 	$.ajax({
 		type        : 'POST', 
-		url         : 'update_gradeItem_max', 
+		url         : '/actions/update_max.py', 
 		data        : formData, 
 		dataType    : 'json', 
 		encode      : true,
@@ -465,8 +437,8 @@ function updateMax(new_max, id) {
 							
 								$('#out-of').text(data);
 								$('#max-grade').attr('placeholder', data);
-                                $('#max-grade-modal').attr('placeholder', new_max);
-                                $('.grade-label').text('/' + new_max);
+                                $('#max-grade-modal').attr('placeholder', data);
+                                $('.grade-label').text('/' + data);
 							
 								success = $('.templates .modal-success-template').clone(true, true);
 								msg = 'Grade maximum updated successfully';

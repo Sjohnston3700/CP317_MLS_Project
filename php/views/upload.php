@@ -44,7 +44,7 @@
 <h2>Automated Upload</h2>
 <div class="page-section">
 	<div id="file-error"></div>
-	  <form id="upload-automated" action="actions/file_parse.php" method="POST" enctype="multipart/form-data" target="upload-target">
+	  <form id="upload-automated" action="actions/parse_file.php" method="POST" enctype="multipart/form-data" target="upload-target">
          	<label id="file" class="custom-file-upload-btn">
 				<i class="fa fa-cloud-upload"></i> Upload File
 			</label>
@@ -135,11 +135,9 @@
 	var grade_item = <?=$_GET['grade_item']?>;
 	var members = [ 
 		<?php 
-		foreach ($course->get_members() as $m) { 
-			if ($m->get_role() == 101) {
-				echo("{name: '" . $m->get_name() . "', id: '" . $m->get_id() . "', org_id: '" . $m->get_org_id() . "'},");
-			}
-		} 
+		foreach ($course->get_members(array(101)) as $m) { 
+			echo("{name: '" . str_replace('\'', '\\\'', $m->get_name()) . "', id: '" . $m->get_id() . "', org_id: '" . $m->get_org_id() . "'},");
+		}
 		?>
 	];
 	
@@ -148,7 +146,7 @@
 
 	//stop from automatically scrolling to last position on page
 	//looks bad since starts at top then flashes to bottom
-	history.scrollRestoration = "manual"
+	history.scrollRestoration = "manual";
 </script>
 
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/upload.js"></script>

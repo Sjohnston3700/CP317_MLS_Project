@@ -2,7 +2,7 @@
 
 <h2>Overview</h2>
 <p>
-	The ezMarker project has been completed within the deadline specified by the client. The initial goal of this project was to make a web application that allows instructors at Wilfrid Laurier University to bulk upload grades and feedback into MyLearningSpace, with the integration of the Brightspace API supported by D2L. This document summarizes the end product and how it is packaged for the client.
+	The ezMarker project has been completed within the deadline specified by the client (December 17, 2017). The initial goal of this project was to make a web application that allows instructors at Wilfrid Laurier University to bulk upload grades and feedback into MyLearningSpace, with the integration of the D2L's Brightspace API. This document summarizes the end product and how it is packaged.
 </p>
 
 <h2>Final Submission Contents</h2>
@@ -35,16 +35,16 @@
 		</ul>
 		<li>Log files</li>
 		<ul>
-			<li>Git logs</li>
-			<li>SQA logs</li>
-			<li>Hour logs</li>
+			<li>Git logs (supported by GitHub)</li>
+			<li>SQA logs (supported by Asana)</li>
+			<li>Hour logs (supported by ezEmployee)</li>
 		</ul>
 	</ul>
 </p>
 
 <h2>Issues During Development</h2>
 <p>
-	Throughout development, there were small details of the product that were not completed by their specified deadlines. The Requirement Document had to be updated accordingly to account for these changes. The group had to reorganize and shift priority of tasks. Some problems encountered during development included: 
+	Throughout development, there were small details of the project that were not completed by their specified deadlines. The Requirement Document has been updated accordingly to reflect these changes. The group had to reorganize and shift priority of tasks. Some problems encountered during development included:
 		<li>PHP backend development was slower than Python due to: </li>
 		<ul>
 			<li>the majority of the group not having previous experience in PHP</li>
@@ -58,34 +58,34 @@
 		<li>Team members redoing working code due to: </li>
 		<ul>
 			<li>lack of communication</li>
+            <li>change of specifications by the client during feedback</li>
 		</ul>
 		<li>Frontend changes working for one language but breaking it for another due to: </li>
 		<ul>
 			<li>lack of communication</li>
-			<li>lack of testing</li>
 			<li>lack of branching in repository</li>
 			<li>absense of unit testing</li>
 		</ul>
-	To combat these issues, the group could have:
+	To combat these issues, some solutions proposed are:
 	<ul>
-		<li>had more regular meetings</li>
-		<li>used branching in the repository and only allowed a group of people to push to master</li>
-		<li>followed SQA tickets more regilously rather than doing random tasks</li>
-		<li>tested ALL code before pushing to the repository</li>
+		<li>more regular meetings</li>
+		<li>branching in the repository and only allowed a group of people to push to master</li>
+		<li>follow SQA tickets religiously rather than doing random tasks</li>
+		<li>test ALL code prior to pushing to the repository</li>
 	</ul>
 
 </p>
 <h2>Agreement During Development</h2>
 <p>
-	Although small things went wrong during development, many issues were combatted well by the group. Highlights during development included: 
+	Although small things went wrong during development, many issues were combated well by the group. Highlights during development included:
 		<li>Documents were done ahead of schedule to allow for more development time</li>
 		<li>Documents were updated throughout the life cycle of the project</li>
 		<li>SQA team submitted tickets when necessary</li>
-		<li>Many members readily stepped up to sign up for tasks</li>
-		<li>Many members that were assigned a task generally completed the task</li>
+		<li>Many members readily sign up for tasks</li>
+		<li>Members that were assigned a task generally completed the task</li>
 		<li>Frontend development was completed cleanly (CSS and JS organized and separated from HTML files)</li>
 		<li>Backend development successfully integrated with the Brightspace API</li>
-		<li>Most code was documented well</li>
+		<li>Most code was well documented</li>
 		<li>Python and PHP groups talked regularly to keep the two projects in-line</li>
 		<li>Little to no code was duplicated among the projects (the same frontend was used for PHP and Python)</li>
 </p>
@@ -95,5 +95,5 @@
 </p>
 <h2>Conclsion</h2>
 <p>
-	In conclusion, the team members had good and poor parts of development. We thank our client for his feedback during the process and hope he enjoys the final submission, with his final charge being FREE!
+	In conclusion, the team members experienced excellent and unsatisfactory parts of development. We thank our client for his feedback during the process, and we hope he the final submission acceptable.
 </p>

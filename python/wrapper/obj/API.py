@@ -13,10 +13,8 @@ GET_GRADE_ITEMS      = '/d2l/api/le/(version)/(orgUnitId)/grades/'
 SET_GRADE_ROUTE      = '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)'
 GET_COURSE_MEMBERS   = '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/'
 GET_USER_ENROLLMENTS = '/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/'
-GET_MY_ENROLLMENTS   = '/d2l/api/lp/(version)/enrollments/myenrollments/'
 GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
 
-Course_Offering = 3
 
 logger = logging.getLogger(__name__)
 
@@ -29,31 +27,30 @@ def check_request(request):
         
     Postconditions:
         On success:
-            Request returns a valid SUCCESS status code, is a valid request.
+            Returns request as is if it was successfull (status code 200).
         On failure:
-            Raises RuntimeError.
+            Raises a RuntimeError.
     '''
     if request.status_code != SUCCESS:
-        exception_message = 'Request {} returned status code : {}, text : {}'.format(request.url, request.status_code, request.text)
+        exception_message = 'Request to {} returned status code : {}, text : {}'.format(request.url, request.status_code, request.text)
         raise  RuntimeError( exception_message )
-    return 
+    return request
 
 def get(route, user, route_params = {}, additional_params = {}):
     '''
     Uses a GET request to get JSON.
 
     Preconditions:
-        user (User) : A User object corresponding to the current user.
         route (str) : The route to make a GET request to.
+        user (User) : A User object corresponding to the current user.
         route_params (dict) : A dictionary of parameters corresponding to route.
         additional_params (dict): A dictionary of extra parameters. Added to the end of the url as ?key=value.
         
     Postconditions:
         On success:
-            Returns:
-            results (dict) : Python dict of JSON data from request result.
+            Returns results (dict) : Python dict of JSON data from request result.
         On failure:
-            Raises RuntimeError.
+            Raises RuntimeError via check_request.
     '''
     updated_route = update_route(route, route_params)
     auth_route = user.get_context().create_authenticated_url(updated_route, method='GET')
@@ -69,7 +66,6 @@ def get(route, user, route_params = {}, additional_params = {}):
         
     return results
 
-#is this the right name for this function?
 def get_class_list(course):
     '''
     Function to take a course object and return a list of enrolled OrgMembers.
@@ -78,11 +74,9 @@ def get_class_list(course):
         course (Course) : A Course object.
     Postconditions:
         On success:
-            Returns: 
-            members (list of OrgMembers) : List of enrolled OrgMember objects.
+            Returns members (list of OrgMembers) : List of enrolled OrgMember objects.
         On failure:
-            Returns:
-            None if empty class or all died horrible deaths on creation.
+            Raises caught exception.
     '''
     try:
         json = get(GET_COURSE_MEMBERS, course.get_user(), {'orgUnitId':course.get_id(), 'version': course.get_user().get_host().get_api_version('lp')})    
@@ -99,31 +93,27 @@ def get_class_list(course):
         raise
         return None
     
-def get_courses(user, roles=[]):
+def get_courses(user, roles):
     '''
-    Function to get all courses a logged in user is enrolled in (has access to).
+    Function to get all courses a logged in user is enrolled in (has access to) filtered by user role in course.
     
     Preconditions:
         user (User) : Logged in user.
-        roles (list (eg : ['Instructor', 'TA', 'Student']) ) : Roles to filter by, not yet implemented.
+        roles (list (eg : ['Instructor', 'TA', 'Student']) ) : Roles to filter by
     Postconditions:
-        On success:
-            Returns:
-            courses (list of Course objects) : List of courses user is enrolled in (has access to).
-        On failure:
-            Returns:
-            None if user has no classes or all failed for some reason and is logged.
+        On success returns courses (list of Course objects) : List of courses user is enrolled in (has access to).
+        On failure raises caught exception.
     '''
     try:
-        json = get(GET_MY_ENROLLMENTS, user, { 'version':user.get_host().get_api_version('le') })
+        json = get(GET_USER_ENROLLMENTS, user, { 'version':user.get_host().get_api_version('lp'), 'userId':user.get_id() })
         courses = []
         for item in json['Items']:
             try:
-                if item['OrgUnit']['Type']['Id'] == Course_Offering:
+                if item['OrgUnit']['Type']['Name'] == 'Course Offering' and (roles== [] or  item['Role']['Name'] in roles):
                     courses.append( Course.Course(user, item) )
             except Exception as e:
                 continue
-        logger.info("Extracted {} of {} courses for {}".format( len(courses), len(json["Items"]), user.get_name() ) )
+        logger.info("Extracted {} of {} courses for {}".format( len(courses), len(json["Items"]), user.get_full_name() ) )
         return courses
     except Exception as e:
         logging.error("Something went wrong in get_courses. {}".format(e) )
@@ -139,17 +129,22 @@ def get_grade_items(course):
         course (Course) : A Course object.
     
     Postconditions:
-            Returns:
-            list (list of grade item objects) : currently only supports Numeric.
+            On success returns list (list of grade item objects) : currently only supports Numeric.
+            On failure raises caught exception.
     '''
-    gradeitems = get(GET_GRADE_ITEMS, course.get_user(), {'orgUnitId':course.get_id(), 'version':course.get_user().get_host().get_api_version('le')})
-    items = []
-    for item in gradeitems:
-        if item['GradeType'] == 'Numeric':
-            items.append( GradeItem.NumericGradeItem(course, item) )
-    return items
+    try:
+        gradeitems = get(GET_GRADE_ITEMS, course.get_user(), {'orgUnitId':course.get_id(), 'version':course.get_user().get_host().get_api_version('le')})
+        grade_items = []
+        for item in gradeitems:
+            if item['GradeType'] == 'Numeric':
+                grade_items.append( GradeItem.NumericGradeItem(course, item) )
+        return grade_items
+    except Exception as e:
+        logging.error("Something went wrong in get_grade_items. {}".format(e) )
+        raise
+        return None    
 
-
+    
 def get_who_am_i(user):
     '''
     Retrieves the current user context's user information as python dict JSON.
@@ -158,10 +153,10 @@ def get_who_am_i(user):
         user (User) : A User object corresponding to the current user.
         
     Postconditions:
-        Returns:
-        results (dict) : A dictionary containing WhoAmIUser JSON block for the current user context. 
+        On success returns results (dict) : A dictionary containing WhoAmIUser JSON block for the current user context.
+        On failure raises exception via check_result 
     '''
-
+    
     route_params = {'version' : user.get_host().get_api_version('lp')}
     results = get(GET_WHO_AM_I, user, route_params)
     return results
@@ -177,18 +172,14 @@ def put(route, user, route_params, params):
         params (dict) : A dictionary of JSON grade data to send.
         
     Postconditions:
-        Brightspace data will be updated with params as JSON.
+        On success returns json returned by API
+        On failure raises exception via check_request
     '''
     # Make request to PUT grades
     route = update_route(route, route_params)
     r = requests.put(user.get_context().create_authenticated_url(route, method='PUT'), json=params)
-    # Check if request was valid
-    try:
-        check_request(r)
-    except Exception as e:
-        print("{} with data {}".format(str(e), params) )
-        raise
-    return
+    check_request(r)
+    return r.json()
 
 def put_grade(grade):
     '''
@@ -198,7 +189,8 @@ def put_grade(grade):
         grade (Grade) : The Grade object to post to Brightspace.
         
     Postconditions:
-        Grade object data as JSON is PUT to Brightspace.
+        On success returns json returned by API call
+        On failure raises exception via check_result
     '''
     user = grade.get_user()
     route_params = {'version' : user.get_host().get_api_version('le'), \
@@ -208,8 +200,8 @@ def put_grade(grade):
     
     data = grade.get_json()
     # Make PUT request
-    put(SET_GRADE_ROUTE, user, route_params, data)
-    return
+    result = put(SET_GRADE_ROUTE, user, route_params, data)
+    return result
 
 def put_grades(grades):
     '''
@@ -242,7 +234,8 @@ def put_grade_item(grade_item):
         grade_item (GradeItem) : The GradeItem object to post to Brightspace.
         
     Postconditions:
-        grade_item data as JSON is PUT to Brightspace.
+        On success returns json returned by API call
+        On failure raises exception via check_result
     '''
     user = grade_item.get_user()
     route_params = {'version' : user.get_host().get_api_version('le'), \
@@ -257,8 +250,8 @@ def put_grade_item(grade_item):
     
     data['Description']={'Content' : data['Description']['Html'], 'Type':'Html'}
     
-    put(SET_GRADEITEM_ROUTE, user, route_params, data)
-    return
+    result = put(SET_GRADEITEM_ROUTE, user, route_params, data)
+    return result
     
 def update_route(route, params):
     '''

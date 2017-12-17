@@ -6,27 +6,6 @@ import GradeItem
 logger = logging.getLogger(__name__)
 
 class Grade(object):
-    '''
-    Object to hold an actual student numeric grade with a value and public/private feedback.
-    '''
-    '''
-    def __init__(self,userId,value,maxValue,name='',public_feedback='',private_feedback=''):
-
-        Preconditions :
-            userId (str or int) : The Value userId
-            value (int)  : The grade value (asssumed numeric)
-            maxValue (int)      : What the grade  is out of
-            name (str) : The student name (optional - default = '')
-            public_feedback (str) : The public feedback (optional - default = '')
-            private_feedback (str) : The private feedback (optional - default = '')
-
-        self.userId = userId
-        self.studentName = name
-        self.maxValue = maxValue
-        self.value  = int(value)
-        self.public_feedback  = public_feedback
-        self.private_feedback = private_feedback
-    '''
     
     def __init__(self, grade_item, student, comment):
         '''
@@ -40,14 +19,12 @@ class Grade(object):
         Postconditions:
             Grade object for grade item and student is initialized.
         '''
+        if type(self) == Grade:
+            raise TypeError("Grade must be subclassed")
+        #There bits are common to all grade objects
         self._json = {
                     "UserId": student.get_id(),
                     "OrgUnitId": student.get_org_id(),
-#                    "DisplayedGrade": <string>,
-#                    "GradeObjectIdentifier": <string:D2LID>,
-#                    "GradeObjectName": <string>,
-#                    "GradeObjectType": <number:GRADEOBJ_T>,
-#                    "GradeObjectTypeName": <string>|null,
                     "Comments": {"Content":comment,"Type":"Text"},
                     "PrivateComments": {"Content":"", "Type":"Text"}
                     }
@@ -62,8 +39,7 @@ class Grade(object):
             self (Grade) : Grade object instance.
             
         Postconditions:
-            Returns:
-                A deep copy of the JSON object for the student with respect to this GradeItem.
+            Returns a deep copy of the JSON object for the student with respect to this GradeItem.
         '''
         return copy.deepcopy(self._json)
         
@@ -75,8 +51,7 @@ class Grade(object):
             self (Grade) : Grade object instance.
         
         Postconditions:
-            Returns:
-                A comment's content (str) in the JSON object for the student with respect to this GradeItem.
+            Returns a comment's content (str) in the JSON object for the student with respect to this GradeItem.
         '''
         return self._json['Comments']['Content']
 
@@ -88,8 +63,7 @@ class Grade(object):
             self (Grade) : Grade object instance.
             
         Postconditions:
-            Returns:
-                The GradeItem object that this Grade object belongs to.
+            Returns the GradeItem object that this Grade object belongs to.
         '''
         return self._grade_item        
         
@@ -101,8 +75,7 @@ class Grade(object):
             self (Grade) : Grade object instance.
         
         Postconditions:
-            Returns:
-                The OrgMember object for the student that owns this grade.
+            Returns the OrgMember object for the student that owns this grade.
         '''
         return self._student
         
@@ -150,7 +123,7 @@ class NumericGrade(Grade):
             NumericGrade object for grade item and student is initialized.
         '''
         max_value = grade_item.get_max()
-        assert is_numeric(value), 'Grade value must be numeric'
+        assert float(value), 'Grade value must be numeric'
         assert float(value) <= max_value or grade_item.can_exceed(), 'Grade value is greater then grade item max : {}'.format( max_value )
         assert float(value) >= 0, 'Grade value must be non-negative'
         
@@ -169,21 +142,5 @@ class NumericGrade(Grade):
             Returns:
                 A float grade value in the JSON object for the student with respect to this GradeItem.
         '''
-        return self._json['PointsNumerator']
+        return float(self._json['PointsNumerator'])
         
-def is_numeric(value):
-    '''
-    Returns a boolean to determine if a value is numeric or not.
-    
-    Preconditions:
-        value (float) : Grade student obtained on the grade item.
-        
-    Postconditions:
-        Returns:
-            True if value is numeric or false if not.
-    '''
-    try:
-        float(value)
-        return True
-    except:
-        return False

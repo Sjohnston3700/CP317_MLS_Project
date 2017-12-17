@@ -14,11 +14,12 @@ class User(object):
             roles: List of roles, default: [] (list)
         """
         self._context = context
-        self._host = host
+        self._host    = host
+        self._roles   = roles
         
         try:
             self._json = API.get_who_am_i(self)
-            self._courses = API.get_courses(self)#still need to filter by role
+            self._courses = None
         except Exception as e:
             logger.error('Something went wrong. Unable to create User object.')
             raise
@@ -37,11 +38,11 @@ class User(object):
     
     def get_id(self):
         '''
-        Function to return loggeed in users internal Brightspace Id
+        Function to return logged in users internal Brightspace Id
         '''
         return self._json['Identifier']
     
-    def get_name(self):
+    def get_full_name(self):
         '''
         Function to return logged in users first and last name
         '''
@@ -52,8 +53,7 @@ class User(object):
         Returns the user context belonging to this user
         
         Postconditions:
-            returns
-            A Brightspace user context
+            returns a Brightspace user context (credentials) associated with this user
         """
         return self._context                
 
@@ -65,10 +65,9 @@ class User(object):
         Preconditions:
             id - ID of the course (str or int)
         Postconditions
-            returns
-            A single course object with matching id, None if this User cannot access that course
+            returns a single course object with matching id, None if this User cannot access that course
         """
-        for course in self._courses:
+        for course in self.get_courses():
             if str( course.get_id() ) == str( id_val ):
                 return course
         return None        
@@ -78,9 +77,10 @@ class User(object):
         Returns the list of courses the user has access to
         
         Postconditions:
-            returns
-            Copy of a python list of all courses accessible by this user
+            returns a python list of all courses accessible by this user
         """
+        if self._courses is None:
+            self._courses = API.get_courses(self, self._roles)
         return self._courses
 
     def get_host(self):
@@ -88,8 +88,12 @@ class User(object):
         Gets the host being used by this User
         
         Postconditions:
-            returns 
-            A Host object
+            returns a Host object associated with this user
         """
         return self._host
 
+    def get_roles(self):
+        """
+        Function to return a copy of the user's roles
+        """
+        return copy.deepcopy(self._roles)

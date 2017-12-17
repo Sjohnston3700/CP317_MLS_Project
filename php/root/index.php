@@ -1,5 +1,5 @@
 <?php
-	require_once '../wrapper/obj/OrgMember.php';
+	require_once '../wrapper/obj/User.php';
 	require_once '../wrapper/obj/API.php';
     require_once 'config.php';
 
@@ -14,19 +14,50 @@
 	$login_required = array('token', 'courses', 'upload', 'report', 'logout');
 	$authenticated = false;
 
+
+	//custom exception handler
+	function myException($e) {
+		echo '<b>uncaught exception</b>';
+		echo '<br><b>in:</b> ' . $e->getFile();
+		echo '<br><b>line:</b> ' . $e->getLine();
+		echo '<br><b>message:</b> ' . $e->getMessage();
+		echo '<br><b>trace:</b>';
+		echo '<pre>' . $e->getTraceAsString() . '</pre>';
+
+		error_log($e, 0);
+	}
+	  
+	set_exception_handler('myException');
+
 	// Only check for credentials if on one of these pages. Docs, home, and help do not require login
 	if (in_array($page, $login_required))
 	{
-		if ($page == 'token' && isset($_GET['x_a']) && isset($_GET['x_b']))
+		if ($page == 'token')
 		{
-			header('Location: token.php?x_a=' . $_GET['x_a'] . '&x_b=' . $_GET['x_b']);
-			die();
+			if (isset($_GET['x_a']) && isset($_GET['x_b']))
+			{
+				$_SESSION['userId'] = $_GET['x_a'];
+				$_SESSION['userKey']= $_GET['x_b'];
+						// TA: 102, Instructor: 103
+		$roles = array(102, 103);
+		$user = new User($roles);
+		if ($user != null)
+		{	
+			$_SESSION['userName'] = $user->get_full_name();
+			$_SESSION['user'] = serialize($user);
+		}
+				header('Location: index.php?page=courses');
+				die();
+			}
+			else
+			{
+				throw new Exception('If you are seeing this page you probably navigated here directly. ' .
+					'The LMS redirects the user to this page on succesful login, passing the user credentials in the x_a, x_b query parameters.');
+			}
 		}
 		if ($page == 'logout' && isset($_SESSION['userId']) && isset($_SESSION['userKey']))
 		{
-			unset($_SESSION['userId']);
-			unset($_SESSION['userKey']);
-			unset($_SESSION['userName']);
+			session_destroy();
 			header("location: https://" . $config['lms_host'] . "/d2l/logout");
 			die();
 		}
@@ -41,19 +72,14 @@
 			header('Location:' . $url);
 			die();
 		}
+		
 
-		// TA: 102, Instructor: 103
-		$roles = array(102, 103);
-		$user = new User($roles);
-		if ($user != null)
-		{
-			$_SESSION['userName'] = $user->get_full_name();
-		}
 	}
 
 	//assume authenticated if name set
 	if (isset($_SESSION['userName'])) {
 		$authenticated = true;
+		$user = unserialize($_SESSION['user']);
 	}
 
     switch ($page)
@@ -70,7 +96,7 @@
 		case 'courses':
             $contents = '../views/courses.php';
             break;
-        case 'upload':
+		case 'upload':
             $contents = '../views/upload.php';
             break;
 		case 'help':
@@ -102,7 +128,7 @@
  			break;
  		case 'design_wrapper':
  			$contents = $PATH_TO_DOCS . 'design_wrapper.html';
- 			break;
+			 break;
 		default:
 			$contents = '../views/home.php';
             break;
@@ -138,11 +164,9 @@
 	</head>
 	<body>
 		<ul class="horiz-nav">
-			<a href="/home"><img id="logo" src="<?=$PATH_TO_STATIC?>/img/logo.png"></a>
+		<a href="index.php?page=home"><img id="logo" src="<?=$PATH_TO_STATIC?>/img/logo.png"></a>
 			<li class="brand">
-				<a href="/home">
-					ezMarker
-				</a>
+				<a href="index.php?page=home">ezMarker</a>
 			</li>
 			<?php if ($authenticated) { ?>
 				<li class="item"><a href="index.php?page=courses">Courses</a></li>

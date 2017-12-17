@@ -2,49 +2,34 @@
 	require_once 'API.php';
 	require_once 'GradeItem.php';
 	require_once 'OrgMember.php';
-	/*
+	
+	class Course {
+		private $json;
+		private $user;
+		private $grade_items;
+		private $members;
+
+		/*
 	user (user object) - info about user
 	course_params - info about course (Enrollment.MyOrgUnitInfo) 
 	*/
-	class Course {
 		function __construct ($user, $course_params) {
+			$this->json = $course_params;
 			$this->user = $user;
-			$this->name = $course_params['OrgUnit']['Name'];
-			$this->id = $course_params['OrgUnit']['Id'];
-			$this->grade_items = $this->_get_grade_items();
-			$this->members = $this->_get_members();
+			$this->grade_items = get_grade_items($this);
+			$this->members = get_course_enrollments($this);
 		}
-		/*
-		Function will return list of grade items
-		return :
-            items - list
-		*/
-		function _get_grade_items() {
-			$grade_items = get_grade_items($this);
-			if (sizeof($grade_items) == 0) {
-				return array();
-			}
-			$items = array();
-			foreach($grade_items as $item) {
-				if ($item['GradeType'] == 'Numeric') {
-					$items[] = new NumericGradeItem($this, $item);
-				}
-			}
-			return $items;
+
+		function get_json() {
+			return $this->json;
 		}
+
 		/*
 		Function will return all the current members for current course
 		return:
 			result - list
 		*/
-		function _get_members() {
-			$result = array();
-			$members = get_members($this);
-			foreach($members as $m) {
-				$result[] = new OrgMember($m);
-			}
-			return $result;
-		}
+		
 		/*
 		Function will return all the current grade object (Numeric) for current course
 		return:
@@ -61,7 +46,7 @@
 		function get_grade_item($id) {
 			foreach($this->grade_items as $grade_item) {
 				if((string)($grade_item->get_id()) == (string) $id) {
-					return [$grade_item][0];
+					return [$grade_item][0]; //TODO: try w/o [0] - don't know why there
 				}
 			}	
 			return null;			
@@ -72,7 +57,7 @@
 			return $this.name - current course name
 		*/
 		function get_name() {
-			return $this->name;
+			return $this->json['OrgUnit']['Name'];
 		}
 		/*
 		Function will return the id for the current course
@@ -80,7 +65,7 @@
 			return $this.id - id for the current course
 		*/
 		function get_id() {
-			return $this->id;
+			return $this->json['OrgUnit']['Id'];
 		}
 		/*
 		Function will return the user object

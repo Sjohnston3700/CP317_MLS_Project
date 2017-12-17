@@ -1,20 +1,24 @@
 <?php
 require_once __DIR__.'/../../root/config.php';
 require_once __DIR__.'/../../D2Llib/D2LAppContextFactory.php';
+require_once('User.php');
+require_once('Grade.php');
+require_once('GradeItem.php');
+require_once('Course.php');
+require_once('OrgMember.php');
 
 $routes = array(
-	'BASE_URL' 				=> $config['protocol'] . '://' . $config['lms_host'],
+	'BASE_URL' 			   => $config['protocol'] . '://' . $config['lms_host'],
 	'GET_API_VERSIONS' 	   => '/d2l/api/versions/',
-	'GET_GRADES'     	   => '/d2l/api/le/(version)/(orgUnitId)/grades/',
+	'GET_GRADE_ITEMS'      => '/d2l/api/le/(version)/(orgUnitId)/grades/',
 	'SET_GRADE'            => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/(userId)',
-	'GET_COURSE_MEMBERS'   => '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/',
+	'GET_COURSE_ENROLLMENTS'   => '/d2l/api/lp/(version)/enrollments/orgUnits/(orgUnitId)/users/',
 	'GET_USER_ENROLLMENTS' => '/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnits/',
-	'GET_USER_ENROLLMENT'  => '/d2l/api/le/(version)/(orgUnitId)/grades/',
 	'GET_MY_ENROLLMENTS'   => '/d2l/api/lp/(version)/enrollments/myenrollments/',
 	'GET_WHO_AM_I'         => '/d2l/api/lp/(version)/users/whoami',
 	'GET_GRADE_VALUES'	   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)/values/',
-	'SET_GRADE_MAX'		   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)',
-	'GET_GRADE'			   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
+	'SET_GRADE_ITEM'		   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)',
+	'GET_GRADE_ITEM'	   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
 );
 /*
 Uses a GET request to get JSON
@@ -31,16 +35,26 @@ Postconditions
 	On failure:
 		raises RuntimeError
 */
-function get($route, $route_params){
-
-	global $routes;
+function get($route, $route_params, $additional_params = array()){
 	
-	$route = update_route($routes['BASE_URL'] . $route, $route_params);
-	$response = valence_request($route, 'GET', array());
+		global $routes;
+		
+		$updated_route = update_route($routes['BASE_URL'] . $route, $route_params, $additional_params);
+		$response = valence_request($updated_route, 'GET', array());
+	
+		if (array_key_exists('PagingInfo', $response) && $response['PagingInfo']['HasMoreItems'] == 'true'){
+			$bookmark = $response['PagingInfo']['Bookmark'];
+			$next_results = get($route, $route_params, $additional_params = array('bookmark='.$bookmark));
 
-	return $response;
-}
-
+			//have to loop through since php adds '[' and ']' to append Items
+			//if just use array_push($response['Items'], $next_results['Items'])
+			foreach($next_results['Items'] as $item) {
+				array_push($response['Items'], $item);
+			}		
+		}
+		return $response;
+	}
+	
 /*
 Uses a PUT request to set JSON
 
@@ -54,12 +68,10 @@ function put($route, $route_params, $json_to_send) {
 	global $routes;
 
 	$route = update_route($routes['BASE_URL'] . $route, $route_params);
-
 	$response = valence_request($route, 'PUT', json_encode($json_to_send));
 
 	return $response;
 }
-
 
 /*
 Function to update api route by replace (...) with the appropriate value
@@ -71,32 +83,19 @@ Preconditions:
 Postconditions:
 	Returns new route - Does not check for missed values
 */
-function update_route($route, $params) {
+function update_route($route, $params, $additional_params = array()) {
 	if ($params != NULL){
 		foreach ($params as $key => $value){
 			$route = str_replace('(' . $key . ')', $value, $route); //Control structure issue, no spaces before or after parenthesis
 		} 
 	}
-	return $route;
-}
-
-/*
-Function to test if a request was valid.
-
-Preconditions:
-	request : the request object to test
-*/
-function check_request($request){
-	if (!(var_dump($request->success))) { //Keywords such as true, fase and null must be in lower case 
-
-		/*Line in API.py is:
-		exception_message = 'Request returned status code : {}, text : {}'.format(request.status_code,request.text)
-		I'm not sure what the equivalent for request.text is in this case
-		*/
-		$exception_message = 'Request returned status code : ' . $request->$status_code . ', text : '; 
-		throw new RuntimeException($exception_message);
+	if (sizeof($additional_params) > 0) {
+		$route .= '?';
+		foreach($additional_params as $value) {
+			$route .= $value;
+		}
 	}
-
+	return $route;
 }
 
 /*
@@ -112,12 +111,19 @@ function get_grade_items($course){
 	global $routes;
 
 	$route_params = array(
-		 'version' => $config['LP_Version'],
+		 'version' => $config['lms_ver']['le'],
 		 'orgUnitId' => $course->get_id()
 		);
 
-	$response = get($routes['GET_GRADES'], $route_params);
-	return $response;
+	$response = get($routes['GET_GRADE_ITEMS'], $route_params);
+	$items = array();
+	foreach($response as $g) {
+		if ($g['GradeType'] == 'Numeric') {
+			array_push($items, new NumericGradeItem($course, $g));
+		}
+	}
+
+	return $items;
 }
 
 function get_grade_item($course_id, $grade_item_id) {
@@ -125,16 +131,15 @@ function get_grade_item($course_id, $grade_item_id) {
 	global $routes;
 
 	$route_params = array(
-		 'version' => $config['LP_Version'],
+		 'version' => $config['lms_ver']['le'],
 		 'orgUnitId' => $course_id, 
 		 'gradeObjectId' => $grade_item_id
 	);
 
-	$response = get($routes['GET_GRADE'], $route_params);
+	$response = get($routes['GET_GRADE_ITEM'], $route_params);
 	
 	return $response;
 }
-
 
 /*
 Posts a Grade object to Brightspace using a PUT request
@@ -149,23 +154,40 @@ function put_grade($grade){
 	global $routes;
 	
 	$route_params = array(
-		'version'=> '1.12',
+		'version'=> $config['lms_ver']['le'],
 		'orgUnitId' => $grade->get_grade_item()->get_course()->get_id(),
 		'gradeObjectId' => $grade->get_grade_item()->get_id(),
 		'userId' => $grade->get_student()->get_id(),
 	);
 
-	$params = array(
-		'GradeObjectType' => 1,
-		'PointsNumerator' => $grade->get_value(),
-		'Comments' => array('Content' => $grade->get_comment(), 'Type' => 'Text'), 
-		'PrivateComments' => array('Content' => '', 'Type' => 'Text'));
+	$data = $grade->get_json();
 
 	# Make PUT request
-	$response = put($routes['SET_GRADE'], $route_params, $params);
+	$response = put($routes['SET_GRADE'], $route_params, $data);
 
 	return json_encode($response);
 
+}
+
+function put_grades($grades) {
+	$successful = array();
+	$failed = array();
+
+	foreach($grades as $grade) {
+		try {
+			put_grade($grade);
+			array_push($successful, $grade);
+		}
+		catch (Exception $e) {
+			$error = array(
+				'msg' => $e,
+				'grade' => $grade
+			);
+			array_push($failed, $grade);
+		}
+	}
+
+	return array($successful, $failed);
 }
 /*
 Posts a GradeItem object to Brightspace using a PUT request
@@ -175,36 +197,31 @@ Preconditions:
 Postconditions:
 	grade_item JSON is PUT to Brightspace
 */
-function put_grade_item($grade_item, $original){
+function put_grade_item($grade_item){
 
 	global $config;
 	global $routes;
 	
 	$route_params = array(
-		'version' => $config['LP_Version'],
+		'version' => $config['lms_ver']['le'],
 		'orgUnitId' => $grade_item->get_course()->get_id(),
 		'gradeObjectId' => $grade_item->get_id()
 	);
-	
-	if (empty($original['IsBonus']))
-		$original['IsBonus'] = false;
-	
-	$params = array(
-		'MaxPoints' => $grade_item->get_max(), 
-		'CanExceedMaxPoints' => $grade_item->get_can_exceed(), 
-		'GradeType' => 'Numeric',
-		'IsBonus' => $original['IsBonus'],
-		'ExcludeFromFinalGradeCalculation' => $original['ExcludeFromFinalGradeCalculation'],
-		'GradeSchemeId' => $original['GradeSchemeId'],
-		'Name' => $original['Name'],
-		'ShortName' => $original['ShortName'],
-		'CategoryId' => $original['CategoryId'],
-		'Description' => array('Content' => $original['Description']['Html'], 'Type' => 'Html')
+
+	$data = $grade_item->get_json();
+	$to_remove = array('Weight', 'GradeSchemeUrl', 'Id', 'ActivityId', 'AssociatedTool');
+	foreach($to_remove as $item) {
+		unset($data[$item]);
+	}
+	$data['Description'] = array(
+		'Content' => $data['Description']['Html'],
+		'Type' => 'Html'
 	);
 	
-	$response = put($routes['SET_GRADE_MAX'], $route_params, $params);
+	$response = put($routes['SET_GRADE_ITEM'], $route_params, $data);
 	if (isset($response['MaxPoints'])) {
-		return $response['MaxPoints'];
+		//can't use response `MaxPoints` since due to api bug, int val returned in response even when decimal set
+		return $grade_item->get_max();
 	}
 	return json_encode($response);
 }
@@ -219,74 +236,50 @@ Postconditions:
 	returns:
 	user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
 */
-function get_user_enrollments($user){
+function get_user_enrollments($user, $roles = array()){
 
 	global $config;
 	global $routes;
 
 	$route_params = array(
-		'version' => $config['LP_Version'],
-		'userId' => $user->get_id(),
-	);
-
-	if ($config['testMyEnrollments']) {
-		unset($route_params['userId']);
-		$response = get($routes['GET_MY_ENROLLMENTS'], $route_params);
-	}
-	else {
-		$response = get($routes['GET_USER_ENROLLMENTS'], $route_params);
-	}
-	
-	return $response['Items'];
-}
-
-
-/*
-Retrieve the current user context’s user information as PHP dict JSON.
-
-Preconditions:
-	user : the Course to retrieve grades from
-Postconditions:
-	returns
-	 WhoAmIUser JSON block for the current user context (as python dict)
-*/
-
-function get_course($user, $course_id){
-
-	global $config;
-	global $routes;
-
-	$route_params = array(
-		'version' => $config['LP_Version'],
+		'version' => $config['lms_ver']['lp'],
 		'userId' => $user->get_id(),
 	);
 
 	$response = get($routes['GET_USER_ENROLLMENTS'], $route_params);
 	
-	foreach ($response['Items'] as $c) {
-		if ($c['OrgUnit']['Id'] == $course_id) {
-			return $c;
+	$courses = array();
+	foreach($response['Items'] as $c) {
+		try {
+			if ($c['OrgUnit']['Type']['Name'] == 'Course Offering' && (empty($roles) || in_array($c['Role']['Id'], $roles))) {
+				array_push($courses, new Course($user, $c));
+			}
+		}
+		catch (Exception $e) {
+			//do nothing
 		}
 	}
-	return -1;
+	error_log('Extracted ' . sizeof($courses) . ' of ' . sizeof($response['Items']) . ' courses  for ' . $user->get_full_name(), 0);
+	return $courses;
 }
 
 function get_who_am_i() {
 	global $config;
 	global $routes;
 	
-	$route_params = array('version' => $config['LP_Version']);
+	$route_params = array('version' => $config['lms_ver']['lp']);
 	$response = get($routes['GET_WHO_AM_I'], $route_params);
 	
 	return $response;
 }
 
+//TODO: fix how report.php gets grades so can delete this
 function get_grade_values($course_id, $grade_item_id) {
 	global $config;
 	global $routes;
 	
 	$route_params = array(
-		'version' => '1.8',
+		'version' => $config['lms_ver']['le'],
 		'orgUnitId' => $course_id,
 		'gradeObjectId' => $grade_item_id
 	);
@@ -294,22 +287,21 @@ function get_grade_values($course_id, $grade_item_id) {
 	return $response['Objects'];
 }
 
-function get_members($course) {
+function get_course_enrollments($course) {
 	global $config;
 	global $routes;
 	
 	$route_params = array(
-		'version' => $config['LP_Version'],
+		'version' => $config['lms_ver']['lp'],
 		'orgUnitId' => $course->get_id(),
 	);
 	
-	$response = get($routes['GET_COURSE_MEMBERS'], $route_params);
-	if (array_key_exists('Items', $response)) {
-		return $response['Items'];
-	}
-	else {
-		return array();
-	}
+		$response = get($routes['GET_COURSE_ENROLLMENTS'], $route_params);
+		$members = array();
+		foreach($response['Items'] as $m) {
+			$members[] = new OrgMember($m);
+		}
+		return $members;
 }
 
 function valence_request($route, $verb, $json_to_send) {
@@ -354,10 +346,12 @@ function valence_request($route, $verb, $json_to_send) {
 	$httpCode  = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	$contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 	$responseCode = $userContext->handleResult($response, $httpCode, $contentType);
-	
-	return json_decode($response, true);
 
-	$errors = curl_error($ch);
-	throw new Exception('Valence API call failed: $httpCode: $response');
+	$decoded_response = json_decode($response, true);
+	if ($httpCode != 200) {
+		throw new Exception('Valence API call failed: ' . $httpCode . "-" . $route . ': ' . $response);
+	}
+	
+	return $decoded_response;
 }
 ?>

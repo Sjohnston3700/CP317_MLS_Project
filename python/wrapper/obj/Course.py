@@ -1,7 +1,5 @@
 import GradeItem, OrgMember, API
-import logging, copy, datetime
-
-SEMESTERS = ['Winter']*4 + ['Spring']*4 + ['Fall']*4
+import logging, copy
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +14,7 @@ class Course(object):
         
         Preconditions:
             user (User) : Info about user.
-            course_params (dict) : Info about course (Enrollment.MyOrgUnitInfo).
+            course_params (dict) : Info about course ( Enrollment.UserOrgUnit).
         
         Postconditions:
             On success:
@@ -34,33 +32,6 @@ class Course(object):
         except Exception as e:
             logger.error('Something went wrong. Unable to create Course object with JSON {}. {}'.format(self._json,e) )
             raise
-    
-    def __lt__(self, other):
-        '''
-        Function to implement < comparitor
-        Returns True if self < other by start, end date (alphabetical if both have null for start and end date)
-        '''
-        my_start    = self.get_start_date()
-        other_start = other.get_start_date()
-        
-        my_end    = self.get_end_date()
-        other_end = other.get_end_date()
-        
-        
-        if my_start is not None and other_start is not None:
-            return my_start < other_start
-        elif my_end is not None and other_end is not None:
-            return my_end < other_end
-        else:
-            return self.get_name() < other.get_name()    
-    
-    
-    def __eq__(self, other):
-        '''
-        Function to implement the == comparitor
-        Returns True if start dates, end dates, and name are the same
-        '''
-        return self.get_start_date() == other.get_start_date() and self.get_end_date() == other.get_end_date() and self.get_name() == other.get_name()
         
     def get_json(self):
         '''
@@ -70,8 +41,7 @@ class Course(object):
             self (Course object) : Course object instance.
             
         Postconditions:
-            Returns:
-            Deep copy of JSON.
+            Returns deep copy of JSON.
         '''
         return copy.deepcopy(self._json)
 
@@ -83,11 +53,7 @@ class Course(object):
             self (Course) : Course object instance.
             
         Postconditions:
-            On success:
-                Returns:
-                self._grade_items (list) : List of current grade items.
-            On failure:
-                Grade items not found, returns NameError.
+            Returns self._grade_items (list) : List of current grade items.
         '''
         return self._grade_items
 
@@ -100,16 +66,13 @@ class Course(object):
             grade_item_id (int) : Id number of grade item object.
             
         Postconditions:
-            On success:
-                Returns:
-                item (GradeItem) : GradeItem object.
-            On failure:
-                Grade item not found, returns NameError.
+            On success returns item (GradeItem) : GradeItem object.
+            On failure returns None.
         '''
         for item in self._grade_items:
             if str(item.get_id() ) == str(grade_item_id):
                 return item
-        raise NameError('Unable to find grade_item with id = {} in course : {}'.format(grade_item_id,self.get_name() ) )
+        return None
     
     def get_id(self):
         '''
@@ -119,8 +82,7 @@ class Course(object):
             self (Course) : Course object instance.
             
         PostConditions:
-            Returns:
-            self.id (int) : Id for the current course.
+            Returns self._json['OrgUnit']['Id'] Id for the current course.
         '''
         return self._json['OrgUnit']['Id']   
     
@@ -132,8 +94,7 @@ class Course(object):
             self (Course) : Course object instance.
         
         PostConditions:
-            Returns:
-            self.name (str) : Current course name.
+            Returns self._json['OrgUnit']['Name'] Current course name.
         '''
         return self._json['OrgUnit']['Name']
 
@@ -147,12 +108,8 @@ class Course(object):
             org_id (int) : Id number of the OrgMember.
             
         Postconditions:
-            On success:
-                Returns:
-                member (OrgMember) : OrgMember object.
-            On failure:
-                Returns:
-                None
+            On success returns member (OrgMember) : OrgMember object.
+            On failure returns None
         '''
         for member in self._members:
             if str(member.get_id()) == str(org_id):
@@ -168,11 +125,8 @@ class Course(object):
             role (list) : Role of user.
         
         Postconditions:
-            On success:
-                Returns:
-                items (list) : All OrgMembers of a specific role in current Course.
-                OR
-                self._members : All OrgMembers in current Course.
+            On success returns items (list) : All OrgMembers of a specific role in current Course.
+                OR self._members : All OrgMembers in current Course if no roles for filtering
         '''
         if role != []:
             items=[]
@@ -190,8 +144,7 @@ class Course(object):
             self (Course) : Course object instance.
             
         Postconditions:
-            Returns:
-            self._user (User) : Current User object. 
+            Returns self._user (User) : Current User object. 
         '''
         return self._user
         
@@ -203,41 +156,7 @@ class Course(object):
             self (Course) : Course object instance.
             
         Postcondition:
-            Returns:
-            self.user_role (str) : User role for current course.
+            Returns self._json['Role']['Name'] (str) : User role for current course.
         '''
-        return self._json['Access']['ClasslistRoleName']
+        return self._json['Role']['Name']
         
-    def get_start_date(self):
-        '''
-        Function to return course start date
-        '''
-        return self._json['Access']['StartDate']
-        
-    def get_end_date(self):
-        '''
-        Function to return course end date
-        '''
-        return self._json['Access']['EndDate']
-        
-        
-    def get_semester(self):
-        '''
-        Function to return course semester based on start date. '' if no start date.
-        '''
-        start_date = self.get_start_date()
-        if start_date is not None:
-            month = datetime.datetime.strptime(start_date,"%Y-%m-%dT%H:%M:%S.%fZ").month
-            return SEMESTERS[month-1]
-        else:
-            return ''
-            
-    def get_year(self):
-        '''
-        Function to return course year bassed on start date. '' if no start date.
-        '''
-        start_date = self.get_start_date()
-        if start_date is not None:
-            return datetime.datetime.strptime(start_date,"%Y-%m-%dT%H:%M:%S.%fZ").year
-        else:
-            return ''

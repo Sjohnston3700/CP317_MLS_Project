@@ -1,8 +1,9 @@
 <?php 
 	
 require_once('../../wrapper/obj/API.php');
-require_once('../../wrapper/obj/OrgMember.php');
+require_once('../../wrapper/obj/User.php');
 require_once('../../wrapper/obj/Grade.php');
+require_once('../../wrapper/obj/GradeItem.php');
 /**
  * Parses Grade file (csv). Goes through file object and creates 
  * array of JSON grade objects.
@@ -21,7 +22,7 @@ function parse_file($file)
 		$row = fgetcsv($file);
 		if (sizeof($row) < 4)
 		{	
-			//no error if last line is empty (common occurence if manually editing in Excel, for example)
+			// No error if last line is empty (common occurrence if manually editing in Excel, for example)
 			if ($row == NULL) {
 				if (feof($file)) {
 					$i++;
@@ -43,7 +44,7 @@ function parse_file($file)
 			$num_errors++;
 			$errors[] = $error;
 		}
-		//require that there must be some value for id, grade, name
+		// Require that there must be some value for id, grade, name
 		else if (trim($row[0]) == '' || trim($row[1]) == '' || trim($row[2]) == '') {
 			$error = array(
 				'line' => $i,
@@ -86,7 +87,7 @@ function parse_file($file)
 /**
  * @param {Array} array - parent array to search
  * @param {String} key - key to use in subarray
- * @param {String} val - val to look for  in subarray
+ * @param {String} val - val to look for in subarray
  * @return {Array} subarray containing val for key
  */
 function findSubarray($array, $key, $val) {
@@ -106,21 +107,21 @@ function findSubarray($array, $key, $val) {
  * @param {Integer} grade_item_id
  * @return {Array} Array of errors and error messages to be sent to frontend
  */
-function error_checking($grades, $course_id, $grade_item_id)
+function check_grades($grades, $course_id, $grade_item_id)
 {	
-	$user = new User(array());
-	$course = get_course($user, $course_id);
-	$course = new Course($user, $course);
+	$user = unserialize($_SESSION['user']);
+	$course = $user->get_course($course_id);
+
 	$grade_item = $course->get_grade_item($grade_item_id);
 	
 	// Error object to return
 	$errors = array(); 
-	//object to track errors that result in error-modal not displaying
-	//errors so bad they completely 'fail' upload. If any fail errors, only those returned
+	// Object to track errors that result in error-modal not displaying
+	// Errors so bad they completely 'fail' upload. If any fail errors, only those returned
 	$fail_errors = array(); 
-	//counts occurences of each id. Used to check for duplicate ids (possible if uploaded from file)
+	// Counts occurrences of each id. Used to check for duplicate ids (possible if uploaded from file)
 	$id_count = array_count_values(array_column($grades, 'id'));
-	//for tracking the line number (used if error is one that only file upload would have)
+	// For tracking the line number (used if error is one that only file upload would have)
 	$i = 0;
 
 	foreach ($grades as $g)
@@ -188,10 +189,10 @@ function error_checking($grades, $course_id, $grade_item_id)
 				'type' => '1'
 			);
 		}
-		//for if you want to send a warning msg if grade > max and that is allowed by gradeitem
-		//client, as of Dec. 6, 2017, does not want this feature
-		//but leaving in file in case someone desires this later
-		//implementing this again would require minor changes to upload.sendToErrorChecking
+		// For if you want to send a warning msg if grade > max and that is allowed by gradeitem
+		// Client, as of Dec. 6, 2017, does not want this feature
+		// But leaving in file in case someone desires this later
+		// Implementing this again would require minor changes to upload.sendToErrorChecking
 		/* else if ($g['value'] > $grade_item->get_max() && $grade_item->get_can_exceed())
 		{	
 			
@@ -224,46 +225,23 @@ function error_checking($grades, $course_id, $grade_item_id)
 		}
 	}
 
-	//only return 1 error object. fail_errors is priority (upload not worth sending to modal)
+	// Only return 1 error object. fail_errors is priority (upload not worth sending to modal)
 	if (sizeof($fail_errors) != 0) {
 	 	$errors = $fail_errors;
 	}
-	
-	if (sizeof($errors) == 0)
-	{
-		$errors = upload_grades($grades, $course, $grade_item);
-		
-		// If $errors is empty or the first element is numeric, go to report page. 
-		// If the value is numeric, this means $errors is a list of successful $ids
-		if (sizeof($errors) == 0 || (isset($errors[0]) && is_numeric($errors[0]))) 
-		{	
-			$successful_ids = $errors;
-			$_SESSION['report'] = array(
-				'total' => sizeof($grades),
-				'successful' => sizeof($successful_ids),
-				'successful_ids' => $successful_ids
-			);
-			
-		} 
-		else
-		{
-			$_SESSION['report'] = array(
-				'errors' => $errors
-			);
-		}
-		return array();
-	}
-	else 
-	{
-		return $errors;
-	}
-	
+
+	return $errors;
 }
 
-function upload_grades($grades, $course, $grade_item)
+function upload_grades($grades, $course_id, $grade_item_id)
 {
+
+	$user = unserialize($_SESSION['user']);
+	$course = $user->get_course($course_id);
+	$grade_item = $course->get_grade_item($grade_item_id);
+	
 	$errors = array();
-	$sucessful_ids = array();
+	$successful_ids = array();
 	
 	foreach ($grades as $g)
 	{	
@@ -274,55 +252,26 @@ function upload_grades($grades, $course, $grade_item)
 		// If no errors, add to successful_ids array
 		if (sizeof(put_grade($grade) == 0))
 		{
-			$sucessful_ids[] = $id;
+			$successful_ids[] = $id;
 		}
 	}
-	if (sizeof($errors) == 0)
+
+	// If $errors is empty or the first element is numeric, go to report page. 
+	// If the value is numeric, this means $errors is a list of successful $ids
+	if (sizeof($errors) == 0 || (isset($errors[0]) && is_numeric($errors[0]))) 
+	{	
+		$_SESSION['report'] = array(
+			'total' => sizeof($grades),
+			'successful' => sizeof($successful_ids),
+			'successful_ids' => $successful_ids
+		);	
+	} 
+	else
 	{
-		return $sucessful_ids;	
+		$_SESSION['report'] = array(
+			'errors' => $errors
+		);
 	}
+	
 	return $errors;
 }
-/**
- * Error checking for max. If success, updates max grade value
- * @param {Integer} grade_item_id
- * @param {Integer} max
- * @return {Array} Array of errors and error messages to be sent to frontend
- */
-function modify_grade_max($course_id, $grade_item_id, $max)
-{
-	$user = new User(array());
-	$course = get_course($user, $course_id);
-	$course = new Course($user, $course);
-	$grade_item = $course->get_grade_item($grade_item_id);
-
-	// Error object to return
-	$errors = array();
-	if ($max === '')
-	{
-		$errors[] = array ( 
-			'msg' => 'Missing grade maximum'
-		);
-	}
-	else if (!is_numeric($max))
-	{
-		$errors[] = array ( 
-			'msg' => 'Grade maximum must be a number'
-		);
-	}
-	else if (floatval($max) <= $grade_item->get_max())
-	{
-		$errors[] = array ( 
-			'msg' => 'New grade maximum must be larger than current maximum'
-		);
-	}
-
-	if (sizeof($errors) == 0)
-	{
-		$grade_item->set_max((float)$max);
-		return put_grade_item($grade_item, get_grade_item($course_id, $grade_item_id));
-	}
-	return $errors;
-}
-
-?>

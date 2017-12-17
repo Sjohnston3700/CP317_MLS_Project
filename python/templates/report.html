@@ -8,11 +8,11 @@
 <div class="page-section">
 	<h1>Upload Complete</h1>
 	<h3>{{ '{} of {} grades uploaded successfully for {} - {}'.format(successful_grades|length, num_grades,course.get_name(),grade_item.get_name() ) }} </h3>
-	{% if errors != [] %}
+	{% if failed_grades != [] %}
 	<h3> Errors </h3>
     <ul id="navigation">
-    	{% for error in errors %}
-        <li>{{ error }}</li>   
+    	{% for error in failed_grades %}
+        <li>Error uploading grade for student: {{ error.get_student().get_name() }}</li>   
     	{% endfor %}
     </ul>
 	{% endif %}
