@@ -17,8 +17,8 @@ if (!isset($_FILES['file']) || $_FILES['file']['tmp_name'] == '')
 	die();
 }
 
-//test if proper file type
-//no point in checking each line for validity if wrong type
+// Test if proper file type
+// No point in checking each line for validity if wrong type
 $allowed =  array('csv','txt');
 $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 if(!in_array($ext, $allowed) ) {
@@ -30,7 +30,7 @@ if(!in_array($ext, $allowed) ) {
 }
 
 
-//check for empty file
+// Check for empty file
 if (filesize($_FILES['file']['tmp_name']) == 0) 
 {
 	$msg = array( 'msg' => 'Empty file submitted' );
@@ -43,7 +43,7 @@ if (filesize($_FILES['file']['tmp_name']) == 0)
 // Open CSV
 $file = fopen($_FILES['file']['tmp_name'], 'r');
 
-//TODO: ask Sarah if this can be deleted (seems like job is done by code above)
+// TODO: ask Sarah if this can be deleted (seems like job is done by code above)
 if (!$file)
 {
 	$msg = array( 'msg' => 'No file was submitted' );

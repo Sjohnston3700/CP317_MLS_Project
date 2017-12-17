@@ -15,7 +15,7 @@ $course = $_REQUEST['course'];
 $grade_item = $_REQUEST['grade_item'];
 $response= modify_grade_max($course, $grade_item, $max);
 
-//array of errors or value of new max
+// Array of errors or value of new max
 echo json_encode($response);	
 
 ?>
