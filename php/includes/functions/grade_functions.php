@@ -241,7 +241,7 @@ function upload_grades($grades, $course_id, $grade_item_id)
 	$grade_item = $course->get_grade_item($grade_item_id);
 	
 	$errors = array();
-	$sucessful_ids = array();
+	$successful_ids = array();
 	
 	foreach ($grades as $g)
 	{	
@@ -252,18 +252,14 @@ function upload_grades($grades, $course_id, $grade_item_id)
 		// If no errors, add to successful_ids array
 		if (sizeof(put_grade($grade) == 0))
 		{
-			$sucessful_ids[] = $id;
+			$successful_ids[] = $id;
 		}
 	}
-	if (sizeof($errors) == 0)
-	{
-		return $sucessful_ids;	
-	}
+
 	// If $errors is empty or the first element is numeric, go to report page. 
 	// If the value is numeric, this means $errors is a list of successful $ids
 	if (sizeof($errors) == 0 || (isset($errors[0]) && is_numeric($errors[0]))) 
 	{	
-		$successful_ids = $errors;
 		$_SESSION['report'] = array(
 			'total' => sizeof($grades),
 			'successful' => sizeof($successful_ids),
@@ -276,9 +272,6 @@ function upload_grades($grades, $course_id, $grade_item_id)
 			'errors' => $errors
 		);
 	}
-
-	//store user object that possibly contains modified objects
-	$_SESSION['user'] = serialize($user);
 	
-	return array();
+	return $errors;
 }

@@ -71,7 +71,6 @@ $('#upload-target').on('load', function () {
  * Updates the global grades array when user resubmits grades.
  * @param {Array} grades - New JSON object of grades from error checking modal
  */
-
 function updateGlobalGrades(grades) {
 	var index;
 	var grade;
@@ -146,6 +145,8 @@ function setGrades(data) {
 			if (errors.length > 0) {
 
 				displayGradeErrors(errors);
+				grades = getFormGrades();
+				updateGlobalGrades(grades);
 
 				// Hide loading
 				$('.loader-box').addClass('hidden');
@@ -323,7 +324,6 @@ function handleIfNoErrors() {
 				noErrors = false;
 		}
 		if (noErrors) {
-			console.log('hi');
 			success = $('.templates .modal-success-template').clone(true, true);
 			msg = 'All errors removed or resolved';
 
@@ -341,6 +341,12 @@ function handleIfNoErrors() {
  * then updates global grades array and sends to error checking again.
  */
 $('#resubmit').click(function () {
+	grades = getFormGrades();
+	updateGlobalGrades(grades);
+	setGrades(globalGrades);
+});
+
+function getFormGrades() {
 	var forms = $('.modal-body .error-form');
 	var grades = [];
 	for (var i = 0; i < forms.length; i++) {
@@ -356,9 +362,9 @@ $('#resubmit').click(function () {
 		grade.name = form.find('#name').text();
 		grades.push(grade);
 	}
-	updateGlobalGrades(grades);
-	setGrades(globalGrades);
-});
+
+	return grades;
+}
 
 /**
  * Closes button for error checking modal.
