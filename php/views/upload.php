@@ -135,10 +135,8 @@
 	var grade_item = <?=$_GET['grade_item']?>;
 	var members = [ 
 		<?php 
-		foreach ($course->get_members() as $m) { 
-			if ($m->get_role() == 101) {
-				echo("{name: '" . str_replace('\'', '\\\'', $m->get_name()) . "', id: '" . $m->get_id() . "', org_id: '" . $m->get_org_id() . "'},");
-			}
+		foreach ($course->get_members(array(101)) as $m) { 
+			echo("{name: '" . str_replace('\'', '\\\'', $m->get_name()) . "', id: '" . $m->get_id() . "', org_id: '" . $m->get_org_id() . "'},");
 		}
 		?>
 	];
