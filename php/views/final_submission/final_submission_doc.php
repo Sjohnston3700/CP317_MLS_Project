@@ -95,5 +95,5 @@
 </p>
 <h2>Conclsion</h2>
 <p>
-	In conclusion, the team members experienced excellent and unsatisfactory parts of development. We thank our client for his feedback during the process, and we hope he the final submission acceptable.
+	In conclusion, the team members experienced excellent and unsatisfactory parts of development. We thank our client for his feedback during the process.
 </p>

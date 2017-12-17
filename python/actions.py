@@ -100,7 +100,9 @@ def file_parse():
             with open(full_path,'r') as f:
                 results = parse_grades(f)    
                 if len(errors) == 0:
-                    os.remove(full_path)
+                    
+                    #can't remove, gives error
+                    #os.remove(full_path)
                     return json.dumps(results)
                 else:
                     return json.dumps(errors)
@@ -126,6 +128,7 @@ def grades_error_checking():
     grade_item = course.get_grade_item(grade_item_id)
     
     errors, valid_grades = check_grades(grades, grade_item)
+    
     if len(errors) == 0:
         successful_grades, failed_grades = API.put_grades(valid_grades)
         report = {'successful_grades':successful_grades, 'failed_grades':failed_grades}
