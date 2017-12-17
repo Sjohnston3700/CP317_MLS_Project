@@ -107,7 +107,7 @@ function findSubarray($array, $key, $val) {
  * @param {Integer} grade_item_id
  * @return {Array} Array of errors and error messages to be sent to frontend
  */
-function error_checking($grades, $course_id, $grade_item_id)
+function check_grades($grades, $course_id, $grade_item_id)
 {	
 	$user = unserialize($_SESSION['user']);
 	$course = $user->get_course($course_id);

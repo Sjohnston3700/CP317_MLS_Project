@@ -179,13 +179,9 @@ class NumericGradeItem extends GradeItem {
 	function set_max($new_max){
        $old_max = $this->get_max();
        $this->json['MaxPoints'] = $new_max;
-       try {
-           put_grade_item($this);
-       }
-       catch (Exception $e) {
-           error_log('Failed to update grade item ' . $this->get_id() . ' max from ' . $old_max . ' to ' . $new_max . '. ' . $e, 0);
-           throw $e;
-       }
+
+       put_grade_item($this);
+
        return;
 	}
 	

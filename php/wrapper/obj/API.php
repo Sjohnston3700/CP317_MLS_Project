@@ -245,13 +245,9 @@ function get_user_enrollments($user, $roles = array()){
 		'version' => $config['lms_ver']['lp'],
 		'userId' => $user->get_id(),
 	);
-	try {
-		$response = get($routes['GET_USER_ENROLLMENTS'], $route_params);
-	}
-	catch (Exception $e) {
-		error_log('Something went wrong in get_user_enrollments. ' . $e, 0);
-		throw $e;
-	}
+
+	$response = get($routes['GET_USER_ENROLLMENTS'], $route_params);
+	
 	$courses = array();
 	foreach($response['Items'] as $c) {
 		try {
@@ -260,7 +256,7 @@ function get_user_enrollments($user, $roles = array()){
 			}
 		}
 		catch (Exception $e) {
-
+			//do nothing
 		}
 	}
 	error_log('Extracted ' . sizeof($courses) . ' of ' . sizeof($response['Items']) . ' courses  for ' . $user->get_full_name(), 0);
@@ -300,21 +296,12 @@ function get_course_enrollments($course) {
 		'orgUnitId' => $course->get_id(),
 	);
 	
-	try {
-	$response = get($routes['GET_COURSE_ENROLLMENTS'], $route_params);
-	$members = array();
-	foreach($response['Items'] as $m) {
-		$members[] = new OrgMember($m);
-
-
-	}
-
-	return $members;
-}
-	catch (Exception $e) {
-		error_log('Something went wrong in get_course_enrollments. ' . $e, 0);
-		throw $e;
-	}
+		$response = get($routes['GET_COURSE_ENROLLMENTS'], $route_params);
+		$members = array();
+		foreach($response['Items'] as $m) {
+			$members[] = new OrgMember($m);
+		}
+		return $members;
 }
 
 function valence_request($route, $verb, $json_to_send) {

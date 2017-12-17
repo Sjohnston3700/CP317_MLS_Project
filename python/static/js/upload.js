@@ -2,7 +2,7 @@
 	 Automated upload and manual upload JS functions
 	 Author: Sarah Johnston
 	 Usage: Controller used with upload.html. Functions and listeners used 
-			  to populate error checking modal, send JSON grade object to error_checking.php, 
+			  to populate error checking modal, send JSON grade object to check_grades.php, 
 			  and display error messages
  */
 
@@ -111,7 +111,7 @@ function findGrade(id, grades) {
 /**
  * Calls sentToErrorChecking. On return, if no errors, redirects 
  * to report page. Otherwise, displays error modal with error messages 
- * returned from error_checking.php
+ * returned from check_grades.php
  * @param {Array} data - array of JSON grade objects to send for error checking 
  */
 function setGrades(data) {
@@ -136,7 +136,7 @@ function setGrades(data) {
 
 	$.ajax({
 		type: 'POST',
-		url: 'actions/error_checking.php',
+		url: 'actions/check_grades.php',
 		data: formData,
 		dataType: 'json',
 		encode: true,
@@ -304,14 +304,37 @@ $('.remove-student-error').click(function () {
 	$('.error-msg-' + id).remove();
 
 	// Now remove them from globalGrades
-	var index = findGrade(grade.id, globalGrades);
+	var index = findGrade(id, globalGrades);
 	globalGrades.splice(index, 1);
 
+	handleIfNoErrors();
+});
+
+function handleIfNoErrors() {
 	//if all students have been removed, close modal
 	if (globalGrades.length == 0) {
 		closeModal('error-message-modal');
 	}
-});
+	//else, msg if all error-causing grades removed
+	else {
+		var noErrors = true;
+		for (var i = 0; i < globalGrades.length; i++) {
+			if (Object.keys(globalGrades[i]).length > 4)
+				noErrors = false;
+		}
+		if (noErrors) {
+			console.log('hi');
+			success = $('.templates .modal-success-template').clone(true, true);
+			msg = 'All errors removed or resolved';
+
+			success.removeClass('hidden');
+			success.removeClass('modal-success-template');
+			success.addClass('update-max-error');
+			success.html(msg);
+			$('.modal-body').html(success);
+		}
+	}
+}
 
 /**
  * Click event for when user resubmits grades. Gets changes from modal 
@@ -483,15 +506,18 @@ function updateMax(max, id) {
 
 				$.ajax({
 					type: 'POST',
-					url: 'actions/error_checking.php',
+					url: 'actions/check_grades.php',
 					data: formData,
 					dataType: 'json',
 					encode: true,
 					success: function (data) {
 							var success;
-							var msg;		
-
+							var msg;	
+							
+							//update errors in case some resolved by changing max
+							//display msg if no errors anymore
 							displayGradeErrors(data);
+							handleIfNoErrors();
 
 							//need to show success msg after displayGradeErrors b/c that function wipes all msgs
 

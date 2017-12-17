@@ -18,14 +18,9 @@ class User {
 		*/
 		function __construct($roles) {
 
-            try {
-                $this->json = get_who_am_i();
-                $this->courses = get_user_enrollments($this, $roles);
-            }
-            catch (Exception $e) {
-                error_log('Something went wrong. Unable to create User object', 0);
-                throw $e;
-            }
+
+            $this->json = get_who_am_i();
+            $this->courses = get_user_enrollments($this, $roles);
 
 			$this->roles = $roles;
 		}

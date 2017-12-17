@@ -14,6 +14,19 @@
 	$login_required = array('token', 'courses', 'upload', 'report', 'logout');
 	$authenticated = false;
 
+
+	//custom exception handler
+	function myException($e) {
+		echo '<b>uncaught exception</b>';
+		echo '<br><b>in:</b> ' . $e->getFile();
+		echo '<br><b>line:</b> ' . $e->getLine();
+		echo '<br><b>message:</b> ' . $e->getMessage();
+		echo '<br><b>trace:</b>';
+		echo '<pre>' . $e->getTraceAsString() . '</pre>';
+	}
+	  
+	set_exception_handler('myException');
+
 	// Only check for credentials if on one of these pages. Docs, home, and help do not require login
 	if (in_array($page, $login_required))
 	{
@@ -42,10 +55,7 @@
 		}
 		if ($page == 'logout' && isset($_SESSION['userId']) && isset($_SESSION['userKey']))
 		{
-			unset($_SESSION['userId']);
-			unset($_SESSION['userKey']);
-			unset($_SESSION['userName']);
-			unset($_SESSION['user']);
+			session_destroy();
 			header("location: https://" . $config['lms_host'] . "/d2l/logout");
 			die();
 		}
@@ -84,7 +94,8 @@
 		case 'courses':
             $contents = '../views/courses.php';
             break;
-        case 'upload':
+		case 'upload':
+		//	if(isset($_SESSION['report'])) { unset($_SESSION['report']); }
             $contents = '../views/upload.php';
             break;
 		case 'help':
@@ -116,7 +127,7 @@
  			break;
  		case 'design_wrapper':
  			$contents = $PATH_TO_DOCS . 'design_wrapper.html';
- 			break;
+			 break;
 		default:
 			$contents = '../views/home.php';
             break;
