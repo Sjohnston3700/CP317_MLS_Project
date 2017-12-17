@@ -7,44 +7,6 @@
 {% block content %}
     
     <div id="available-courses"></div>
-    {#
-    
-    {% set courses = user.get_courses()|sort(reverse=True) %}
-	{% if courses != [] %}
-		<h2>Select a Grade Item</h2>
-		<div id="available-courses"></div>
-		
-		
-		
-        {% for course in courses %}
-            {% if loop.index0 != 0 %}
-                {% if courses[loop.index0].get_year() != courses[loop.index0-1].get_year() or courses[loop.index0].get_semester() != courses[loop.index0-1].get_semester() %}
-                    {% if courses[loop.index0].get_semester() != '' %}
-                        <h2>{{ '{} {}'.format(courses[loop.index0].get_semester(), courses[loop.index0].get_year() ) }}</h2>
-                    {% else %}
-                        <h2> No Start Date </h2>
-                    {% endif %}
-                {% endif %}
-            {% else %}    
-                <h2>{{  '{} {}'.format(courses[0].get_semester(), courses[0].get_year() ) }}</h2>
-            {% endif %}
-
-		    <button class="accordion">{{ course.get_name() }}</button>
-            <div class="panel">
-                {% if course.get_grade_items() != [] %}
-                    {% for grade_item in course.get_grade_items() %}
-                        <a class="grade-link" href="{{ '/upload?courseId={}&gradeItemId={}'.format(course.get_id(),grade_item.get_id())}}">{{ grade_item.get_name() }}</a>
-                    {% endfor %}
-                {% else %}
-                    <p>No grade items for this course.</p>
-                {% endif %}
-            </div>
-            
-		{% endfor %}
-	{% else %}
-		<a>You do not have permission to set grades for any courses</a>
-	{% endif %}
-	#}
 	
 	
 	
