@@ -36,3 +36,6 @@ app_config = {
                'debug': True,
                'route':'/index.py?page=token',
                }
+
+USER_ROLES = ['TA','Instructor']
+

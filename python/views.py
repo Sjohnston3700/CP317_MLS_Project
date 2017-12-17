@@ -4,6 +4,7 @@ Functions used to render pages
 from app import app
 from flask import render_template, redirect, request, session, abort
 from conf_basic import app_config
+from conf_basic import USER_ROLES
 import traceback
 
 from wrapper.obj.User import User
@@ -130,7 +131,7 @@ def auth_token_handler():
     '''
     uc = app.config["app_context"].create_user_context( result_uri=request.url, host=app_config['lms_host'], encrypt_requests=app_config['encrypt_requests'])
     # store the user context's
-    user    = User(uc, OUR_HOST,['TA','Instructor'])
+    user    = User(uc, OUR_HOST, USER_ROLES)
     user_id = user.get_id()
     
     session['user_id']  = user_id
