@@ -40,7 +40,7 @@ function modify_grade_max($course_id, $grade_item_id, $max)
 	if (sizeof($errors) == 0)
 	{
 		$grade_item->set_max((float)$max);
-		//store user that contains modified gradeitem
+		// Store user that contains modified gradeitem
 		$_SESSION['user'] = serialize($user);
 		return put_grade_item($grade_item);
 	}
