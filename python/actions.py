@@ -71,12 +71,6 @@ def file_parse():
         On failure:
             JSON dump of errors
     '''
-    if 'user_id' not in session:
-        logger.warning('Someone is trying to upload a file but is not logged in')
-        return redirect('/login')
-    elif app.config.get( session['user_id'] , None) is None:
-        logger.warning('Session is out of sync on /file_parse')
-        return redirect('/login')
         
     user = app.config[session['user_id']]   
     
@@ -119,13 +113,7 @@ def grades_error_checking():
         else:
             returns json.dump(errors) (str) : success/errors messages for grades.
     '''
-    if 'user_id' not in session:
-        logger.warning('Someone is trying to error check grades but is not logged in')
-        return redirect('/login')
-    elif app.config.get( session['user_id'] , None) is None:
-        logger.warning('Session is out of sync on /error_checking')
-        return redirect('/login')
-        
+    
     grades_json  = request.get_json(force=True)
     grades       = grades_json['grades']
     course_id    = grades_json['courseId']

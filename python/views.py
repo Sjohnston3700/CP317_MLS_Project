@@ -148,7 +148,6 @@ def show_courses(user):
         On failure:
             Renders "error.html".
     '''
-
     return render_template('courses.html', user=app.config[ session['user_id'] ] )
     
     
