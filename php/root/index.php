@@ -1,5 +1,5 @@
 <?php
-	require_once '../wrapper/obj/OrgMember.php';
+	require_once '../wrapper/obj/User.php';
 	require_once '../wrapper/obj/API.php';
     require_once 'config.php';
 
@@ -23,6 +23,14 @@
 			{
 				$_SESSION['userId'] = $_GET['x_a'];
 				$_SESSION['userKey']= $_GET['x_b'];
+						// TA: 102, Instructor: 103
+		$roles = array(102, 103);
+		$user = new User($roles);
+		if ($user != null)
+		{	
+			$_SESSION['userName'] = $user->get_full_name();
+			$_SESSION['user'] = serialize($user);
+		}
 				header('Location: index.php?page=courses');
 				die();
 			}
@@ -37,6 +45,7 @@
 			unset($_SESSION['userId']);
 			unset($_SESSION['userKey']);
 			unset($_SESSION['userName']);
+			unset($_SESSION['user']);
 			header("location: https://" . $config['lms_host'] . "/d2l/logout");
 			die();
 		}
@@ -52,18 +61,13 @@
 			die();
 		}
 		
-		// TA: 102, Instructor: 103
-		$roles = array(102, 103);
-		$user = new User($roles);
-		if ($user != null)
-		{	
-			$_SESSION['userName'] = $user->get_full_name();
-		}
+
 	}
 
 	//assume authenticated if name set
 	if (isset($_SESSION['userName'])) {
 		$authenticated = true;
+		$user = unserialize($_SESSION['user']);
 	}
 
     switch ($page)

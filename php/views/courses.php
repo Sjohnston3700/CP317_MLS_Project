@@ -12,7 +12,7 @@ $courses = $user->get_courses();
 
 <h2>Select a Grade Item</h2>
 <?php foreach ($courses as $c) { ?>
-	<button class="accordion"><?=$c->name?></button>
+	<button class="accordion"><?=$c->get_name()?></button>
 	<div class="panel">
 		<?php if (sizeof($c->get_grade_items()) > 0) { ?>
 			<?php foreach ($c->get_grade_items() as $g) { ?>

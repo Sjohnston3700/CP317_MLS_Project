@@ -14,7 +14,7 @@ $config = array(
 		'lp' => '1.20',
 		'le' => '1.26',
 		'ep' => '2.5'),
-	'testMyEnrollments' => '0'
+	'testMyEnrollments' => '1'
 );
 
 

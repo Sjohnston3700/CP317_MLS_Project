@@ -137,9 +137,9 @@
 		<?php 
 		foreach ($course->get_members() as $m) { 
 			if ($m->get_role() == 101) {
-				echo("{name: '" . $m->get_name() . "', id: '" . $m->get_id() . "', org_id: '" . $m->get_org_id() . "'},");
+				echo("{name: '" . str_replace('\'', '\\\'', $m->get_name()) . "', id: '" . $m->get_id() . "', org_id: '" . $m->get_org_id() . "'},");
 			}
-		} 
+		}
 		?>
 	];
 	
