@@ -20,6 +20,7 @@ $routes = array(
 	'SET_GRADE_ITEM'		   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)',
 	'GET_GRADE_ITEM'	   => '/d2l/api/le/(version)/(orgUnitId)/grades/(gradeObjectId)'
 );
+
 /*
 Uses a GET request to get JSON
 
@@ -46,8 +47,8 @@ function get($route, $route_params, $additional_params = array()){
 			$bookmark = $response['PagingInfo']['Bookmark'];
 			$next_results = get($route, $route_params, $additional_params = array('bookmark='.$bookmark));
 
-			//have to loop through since php adds '[' and ']' to append Items
-			//if just use array_push($response['Items'], $next_results['Items'])
+			// Have to loop through since php adds '[' and ']' to append Items
+			// If just use array_push($response['Items'], $next_results['Items'])
 			foreach($next_results['Items'] as $item) {
 				array_push($response['Items'], $item);
 			}		
@@ -86,7 +87,8 @@ Postconditions:
 function update_route($route, $params, $additional_params = array()) {
 	if ($params != NULL){
 		foreach ($params as $key => $value){
-			$route = str_replace('(' . $key . ')', $value, $route); //Control structure issue, no spaces before or after parenthesis
+			// Control structure issue, no spaces before or after parenthesis
+			$route = str_replace('(' . $key . ')', $value, $route); 
 		} 
 	}
 	if (sizeof($additional_params) > 0) {
@@ -117,8 +119,8 @@ function get_grade_items($course){
 
 	$response = get($routes['GET_GRADE_ITEMS'], $route_params);
 	$items = array();
-	//echo json_encode($response);
-	//echo json_encode($route_params);
+	// echo json_encode($response);
+	// echo json_encode($route_params);
 	foreach($response as $g) {
 		if ($g['GradeType'] == 'Numeric') {
 			array_push($items, new NumericGradeItem($course, $g));
@@ -163,7 +165,7 @@ function put_grade($grade){
 	);
 
 	$data = $grade->get_json();
-//	echo json_encode($data);
+        // echo json_encode($data);
 
 	# Make PUT request
 	$response = put($routes['SET_GRADE'], $route_params, $data);
@@ -192,6 +194,7 @@ function put_grades($grades) {
 
 	return array($successful, $failed);
 }
+
 /*
 Posts a GradeItem object to Brightspace using a PUT request
 
@@ -220,11 +223,11 @@ function put_grade_item($grade_item){
 		'Content' => $data['Description']['Html'],
 		'Type' => 'Html'
 	);
-	//echo json_encode($data);
+	// echo json_encode($data);
 	
 	$response = put($routes['SET_GRADE_ITEM'], $route_params, $data);
 	if (isset($response['MaxPoints'])) {
-		//can't use response `MaxPoints` since due to api bug, int val returned in response even when decimal set
+		// Can't use response `MaxPoints` since due to API bug, int val returned in response even when decimal set
 		return $grade_item->get_max();
 	}
 	return json_encode($response);
@@ -319,7 +322,7 @@ function get_who_am_i() {
 	return $response;
 }
 
-//TODO: fix how report.php gets grades so can delete this
+// TODO: fix how report.php gets grades so can delete this
 function get_grade_values($course_id, $grade_item_id) {
 	global $config;
 	global $routes;
