@@ -20,7 +20,7 @@ class User {
 
             try {
                 $this->json = get_who_am_i();
-                $this->courses = get_user_enrollments($this);
+                $this->courses = get_user_enrollments($this, $roles);
             }
             catch (Exception $e) {
                 error_log('Something went wrong. Unable to create User object', 0);
@@ -28,6 +28,10 @@ class User {
             }
 
 			$this->roles = $roles;
+		}
+
+		function get_roles() {
+			return $this->roles;
 		}
 		
 		/*

@@ -236,7 +236,7 @@ Postconditions:
 	returns:
 	user_enrollments (dict) : A dict of user_enrollment data corresponding to the given User object.
 */
-function get_user_enrollments($user){
+function get_user_enrollments($user, $roles = array()){
 
 	global $config;
 	global $routes;
@@ -246,17 +246,16 @@ function get_user_enrollments($user){
 		'userId' => $user->get_id(),
 	);
 	try {
-	if ($config['testMyEnrollments']) {
-		unset($route_params['userId']);
-		$response = get($routes['GET_MY_ENROLLMENTS'], $route_params);
-	}
-	else {
 		$response = get($routes['GET_USER_ENROLLMENTS'], $route_params);
+	}
+	catch (Exception $e) {
+		error_log('Something went wrong in get_user_enrollments. ' . $e, 0);
+		throw $e;
 	}
 	$courses = array();
 	foreach($response['Items'] as $c) {
 		try {
-			if ($c['OrgUnit']['Type']['Id'] == 3) {
+			if ($c['OrgUnit']['Type']['Name'] == 'Course Offering' && (empty($roles) || in_array($c['Role']['Id'], $roles))) {
 				array_push($courses, new Course($user, $c));
 			}
 		}
@@ -266,12 +265,6 @@ function get_user_enrollments($user){
 	}
 	error_log('Extracted ' . sizeof($courses) . ' of ' . sizeof($response['Items']) . ' courses  for ' . $user->get_full_name(), 0);
 	return $courses;
-}
-	catch (Exception $e) {
-		error_log('Something went wrong in get_courses. ' . $e, 0);
-		throw $e;
-	}
-	
 }
 
 function get_who_am_i() {
