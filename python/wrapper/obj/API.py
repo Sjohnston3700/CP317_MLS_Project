@@ -179,7 +179,10 @@ def put(route, user, route_params, params):
     route = update_route(route, route_params)
     r = requests.put(user.get_context().create_authenticated_url(route, method='PUT'), json=params)
     check_request(r)
-    return r.json()
+    try:
+        return r.json()
+    except:
+        return None
 
 def put_grade(grade):
     '''
@@ -197,7 +200,6 @@ def put_grade(grade):
         'orgUnitId': grade.get_grade_item().get_course().get_id(), \
         'gradeObjectId': grade.get_grade_item().get_id(), \
         'userId' : grade.get_student().get_id() }
-    
     data = grade.get_json()
     # Make PUT request
     result = put(SET_GRADE_ROUTE, user, route_params, data)
@@ -219,7 +221,7 @@ def put_grades(grades):
     failed_grades     = []
     for grade in grades:
         try:
-            put_grade(grade)
+            result = put_grade(grade)
             successful_grades.append( grade )
         except Exception as e:
             error = {'msg':str(e),'grade':grade}

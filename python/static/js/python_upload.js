@@ -29,9 +29,9 @@ $('#upload-target').on('load', function() {
         
         //remove any existing error msgs
         $('.upload-file-error').remove();
-		
+
 		if (json.length > 0 && json[0].hasOwnProperty('id')) {
-			sendToErrorChecking(json);
+            sendToErrorChecking(json);
 		} 
 		else {
 			var error = $('.templates .modal-error-template').clone(true, true);
@@ -150,7 +150,6 @@ function sendToErrorChecking(data) {
 						if (data.length > 0) {
 							//tracks if this error appears
 							$greater_than_max_err = false;
-							
 							if (data[0].hasOwnProperty('error')) {
 								// Overall error, not just error with one student (ex. they didn't submit any grades)
 								error = $('.templates .modal-error-template').clone(true, true);
