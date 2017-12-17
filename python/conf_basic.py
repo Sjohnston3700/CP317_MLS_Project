@@ -44,6 +44,6 @@ app_config = {
                }
 
 USER_ROLES         = ['TA','Instructor']
-ALLOWED_EXTENSIONS = set(['txt','dat','csv'])
+ALLOWED_EXTENSIONS = set(['txt','csv'])
 UPLOAD_FOLDER      = './Uploaded_Files'
 SECRET_KEY         = 'NDNiYTUwZGU3ZWJkYTUyZGE5ZTUxOWVj'

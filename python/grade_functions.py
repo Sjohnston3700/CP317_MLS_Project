@@ -46,7 +46,7 @@ def parse_grades( csv_file ):
             
                 grades.append( grade )
         if len(grades) == 0:
-            raise Exception('File is empty')        
+            errors=[{'msg':'File is empty'}]        
     except Exception as e:
         errors = [{'msg' : 'Entire file is formatted incorrectly. Please ensure each student entry is formatted as student_name, brightspace_id, grade, comment'}]
     
