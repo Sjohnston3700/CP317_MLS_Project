@@ -16,7 +16,6 @@ GET_USER_ENROLLMENTS = '/d2l/api/lp/(version)/enrollments/users/(userId)/orgUnit
 GET_MY_ENROLLMENTS   = '/d2l/api/lp/(version)/enrollments/myenrollments/'
 GET_WHO_AM_I         = '/d2l/api/lp/(version)/users/whoami'
 
-COURSE_OFFERING = 3
 
 logger = logging.getLogger(__name__)
 
@@ -119,7 +118,8 @@ def get_courses(user, roles=[]):
         courses = []
         for item in json['Items']:
             try:
-                courses.append( Course.Course(user, item) )
+                if item['OrgUnit']['Type']['Name'] == 'Course Offering' and roles != [] and  item['Role']['Name'] in roles:
+                    courses.append( Course.Course(user, item) )
             except Exception as e:
                 continue
         logger.info("Extracted {} of {} courses for {}".format( len(courses), len(json["Items"]), user.get_full_name() ) )

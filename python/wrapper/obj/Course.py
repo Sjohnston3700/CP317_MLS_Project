@@ -179,5 +179,5 @@ class Course(object):
             Returns:
             self.user_role (str) : User role for current course.
         '''
-        return self._json['Role']
+        return self._json['Role']['Name']
         

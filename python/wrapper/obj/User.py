@@ -14,7 +14,8 @@ class User(object):
             roles: List of roles, default: [] (list)
         """
         self._context = context
-        self._host = host
+        self._host    = host
+        self._roles   = roles
         
         try:
             self._json = API.get_who_am_i(self)
@@ -82,7 +83,7 @@ class User(object):
             Copy of a python list of all courses accessible by this user
         """
         if self._courses is None:
-            self._courses = API.get_courses(self)#still need to filter by role
+            self._courses = API.get_courses(self, self._roles)#still need to filter by role
         return self._courses
 
     def get_host(self):
@@ -95,3 +96,8 @@ class User(object):
         """
         return self._host
 
+    def get_roles(self):
+        """
+        Function to return a copy of the user's roles
+        """
+        return copy.deepcopy(self._roles)
