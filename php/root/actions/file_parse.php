@@ -3,7 +3,7 @@
 session_start();
 require_once('../../includes/functions/grade_functions.php');
 
-if (!isset($_SESSION['userId']) || !isset($_SESSION['userKey']))
+if (!isset($_SESSION['user']))
 {
 	die();
 }

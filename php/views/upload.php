@@ -148,7 +148,7 @@
 
 	//stop from automatically scrolling to last position on page
 	//looks bad since starts at top then flashes to bottom
-	history.scrollRestoration = "manual"
+	history.scrollRestoration = "manual";
 </script>
 
 <script type="text/javascript" src="<?=$PATH_TO_STATIC?>/js/upload.js"></script>

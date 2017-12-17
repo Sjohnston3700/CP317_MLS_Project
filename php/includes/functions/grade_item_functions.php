@@ -11,11 +11,10 @@ require_once('../../wrapper/obj/GradeItem.php');
  */
 function modify_grade_max($course_id, $grade_item_id, $max)
 {
-	$user = new User(array());
+	$user = unserialize($_SESSION['user']);
 	$course = $user->get_course($course_id);
-//	$course = get_course($user, $course_id);
-//	$course = new Course($user, $course);
 	$grade_item = $course->get_grade_item($grade_item_id);
+	
 
 	// Error object to return
 	$errors = array();
@@ -41,6 +40,8 @@ function modify_grade_max($course_id, $grade_item_id, $max)
 	if (sizeof($errors) == 0)
 	{
 		$grade_item->set_max((float)$max);
+		//store user that contains modified gradeitem
+		$_SESSION['user'] = serialize($user);
 		return put_grade_item($grade_item);
 	}
 	return $errors;

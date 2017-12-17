@@ -109,11 +109,9 @@ function findSubarray($array, $key, $val) {
  */
 function error_checking($grades, $course_id, $grade_item_id)
 {	
-//	$user = new User(array());
-$user = unserialize($_SESSION['user']);
+	$user = unserialize($_SESSION['user']);
 	$course = $user->get_course($course_id);
-	//$course = get_course($user, $course_id);
-	//$course = new Course($user, $course);
+
 	$grade_item = $course->get_grade_item($grade_item_id);
 	
 	// Error object to return
@@ -231,40 +229,17 @@ $user = unserialize($_SESSION['user']);
 	if (sizeof($fail_errors) != 0) {
 	 	$errors = $fail_errors;
 	}
-	
-	if (sizeof($errors) == 0)
-	{
-		$errors = upload_grades($grades, $course, $grade_item);
-		
-		// If $errors is empty or the first element is numeric, go to report page. 
-		// If the value is numeric, this means $errors is a list of successful $ids
-		if (sizeof($errors) == 0 || (isset($errors[0]) && is_numeric($errors[0]))) 
-		{	
-			$successful_ids = $errors;
-			$_SESSION['report'] = array(
-				'total' => sizeof($grades),
-				'successful' => sizeof($successful_ids),
-				'successful_ids' => $successful_ids
-			);
-			
-		} 
-		else
-		{
-			$_SESSION['report'] = array(
-				'errors' => $errors
-			);
-		}
-		return array();
-	}
-	else 
-	{
-		return $errors;
-	}
-	
+
+	return $errors;
 }
 
-function upload_grades($grades, $course, $grade_item)
+function upload_grades($grades, $course_id, $grade_item_id)
 {
+
+	$user = unserialize($_SESSION['user']);
+	$course = $user->get_course($course_id);
+	$grade_item = $course->get_grade_item($grade_item_id);
+	
 	$errors = array();
 	$sucessful_ids = array();
 	
@@ -284,6 +259,26 @@ function upload_grades($grades, $course, $grade_item)
 	{
 		return $sucessful_ids;	
 	}
-	return $errors;
+	// If $errors is empty or the first element is numeric, go to report page. 
+	// If the value is numeric, this means $errors is a list of successful $ids
+	if (sizeof($errors) == 0 || (isset($errors[0]) && is_numeric($errors[0]))) 
+	{	
+		$successful_ids = $errors;
+		$_SESSION['report'] = array(
+			'total' => sizeof($grades),
+			'successful' => sizeof($successful_ids),
+			'successful_ids' => $successful_ids
+		);	
+	} 
+	else
+	{
+		$_SESSION['report'] = array(
+			'errors' => $errors
+		);
+	}
+
+	//store user object that possibly contains modified objects
+	$_SESSION['user'] = serialize($user);
+	
+	return array();
 }
-?>
