@@ -1,10 +1,6 @@
-import os, sys, requests, traceback
-import logging, logging.config
-
-from flask import Flask, redirect, request, render_template, url_for, session, jsonify, json, abort
-
+import os, logging, logging.config, json
 from conf_basic import app_config
-
+from app import app
 from views   import *
 from actions import *
 
@@ -15,16 +11,6 @@ with open('logging_config.json', 'rt') as f:
     logging.config.dictConfig(config)
 
 
-
-
-
-from app import app
-
-
-
-       
-
-
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host=app_config['host'], port=port, debug=app_config["debug"])
+    #port = int(os.environ.get("PORT", 8080))
+    app.run(host=app_config['our_host'], port=app_config['port'], debug=app_config["debug"])

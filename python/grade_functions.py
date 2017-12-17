@@ -42,7 +42,7 @@ def parse_grades( csv_file ):
                 keys = ['id','value','name','comment']
                 grade = {}
                 for index, key in enumerate(keys):
-                    grade[key]= line[index]
+                    grade[key] = line[index]
             
                 grades.append( grade )
         if len(grades) == 0:
