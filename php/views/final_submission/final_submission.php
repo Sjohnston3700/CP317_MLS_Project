@@ -1,7 +1,7 @@
 <h1>CP317 Fall 2017 - ezMarker Final Submission</h1>
 
 <h3>Overview</h3>
-<a href="index.php?page=contributors">Project Contributors</a><br>
+<a href="logs/hours">Project Contributors</a><br>
 <a href="index.php?page=final_submission_doc">Final Submission Document</a><br>
 
 <h3>Documents</h3>
