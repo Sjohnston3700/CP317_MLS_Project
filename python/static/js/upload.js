@@ -147,13 +147,13 @@ function setGrades(data) {
 				displayGradeErrors(errors);
 				grades = getFormGrades();
 				updateGlobalGrades(grades);
-
+		
 				// Hide loading
 				$('.loader-box').addClass('hidden');
 				//need to launch modal in the case that user is submitting from upload page
 				showModalWithoutClose('error-message-modal');
 				$('.modal').animate({ scrollTop: 0 }, 'slow');
-			}
+				}
 
 			//if no errors, then upload grades
 			else {
@@ -318,11 +318,8 @@ function handleIfNoErrors() {
 	}
 	//else, msg if all error-causing grades removed
 	else {
-		var noErrors = true;
-		for (var i = 0; i < globalGrades.length; i++) {
-			if (Object.keys(globalGrades[i]).length > 4)
-				noErrors = false;
-		}
+		//check for error msgs
+		var noErrors = ($('.modal-body').find('.modal-error').length == 0);
 		if (noErrors) {
 			success = $('.templates .modal-success-template').clone(true, true);
 			msg = 'All errors removed or resolved';
