@@ -106,6 +106,7 @@ def file_parse():
                     return json.dumps(results)
                 else:
                     return json.dumps(errors)
+    return json.dumps(errors)
 
 
 @app.route('/actions/error_checking.py',methods=['POST'])
