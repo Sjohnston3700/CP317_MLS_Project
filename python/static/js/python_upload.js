@@ -126,8 +126,6 @@ function setGrades(data) {
 
 	// Set data to global variable in case user re-submits
 	globalGrades = data;
-
-    console.log(data)
     
 	var formData = {
 		'grades': data,
