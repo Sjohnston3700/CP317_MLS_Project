@@ -98,21 +98,23 @@ class Course(object):
         '''
         return self._json['OrgUnit']['Name']
 
-    def get_member(self,org_id):
+    def get_member(self,org_id='',brightspace_id=''):
         '''
         Function to return the member request if it exist, 
         Otherwise, returns None.
         
         Preconditions:
-            self (Course) : Course object instance.
-            org_id (int) : Id number of the OrgMember.
+            self (Course)               : Course object instance.
+            org_id (int or str)         : The Organization Id number of the OrgMember.
+            brightspace_id (int or str) : The Brightspace Id number of the OrgMember
             
         Postconditions:
             On success returns member (OrgMember) : OrgMember object.
             On failure returns None
         '''
+        
         for member in self._members:
-            if str(member.get_id()) == str(org_id):
+            if str(member.get_id()) == str(brightspace_id) or str(member.get_org_id()) == str(org_id):
                 return member
         return None        
 
