@@ -98,11 +98,9 @@ def file_parse():
             
             #parse file in memory
             with open(full_path,'r') as f:
-                results = parse_grades(f)    
-                if len(errors) == 0:
-                    
-                    #can't remove, gives error
-                    #os.remove(full_path)
+                results = parse_grades(f)
+                os.remove(full_path)    
+                if len(errors) == 0:                 
                     return json.dumps(results)
                 else:
                     return json.dumps(errors)

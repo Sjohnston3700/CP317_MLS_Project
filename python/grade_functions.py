@@ -88,7 +88,7 @@ def check_grades(grades_json, grade_item):
             line += 1
             continue   
         
-        student = course.get_member(student_id)
+        student = course.get_member(brightspace_id=student_id)
         #student doesn't exist
         if student is None:
             error = grade_json
