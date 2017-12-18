@@ -97,13 +97,14 @@ def file_parse():
             file.save( full_path )
             
             #parse file in memory
+            results=[]
             with open(full_path,'r') as f:
                 results = parse_grades(f)
-                os.remove(full_path)    
-                if len(errors) == 0:                 
-                    return json.dumps(results)
-                else:
-                    return json.dumps(errors)
+            os.remove(full_path)  
+            if len(errors) == 0:                 
+                return json.dumps(results)
+            else:
+                return json.dumps(errors)
     return json.dumps(errors)
 
 
@@ -167,9 +168,7 @@ def update_grade_max():
 def upload_grades():
     '''
     '''
-    print('trying')
     grades_json  = request.get_json(force=True)
-    print('fuck me')
     if 'grades' not in grades_json:
         return json.dumps({'error':"You didn't submit any grades"})
 

@@ -116,15 +116,12 @@ def check_grades(grades_json, grade_item):
     
 def upload_grades_function(grades, user, course, grade_item):
     '''
-    '''
-    print ('got to upload_grades function')
-    
+    '''    
     errors=[]
     successful_grades=[]
-    
     for grade in grades:
         id = grade['id']
-        student = course.get_member(id)
+        student = course.get_member(brightspace_id=id)
         grade = NumericGrade(grade_item, student, grade['comment'], grade['value'])
         
         #if no errors, add to successful_id
@@ -132,12 +129,10 @@ def upload_grades_function(grades, user, course, grade_item):
             successful_grades.append(grade)
         
     if errors==[] or type(errors[0]==float):
-        print('hi')
         report = {'total':len(grades), 'successful': len(successful_grades), 'grades':successful_grades}
         key = '{}_report'.format(user.get_id() )
         app.config[key] = report
     else:
-        print ("oh no")
         key = '{}_report'.format(user.get_id() )
         app.config[key] = {'errors': errors}
     
