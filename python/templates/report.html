@@ -6,24 +6,25 @@
 
 {% block content %}
 <div class="page-section">
-	<h1>Upload Complete</h1>
-	<h3>{{ '{} of {} grades uploaded successfully for {} - {}'.format(successful_grades|length, num_grades,course.get_name(),grade_item.get_name() ) }} </h3>
-	{% if failed_grades != [] %}
-	<h3> Errors </h3>
-    <ul id="navigation">
-    	{% for error in failed_grades %}
-        <li>Error uploading grade for: {{ error['grade'].get_student().get_name() }}{{"; "+ error['msg'] + "." if error['msg'] is defined else "."}}</li>   
+	<h1>{{ 'Upload complete for {}, {}'.format(course.get_name(), grade_item.get_name()) }}</h1>
+	<h3>{{ '{} of {} grades uploaded successfully'.format(success, total) }} </h3>
+	{% if errors != [] %}
+	  	{% for error in errors %}
+            <p>{{ '{}'.format(error['msg']) }}</p>
     	{% endfor %}
-    </ul>
 	{% endif %}
 	<hr>
 	<table>
-	{%for successful_grade in successful_grades %} 
+        <tr>
+            <th>Name</th>
+            <th>Grade</th>
+        </tr>
+	    {%for grade in grades %}                                 
 		<tr>
-			<th>{{ successful_grade.get_student().get_name() }}</th>
-			<th>{{ successful_grade.get_value() }}</th>
+			<th>{{ grade.get_student().get_name() }}</th>
+			<th>{{ "({}/{})".format(grade.get_value(), grade.get_grade_item().get_max())}}</th>
 		</tr>
-	{% endfor %}	
+	    {% endfor %}	
 	</table> 
 </div>
 <script>

@@ -10,7 +10,7 @@ from conf_basic import ALLOWED_EXTENSIONS, UPLOAD_FOLDER
 from wrapper.obj import API
 from wrapper.obj.User import User
 from wrapper.obj.Host import Host
-from grade_functions import parse_grades, check_grades
+from grade_functions import *
 from grade_item_functions import *
 
 
@@ -130,17 +130,16 @@ def grades_error_checking():
     
     errors, valid_grades = check_grades(grades, grade_item)
     
+    
+    '''
     if len(errors) == 0:
         successful_grades, failed_grades = API.put_grades(valid_grades)
         report = {'successful_grades':successful_grades, 'failed_grades':failed_grades}
         
         key = '{}_report'.format(user.get_id() )
         app.config[key] = report
-    
+    '''
     return json.dumps(errors)
-
-
-
 
 @app.route('/actions/update_max.py',methods=['POST'])
 def update_grade_max():
@@ -165,7 +164,28 @@ def update_grade_max():
     errors = modify_grade_max(grade_item, new_max)
     
     return json.dumps(errors)
+    
+@app.route('/actions/upload_grades.py',methods=['POST'])
+def upload_grades():
+    '''
+    '''
+    print('trying')
+    grades_json  = request.get_json(force=True)
+    print('fuck me')
+    if 'grades' not in grades_json:
+        return json.dumps({'error':"You didn't submit any grades"})
 
+    grades        = grades_json['grades']
+    course_id     = grades_json['courseId']
+    grade_item_id = grades_json['gradeItemId']
+     
+    user = app.config[session['user_id']]
+    course = user.get_course(course_id)
+    grade_item = course.get_grade_item(grade_item_id)
+    
+    errors = upload_grades_function(grades, user, course, grade_item)
+    
+    return json.dumps(errors)
     
         
 
