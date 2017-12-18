@@ -20,7 +20,11 @@ function getCourses()
 * Function to display returned courses
 */
 function showCourses(courses)
-{		
+{	
+	if (courses.length == 0) {
+		$('#available-courses').html(
+			'<p>You do not have permission to upload grades for any courses.</p>');
+	}	
 	for (var i = 0; i < courses.length; i++)
 	{
 	    var course = courses[i];
