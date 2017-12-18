@@ -1,7 +1,0 @@
-Task ID,Created At,Completed At,Last Modified,Name,Assignee,Start Date,Due Date,Tags,Notes,Projects,Parent Task
-436488429978471,2017-10-12,2017-11-03,2017-11-03,Get wampserver,,,2017-10-15,,http://www.wampserver.com/en/,General,
-440218513297769,2017-10-12,2017-10-24,2017-10-24,Complete PHP tutorial,,,2017-10-15,,"Follow this guide, since Codecademy removed their PHP course. https://www.tutorialspoint.com/php/
-
-You would also want to know a bit of SQL before you start https://www.tutorialspoint.com/sql/",General,
-452257468026954,2017-10-12,2017-10-24,2017-10-24,Learn how to run they app.py on localhost:8080,,,2017-10-15,,"I cannot find an comprehensive tutorial, please google around. ",General,
-472858770923690,2017-11-07,,2017-11-07,,,,,,,General,
