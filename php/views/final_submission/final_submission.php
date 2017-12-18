@@ -17,6 +17,7 @@
 <a href="logs/git">Git logs (supported by GitHub)</a><br>
 <a href="logs/sqa">SQA logs (supported by Asana)</a><br>
 <a href="logs/hours">Hour logs (supported by ezEmployee)</a><br>
+<a href="logs/tracking">Tracking logs</a><br>
 
 <h3>The Code</h3>
 <a href="https://github.com/Sjohnston3700/CP317_MLS_Project">Github Repository</a><br>
