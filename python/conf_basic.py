@@ -40,7 +40,7 @@ app_config = {
                'verify' : False,
                'lms_ver': {'lp':'1.20','le':'1.26','ep':'2.5'},
                'debug': True,
-               'route':'/index.py?page=token',
+               'trusted_url':'http://localhost:8080/index.py?page=token',
                }
 
 USER_ROLES         = ['TA','Instructor']
