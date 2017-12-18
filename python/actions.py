@@ -3,7 +3,7 @@ Functions that interact with the frontend via AJAX requests.
 '''
 import os, logging
 from app import app
-from flask import json, session, request
+from flask import json, session, request, abort
 from werkzeug.utils import secure_filename
 from conf_basic import ALLOWED_EXTENSIONS, UPLOAD_FOLDER
 
@@ -105,6 +105,8 @@ def file_parse():
                 return json.dumps(results)
             else:
                 return json.dumps(errors)
+        elif not allowed_file(file.filename):
+            errors = [{'msg':'Incorrect file type. Must be .csv or .txt'}] 
     return json.dumps(errors)
 
 
@@ -167,6 +169,13 @@ def update_grade_max():
 @app.route('/actions/upload_grades.py',methods=['POST'])
 def upload_grades():
     '''
+    Function to upload grades to Brightspace
+    Preconditions:
+        grades_json (dict)   : json information for each grade being checked.
+        courseId (string)    : Course Id, obtained through request.form.
+        gradeItemId (string) : GradeItem Id, obtained through request.form.
+    Postconditions:
+        returns json.dump(errors) (str) : success/errors messages for grade upload.    
     '''
     grades_json  = request.get_json(force=True)
     if 'grades' not in grades_json:

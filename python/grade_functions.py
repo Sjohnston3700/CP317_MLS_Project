@@ -116,6 +116,13 @@ def check_grades(grades_json, grade_item):
     
 def upload_grades_function(grades, user, course, grade_item):
     '''
+    Function to upload grades to Brightspace.
+    Preconditions:
+        grades (dict)          : json information for each grade being checked.
+        course (Course)        : Course that the grades belong to.
+        grade_item (GradeItem) : GradeItem that the grade belong to.
+    Postconditions:
+        errors (list of json formatted errors ) : The grades that are invalid and the associated error. not quite implemented.   
     '''    
     errors=[]
     successful_grades=[]
