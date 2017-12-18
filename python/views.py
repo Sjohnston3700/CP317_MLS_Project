@@ -120,7 +120,7 @@ def login():
     Postconditions:
         Redirect to Brightspace login page.
     '''
-    trusted_url = '{0}://{1}:{2}{3}'.format(app_config['scheme'], app_config['our_host'], app_config['port'], app_config["route"])
+    trusted_url = '{0}://{1}{2}{3}'.format(app_config['scheme'], app_config['our_host'], ':{}'.format(app_config['port']) if app_config['port'] != '' else '', app_config["route"])
     aurl = app.config["app_context"].create_url_for_authentication(app_config["lms_host"], trusted_url)
     return redirect(aurl)
 
