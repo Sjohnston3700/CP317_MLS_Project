@@ -1,7 +1,7 @@
 '''
 Functions that interact with the frontend via AJAX requests.
 '''
-import os
+import os, logging
 from app import app
 from flask import json, session, request
 from werkzeug.utils import secure_filename
@@ -15,7 +15,7 @@ from grade_item_functions import *
 
 
 
-
+logger = logging.getLogger(__name__)
 
 def allowed_file(filename):
     '''

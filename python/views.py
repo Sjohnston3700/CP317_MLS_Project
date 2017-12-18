@@ -5,7 +5,7 @@ from app import app
 from flask import render_template, redirect, request, session, abort
 from conf_basic import app_config
 from conf_basic import USER_ROLES
-import traceback
+import logging
 
 from wrapper.obj.User import User
 from wrapper.obj.Host import Host
@@ -17,6 +17,7 @@ PAGES_NEEDING_LOGIN = ['token', 'courses', 'upload', 'report', 'logout']
 DOCUMENTATION_PAGES = ['spmp','requirements','analysis','design','requirements_wrapper','analysis_wrapper','design_wrapper']
 PAGES = PAGES_NEEDING_LOGIN + DOCUMENTATION_PAGES + ['help','login','documentation']
 
+logger = logging.getLogger(__name__)
 
 @app.route("/")
 def start():
@@ -92,7 +93,8 @@ def handle_error(e):
         Renders "error.html".
     '''
     user = app.config.get( session.get('user_id',None), None )
-    return render_template('error.html',user=user,error=traceback.format_exc())
+    logging.exception('Something has gone wrong')
+    return render_template('error.html',user=user)
 
 
 def home(user):
@@ -118,7 +120,7 @@ def login():
     Postconditions:
         Redirect to Brightspace login page.
     '''
-    trusted_url = '{0}://{1}:{2}{3}'.format(app_config['scheme'], app_config['our_host'], app_config['port'], app_config["route"])
+    trusted_url = '{0}://{1}{2}{3}'.format(app_config['scheme'], app_config['our_host'], ':{}'.format(app_config['port']) if app_config['port'] != '' else '', app_config["route"])
     aurl = app.config["app_context"].create_url_for_authentication(app_config["lms_host"], trusted_url)
     return redirect(aurl)
 
