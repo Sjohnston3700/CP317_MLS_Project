@@ -93,7 +93,7 @@ def handle_error(e):
         Renders "error.html".
     '''
     user = app.config.get( session.get('user_id',None), None )
-    return render_template('error.html',user=user,error=traceback.format_exc())
+    return render_template('error.html',user=user)
 
 
 def home(user):
