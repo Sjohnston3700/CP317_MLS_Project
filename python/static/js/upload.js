@@ -143,16 +143,12 @@ function setGrades(data) {
 			var errors = data;
 
 			if (errors.length > 0) {
-
 				displayGradeErrors(errors);
 				grades = getFormGrades();
 				updateGlobalGrades(grades);
 		
 				// Hide loading
 				$('.loader-box').addClass('hidden');
-				//need to launch modal in the case that user is submitting from upload page
-				showModalWithoutClose('error-message-modal');
-				$('.modal').animate({ scrollTop: 0 }, 'slow');
 				}
 
 			//if no errors, then upload grades
@@ -281,6 +277,9 @@ function displayGradeErrors(errors) {
 			$('#update-max-form-modal').removeClass('hidden');
 			$('.hr').removeClass('hidden');
 		}
+		//need to launch modal in the case that user is submitting from upload page
+		showModalWithoutClose('error-message-modal');
+		$('.modal').animate({ scrollTop: 0 }, 'slow');
 	}
 }
 
