@@ -23,9 +23,10 @@ function getCourses()
 */
 function showCourses(courses)
 {
-   // Hide loader
-	$('.loader-box').addClass('hidden');
-	
+	if (courses.length == 0) {
+		$('#available-courses').html(
+			'<p>You do not have permission to upload grades for any courses.</p>');
+	}		
 	for (var i = courses.length-1; i >= 0; i--)
 	{
 	    var course = courses[i];
@@ -34,7 +35,6 @@ function showCourses(courses)
 	    new_course.html(course.name);
 	    new_course.removeClass('hidden');
 	    new_course.addClass( course.id.toString() );
-	    
 	    
 	    var grade_items = course.grade_items;
 	    new_grade_items = $('.templates .panel').clone(true, true);
@@ -53,15 +53,13 @@ function showCourses(courses)
 	        new_grade_items.html( new_html );
 	    }
 	    new_grade_items.removeClass('hidden');
-	    new_grade_items.removeClass('panel-template');
-	    
-	    
+		new_grade_items.removeClass('panel-template');
+		
 	    new_course.insertAfter('#available-courses');
 	    new_grade_items.insertAfter( $( ".accordion."+course.id.toString() ) );
-	    
-	       
-	
 	}
+	// Hide loader
+	$('.loader-box').addClass('hidden');
 	accordion();
 }
 
