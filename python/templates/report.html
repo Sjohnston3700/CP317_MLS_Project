@@ -12,7 +12,7 @@
 	<h3> Errors </h3>
     <ul id="navigation">
     	{% for error in failed_grades %}
-        <li>Error uploading grade for student: {{ error.get_student().get_name() }}</li>   
+        <li>Error uploading grade for: {{ error['grade'].get_student().get_name() }}{{"; "+ error['msg'] + "." if error['msg'] is defined else "."}}</li>   
     	{% endfor %}
     </ul>
 	{% endif %}

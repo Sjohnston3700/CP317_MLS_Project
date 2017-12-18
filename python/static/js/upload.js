@@ -2,7 +2,7 @@
 	 Automated upload and manual upload JS functions
 	 Author: Sarah Johnston
 	 Usage: Controller used with upload.html. Functions and listeners used 
-			  to populate error checking modal, send JSON grade object to error_checking.php, 
+			  to populate error checking modal, send JSON grade object to check_grades.php, 
 			  and display error messages
  */
 
@@ -71,7 +71,6 @@ $('#upload-target').on('load', function () {
  * Updates the global grades array when user resubmits grades.
  * @param {Array} grades - New JSON object of grades from error checking modal
  */
-
 function updateGlobalGrades(grades) {
 	var index;
 	var grade;
@@ -111,7 +110,7 @@ function findGrade(id, grades) {
 /**
  * Calls sentToErrorChecking. On return, if no errors, redirects 
  * to report page. Otherwise, displays error modal with error messages 
- * returned from error_checking.php
+ * returned from check_grades.php
  * @param {Array} data - array of JSON grade objects to send for error checking 
  */
 function setGrades(data) {
@@ -136,7 +135,7 @@ function setGrades(data) {
 
 	$.ajax({
 		type: 'POST',
-		url: 'actions/error_checking.php',
+		url: 'actions/check_grades.php',
 		data: formData,
 		dataType: 'json',
 		encode: true,
@@ -144,15 +143,13 @@ function setGrades(data) {
 			var errors = data;
 
 			if (errors.length > 0) {
-
 				displayGradeErrors(errors);
-
+				grades = getFormGrades();
+				updateGlobalGrades(grades);
+		
 				// Hide loading
 				$('.loader-box').addClass('hidden');
-				//need to launch modal in the case that user is submitting from upload page
-				showModalWithoutClose('error-message-modal');
-				$('.modal').animate({ scrollTop: 0 }, 'slow');
-			}
+				}
 
 			//if no errors, then upload grades
 			else {
@@ -280,6 +277,9 @@ function displayGradeErrors(errors) {
 			$('#update-max-form-modal').removeClass('hidden');
 			$('.hr').removeClass('hidden');
 		}
+		//need to launch modal in the case that user is submitting from upload page
+		showModalWithoutClose('error-message-modal');
+		$('.modal').animate({ scrollTop: 0 }, 'slow');
 	}
 }
 
@@ -304,20 +304,45 @@ $('.remove-student-error').click(function () {
 	$('.error-msg-' + id).remove();
 
 	// Now remove them from globalGrades
-	var index = findGrade(grade.id, globalGrades);
+	var index = findGrade(id, globalGrades);
 	globalGrades.splice(index, 1);
 
+	handleIfNoErrors();
+});
+
+function handleIfNoErrors() {
 	//if all students have been removed, close modal
 	if (globalGrades.length == 0) {
 		closeModal('error-message-modal');
 	}
-});
+	//else, msg if all error-causing grades removed
+	else {
+		//check for error msgs
+		var noErrors = ($('.modal-body').find('.modal-error').length == 0);
+		if (noErrors) {
+			success = $('.templates .modal-success-template').clone(true, true);
+			msg = 'All errors removed or resolved';
+
+			success.removeClass('hidden');
+			success.removeClass('modal-success-template');
+			success.addClass('update-max-error');
+			success.html(msg);
+			$('.modal-body').html(success);
+		}
+	}
+}
 
 /**
  * Click event for when user resubmits grades. Gets changes from modal 
  * then updates global grades array and sends to error checking again.
  */
 $('#resubmit').click(function () {
+	grades = getFormGrades();
+	updateGlobalGrades(grades);
+	setGrades(globalGrades);
+});
+
+function getFormGrades() {
 	var forms = $('.modal-body .error-form');
 	var grades = [];
 	for (var i = 0; i < forms.length; i++) {
@@ -333,9 +358,9 @@ $('#resubmit').click(function () {
 		grade.name = form.find('#name').text();
 		grades.push(grade);
 	}
-	updateGlobalGrades(grades);
-	setGrades(globalGrades);
-});
+
+	return grades;
+}
 
 /**
  * Closes button for error checking modal.
@@ -473,6 +498,14 @@ function updateMax(max, id) {
 				$('#max-grade').attr('placeholder', max);
 				$('.grade-label').text('/' + max);
 
+				//don't need to check grades if max was updated from upload page
+				if (id == 'update-max-error') {
+					displayUpdateMaxMsg(id);
+					$('.loader-box').addClass('hidden');
+					$('.modal').animate({ scrollTop: 0 }, 'slow');
+					return;
+				}
+
 				data = globalGrades;
 
 				var formData = {
@@ -483,27 +516,22 @@ function updateMax(max, id) {
 
 				$.ajax({
 					type: 'POST',
-					url: 'actions/error_checking.php',
+					url: 'actions/check_grades.php',
 					data: formData,
 					dataType: 'json',
 					encode: true,
 					success: function (data) {
 							var success;
-							var msg;		
-
+							var msg;	
+							
+							//update errors in case some resolved by changing max
+							//display msg if no errors anymore
 							displayGradeErrors(data);
+							handleIfNoErrors();
 
 							//need to show success msg after displayGradeErrors b/c that function wipes all msgs
-
-							success = $('.templates .modal-success-template').clone(true, true);
-							msg = 'Grade maximum updated successfully';
-			
-							success.removeClass('hidden');
-							success.removeClass('modal-success-template');
-							success.addClass('update-max-error');
-							success.html(msg);
-							success.insertBefore('#' + id);
-
+							displayUpdateMaxMsg(id);
+							
 							$('.loader-box').addClass('hidden');
 							$('.modal').animate({ scrollTop: 0 }, 'slow');
 					}
@@ -511,4 +539,16 @@ function updateMax(max, id) {
 			}
 		}
 	});
-}	
+}
+
+function displayUpdateMaxMsg(id) {
+	success = $('.templates .modal-success-template').clone(true, true);
+	msg = 'Grade maximum updated successfully';
+
+	success.removeClass('hidden');
+	success.removeClass('modal-success-template');
+	success.addClass('update-max-error');
+	success.html(msg);
+	success.insertBefore('#' + id);
+
+}

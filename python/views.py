@@ -199,7 +199,7 @@ def show_report(user):
     key = '{}_report'.format( user.get_id() )
     report = app.config[key]
     num_grades = len(report['successful_grades']) + len(report['failed_grades'])
-            
+
     return render_template('report.html', user=user,num_grades=num_grades, successful_grades=report['successful_grades'], failed_grades=report['failed_grades'],course=course,grade_item=grade_item)
     
 def show_logout(user):

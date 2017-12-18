@@ -1,0 +1,965 @@
+1595118,Sarah Johnston,9 minutes ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+95f0fb3,Troy Nechanicky,10 minutes ago,PHP: paging for getting grades now handled, before the report page broke if paging
+02e987a,Troy Nechanicky,11 minutes ago,PHP: error checking now gives error if id is NOT student in course (before allowed TA to pass)
+ccf2bed,Sarah Johnston,20 minutes ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+95021ed,Sarah Johnston,20 minutes ago,Added hour log
+a88ccd1,Troy Nechanicky,2 hours ago,PHP: fixed bug where grade error msg displayed when updating max on upload page
+0fb51f5,Troy Nechanicky,2 hours ago,uncaught exception are now logged
+dd4e759,Troy Nechanicky,2 hours ago,cleaned up course.php
+0b1d61e,Troy Nechanicky,2 hours ago,PHP: loading animation now actually displays when courses loading
+c86ab7c,Troy Nechanicky,2 hours ago,PHP: courses now sorted on courses page
+63ca6f0,Troy Nechanicky,2 hours ago,PHP: Login button now Courses if logged in
+b8745bc,Troy Nechanicky,2 hours ago,PHP: fixed bug for msg if all bad students removed
+0313d03,Troy Nechanicky,2 hours ago,fixed nav bar logo bug
+eedb585,Troy Nechanicky,11 hours ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+3817ecc,Troy Nechanicky,11 hours ago,PHP: fixed bug where unable to remove student from modal. removed faulty exception handling. added uncaught exception handler. added msg to modal if all students removed (but good grades still to be uploaded). Renamed some files for clarity. Improved test file
+ab46ae5,Harold Hodgins,12 hours ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+947679d,Harold Hodgins,12 hours ago,Updated comments in User.py
+622606c,Harold Hodgins,12 hours ago,Updated comments in GradeItem.py
+97720ba,Harold Hodgins,12 hours ago,Updated comments in Grade.py and return float for value
+9fb194a,Harold Hodgins,12 hours ago,Updated comments  in OrgMember
+e49b97a,Harold Hodgins,12 hours ago,Updated Course.py comments, return value for grade_item search
+221f826,Lucas Boulanger,12 hours ago,python: removed dat from allowed file types, removed exception on empty file in parse_grades, ermoved errors from report page if none
+fb6fe02,Harold Hodgins,12 hours ago,Updated comments and put returns in API.py
+1e5d725,Harold Hodgins,13 hours ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+551ebb0,Harold Hodgins,13 hours ago,Cleaned up app setup. Moved several things to config file
+483bdd8,Harold Hodgins,14 hours ago,Updated comments in views. Fixed small bug
+40b5fb3,Harold Hodgins,14 hours ago,Updated comments in actions.py
+ff115bc,Troy Nechanicky,14 hours ago,PHP: get_user_enrollments now uses user enrollments route
+e23f7d3,Troy Nechanicky,14 hours ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+1ca3a6e,Troy Nechanicky,14 hours ago,PHP: courses page now shows loading animation.
+6b3f5e6,Troy Nechanicky,14 hours ago,PHP: clean up API.php. upload.php now uses method to filter students.
+877bf03,Harold Hodgins,14 hours ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+d9190e3,Harold Hodgins,14 hours ago,Moved File upload parameters to config file. Updated config API versions to latest and fixed bug in API.py
+a709420,Michelle Wong,14 hours ago,Update GradeItem.php
+54b1a79,Michelle Wong,15 hours ago,Update API.php
+b1d8213,Harold Hodgins,15 hours ago,Moved user roles to config file
+9f6b733,Harold Hodgins,15 hours ago,Removed old code from courses template
+ea2f20a,Harold Hodgins,15 hours ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+34c1c01,Harold Hodgins,15 hours ago,Updated filter code to handle no roles (ie accept any role)
+b6b9803,Michelle Wong,15 hours ago,Update update_max.php
+1e23335,Michelle Wong,15 hours ago,Update file_parse.php
+fb095c4,Harold Hodgins,15 hours ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+53ab3b8,Harold Hodgins,15 hours ago,Added role and course filtering. Much faster now
+8834b8d,Michelle Wong,15 hours ago,Update grade_item_functions.php
+51e7fc8,Michelle,15 hours ago,Update grade_functions.php
+36f5b8c,Harold Hodgins,15 hours ago,Reverted/Updated code to use user_enrollments
+ec6c84e,Troy Nechanicky,16 hours ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+afa3604,Troy Nechanicky,16 hours ago,PHP: cleaned up session checks. fixed typo on upload.php. student forms are now removed if updating max resolved error - note, this required heavy refactoring of /actions and upload.js
+46f2755,Harold Hodgins,16 hours ago,Updated actions to not check for not being logged in or session out of sync in every function
+793ac91,Sumeet Jhand,16 hours ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+b90a03b,Sumeet Jhand,16 hours ago,Fixed TOC generator not working when contents are enclosed in an element
+a53a662,Troy Nechanicky,18 hours ago,added php coding standard
+197cfa0,Troy Nechanicky,18 hours ago,PHP changes. wrapper classes now have json attribute.  api functions now return class objects (deleted related functions from classes). User object now stored in session (necessitated by load times). User class now seperate class from OrgMember (like Python). Removed unused function from grade_functions. Added logging and exceptions like Python. Exception handler needs to be added. Use of stored User object needs to be improved.
+f2fdf87,Troy Nechanicky,21 hours ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+47a105c,Lucas Boulanger,21 hours ago,removed icon from logout button, updated error page to handle None user better
+fef3d60,Harold Hodgins,21 hours ago,Merged templates/error.html
+834516d,Harold Hodgins,21 hours ago,Removed console.log from js files
+f67cbcd,Harold Hodgins,21 hours ago,Removed hopefully last of extraneous print statements
+e4c0239,Lucas Boulanger,22 hours ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+6eb050f,Lucas Boulanger,22 hours ago,renamed available_courses.html to courses.html. Changed grammer in error.html. changed login button to courses button on home page when user is logged in.
+b7e16d4,DeepRaithatha,22 hours ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+a59cf6a,DeepRaithatha,22 hours ago,Analysis Wrapper Editing
+c27db55,Harold Hodgins,22 hours ago,Updated error page to handle None user better
+bace822,Harold Hodgins,22 hours ago,Reverted error checking to use old method
+220227f,Harold Hodgins,22 hours ago,Updated comment in authentication function
+64ee0f1,Harold Hodgins,22 hours ago,Removed is_numeric from Grade
+764ad7a,Lucas Boulanger,22 hours ago,created grade_item_functions.py: modify_grade_max inside
+40d1b47,Harold Hodgins,24 hours ago,Updated error page handler
+d2ff1fa,Harold Hodgins,24 hours ago,Removed debug file and functions
+03ed7a4,Harold Hodgins,24 hours ago,Upload and report page now working with new url format
+e791b75,Troy Nechanicky,27 hours ago,api.php now uses correct versions for routes. Renamed some routes for clarity. Deleted unused routes.php
+afa68ce,Harold Hodgins,2 days ago,Merged conflicts
+4078eac,Harold Hodgins,2 days ago,get_courses working. js should include an error function
+6075c61,Lucas Boulanger,2 days ago,error.html: changed user.get_name to user.ger_full_name
+b1f57cc,Harold Hodgins,2 days ago,Rough version of get_courses working
+d41a486,Lucas Boulanger,2 days ago,User.py: renamed get_name to get_full_name
+42afb0f,Lucas Boulanger,2 days ago,grade_functions.py: removed prints from check_grades, renamed parse_grades_csv to parse_grades
+7ac47c3,Lucas Boulanger,2 days ago,Grade.py: added type check
+b8381c6,Harold Hodgins,2 days ago,Moved functions into routes.py and actions.py app configuration is done in app.py
+63d6e26,Harold Hodgins,2 days ago,Now using one function for all documentation pages
+bf3c1df,Harold Hodgins,2 days ago,All documentation pages working with new url format
+9675c90,Harold Hodgins,2 days ago,requirements & analyis pages now working with new url format
+9259283,Harold Hodgins,2 days ago,spmp page now working with new url format
+5211b9e,Harold Hodgins,2 days ago,Main documentation page working with new format. Upload translated over but not tested
+221c3ef,Harold Hodgins,2 days ago,Login now working with new url format and new API credentials
+48bcf46,Harold Hodgins,2 days ago,Home page updated to use new login and documentation urls. Still using old API credentials
+24b58ff,Harold Hodgins,2 days ago,Help page working under new system
+374e0a1,Troy Nechanicky,2 days ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+9e0bbb9,Troy Nechanicky,2 days ago,grade_functions.php and grade_item_functions.php: added missing require_once. update_max.php cleaned up return. api.php: deleted unused function, fixed return val of put_grade_item, upload.js modified to support changed return val. modal.js: removed unused function. python_upload.js: removed unused code, fixed val used to populate max labels on update.
+646e5e7,Harold Hodgins,2 days ago,Getting user now works
+2644662,Harold Hodgins,2 days ago,Checking for valid login or out of sync session working
+981f1a9,Harold Hodgins,2 days ago,Started moving everything to index.py?page=... format
+d41b405,Ben Douglas,2 days ago,adding some of the logo click stuff back
+4d857ef,Troy Nechanicky,2 days ago,moved token.php functionality into index.php to match python and design and to eliminate extraneous code
+000cb27,Troy Nechanicky,2 days ago,index.php: linked logo
+e6c6a80,Troy Nechanicky,2 days ago,Revert "Making the entire logo clickable and pointing to the updated path /home"
+ae0d7ef,Sophie Wang,2 days ago,Clarified origin of logs
+6024dfe,Sophie Wang,2 days ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+016fb03,Sophie Wang,2 days ago,Grammar and spelling corrections. Updated word choices.
+12b410f,Troy Nechanicky,2 days ago,Revert "Doc images now work in php and python (if someone has a better solution, please change)"
+37e5595,JGorospe24,2 days ago,Added Token.php
+1c56853,Ben Douglas,2 days ago,added courses link to homepage when logged in so it doesnt look as empty
+0e1a090,JGorospe24,2 days ago,Deleted pseudo code and fixed some formating
+3e3fa99,JGorospe24,2 days ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+679014e,JGorospe24,2 days ago,Moved modify_grade_max.php to its own file and modified update_max.php which calls it
+6cb10da,Ben Douglas,2 days ago,Making the entire logo clickable and pointing to the updated path /home
+b273bc5,JGorospe24,2 days ago,Token handling now done in Index.php, token.php deleted
+8d8dfd4,JGorospe24,2 days ago,Deleted constants and unit_testing folders for /php
+e162ffb,Harold Hodgins,2 days ago,Removed old parse_grades function from python.
+e23ca99,Sarah Johnston,2 days ago,Added final submission page (still needs links to some pages). Added final submission document outlining the goods and bads of development, added ASANA logs. Still need to add hour and git logs (will be done this weekend).
+9ecaf10,Harold Hodgins,3 days ago,Rough outline of get_courses and corresponding ajax
+24ad148,Harold Hodgins,3 days ago,User object updated to only do API call for courses when they are requested
+8fe8bf6,Harold Hodgins,3 days ago,Updated flag in get_courses to follow coding standards
+cc6b743,Harold Hodgins,3 days ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+cb764e3,Harold Hodgins,3 days ago,Courses sorting by Semester and Year working in Python
+e9ef340,Sumeet Jhand,3 days ago,Added put grades unit test to GradeItemTest.py
+3d7c539,Sumeet Jhand,3 days ago,Fixed a bug that broke searching by ID
+d768437,Sumeet Jhand,3 days ago,First item of dynamic search is now always selected
+45b1259,Harold Hodgins,3 days ago,Sorting Courses 'works' but can't really test since they all have no start/end date
+a23bd0f,Harold Hodgins,3 days ago,get_courses updated to use my_enrollments
+eb38f34,Lucas Boulanger,4 days ago,grade_functions.py: updated parse csv to better reflect PHP version
+60dbae2,Lucas Boulanger,4 days ago,app.py: Updated upgrade max to check for new_max <= current max. Updated some comments
+6f5f357,Lucas Boulanger,4 days ago,Doc images now work in php and python (if someone has a better solution, please change)
+063e091,Troy Nechanicky,5 days ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+5fbd410,Troy Nechanicky,5 days ago,upload.js: fixed bug where updating max didn't work if clicked on button on upload page
+6f40b87,shuaibr,5 days ago,Changes to help doc, updated images and added more descriptions
+9ebd7dc,Troy Nechanicky,5 days ago,updated test files
+2cfb5f0,shuaibr,5 days ago,Update- Changes to help doc
+c7ce95d,shuaibr,5 days ago,Changes to Help Doc
+c59431f,LucBoulanger,6 days ago,dynamic_search.js: added message when student removed from manual grade entry.
+2befebb,LucBoulanger,6 days ago,python_upload.js: fixed uncaught error when no file uploaded to python app. index.html: ixed import error on easy_autocomlete.css
+c2b3315,Simon Phothitay,6 days ago,Updated Grade.py comment blocks to follow coding standards and made small changes to API.py and Course.py comment blocks for consistency.
+1d6415c,markomihailovic,6 days ago,fixed spacing
+d731d0a,Hind-Althabi,7 days ago,Updated version number of help doc. in python and add reference links to MLS
+cccaa28,Troy Nechanicky,7 days ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+e17e277,Troy Nechanicky,7 days ago,upload.js: fixed uncaught error when no file uploaded.
+b6fd6f9,LucBoulanger,7 days ago,Fixed python update max grade again cause I broke it earlier
+34b32f1,LucBoulanger,7 days ago,Made python error_checking() more in line with PHP version. Updated python_upload.js to reflect changes.
+092cb7d,LucBoulanger,7 days ago,Python file upload now works
+58db160,LucBoulanger,7 days ago,Python manual upload works again
+f6bc0a0,JRomero300,7 days ago,update blog_post.txt - fixed errors
+a4384e1,malthibeh,7 days ago,Made logo Clickable
+da60315,LucBoulanger,7 days ago,updated upload.html to match PHP. fixed small errors in python_upload.js and upload.html that prevented changing max grade from working properly
+303acb5,JRomero300,7 days ago,Blogpost - Ezmarker description, Brightspace advice
+d9e94af,markomihailovic,7 days ago,Update blog_post.txt
+5deb420,markomihailovic,7 days ago,Update blog_post.txt
+e337c59,markomihailovic,7 days ago,Create blog_post.txt
+9ab2b76,LucBoulanger,7 days ago,documentation pages now display header properly in python.
+90a013e,Troy Nechanicky,8 days ago,dynamic_search.js: added msg when all students added and when all students removed
+3d52ee5,Troy Nechanicky,8 days ago,upload.js: fixed typo that prevented setting of max on upload page
+672633d,Hind-Althabi,8 days ago,Python help doc. fixed image border.
+79d0b8d,pirajeev_prabaharan,8 days ago,Repushed Fixes to CourseTest, didnt show up as me previously
+6571042,pirajeev_prabaharan,8 days ago,Revert "Revert "Update to CourseTest.py""
+47dca90,pirajeev_prabaharan,8 days ago,Revert "Update to CourseTest.py"
+f5f0547,pirajeev_prabaharan,8 days ago,Update to CourseTest.py
+813cbe5,Sophie Wang,8 days ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+82abc4e,Sophie Wang,8 days ago,Updated position in SPMP
+17e2f99,LucBoulanger,8 days ago,home.html now accessible in python app, doc pages now accessibleish (no header for now)
+a70fb27,LucBoulanger,8 days ago,Reverted additions made yesterday, made python course page look same as a PHP course page.
+40360ae,LucBoulanger,9 days ago,added error checking to app.py's help()
+42f17cf,LucBoulanger,9 days ago,help page now displays properly with header in python app
+d8c5ea0,LucBoulanger,9 days ago,Working link to help page from python app. Doesn't have header tho
+0e16ca0,Hind-Althabi,9 days ago,help doc. , update manual and automated upload and change the images tag
+38fd058,LucBoulanger,9 days ago,added back stuff to accordion.js so python doesn't get confused again.
+943b650,Hind-Althabi,9 days ago,copy php help into html for python
+450c9b8,LucBoulanger,9 days ago,Added shit back to home.css, fixing python
+526896c,LucBoulanger,9 days ago,more comments to added app.py
+a72bd18,Troy Nechanicky,9 days ago,fixed bugs introduced by addition of home page. Fixed logo link.
+3e46ef6,Troy Nechanicky,9 days ago,upload.php: page no longer scrolls when refreshed/loaded (turned off storing scroll in cache)
+e237f21,Troy Nechanicky,9 days ago,Modified API.php and OrgMember.php  such that they now check config to see if they should filter on role. Useful for testing performance
+4e5528e,Troy Nechanicky,9 days ago,Pressing Enter on update max field now launches confirmation pop-up. Can now select buttons on pop-up using arrow keys. Pressing Enter on other fields no longer causes page reload. Added success msg when added student from search. Added error msg when try to add student that is already there. Fixed bug where clicking X on modal wouldn't close it.
+c2701cd,Troy Nechanicky,10 days ago,grade_functions.php: no error if last line blank (common occurence if editing through Excel). Now also checks to make sure id,grade,name entered. Modified test csv to test changes
+b1e8bc4,Troy Nechanicky,10 days ago,elements.css: made msgs left-justified. was center, looked bad when had long and short msgs together.
+32b6f48,Troy Nechanicky,10 days ago,grade_functions.php and upload.js: added check for duplicate students. Duplicate and not-in-course errors now also show line#.  Also added duplicate to test file.
+cedd5b5,simity,10 days ago,Feedback pattern has been removed from Grade.php, since it is not used
+2286b96,Troy Nechanicky,10 days ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+2ec7bfa,Troy Nechanicky,10 days ago,grade_functions.php: parse_file: if bad line, msg now shows contents of line instead of format msg. error_checking: if student not in course, new error type that tells upload.sendToErrorChecking not to launch modal, instead displays like file error (other types of errors not displayed in this case). upload.js: now displays all file errors on upload page. If detects errors for bad format (for not all lines) then displays proper format as first msg, then displays line errors. Also fixed upload page not updating if max updated to decimal. Also added additional comments for clarity.
+b841249,Troy Nechanicky,10 days ago,added better test files for harold hodgins test course.
+74d8e12,Troy Nechanicky,10 days ago,upload.php: changed field types to "text". Small issues caused by type "number", not worth effort to fix since not supporting mobile.
+9b15e98,Troy Nechanicky,10 days ago,file_parse.php: error if empty file
+983084c,Troy Nechanicky,11 days ago,upload.js: update max error and val now cleared after exiting modal
+2c0c5ee,Sarah Johnston,11 days ago,Added more deployment notes to make ubuntu deployment smoother
+deb70c4,Sarah Johnston,11 days ago,Changed comments on help.php to 'fixed spelling and grammar'
+8550b46,Sarah Johnston,11 days ago,Added home.php, docs.php, and links to docs on PHP site
+51a7c88,Troy Nechanicky,11 days ago,upload.php: standardized placeholders
+e817c9a,Troy Nechanicky,11 days ago,upload.js: modal closes if all students removed from modal
+7a4aebf,Troy Nechanicky,11 days ago,grade_functions.php: now gives error if new max <= current max
+7e12b59,Troy Nechanicky,11 days ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+95d4e80,Troy Nechanicky,11 days ago,grade_functions.php and upload.js: made update max form only show on modal when grade > max and gradeitem does not allow for that
+75d4429,Ben Douglas,11 days ago,thought .btn was on all buttons, instead i'll just assign it to all button elements instead
+cee5b6b,Ben Douglas,11 days ago,adding border radius 0 to all buttons to be consistent across browsers
+bcb7bef,Troy Nechanicky,11 days ago,file_parse.php: added check for file type. Error msg if not csv or txt
+1b61ed2,Troy Nechanicky,12 days ago,index.php: logout now redirects to brightspace logout page and revokes credentials
+e4a81ca,Sarah Johnston,12 days ago,Made CSS transition smoother for accordion
+8170743,Sarah Johnston,12 days ago,Added course name and grade item name to report.php as requested by Mr.Brown
+25852cb,Sarah Johnston,12 days ago,Redid help document. Too many spelling mistakes and images were outdated. Added link to php site
+3f2dd68,Sarah Johnston,12 days ago,Changed accordion.js back to original, cleaned up css, made transition on open/close again
+9b26003,Sarah Johnston,12 days ago,Now handles when user submits no grades or empty file. Returns error message to frontend. This error message is removed when a new form is added
+f1e9b62,Sarah Johnston,12 days ago,When grade max is updated by user, now updates placeholders of both max grade forms
+d0ee862,Sarah Johnston,13 days ago,File error handling added for php. Gives error message if no file is submitted
+9c8a063,Sarah Johnston,13 days ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+49b9b9a,Sarah Johnston,13 days ago,Moved successful ids from upload_grades to error_checking. Added more error handling on PHP code
+2f03d75,Sarah Johnston,13 days ago,Fixed select all on manual upload to insert forms by id instead of org_id. PHP now catches errors for invalid students.
+f7d416e,Sarah Johnston,13 days ago,Added error checking for report.php and upload.php. If course and grade item are not given, redirects to course.php. If invalid course or grade_item given, also redirects to course.php
+0f16043,Lucas Boulanger,2 weeks ago,Fixed bug where org defined id was being compared to Brightspace identifier, giving a student not found error when inputting grades manually -> added OrgMember.get_Identifier()
+08ec648,Lucas Boulanger,2 weeks ago,app.py - better handling of out of sync when trying to display error page.
+4243f17,Sarah Johnston,2 weeks ago,Fixed report.php. It now only shows students that had changed grades
+bb88203,Sarah Johnston,2 weeks ago,Fixed bug in PHP where it just kept giving warning message and not submitting. It now submits
+55c83cb,Sarah Johnston,2 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+bd90d93,Sarah Johnston,2 weeks ago,Made changes to UI
+edb0d7c,Sarah Johnston,2 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+de4ade7,Sarah Johnston,2 weeks ago,Mades courses link work
+8131ba3,Harold Hodgins,2 weeks ago,Fixed bug in php upload.js. Should now upload all grades
+c570006,Harold Hodgins,2 weeks ago,Updated python templates to not include all js files on every page
+a1a1535,Harold Hodgins,2 weeks ago,Fixed bug in python_upload.js which kept valid grades from being submitted
+832e66b,Harold Hodgins,2 weeks ago,Report page is now working
+65fe5fe,Lucas Boulanger,2 weeks ago,Renamed variables to be in line with standards. Fixed bug where updated max grade was not being reflected on upload page.
+ee840ee,Hind-Althabi,2 weeks ago, help doc. fix typo
+a041cc7,Harold Hodgins,2 weeks ago,grade error checking working. No upload or report page yet
+2563379,Harold Hodgins,2 weeks ago,error checking working
+894be01,Harold Hodgins,2 weeks ago,grades submission from front end to backend working
+8ed6a32,Harold Hodgins,2 weeks ago,File parse now handles empty file
+cd4926b,Ben Douglas,2 weeks ago,forgot to add icon to php index
+c29ccdf,Ben Douglas,2 weeks ago,Header updated design
+a77d5b3,Lucas Boulanger,2 weeks ago,Fix of dumb mistakes
+42b27b2,Lucas Boulanger,2 weeks ago,GradeItem.py - get_json() returns copy.
+c9cb36c,Lucas Boulanger,2 weeks ago,removed old functions and fixed spelling error in grade_functions.py
+95b47cc,Lucas Boulanger,2 weeks ago,Added comment to app.py
+b2954f0,Sumeet Jhand,2 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+e4e62af,Sumeet Jhand,2 weeks ago,Added test_create_grade, test_get_grade, and test_get_grades to GradeItemTest.py. Fixed Course.get_member comparing IDs of different data types, fixed GradeItem imports.
+9ada6d5,Troy Nechanicky,2 weeks ago,added (old?) update to user.get_courses
+2247cc0,Troy Nechanicky,2 weeks ago,Revert "User.php Update". Commit introduced lots of bugs
+0ab6e09,Troy Nechanicky,2 weeks ago,OrgMember.php: reverted bad change to User constructor
+65db4e9,Hind-Althabi,3 weeks ago,last commit for help document
+a8dd3f0,Hind-Althabi,3 weeks ago,Added more details to the Introduction,login page and reference links
+695e626,Sumeet Jhand,3 weeks ago,Fixed GradeItemTest.py. Adapts to changes in grade item max.
+fdd33fa,simonphothitay,3 weeks ago,Small updates for API.py comment blocks. Updated Course.py comment blocks to folow code standards.
+4c6b39e,simonphothitay,3 weeks ago,Updated API.py and API.py comment blocks to follow coding standards and changed imports in GradeTest.py
+4aa5125,Harold Hodgins,3 weeks ago,File upload is working. Still needs error checking of grades
+4935058,Harold Hodgins,3 weeks ago,Updated php file parsing error messages to match csv format
+334ccae,Harold Hodgins,3 weeks ago,All get_json now return copy of self._json
+099eb1e,AndrewJChua,3 weeks ago,Revert "Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project"
+11d7172,AndrewJChua,3 weeks ago,Revert "Added get_courses to API.php"
+6556c89,AndrewJChua,3 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+acbc7c4,AndrewJChua,3 weeks ago,Added get_courses to API.php
+e5f56c0,LucBoulanger,3 weeks ago,GradeItem.py - Made get_json() return copy of json, cause items ('Id' in particular giving grief) were getting deleted in API.put_grade_item()
+c7bbd5c,Harold Hodgins,3 weeks ago,Python update gradeItem max now works. If unsucessful it resets the max to the old value
+0764d71,Harold Hodgins,3 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+0d8b80a,Harold Hodgins,3 weeks ago,Update max now talks to backend. Actual API call fails though
+4179441,AndrewJChua,3 weeks ago,User.php Update
+4aba00f,AndrewJChua,3 weeks ago,Course.get_members update
+b9d1400,Harold Hodgins,3 weeks ago,Updated app.py and available grades template to use /upload and pass courseId and gradeItemId as parameters
+64b3111,Harold Hodgins,3 weeks ago,Upload page now looks correct and add students works. Still not talking to backend
+2dfdd02,Harold Hodgins,3 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+fdd9a7b,Troy Nechanicky,3 weeks ago,courses.php: fixed to work with tile list. Added msg if no courses. available_grades.html: improved msgs and syntax
+4b9c4c8,Harold Hodgins,3 weeks ago,Updated routes to use warning instead of error for logging not logged in humans
+fcc942e,Harold Hodgins,3 weeks ago,Updated Error handling page to handle no user
+d6e5ad4,Harold Hodgins,3 weeks ago,Updated User.get_course to not use id. Updated API.get to fix route problem
+e68c421,Harold Hodgins,3 weeks ago,Updated put_grade and put_grade_item to use the internal json format
+8985ed7,Harold Hodgins,3 weeks ago,Updated get_class_list to better handle exceptions
+4620765,Harold Hodgins,3 weeks ago,Updated Course object and get_courses to die gracefully
+9b87ae6,Harold Hodgins,3 weeks ago,Updated User to just pass exception forward properly and updated get_courses to properly handle errors
+e5abf3c,Harold Hodgins,3 weeks ago,Updated available_grades template to display course names
+9ee5aef,Harold Hodgins,3 weeks ago,Updated User object to raise exception if something goes wrong in get_courses or API.get_who_am_i
+e358a9e,Harold Hodgins,3 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+9b1a106,Ben Douglas,3 weeks ago,New interface for course selection
+c67207b,Troy Nechanicky,3 weeks ago,removed .DS_Store files and updated gitignore to hopefully prevent more from being uploaded
+8e9637a,Troy Nechanicky,3 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+b7d11f9,Troy Nechanicky,3 weeks ago,design_wrapper: updated, along  with diagrams, to reflect changes made to python and php.
+c5313c2,Hind-Althabi,3 weeks ago,create help document
+35d4ffc,Harold Hodgins,3 weeks ago,Updated get_class_list to handle exceptions better
+8d00ec2,Harold Hodgins,3 weeks ago,check_request now also reports what url failed
+32167a3,Harold Hodgins,3 weeks ago,Updated Grade object to include common bits and use internal json format
+ca784ee,Harold Hodgins,3 weeks ago,Updated wrapper objects to use correct attribute for internal json
+e4a1dcc,Troy Nechanicky,3 weeks ago,fixed error in last design version
+6f6a0fb,Troy Nechanicky,3 weeks ago,Design: added information about php and python changes (much to be done, waiting for second opinions). Fixed image sizing. Deleted old Sophie doc from bad commit
+5a0e374,Harold Hodgins,3 weeks ago,Moved host so it only gets created once
+0373eb8,Lucas Boulanger,3 weeks ago,app.py - reset all changes I made to modify_grade_max()
+acef994,Lucas Boulanger,3 weeks ago,Upload.HTML - fixed routing in file upload button; app.py - changes to show_upload() and set_grades()
+9846626,Harold Hodgins,3 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+59a0032,Lucas Boulanger,3 weeks ago,GradeItem.py - Fixed return statement on GradeItem.get_user()
+12ec0b1,Harold Hodgins,3 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+5ca4763,Sumeet Jhand,3 weeks ago,Fixed dynamic search not switching back to name from ID when a letter is entered
+327897b,Harold Hodgins,3 weeks ago,Updated upload.html to use dynamic_search.js
+bd1d8e2,Harold Hodgins,3 weeks ago,OrgMember now returns a number as stated in the design
+cae5ed7,Harold Hodgins,3 weeks ago,Removed error testing code
+4d8d95f,Harold Hodgins,3 weeks ago,Update coding_standards.txt
+a9a9eba,xyfke,3 weeks ago,Edit modify_grade_max function to use updated methods in grade_item
+370ff10,simity,3 weeks ago,Fixed mistake within the design doc under section 3.4
+82e3cc5,malthibeh,3 weeks ago,Edited Requirements doc
+7bffa56,MarkKokan,3 weeks ago,Added temporary Grade object for testing, Added test_get_grade()
+0d9c038,HarjodhSingh,3 weeks ago,coding_standards.txt, Added comment standards
+e1a0f2e,lindazhang96,3 weeks ago,Corrected syntax error
+d30de37,lindazhang96,3 weeks ago,Corrected syntax error
+271b531,lindazhang96,3 weeks ago,extended documentation standards file
+e617987,lindazhang96,3 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+5e13cfe,lindazhang96,3 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+9dfaf71,ypang1997,3 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+60f3b1f,ypang1997,3 weeks ago,Added documentation standards under python/templates.
+65b9d37,JGorospe24,3 weeks ago,Removed Host.PHP and get_api_versions from API.php
+4014cd8,Harold Hodgins,3 weeks ago,made roles in User non-manditory till we figure out what to do with them
+36e8aed,Harold Hodgins,3 weeks ago,Added rudimentary error page
+d7dbc47,Harold Hodgins,3 weeks ago,Added set_max to Numeric Grade Item
+a4203be,Harold Hodgins,3 weeks ago,Updated GradeItem and  API to use new json format
+f04e2c2,Harold Hodgins,3 weeks ago,Updated OrgMember to use json internal format
+e06f407,Harold Hodgins,3 weeks ago,Fixed app.py to work with new User object
+27cb0e9,Harold Hodgins,3 weeks ago,Updated User object to use new format.
+3c4334d,Harold Hodgins,3 weeks ago,Made roles manditory in User
+38f900e,Harold Hodgins,3 weeks ago,Moved User to new file to enable moving to new json format
+eefcd03,Troy Nechanicky,3 weeks ago,fixed syntax error course.php
+65068f8,Sophie Wang,3 weeks ago,Removal of "Client Feedback" from document requirements, pluralized documents for indication of two documents for the versions of the project, added documentation standards to to deliverables, added coding standards to deliverables, replaced user documentation and help document
+9709f63,Sophie Wang,3 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+950ee9a,Sophie Wang,3 weeks ago,Added mention of moving the python version from Heroku to Apache upon completion in Infrastructure Plans
+f83299c,Harold Hodgins,3 weeks ago,GradeItem updated to use new json storage method
+f2c9698,Harold Hodgins,3 weeks ago,Removed duplicate ROUTES from API.py
+fc61a03,Harold Hodgins,3 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+6355025,Harold Hodgins,3 weeks ago,Fixed bug in app.py and Course.py which kept the upload page from showing
+a6fa9d6,maichongju,3 weeks ago,Update comment for get_grade_items in API
+52636d3,Harold Hodgins,3 weeks ago,Updated Course object to use new json internal format
+f9ba4db,Harold Hodgins,3 weeks ago,Fixed bug in Course.py which kept courses from being shown
+7456b62,Lucas Boulanger,4 weeks ago,Fixes to GradeItem.py create_course() signature; added show_upload() to app.py
+2b590bc,maichongju,4 weeks ago, get_grade_item exception type specified to NameError
+0b70c94,AndrewJChua,4 weeks ago,Course.php get_grade_item change
+08fed6f,Lucas Boulanger,4 weeks ago,Host.py and app.py - fixed Host object creation with config versions
+87ecc8b,Lucas Boulanger,4 weeks ago,Host.py - fixed syntax error
+1ec1286,JGorospe24,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+929caa3,JGorospe24,4 weeks ago,Fixed comment placement and added some comments to API.php
+598add9,Lucas Boulanger,4 weeks ago,Host.py - fixed get_api_version() to work with api versions from config file
+bbb31ad,LucBoulanger,4 weeks ago,Made user a required parameter in get(), Removed get_api_versions() from API.py. Made versions required parameter in Host.py constructor.
+7c63f48,Sophie Wang,4 weeks ago,Changed Andrew's position to back end
+6766f81,HarjodhSingh,4 weeks ago,Removed user_role attribute and getter from Course.php
+8373af1,HarjodhSingh,4 weeks ago,Fixed some comments in Course.php
+32174df,LucBoulanger,4 weeks ago,API.py - fixed hardcoded version numbers (hopefully)
+785a68c,Harold Hodgins,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+bda24f6,Harold Hodgins,4 weeks ago,python app 'should' now work with concurrent users
+13d4269,Harold Hodgins,4 weeks ago,Removed dupicate function from API.py
+ddd0492,maichongju,4 weeks ago,Update Course get_grade_items, All a liitle comment for API get_grade_item. (I know i am not suppose to,  but i just added it for feture understand)
+58953b4,JGorospe24,4 weeks ago,Formatting & Whitespace
+befc616,JGorospe24,4 weeks ago,Added comments to required functions
+0f6ffad,JGorospe24,4 weeks ago,Updated comments
+25d688b,JGorospe24,4 weeks ago,Comments outside of functions
+095242b,JGorospe24,4 weeks ago,Moved comment
+8154291,DeepRaithatha,4 weeks ago,provide descriptions/links for technical resources section
+07fe9e1,Troy Nechanicky,4 weeks ago,reverted bad change to API.php
+d7ebb25,DeepRaithatha,4 weeks ago,provide descriptions/links for technical resources section
+a1155db,DeepRaithatha,4 weeks ago,SPMP edit
+3bbd7b3,DeepRaithatha,4 weeks ago,SPMP DOC edit
+6d62759,Harold Hodgins,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+fce89fc,Harold Hodgins,4 weeks ago,Fixed broken grade_functions.py
+38f5fd3,simonphothitay,4 weeks ago,Modified GradeTest.py setup and tests
+225cbe2,DeepRaithatha,4 weeks ago,adding links to definitions
+be7a95b,maichongju,4 weeks ago,Fix API get_course_enrollment
+8491bbb,Hind-Althabi,4 weeks ago,in python version, change Heroku to Apache as support for Flask Apps, and add Apache to  the diagram
+71d8b51,Harold Hodgins,4 weeks ago,Update coding_standards.txt
+3e72f6b,JGorospe24,4 weeks ago,Changed NULL to null
+1d9e63e,JGorospe24,4 weeks ago,Ordered functions as per design
+338b15b,JGorospe24,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+208e37e,JGorospe24,4 weeks ago,Ordered functions as per Design
+6066c22,Harold Hodgins,4 weeks ago,Removed old grade pattern.
+4648a1b,DeepRaithatha,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+b2b6e3d,DeepRaithatha,4 weeks ago,get_user_enrollments
+2be0044,JGorospe24,4 weeks ago,Ordered the functions as per design
+6d64bc2,LucBoulanger,4 weeks ago,GradeItem.py - Made put_grade_item() abstract in base class
+8fbabc4,maichongju,4 weeks ago,Update API get_course_enrollments
+b2ac177,maichongju,4 weeks ago,Update get_course_enrollments comment
+3790da4,Sarah Johnston,4 weeks ago,Update .gitignore
+e581f37,Harold Hodgins,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+5f70f1d,Sarah Johnston,4 weeks ago,Added js to do smooth scroll to top of modal when user resubmits
+ba176cc,Sarah Johnston,4 weeks ago,Made feedback box larger and form wider
+41cccd9,Sarah Johnston,4 weeks ago,Added loading thing
+45c47e5,Sarah Johnston,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+cf0f366,Sarah Johnston,4 weeks ago,Only shows courses that user is TA or Instructor for, can always change the  array. Changed GET_USER_ENROLLMENTS route to the one that shows user role info
+c8bf1e4,Sarah Johnston,4 weeks ago,upload.php only shows members with user_role student now
+7b0ca3d,pirajeev_prabaharan,4 weeks ago,Unit Testing File for Course.py
+318e985,Sumeet Jhand,4 weeks ago,Added unit tests for GradeItem.py
+5e11788,AndrewJChua,4 weeks ago,OrgMember Python Testing v1
+524435d,kostaa-k,4 weeks ago,Get_APi_Versions Test
+a62a915,Simon Phothitay,4 weeks ago,Changed testing print to testing assert for GradeTest.py
+dc206fd,xyfke,4 weeks ago,Fix up minor error I made
+e4d1f9f,Sarah Johnston,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+fdbfbb7,Sarah Johnston,4 weeks ago,GradeItem PUT works. Frontend for updating grade max works with backend
+e4da5ac,xyfke,4 weeks ago,Update modify_grade_max function by call put_grade_item function
+9a1a292,Sarah Johnston,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+c9bde27,Sarah Johnston,4 weeks ago,Everything works again.
+e6e9ea5,Sarah Johnston,4 weeks ago,Dynamic search now works with org_id
+0c9e2a7,Sarah Johnston,4 weeks ago,Now PUTs grades
+08d89be,Harold Hodgins,4 weeks ago,Fixed imports for the last time hopefully
+7ea7da4,Sarah Johnston,4 weeks ago,Added function to get grades. Grades in course will now show on report page in table
+5ea8776,MarkKokan,4 weeks ago,Add references to definitions in Requirements document
+47f759c,Troy Nechanicky,4 weeks ago,minor edits to documentation
+112e561,Troy Nechanicky,4 weeks ago,reverted design file back to good file
+1605c1a,xyfke,4 weeks ago,Provided entire JSON block instead of partial blcok to when calling put function
+a8814ae,xyfke,4 weeks ago,Edit modify_grade_max function in app.py
+1c19d6a,pirajeev_prabaharan,4 weeks ago,APP.py host url change
+74d92b4,Harold Hodgins,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+ed2096b,Harold Hodgins,4 weeks ago,Updated imports in API.py
+6fc091c,Sarah Johnston,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+ce2dd0f,Sarah Johnston,4 weeks ago,When you click on grade item, brings you to upload page. Now gets students from API and they are searchable
+e52ac04,Harold Hodgins,4 weeks ago,Updated python getting started file
+352e501,Harold Hodgins,4 weeks ago,Logging enabled in python. Not fully configured but functional
+e3e4dd9,Harold Hodgins,4 weeks ago,Updated ignore file to ignore log files
+db0b986,Harold Hodgins,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+01ff6f2,Harold Hodgins,4 weeks ago,Updated app.py to print out exceptions in show_courses and set_grades. Need to move to logging when implimented
+9b96f40,Harold Hodgins,4 weeks ago,Updated Course.py to use API.get_grade_items() and API.get_class_list(). Need to replace printing with proper logging
+e11bfe6,Harold Hodgins,4 weeks ago,Fixed bug caused by deepcopy in User.get_courses()
+c9d216f,Sarah Johnston,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+4379d4b,Sarah Johnston,4 weeks ago,API.php, OrgMember.php, GradeItem.php now working. Logout now working, except if user checks off to stay signed in, they will be immediately signed in again. courses.php shows all courses now and name
+05f1e59,Harold Hodgins,4 weeks ago,Fixed wrapper imports
+0f3cdf9,xyfke,4 weeks ago,modify_grade_max() added to app.py
+8dbaec9,Tyler Gwynn,4 weeks ago,small typo in wrapper analysis
+cdb63de,Tyler Gwynn,4 weeks ago,wrapper analysis and requirements: grammar and table of contents, image resize
+bde6dee,Tyler Gwynn,4 weeks ago,wrapper analysis and requirements: grammar and table of contents, image resize
+b1cdd8c,Tyler Gwynn,4 weeks ago,corrected mistake in wrapper requirements version text sorry I'm tired
+fd60bd2,Tyler Gwynn,4 weeks ago,updated version text in wrapper requirements
+44c9a1c,Tyler Gwynn,4 weeks ago,changed 'set' to 'put' in wrapper requirements
+d0c24b5,simity,4 weeks ago,Fixed mistakes in Grade.php after testing
+c8e06a1,shuaibr,4 weeks ago,Grade.php recorded errors
+9d6f95e,Sarah Johnston,4 weeks ago,get() works, update_route() works, calls valence_request()
+36e3449,Sarah Johnston,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+dae475d,Sarah Johnston,4 weeks ago,Removed request library for php, using curl now
+05f0f3c,simity,4 weeks ago,added imports within Grade.php and fixed previous mistakes
+edfbf92,Sarah Johnston,4 weeks ago,Added valence_request function in API.php
+1bf8d6d,Sarah Johnston,4 weeks ago,API get_who_am_i working
+5bf070a,Sarah Johnston,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+05ec532,Sarah Johnston,4 weeks ago,User authentication now works for php, added curl to get who am i
+14a8980,simity,4 weeks ago,Added NumericGrade to Grade.php
+a3439d3,simity,4 weeks ago,Converted Grade from python to php
+e050d25,Harold Hodgins,4 weeks ago,Fixed syntax error I induced in last commit
+7f96fdb,Harold Hodgins,4 weeks ago,Changed tabs -> spaces in app.py, fixed imports, fixed User to stop login loop
+63d3a9a,kostaa-k,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+11224af,kostaa-k,4 weeks ago,grade_item php array syntax fixes
+c6f8686,xyfke,4 weeks ago,Fix Docstring to match PEP 8 coding standard & Reordering code in constructors
+35084f9,Sarah Johnston,4 weeks ago,Fixed form css issue
+33c1220,Troy Nechanicky,4 weeks ago,UserTest.py: fixed paths, changed flask debug to True
+1c1a69a,Sarah Johnston,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+bf6351e,Sarah Johnston,4 weeks ago,Added in routes.php (please no one delete this), fixed remaining syntax errors, did changes to get_who_am_i
+f1c98b2,Sumeet Jhand,4 weeks ago,Fixed small error with a comment in Host.py caused by Eclipse.
+6cf5593,Sumeet Jhand,4 weeks ago,Moved UserTest.py to unit_testing folder, fixed issues with the wrapper objects (mainly syntax errors).
+dc5b15d,Sumeet Jhand,4 weeks ago,Fixed unit testing base class. Should work fine now.
+26e7cf1,simity,4 weeks ago,Fixed mistakes within the course page section within the requirements doc
+b38a631,simity,4 weeks ago,Added more changed within the requirments doc for user inface section 3
+49c7e72,simity,4 weeks ago,Updated section 3 User Interface Design to reflect design doc
+9f3eb1b,Simon Phothitay,4 weeks ago,Added prototype Unit Test for Grade class
+6350fd4,Sarah Johnston,4 weeks ago,Syntax error fixes in API.php and Course.php
+9248daa,shuaibr,4 weeks ago,Unit testing from PHPUnit, stack and user test
+3fc6af8,shuaibr,4 weeks ago,Removed comments for fixed errors
+db9c709,Troy Nechanicky,4 weeks ago,moved api routes into api.php
+e00973d,Troy Nechanicky,4 weeks ago,Added worthless UserTest.php
+5b98c6b,AndrewJChua,4 weeks ago,Couse.php and OrgMember.php update
+dc43f43,Sarah Johnston,4 weeks ago,Added requests.php, fixed most of Syntax errors in API.php and some in Course.php
+420e222,Sarah Johnston,4 weeks ago,Fixinig merge conflicts
+1d9433f,Sarah Johnston,4 weeks ago,Made routes for php
+7ebab55,Sarah Johnston,4 weeks ago,Made changes to php frontend from feedback from David. Changed maximum grade form and took away Upload title
+5a950eb,Sarah Johnston,4 weeks ago,Moved all classes into wrapper/obj for php and python projects. Renamed unit testing folders to unit_testing. Created a routes.php for constatns in php wrapper
+830ad5c,shuaibr,4 weeks ago,PHP Sttandars issue - Section 2.5 on Line 101
+e262e9d,shuaibr,4 weeks ago,PHP standards issue - Section 2.5
+cfbc925,shuaibr,4 weeks ago,Syntax Error noted - Line 63 and 68
+18bb1ca,malthibeh,4 weeks ago,Comments
+11d4638,shuaibr,4 weeks ago,Syntax error - Line 192
+3c31079,shuaibr,4 weeks ago,Syntax error - Line 197
+401656f,shuaibr,4 weeks ago,Syntax error on Line 124
+799a0f7,shuaibr,4 weeks ago,PHP standard issue control structure
+a145348,shuaibr,4 weeks ago,PHP standard 2.5 issue
+f75497f,AndrewJChua,4 weeks ago,Function Comments edit
+c49f147,shuaibr,4 weeks ago,Syntax error noted, cannot use function return value in write context
+138c7ff,shuaibr,4 weeks ago,Syntax error noted on Line 54
+7afa854,maichongju,4 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+5adc1bc,maichongju,4 weeks ago,Update get_course_enrollments
+154c97d,kostaa-k,4 weeks ago,User mispelled for error in api.php
+488669c,maichongju,4 weeks ago,Remove get_course_enrollments
+4a3dcf5,kostaa-k,4 weeks ago,api.php get_user_enrollment
+498484b,Lucas Boulanger,4 weeks ago,Fixed ordering of functions in python classes
+6f39ab0,Troy Nechanicky,4 weeks ago,merged changes to API.get_who_am_i
+1c9fa20,Troy Nechanicky,4 weeks ago,Fixed bugs in api.who_am_i, user.who_am_i, api.get (I shouldn't have fixed myself but was trying to get testing to work). Added basic UserTest.py
+479b21c,kostaa-k,4 weeks ago,GradeItem class numericgradeitem
+741faa0,malthibeh,4 weeks ago,Fixed functions in Host.php
+1cbe311,Lucas Boulanger,4 weeks ago,Fixed function descriptions
+9497b0e,shuaibr,4 weeks ago,Unit Testing guide for PHP
+4fa6969,shuaibr,4 weeks ago,Unit Testing guide for Python
+25a1aa9,AndrewJChua,4 weeks ago,OrgMember.php edit #1
+0915cbd,HarjodhSingh,4 weeks ago,Fixed comment blocks syntax in Course.php
+d5fd42f,AndrewJChua,4 weeks ago,OrgMember.php #1
+6788ef0,AndrewJChua,4 weeks ago,Course.php edit 1
+6f57890,AndrewJChua,5 weeks ago,Course.php first upload
+fe5a8fb,kostaa-k,5 weeks ago,GradeItem.php GradeItem
+92f7822,kostaa-k,5 weeks ago,Error Fix Api.PHP
+c62bd2e,kostaa-k,5 weeks ago,Api.php put grade_item
+3ad1918,kostaa-k,5 weeks ago,Api.php put grade
+a6d6f7c,Jacob Heard,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+7137a57,Jacob Heard,5 weeks ago,Actually fixed index.php redirecting to token
+be07d70,kostaa-k,5 weeks ago,Api.php get_grade_items
+ae40152,kostaa-k,5 weeks ago,changes to API.php
+91e79ee,Sumeet Jhand,5 weeks ago,Fixed indenting in OrgMember, fixed app.py User import
+7eb73c5,Sophie Wang,5 weeks ago,Changed deadlines to reflect David's remarks
+2dfcd5b,malthibeh,5 weeks ago,Fixed wrapper_analysis_object_diagram
+c0124e9,harohodg,5 weeks ago,Fixed mispelled variable in API.get()
+e663f21,kostaa-k,5 weeks ago,changes to API.php
+46f1f61,Jacob Heard,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+dbf3542,Jacob Heard,5 weeks ago,Fixed index.php redirects to token issue
+49d3f8a,Weibin (David) Ma,5 weeks ago,Exported gliffy to png for Flow Diagram edit
+36f09b2,kostaa-k,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+26a92bc,kostaa-k,5 weeks ago,api.php change
+cd4a8a3,LucBoulanger,5 weeks ago,variable name fix in API.get()
+0b2616b,Harold Hodgins,5 weeks ago,Updated API.get to handle paged results. Untested
+55e0a48,Harold Hodgins,5 weeks ago,Merged my changes to .gitignore
+8239027,Harold Hodgins,5 weeks ago,Updated ignore file to ignore ~ files
+8804b09,JGorospe24,5 weeks ago,Add Host.php file
+6f2cf94,JGorospe24,5 weeks ago,API Functions PHP-IP
+0f7c614,Sophie Wang,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+ad21291,Sophie Wang,5 weeks ago,Got rid of (Python and PHP) in 6.1 due to redundancy
+b1bc105,Sophie Wang,5 weeks ago,Modified tools used in Tools and Techniques. Also added list of apps used to make diagrams
+f6ac930,Sophie Wang,5 weeks ago,Thinned down scope, removed mention of Harold, moved image to after 1.0
+25c1baf,Sophie Wang,5 weeks ago,Relinked overview with new links
+47f831c,Sophie Wang,5 weeks ago,Copied definitions from requirements
+96610de,Sarah Johnston,5 weeks ago,Changes before pushing to ubuntu test server for demo today
+c93ac63,LucBoulanger,5 weeks ago,added get_who_am_i() to API.py
+bbb8958,Lucas Boulanger,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+9af3bbc,Lucas Boulanger,5 weeks ago,added get_api_versions() and get_user_enrollments() to API.py.
+24606e6,macdonaldz,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+6e40256,Troy Nechanicky,5 weeks ago,fix spelling mistake in class diagram
+d14b248,macdonaldz,5 weeks ago,requirements: merged 1.5 into 1.1, 2.2 into 2.1.1 and adjusted subheadings
+7d86d70,Sophie Wang,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+00e61c8,Sophie Wang,5 weeks ago,Added v4.0 Summary
+491cd09,Sophie Wang,5 weeks ago,Added QA log to summary, added new docs to be presents to client
+01404a6,Sophie Wang,5 weeks ago,Corrected conflicted deadlines. Alphabetized some lists of tasks in process model
+43f5a53,ypang1997,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+7db3bcd,ypang1997,5 weeks ago,Checked & corrected for JSON naming consistencies: JSON grades -> Grades JSON
+1b8adff,Sophie Wang,5 weeks ago,Added link to PHP test server, also added additional link in infrastructure to additional test server
+b8cc6ae,Lucas Boulanger,5 weeks ago,GradeItem class finished for now
+4b5fd03,Sophie Wang,5 weeks ago,Removed 5.4
+9b03d2d,TylerGwynn,5 weeks ago,wrapper requirements: updated user class for real this time
+c2a94b8,TylerGwynn,5 weeks ago,fixed versioning on wrapper requirements, resized image and updated user class
+6a8d202,TylerGwynn,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project version notation update
+97f81d6,TylerGwynn,5 weeks ago,fixed spmp and wrapper requirements' version, updated wrapper intro with info from design
+12fca8e,TylerGwynn,5 weeks ago,fixed spmp and wrapper requirements' version, updated wrapper intro with info from design
+8a3f5b5,Sumeet Jhand,5 weeks ago,Added the Host object back to the analysis doc
+a98f3a3,Jacob Heard,5 weeks ago,minor fix to User.__init__()
+8e6c1a0,Jacob Heard,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+33089ed,Jacob Heard,5 weeks ago,Completed OrgMember, User in OrgMember.py; removed User.py
+ab5be49,Troy Nechanicky,5 weeks ago,added missing controllers and new confirmation prompt requirement to design
+1331396,Troy Nechanicky,5 weeks ago,changed params for gradeItem.create_grade and numericGrade constructor, for clarity
+a17bec4,xyfke,5 weeks ago,Edit constructor for NumericGrade class
+63803ba,xyfke,5 weeks ago,Edit put_grade() in Grade.py
+f1e30e3,Jacob Heard,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+cc172a0,Jacob Heard,5 weeks ago,Added grade put_grade, put_grade_item, get_grade_items
+fea04ab,Troy Nechanicky,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+8fe8661,Troy Nechanicky,5 weeks ago,edited wrapper design intro
+8f1dbcd,TylerGwynn,5 weeks ago,fixed reference link in SPMP
+f25e44b,Sophie Wang,5 weeks ago,Fixed minor gammarical error in 5.3
+3adb437,DeepRaithatha,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+611a002,Sophie Wang,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+01f18c5,Sophie Wang,5 weeks ago,Updated 4.3 grammar and consistency.
+6025d04,Troy Nechanicky,5 weeks ago,fixed up notes in wrapper diagrams. Added wrapper analysis diagram (class diagram sans operations)
+7fc3985,Sophie Wang,5 weeks ago,Updated Overview with corrected tense and grammar.
+c826460,Troy Nechanicky,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+104c82d,Troy Nechanicky,5 weeks ago,merge
+7b9ee83,Sophie Wang,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+a8447ac,maichongju,5 weeks ago,Update Course.py with new API get function
+07dc849,Sophie Wang,5 weeks ago,Added details to implementation sections. Added mention of QA log document.
+efef44e,Troy Nechanicky,5 weeks ago,removed blank .mdj. Finished sorting of wrapper diagram attributes and operations. Sorted requests in wrapper design doc.
+1823260,Sophie Wang,5 weeks ago,Updated project timeline.Extended dates and added implementation details.
+99e7b4d,sara2080,5 weeks ago,Ordered methods and attribute in alphabetical order in wrapper class diagram. Also added types to methods and attribute were needed. –Amardeep Sarang
+b3692cc,Sarah Johnston,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+a69a825,Sarah Johnston,5 weeks ago,Added comments
+546c585,Sarah Johnston,5 weeks ago,Added confirm messasge to pop-ups
+8ab0159,Sarah Johnston,5 weeks ago,Redirects to token.php now
+c5bd40c,Sophie Wang,5 weeks ago,Updated some roles, please DM me if you need an update
+9772f1b,malthibeh,5 weeks ago,deleted
+72cb208,TylerGwynn,5 weeks ago,updating out-of-date wrapper requirements doc
+34d1fc4,malthibeh,5 weeks ago,html to php
+7436e5d,malthibeh,5 weeks ago,html to php page
+8f8def0,Sarah Johnston,5 weeks ago,Commented out token stuff
+015cf3e,Sarah Johnston,5 weeks ago,Fixing merge conflicts
+de607bf,Sarah Johnston,5 weeks ago,Update grade max complete. Shows success or error message. Works for form on upload.php and on error modal.
+80ce290,Sarah Johnston,5 weeks ago,File upload errors now display
+acaf322,Sarah Johnston,5 weeks ago,On upload with no errors, sends to report page. error_checking.php now returns empty JSON object if there are no errors
+9d70001,xyfke,5 weeks ago,Fix up constructor for Grade class
+20065b2,Ben Douglas,5 weeks ago,fixing '&' bug
+a1a7afa,Ben Douglas,5 weeks ago,fixing Grade syntax error
+f02d990,Ben Douglas,5 weeks ago,updating gitignore to ignore .pyc
+d4bf65f,TylerGwynn,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project Made some changes to analysis wrapper to update to current design
+ca3df67,TylerGwynn,5 weeks ago,Updated wrapper analysis to reflect changes made in design
+edad5ec,Harold Hodgins,5 weeks ago,Updated debug.py so it can be used to test routes
+0e7d10f,LucBoulanger,5 weeks ago,fixed a few errors from last commit
+8c5b0ec,LucBoulanger,5 weeks ago,added most stuff the GradeItem (all but put_grade_item(), will fix later with API class)
+5b96f04,Troy Nechanicky,5 weeks ago,added static api functions. add can_exceed_max_points attribute, can_exceed and within_max to NumericGradeItem. added constructors to gradeitem and grade. added get_grades to gradeitem. removed unnecessary Student JSON, added show_course and show_upload controllers, added references section.
+f5d255d,kostaa-k,5 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+2afbac9,kostaa-k,5 weeks ago,API.php
+08eb1f4,harohodg,5 weeks ago,Updated update_route function
+61e2e85,xyfke,5 weeks ago,Remove update_grade() in Grade.py
+a1a8953,xyfke,5 weeks ago,Edit methods in Grade.py
+cf285ad,maichongju,5 weeks ago,Update Cource.py
+74bf6eb,Sumeet Jhand,5 weeks ago,Select all button is unticked when a student is removed
+31c7c04,Hind-Althabi,5 weeks ago,modified object diagram (wrapper analysis)- represent connection between entities and it connected to Application by controllers. All entities connected to the same API Functions controller
+0c1428d,Hind-Althabi,5 weeks ago,remove file that I added
+df34c84,Hind-Althabi,5 weeks ago,remove that I added
+0dbce0b,Hind-Althabi,5 weeks ago,modified object diagram (wrapper analysis)- represent connection between entities and it connected to Application by controllers. All entities connected to the same API Functions controller
+114d435,Troy Nechanicky,6 weeks ago,add can_exceed_max_points attribute to NumericGradeItem. Added detail about error handling to Design, removed HTTP codes section, fixed typos
+acf97fa,Troy Nechanicky,6 weeks ago,added constructor to GradeItem
+a8476bf,Sarah Johnston,6 weeks ago,Removed previous fix from dynamic_search.js
+ef399c3,Jacob Heard,6 weeks ago,Erased things accidentally, fixed now
+53cd857,Jacob Heard,6 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+4ac0de8,Jacob Heard,6 weeks ago,Fixed index.php calls to token.php
+c6c5c3c,Sarah Johnston,6 weeks ago,Fixed dynamic_search, added deployment instructions for php, added http reference to design doc
+48766a5,Sarah Johnston,6 weeks ago,Added docs to php site
+f74eeb8,maichongju,6 weeks ago,Update Course.py. Added comment, and update to match the newest version for the design
+ce52895,Troy Nechanicky,6 weeks ago,deleted unnecessary files. add error_checking to pop-up in flow diagram, don't know how to get img though. added authors and date to design.
+83fdcf2,ypang1997,6 weeks ago,updated wrapper_class_diagram.mdj to have private attributes and parameter data types. Exported into img.
+92c52bd,TylerGwynn,6 weeks ago,tiny formatting in wrapper's design intro
+b6ec32f,HarjodhSingh,6 weeks ago,Typo fix
+942f58e,HarjodhSingh,6 weeks ago,Moved http request additional info into introduction, added author
+9963099,Sumeet Jhand,6 weeks ago,Select all button in PHP now works. Ticking it adds all students, unticking removes them.
+26b4edb,Weibin (David) Ma,6 weeks ago,added source file for flow_diagram, fixed error pop up
+e5ae57a,Weibin (David) Ma,6 weeks ago,updated flow_diagram, removed JSON parameters, added error modal
+f46ae26,Sarah Johnston,6 weeks ago,Made tables alphabetical and changed JSON params to what David suggested
+8c38a77,Sarah Johnston,6 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+6fc82ec,Sarah Johnston,6 weeks ago,Added php API keys for Brightspace
+78b16d0,LucBoulanger,6 weeks ago,added comments to Host.py
+c592db7,LucBoulanger,6 weeks ago,from API.py: removed get_user_enrollments(), get_user_enrollment(), get_who_am_i()
+6315c80,maichongju,6 weeks ago,Remove get_course_members from API
+391d8d2,LucBoulanger,6 weeks ago,updated GradeItem.py
+7bb6a1a,Troy Nechanicky,6 weeks ago,reset wrapper design to current version
+b722f68,LucBoulanger,6 weeks ago,removed get_route() and put_route(), now handled in get() and put()
+0213ab1,Jacob Heard,6 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+42f0bb8,Jacob Heard,6 weeks ago,fixed fix
+6875e6e,LucBoulanger,6 weeks ago,added check for None in update_route() for params
+fe68042,Jacob Heard,6 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+ab68cf8,Jacob Heard,6 weeks ago,fixed route issue with get()
+e4d7a85,ypang1997,6 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+a45a3d6,ypang1997,6 weeks ago,Exported wrapper_class_diagram as jpg, updated API_diagram.mdj
+a472d01,Hind-Althabi,6 weeks ago,modified object diagram in wrapper analysis to match the changes in the design
+928e4ee,HarjodhSingh,6 weeks ago,Added description of HTTP Requests
+bdc280c,Sarah Johnston,6 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+a28ce83,Sarah Johnston,6 weeks ago,Added custom upload button to upload.php. Changed styling.
+73f4f07,Lucas Boulanger,6 weeks ago,removed API.get_api_versions(), op now handled in API.get()
+b737416,ypang1997,6 weeks ago,Changed public attributes to private in wrapper_class_diagram.mdj, and specified parameter types
+5517b88,Troy Nechanicky,6 weeks ago,made user and params parameters null by default in api.get
+96f0e9b,Sarah Johnston,6 weeks ago,Now removes error messages when you remove student on pop-up
+d01c05c,Sarah Johnston,6 weeks ago,Moved all dynamic_search js logic to dynamic_search.js
+e3107b2,Sarah Johnston,6 weeks ago,Changes dynamic search. Adds form from form template in HTML. Only adds if the form doesn't exist for that student yet
+3014f9b,xyfke,6 weeks ago,Reorganizes order of tables in UI Design & Add Modal description
+94f92fe,Sarah Johnston,6 weeks ago,Autocomplete working for php
+ea4697a,Sarah Johnston,6 weeks ago,Renamed PHP files to match design
+9d4131f,Sarah Johnston,6 weeks ago,Fixing merge conflicts
+063089f,Troy Nechanicky,6 weeks ago,changed JSON type to dictionary type (matches current implementation, misunderstanding of what response.JSON() meant on my end)
+e167677,Sarah Johnston,6 weeks ago,Documentation added to files
+f26f1e9,Sarah Johnston,6 weeks ago,Error checking now works for manual and automated upload
+9aa1742,Jacob Heard,6 weeks ago,Fixed get/put (API.py)
+f067920,Jacob Heard,6 weeks ago,updated get/put, removed old gets/puts
+364c798,Sarah Johnston,6 weeks ago,Manual upload JS object done. Calls error_checking and displays modal with errors
+8bc4eda,Sarah Johnston,6 weeks ago,JS done to display modal with errors on PHP version
+178dc35,Sarah Johnston,6 weeks ago,file_parse and error_checking done
+7ab733d,Troy Nechanicky,6 weeks ago,fixed formatting errors in wrapper design
+307bb76,Troy Nechanicky,6 weeks ago,fixed grammar mistakes in design doc that I made yesterday. Completely redid API file for wrapper. Redid parts of wrapper design doc to reflect changes.
+61bbd77,Sarah Johnston,6 weeks ago,iFrame now gets JSON grades object from file upload without reloading page.
+e2ab935,Sumeet Jhand,6 weeks ago,Course list page now shows appropriate messages when the user is not a TA in any course or a course does not have any grade items, added favicon to index.html
+cb9cd9f,malthibeh,6 weeks ago,removed a file I created
+1d0a417,malthibeh,6 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+f945e85,malthibeh,6 weeks ago,Changed Upload Button
+7a1f0a3,LucBoulanger,6 weeks ago,removed numericGradeItem class, added it as subclass in gradeItem.py
+646e189,LucBoulanger,6 weeks ago,fixed my dumb errors
+ad9640c,LucBoulanger,6 weeks ago,renamed host.py to Host.py
+4c6e824,Sumeet Jhand,6 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+6d3a004,Sumeet Jhand,6 weeks ago,Added dynamic searching, fixed logout, added NumericGradeItem and OrgMember, added ezMarker logo, fixed course list to show only courses you are a TA in, a bunch of refactoring
+8aa7d37,Hind-Althabi,6 weeks ago,(analysis wrapper )- Added control objects to objects diagram
+4f8065d,Troy Nechanicky,6 weeks ago,added descriptions of UI error handling, fixed JSON designs, renamed pages for consistency, corrected descriptions of interaction between back-end and UI
+cda278b,Troy Nechanicky,6 weeks ago,fixed get_user_enrollments request, changed api helper functionparam type to dictionary
+6d287e4,xyfke,6 weeks ago,Create methods definition for Grade.py
+dfc7421,maichongju,6 weeks ago,Update Course Class (Not Done)
+b285ef7,Sarah Johnston,6 weeks ago,Update coding_standards.txt
+c9a9dbb,Jacob Heard,6 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+abd53ed,Jacob Heard,6 weeks ago,updated parse_grades_csv
+98c62da,maichongju,6 weeks ago,Created host.py
+9dda4a3,maichongju,6 weeks ago,Deleted API class, Update get_member matched new code
+1a97ab0,Jacob Heard,6 weeks ago,Removed some accidents....
+cd75b2f,Jacob Heard,6 weeks ago,Added set/put for grade items
+f0aac11,Lucas Boulanger,6 weeks ago,created update_route(), get_route(), put_route(), and check_request(); updated calls to go to the new functions; lef the old functions in cause I dont know if there are any dependencies on them atm
+3ca75f6,Lucas Boulanger,6 weeks ago,created get_user_enrollments, get_user_enrollment, get_who_am_i functions in API.py
+f294f8a,Sarah Johnston,7 weeks ago,Added logo and favicon
+a26a3aa,Sarah Johnston,7 weeks ago,Added manual_input.js. Added functionality to delete buttons on upload.php. When you click the 'x', removes that student
+daf9a55,Sarah Johnston,7 weeks ago,Added PHP frontend, now up to date with Python web
+1573104,maichongju,7 weeks ago,Fixed get_course_member, get_api_versions
+d925dda,Sarah Johnston,7 weeks ago,Added JSON objects and expanded on PHP and Python descriptions in ezMarker design
+757fb59,Sarah Johnston,7 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+2344c56,Sarah Johnston,7 weeks ago,Added available_grades.php with test data
+d83a835,Troy Nechanicky,7 weeks ago,fixed minor mistakes in UI section. Changed 'update maximum' button on upload pg to input box to match modal
+177a130,Troy Nechanicky,7 weeks ago,changed modal button text to 'Update maximum'
+df72b06,Troy Nechanicky,7 weeks ago,minor edits to UI section, cropped report_page.png, photoshopped out 'show modal' button on upload_grade.png
+9d22b88,Weibin (David) Ma,7 weeks ago,Changes to flow diagram
+fff80ea,Jacob Heard,7 weeks ago,Added token.php, minor fixes
+f9ee2c8,xyfke,7 weeks ago,Updates UI Design with new images and description
+813afbf,maichongju,7 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+2a2d2cd,maichongju,7 weeks ago,Fixed getCourseMember(0 typo
+22fa295,xyfke,7 weeks ago,Update text for button and input field
+2133d95,Jacob Heard,7 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+042c69e,Jacob Heard,7 weeks ago,Testing Brightspace API in PHP
+2d632ab,maichongju,7 weeks ago,Fixed getApiVersions, Added getCourseMember()
+18c1910,maichongju,7 weeks ago,Added getApiVersions() in API.py
+9b448a1,xyfke,7 weeks ago,import sys, re & FEEDBACK_PATTERN from Grade.py
+1e07e9d,Troy Nechanicky,7 weeks ago,made all constructors take JSON params, added missing objects to constructors, rename public_comment to comment. Specified grade file format, revised detailed design, added params of pages
+f8976fa,Troy Nechanicky,7 weeks ago,made User subclass of OrgMember, various other small edits
+2c54cdc,Jacob Heard,7 weeks ago,Added parse_grades_csv, other minor changes
+b2c3272,Jacob Heard,7 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+b5374ca,Jacob Heard,7 weeks ago,Added parse_grades_csv, other minor changes
+9172e03,Troy Nechanicky,7 weeks ago,fixed merge. Forgot to pull before committing.
+8980c8e,Troy Nechanicky,7 weeks ago,revised back-end functions, add JSON, HTTP Codes sections
+791e25b,Sarah Johnston,7 weeks ago,Made changes to design to reflect new php structure. Added /wrapper and /obj. Added a classExample.php. This is a template class that can be used to build all classes. Shows example of getters, setters, and inst. object and setting initial attributes
+3c33747,Sarah Johnston,7 weeks ago,Setup initial php project structure. root/index.php is finished. Root is the web accessible files. /views contains same as /templates in python project.
+7bd1fc5,Sarah Johnston,7 weeks ago,Put logout, name, help, and courses on nav. Made error handling modal in upload.html with custom error and warning messasges. Removed buttons and added table to view grades in grades_uploaded.html.
+5c3b438,Michelle Wong,7 weeks ago,Added error_checking, parse_file, and mdified set_grades_manual_data in section 5 of the design doc. Deleted set_grades_file_data.
+45d08ba,Michelle Wong,8 weeks ago,Modified Section 5.1-5.5 of Design Doc. Added desc point where courses will be sorted and grades must be higher or equal to 0
+b6dff38,xyfke,8 weeks ago,Edit UI Design
+72e05f8,xyfke,8 weeks ago,Changes to UI Design
+fe5602d,Sarah Johnston,8 weeks ago,Changed project structure in design.html, deleted php version and made a note of different file extensions, added the css files, added home page to requirements, deleted update_grade_item.html
+c60e10f,Lucas Boulanger,8 weeks ago,Requirements - Fixed ToC integration, added new logout page functionality
+967770c,Troy Nechanicky,8 weeks ago,minor changes to wrapper class diagram
+7822511,Sarah Johnston,8 weeks ago,Added jquery, changed all js to jquery. PLEASE USE JQUERY FROM NOW ON - NO MORE JAVASCRIPT. Added coding_standards.txt. Please read for standards. More will be added later.
+cdbeb07,Sarah Johnston,8 weeks ago,Fixed table of contents in design
+2165fc3,Sarah Johnston,8 weeks ago,Added stuff to wrapper design in case we have to show V2 in class today.
+c11d935,Hind-Althabi,8 weeks ago,Design: update authors
+d947027,Sarah Johnston,8 weeks ago,Changed img routes in wrapper design, will push this to test server too
+c9f01d2,Sarah Johnston,8 weeks ago,Design doc: changed styling on img, changed imgs for pop-ups, fixed grammar/tense issues throughout, redid project structure again because someone changed it, changed method names to use snake_case instead of camelCase, changed some item descriptions that were slightly inaccurate. This is the version that will be pushed to the test server for today's due date.
+7aa46b3,Troy Nechanicky,8 weeks ago,shit, forgot some methods
+0996caa,Troy Nechanicky,8 weeks ago,fixed typo in design_wrapper
+3c433b0,Troy Nechanicky,8 weeks ago,added missing operations to wrapper diagrams. Was keeping me up
+8ce4b5c,Troy Nechanicky,8 weeks ago,fixed errors with wrapper diagrams, removed search from flow diagram, fixed errors in design doc
+6ca5ce9,Troy Nechanicky,8 weeks ago,finished wrapper design and associated diagrams. also added brightspace instance package to package diagram
+ca2c21c,xyfke,8 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+d7b27df,xyfke,8 weeks ago,Changes to design section 4
+612e798,Weibin (David) Ma,8 weeks ago,added flow diagram to section 3
+212aa0b,ypang1997,8 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+db43c73,Weibin (David) Ma,8 weeks ago,Added flow diagram
+7749d2f,ypang1997,8 weeks ago,Updated design wrapper introduction. Changed spelling error (implimented->implemented)
+5e91bb8,Michelle Wong,8 weeks ago,Modified section 5 of design doc based off Asana tickets
+b0b02c2,Sumeet Jhand,8 weeks ago,Added LogoutView back
+fb05332,Sumeet Jhand,8 weeks ago,Revert "Updated analysis doc: removed LogoutView, added Pirajeev to SQA"
+18a5de8,Sumeet Jhand,8 weeks ago,Updated analysis doc: removed LogoutView, added Pirajeev to SQA
+512f321,Troy Nechanicky,8 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+905afc5,Troy Nechanicky,8 weeks ago,upload.html: commented out search button and total students, added spacing between choose and upload file buttons
+fbb8c39,Michelle Wong,8 weeks ago,Added content to section 5.2.2 Service details
+cc9fbdf,Troy Nechanicky,8 weeks ago,added attribute types and operations to wrapper class diagram. Added additional required requests to wrapper requirements
+d329b20,Troy Nechanicky,8 weeks ago,home: fixed spelling mistake; index: commented out Docs and Upload tabs as shouldn't exist
+72fdef6,Hind-Althabi,8 weeks ago,design : modified Packages
+5c12c47,Hind-Althabi,8 weeks ago, Design - merge section 6 into section 2
+44563a6,Lucas Boulanger,8 weeks ago,Changes to SPMP - merged contents of section 7 to rest of doc, as per changes made by Troy in feat/test-feature (troy_do_not_delete) branch
+d5ef04e,Sophie Wang,8 weeks ago,Changed pathways (../../.. to ../)
+3192524,Sophie Wang,8 weeks ago,Unified Introduction for SPMP and Requirements documents
+b7bd1ac,Troy Nechanicky,8 weeks ago,design: added back in package paragraph I removed in previous commit. May want to combine with backend description
+4f20990,Troy Nechanicky,8 weeks ago,design: edited package description, minor edits to UI descriptions, fixed src paths
+1317605,xyfke,8 weeks ago,UI of design doc and some screenshots
+62e666e,Sarah Johnston,8 weeks ago,Fixing merge conflicts
+06f3512,Sarah Johnston,8 weeks ago,Added in Luc's changes to software planning and requirements
+9e0ce2a,Troy Nechanicky,8 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project
+4418d29,Troy Nechanicky,8 weeks ago,changed Host to ressemble ValenceAPI class in current implementation
+1880c4c,TylerGwynn,8 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project tweak and adding api requirements
+3396a93,TylerGwynn,8 weeks ago,Updated API requirements in Wrapper req. and changed Desire2Learn to D2L in ezMarker req. doc
+a6f6c47,Troy Nechanicky,8 weeks ago,modified associations and attributes of wrapper class diagram
+35b2faf,Sarah Johnston,8 weeks ago,Fixed project structure in design
+a832c5c,Sumeet Jhand,8 weeks ago,Fixed h5 subsection number not resetting in toc_generator
+f9bff9f,Sarah Johnston,8 weeks ago,Removed /documentation and /pages. Moved all pages under /templates. Added project stucture to design and design_wrapper. Made all docs valid html, added toc-generator script include to all docs. Fixed up routing in app.py to comply with new file structure.
+6b6c6a0,LucBoulanger,8 weeks ago,Missed one in requirements_raw: added dashes to all occurances of frontend and backend
+4fb4097,LucBoulanger,8 weeks ago,Changes to spmp_raw: added mention of Autograder as driving force, added dashes to all occurances of frontend and backend
+683e7c8,Sophie Wang,8 weeks ago,Updated ezMarker/Analysis with more details about objects
+0ff419c,Hind-Althabi,8 weeks ago,upload object diagram of analysis wrapper
+bdf939a,Troy Nechanicky,8 weeks ago,Merge branch 'master' of https://github.com/Sjohnston3700/CP317_MLS_Project merge changes to spmp and analysis_raw
+e402559,Troy Nechanicky,8 weeks ago,modified wrapper analysis class diagram
+bd77cc1,Sophie Wang,9 weeks ago,Got rid of "Coordinates" in analysis_raw
+7e1ae4c,Sophie Wang,9 weeks ago,Updated analysis_raw for grammar, awaiting feedback on presentation of objects
+b48ba23,Sophie Wang,9 weeks ago,Updated SPMP raw with updated goals in regards to schedule, and grammar edits for readability
+04bfc80,Sophie Wang,9 weeks ago,Updated /python/templates/documentaion/spmp_raw.html Section 6 Process Model to reflect actual schedule.
+afe8128,Troy Nechanicky,9 weeks ago,Merge branch 'master' into development merge Sumeet's changes to development to master
+e550c91,maichongju,9 weeks ago,Fix arrow, attributes problem for class diagram
+ba7f5a2,Sumeet Jhand,9 weeks ago,Updated analysis doc: removed Host object, edited authors, removed class diagram, changed IndividualGradingView to ManualGradingView
+c53fd2a,Lucas Boulanger,9 weeks ago,Small grammar fixes to spmp_raw
+1dfc622,Sarah Johnston,9 weeks ago,Added heroku deployment instructions for new app structure. Removed extra .gitignore in /python
+87a562a,Sarah Johnston,9 weeks ago,Fixed conf_basic.py and app.py to work on localhost. Had to put /static inside of /python in order for Flask to serve css files
+27d76b7,Sarah Johnston,9 weeks ago,Moved python project into /python. Created a /php folder (currently empty). The /static folder in the root directory will house all JS and CSS files shared between PHP and Python frontends
+cf32ec0,Sarah Johnston,9 weeks ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project
+88c4dae,LucBoulanger,9 weeks ago,Modified section 2 and 3 of requirements_raw to reflect that update grade item total is now an available option on the grade item page
+608ae6f,Hind-Althabi,9 weeks ago,updated object diagram in analysis wrapper, added/removed some entity and control objects
+6c194ff,maichongju,9 weeks ago,Update analysis wrapper diagram (Fix David said during in the class)
+0769b91,maichongju,9 weeks ago,Update analysis warapper class diagram
+fd13240,Sarah Johnston,9 weeks ago,Removed all styled docs
+8e8c478,Sarah Johnston,9 weeks ago,Removed styled docs
+68125db,Sarah Johnston,9 weeks ago,Analysis edited
+f95e184,Sarah Johnston,9 weeks ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project
+715f786,Sarah Johnston,9 weeks ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development
+6695598,Sarah Johnston,9 weeks ago,Removed styled analysis doc
+98b4267,Hind-Althabi,9 weeks ago,update analysis_wrapper_raw  by adding objects diagram
+83c320e,Sarah Johnston,9 weeks ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project
+b1eeea0,Sarah Johnston,9 weeks ago,Added styled analysis doc, added raw analysis doc, added button on doc page that links to analysis doc
+47260a3,Sumeet Jhand,9 weeks ago,Updated analysis document: renamed GradingView to BulkGradinView and added IndividualGradingView, added ChangeGradeTotalController and ChangeGradeTotalController, updated object diagram to reflect previous changes, misc. grammar edits.
+0e187d3,Sarah Johnston,9 weeks ago,Added general popup function in modal.js. Included this file in index.html. Added a header section to upload.html that shows the current course and has a button to change grade total. Added modal to change total.
+b5c3293,Sumeet Jhand,9 weeks ago,Updated analysis: added class and object diagrams, added/removed some boundary and control objects, added TOC generation script to /static/js/
+1202d18,LucBoulanger,9 weeks ago,Mentioned building an existing project in setion 1 of requrements_raw
+7e447ed,TylerGwynn,9 weeks ago,SQA on wrapper requirements sec 3, mostly links
+9c46fab,Troy Nechanicky,9 weeks ago,removed documentation folder that was added by a bad commit. Finished cleaning up section 3 of wrapper req. doc.
+ce87f2e,Sarah Johnston,9 weeks ago,Added error-modal.js, added button margins on report page, moved remove buttons over on upload.html. Added modal to report page to prompt user to go back and set a missing grade
+02fd33c,Sarah Johnston,9 weeks ago,Added controllers, entities, and boundary objects to ezmarker analysis doc
+a11ea0a,Hind-Althabi,9 weeks ago,change
+ed03c61,Hind-Althabi,9 weeks ago,update design_raw
+f460279,simity,9 weeks ago,gradesUploaded fixed
+d2b9985,Sumeet Jhand,9 weeks ago,Links to ezMarker domain now also open in a new tab
+08034dd,Sumeet Jhand,9 weeks ago,External links in SPMP now open in a new tab
+d0ce48d,Sarah Johnston,9 weeks ago,Merge branch 'development' of https://github.com/Sjohnston3699/CP317_MLS_Project into development
+b1c728a,Sarah Johnston,9 weeks ago,Added search bar and manual student inputs. Made changes to elemnts.css
+1f87273,Sophie Wang,9 weeks ago,Added mention of Flask, fixed more grammar
+0216812,Sophie Wang,9 weeks ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development
+8420d3e,Sophie Wang,9 weeks ago,Got rid of most external definitions and added mention of 2 versions of project with 2 wrappers, fixed some grammar
+066170c,sara2080,9 weeks ago,Added detail to wrapper requirements in sec 3
+bb0e84f,Sarah Johnston,9 weeks ago,Completed Web Architecture section of design_raw. Explained PHP Python, Apache, and Flask.
+341ca62,Sarah Johnston,9 weeks ago,Changed page routes in app.py to correspond with new page file organization /pages
+0b688af,Troy Nechanicky,9 weeks ago,mocked up desired changes
+ebb2c99,harohodg,10 weeks ago,Updated boundary objects
+8b711eb,Troy Nechanicky,10 weeks ago,fixed merge
+4b3d8d5,Troy Nechanicky,10 weeks ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development merged wrapper doc changes
+ea458b4,Troy Nechanicky,10 weeks ago,updated design templates
+9fc66e2,TylerGwynn,10 weeks ago,final SQA
+9139dcd,harohodg,10 weeks ago,Removed atributes from entity objects list. Added Credentials entity.
+921516e,Troy Nechanicky,2 months ago,merged changes
+ab36094,Troy Nechanicky,2 months ago,updated class diagram to follow standards, updated ezMarker req to mention building 2 versions, added links to API docs to wrapper req along with other small fixes
+9192fe2,LucBoulanger,2 months ago,Tyler added to SQA list
+54e44ac,maichongju,2 months ago,Update analysis wrapper diagram UML file
+3c8eeea,LucBoulanger,2 months ago,changes to section 1, 1.3, external link fixes, HTML fixes
+8c2936c,maichongju,2 months ago,Update warpper_class_diagram
+8b5bded,maichongju,2 months ago,update wrapper class diagram
+5ee51fe,maichongju,2 months ago,analysis_class_diagram warpper update
+25c174e,maichongju,2 months ago,Update student class for wrapper diagram
+f8a7cf4,harohodg,2 months ago,Updated list of entity and control objects
+53750d1,Troy Nechanicky,2 months ago,added requirement to design_raw template and added requirement,grammar fixes to req. file
+0d7a4d9,TylerGwynn,2 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development
+f710ea6,TylerGwynn,2 months ago,present tense active voice and small fixes / clarifications
+768f538,harohodg,2 months ago,Updated list of entity objects.
+eee796e,maichongju,2 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development
+9dd9389,maichongju,2 months ago,update_wrapper_class_diagram
+099b78b,Troy Nechanicky,2 months ago,added formatting to analysis_wrapper and created design_wrapper template
+90e9eb5,Sumeet Jhand,2 months ago,Fixed TOC script for design document
+2b9c9fc,Troy Nechanicky,2 months ago,edited process_flow, created design template, added new formatting to req_wrapper
+6206a58,maichongju,2 months ago,analysis_wrapper_UML
+03a0bbe,xyfke,2 months ago,Edit diagram
+0d68f69,Lucas Boulanger,2 months ago,Changes to how grade total error is handled - not completely fixed tho
+5bdfffe,xyfke,2 months ago,Add process flow diagram
+0190340,Troy Nechanicky,2 months ago,Added & edited Amardeep's anal intro, added & edited Sumeet's req wrapp intro, edited req wrapp sec 3
+b33a429,Lucas Boulanger,2 months ago,Generalized Autograder file formate to txt
+cff8e1f,Troy Nechanicky,3 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development merged analysis_raw changes
+9691481,Troy Nechanicky,3 months ago,edited introduction for content and listed new requirements forthe document
+cfeaa27,sara2080,3 months ago,Analysis intro added
+a4fba19,Troy Nechanicky,3 months ago,added wrapper analysis template and added Sumeet's introduction to wrapper req
+f4e9b9e,Troy Nechanicky,3 months ago,more organization changes
+9b217c6,Troy Nechanicky,3 months ago,reorganized documentation
+58ee325,Troy Nechanicky,3 months ago,added Fa Fa's sec. 3 to wrapper req. and created analysis template
+37e3f8e,Troy Nechanicky,3 months ago,created template for requirements_wrapper
+c77dd5a,Sarah Johnston,3 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project
+071051a,Sarah Johnston,3 months ago,Copied docs to styled html pages.
+33bcd93,Troy Nechanicky,3 months ago,fixed html typo
+9a0ab8f,Troy Nechanicky,3 months ago,improved introductions and grammar
+996b3c9,Sophie Wang,3 months ago,QA'd the entire document
+ed2a940,Associate,3 months ago,No more future tense - sentence structure and grammar fixed
+278d214,Associate,3 months ago,Syntax changes - Jaenuz Gorospe
+dcc7f97,Sophie Wang,3 months ago,Deleted sections 7.1, 7.6 as they were too extra for our project.
+4b1dcaa,MarkKokan,3 months ago,Added some reference links and Revision notes to Version history
+381ef12,Lucas Boulanger,3 months ago,Link fixes
+c7e651f,Troy Nechanicky,3 months ago,updated section 1
+00d099b,Lucas Boulanger,3 months ago,Small grammar fix, added periods where needed.
+2c51c90,HarjodhSingh,3 months ago,Changes from listed problems made
+7bb82fb,Sarah Johnston,3 months ago,Fix merge conflicts
+49ad61b,Sarah Johnston,3 months ago,Fix merge conflict
+effff90,Sarah Johnston,3 months ago,Fix merge conflict
+613c43e,Sarah Johnston,3 months ago,Added image to show current upload interface in MLS
+8fd2440,Sarah Johnston,3 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project
+eaa762c,Sarah Johnston,3 months ago,Updated styled docs to be in-line with raw_html files
+172ccce,Sarah Johnston,3 months ago,SQA on requirements and spmp. Small chanes. Made things consistent between both docs
+2e647bd,Sarah Johnston,3 months ago,Changes made to requirements doc
+dd01d89,Sarah Johnston,3 months ago,Added links, changed lots of wording, redid some sections for V2 of SPMP due tomorrow. Made naming of terms consistent.
+ff2c4de,HarjodhSingh,3 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development
+5c6bf89,HarjodhSingh,3 months ago,After SQA version 2.0, minor edits made
+8b5bb73,Troy Nechanicky,3 months ago,added '2017' qualifier
+b7c8850,Troy Nechanicky,3 months ago,grammar fixes
+5c83252,Troy Nechanicky,3 months ago,added and edited Deep's changes from Deep.docx or something
+59408ca,Troy Nechanicky,3 months ago,revert changes made by Deep where .html was deleted
+c5436fb,DeepRaithatha,3 months ago,updated requ. doc intro
+619fb41,Troy Nechanicky,3 months ago,added reference links
+1a3e067,Troy Nechanicky,3 months ago,Added Marko's changes from his .docx file. Also a couple of random grammar fixes
+7aca9d8,Troy Nechanicky,3 months ago,added changes Jose made to a copy of this file (sections 1 - 3), along with various other small changes
+be79e4d,Sophie Wang,3 months ago,Updated process model, including added time for documents
+20f8390,Sophie Wang,3 months ago,Updated sections 6 and 7
+e6aaf16,JRomero300,3 months ago,Edits to SPMP section 1 - 3.0
+a66a2fd,markomihailovic,3 months ago,Add files via upload
+357c849,Troy Nechanicky,3 months ago,Completed some feedback tickets and corrected minor grammar mistakes
+0077162,TylerGwynn,3 months ago,Redoing links, now first mention of every later-defined term links to that entry, and API is linked in the Brightspace definition
+494cb17,simity,3 months ago,Added 5.1.2
+5a7fd22,TylerGwynn,3 months ago,Req Doc: Present tense + Active Voice + lil fixes
+983581c,Sophie Wang,3 months ago,Added new sections to SPMP 6.2
+1a3de62,Sarah Johnston,3 months ago,Fixed styling before pushing
+b76bc07,Sarah Johnston,3 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project
+eee2e09,Sarah Johnston,3 months ago,Formatted requirements and spmp
+d96f6d9,Troy Nechanicky,3 months ago,changed use_case_diagram to correct file format
+5d3c0cf,Troy Nechanicky,3 months ago,minor changes to requirements. Many grammar, slight improvements, and clarification/simplification changes to SPMP
+f0999df,Troy Nechanicky,3 months ago,Completed all remaining feedback from SQA, in addition to small gramatical changes. See SQA spreadsheet for specific issues resolved
+2d2ba92,Simon Phothitay,3 months ago,Added brief descriptions of subsections, and minor edits
+9a6602c,Simon Phothitay,3 months ago,Added a semester schedule to section 1.5
+f310da7,Lucas Boulanger,3 months ago,Weeee more small fixes
+5a012c3,Lucas Boulanger,3 months ago,Fixes to subheading/bolding and sub section consolidation
+e058fe3,JGorospe24,3 months ago,Fixed grammatical errors
+274b9f5,JGorospe24,3 months ago,Reworded 1.1 and removed bullets
+1544e37,Lucas Boulanger,3 months ago,changes to section 3.1, less sections, same content
+2bdec79,HarjodhSingh,3 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development
+4c809c4,HarjodhSingh,3 months ago,QA of requirements doc round 1
+a52e0cd,Sophie Wang,3 months ago,updated section 7 of spmp
+01dd2dd,Hind  Aldhabi,3 months ago,Fixing merge conflicts
+851633e,Hind  Aldhabi,3 months ago,i fixed changed readme
+46a436f,Sarah Johnston,3 months ago,Merge branch 'development' of https://github.com/Sjohnston3699/CP317_MLS_Project
+4ea89e2,Sarah Johnston,3 months ago,Added more styling, added documentation, proof read and edited docs, added raw HTML, added pictures, added UI prototype pics to appendix b of requirements
+1c25d4e,Sarah Johnston,3 months ago,Fixing merge conflicts
+819107d,Sarah Johnston,3 months ago,Added laurier colours and made nav bar change depending if user is logged in or not
+bc4c740,Sarah Johnston,3 months ago,Made a home page, documentation home page, and linked to requirements and software planning documents
+baa8685,TylerGwynn,3 months ago,Added Table of Contents to Req Document HTML
+55b911f,Sumeet Jhand,3 months ago,Low key removed the "saved from" comment
+df728c9,Sumeet Jhand,3 months ago,Corrected typo in SPMP HTML page
+cd10def,Sumeet Jhand,3 months ago,Added SPMP HTML page
+7ddfae8,Tyler Gwynn,3 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development
+28b24b8,Sarah Johnston,3 months ago,Made changes to conf_basic.py for development
+00730b3,Sarah Johnston,3 months ago,Changed config file
+0a7781f,Sarah Johnston,3 months ago,Changed conf files for new test server
+13393c3,Tyler Gwynn,3 months ago,Added use case diagram and half-finished HTML version of requirements doc, still needs table of contents.
+5a81f3c,Sarah Johnston,3 months ago,Changed conf files for new test server
+c9b6c17,JRomero300,3 months ago,Updated version for overview,references and definitions
+9d9877a,markomihailovic,3 months ago,Add files via upload
+c1552cf,Troy Nechanicky,3 months ago,finished sec2 & sec3. Left underscores for things that need to be updated
+d4755b4,Troy Nechanicky,3 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development
+eb56489,JRomero300,3 months ago,Add files via upload
+93e810e,Troy Nechanicky,3 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development
+3ac83d0,Troy Nechanicky,3 months ago,updated doc
+cefb1a8,DeepRaithatha,3 months ago,Introduction of SRS - Deep Raithahta
+af6c950,Troy Nechanicky,3 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development merge local doc changes with UI changes
+916e8f4,Sarah Johnston,3 months ago,Made index file. Did frontend first draft
+86e1cca,Sarah Johnston,3 months ago,Merge branch 'development'
+fe8add6,Sarah Johnston,3 months ago,Added index file. Finished UI for most pages.
+f19f5ac,Lucas Boulanger,3 months ago,second draft, specific requirements
+16c85a6,Troy Nechanicky,3 months ago,more updates, still need more info on UI
+ef19b04,Sophie Wang,3 months ago,oops, I forgot to save file. Up to date file uploaded. Note to QA, if I forgot to modify the parts that I say I'm going to modify, please message me on Slack.
+1bc8756,Sophie Wang,3 months ago,cloud sections 6 to 7, still in working status
+cb85188,Troy Nechanicky,3 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development combine lucas' lucas.txt commit and my Troy_Sec2.docx commit
+4f0a73f,Troy Nechanicky,3 months ago,Missing UI design and name of project. Otherwise done
+03c9e8e,Lucas Boulanger,3 months ago,first draft, requirements 3 - specific requirements
+938c58e,Troy Nechanicky,3 months ago,in case I die tonight. rough draft.
+5b9c1a4,Sarah Johnston,3 months ago,Added a project setup text file for localhost configuration
+6426190,Sarah Johnston,3 months ago,Added a .gitignore so git will ignore __pychache__ files. Added conf_basic.py with proper configurations to run on localhost. Deleted template_conf_basic.
+0b98313,Sophie Wang,3 months ago,Revert "resolve merge conflict"
+a593c23,Sophie Wang,3 months ago,added my file for spmp
+f2edc8c,Sophie Wang,3 months ago,resolve merge conflict
+f009208,Sarah Johnston,3 months ago,Added sarah.txt
+8d231d9,DeepRaithatha,3 months ago,Merge branch 'development' of https://github.com/Sjohnston3700/CP317_MLS_Project into development
+cb976be,DeepRaithatha,3 months ago,made an edit to your name. txt
+f418f69,Sjohnston3700,3 months ago,Delete ~$ftware Requirements.docx
+d48d108,Sarah Johnston,3 months ago,Added /requirements and /spmp. Please put your work for your sections in here.
+b316c2b,Sarah Johnston,3 months ago,Added /documentation directory. Made title pages, table of contents, and header sections for Requirements and Software Planning docs
+b0d371c,Sjohnston3700,3 months ago,Delete README.md
+dd20e58,Sarah Johnston,3 months ago,First commit on new branch
+a812e09,Sophie Wang,3 months ago,_(:3/ <)_
+5af3091,Sarah Johnston,3 months ago,I changed the file README.txt
+959d73e,Sarah Johnston,3 months ago,Migrating from bitbucket to github
+e77c3cc,Troy Nechanicky,3 months ago,added my name to txt
+f11c1e7,Sarah Johnston,3 months ago,Added test.txt
+c07dd1d,Sjohnston3700,3 months ago,Initial commit
