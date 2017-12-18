@@ -5,7 +5,7 @@ from app import app
 from flask import render_template, redirect, request, session, abort
 from conf_basic import app_config
 from conf_basic import USER_ROLES
-import traceback, logging
+import logging
 
 from wrapper.obj.User import User
 from wrapper.obj.Host import Host
@@ -93,6 +93,7 @@ def handle_error(e):
         Renders "error.html".
     '''
     user = app.config.get( session.get('user_id',None), None )
+    logging.exception('Something has gone wrong')
     return render_template('error.html',user=user)
 
 
