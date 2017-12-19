@@ -24,7 +24,7 @@ sed -i "s|'app_key': '.*'|'app_key': '$PRODUCTION_API_KEY' |" python/conf_basic.
 sed -i "s|'trusted_url': '.*'|'trusted_url': '$PRODUCTION_TRUSTED_URL' |" python/conf_basic.py
 sed -i "s|'port': .*,|'port': $INTERNAL_PORT, |" python/conf_basic.py
 sed -i "s|'our_host': '.*'|'out_host': '0.0.0.0' |" python/conf_basic.py
-sed -i "s|'debug': .*,|'dubug': False, |" python/conf_basic.py
+sed -i "s|'debug': .*,|'debug': False, |" python/conf_basic.py
 sed -i "s|SECRET_KEY.*=.*'.*'|SECRET_KEY = '$PRODUCTION_SECRET_KEY'|" python/conf_basic.py
 
 
