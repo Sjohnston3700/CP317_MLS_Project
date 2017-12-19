@@ -20,7 +20,7 @@
 #   lms_ver -- product component API versions to call
 #   verify -- cert verification flag
 #   debug -- debug flag
-#   route -- the trusted url
+#   truested_url -- the full trusted url
 #
 # USER_ROLES -- list of roles to filter by. [] for don't care
 # ALLOWED_EXTENSIONS -- set of allowed file extensions
