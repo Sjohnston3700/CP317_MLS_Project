@@ -5,7 +5,7 @@
  - UPPERCASE for constants
  - Do NOT use builtin key words like max, min, id for variable names
 
-//Comments (General)
+// Comments (General)
 - Every method/function must have a comment block explaining purpose
 - Block must contain:
     - Description
@@ -14,45 +14,47 @@
 -Singular comments should be placed above the line of code it intends to explain, NOT beside it
 -Capatilize first letter, UNLESS it is an identifier(variable/method name).
 
-PHP
+// PHP
 {} brackets should be on their own lines
-//PHP Comments:
+
+// PHP Comments:
 - Comment blocks must be on top of method/functions
 - Each file should have a docblock at the top. Purpose is to explain what file consists of:
+
 /**
 * Short description for file
 * Author(s):
 * Long description (if required)
 */
 
-//Python Comments:
+// Python Comments:
 - Comment blocks must be after signature line of method/function
 
 // Frontend 
 Jquery: 
-	please see http://usejsdoc.org/howto-es2015-modules.html for documentation standards
-	use jquery only 
-	single quotes ' not "
-	camelCase ex: myFunction (myVar, myVar2)
-	no query in html files, all in files located under static/js
-	separate js files for different function/logic
-	function brackets as follows: 
-	
-	function () {
-		// JQuery code here with tab indent (where 1 tab is 
-	}
+- please see http://usejsdoc.org/howto-es2015-modules.html for documentation standards
+- use jquery only 
+- single quotes ' not "
+- camelCase ex: myFunction (myVar, myVar2)
+- no jquery in html files, all in files located under static/js
+- separate js files for different function/logic
+- brackets as follows: 
+
+function () {
+	// JQuery code here with tab indent 
+}
 	
 CSS 
-	All ids and classes use dashes, NO UNDERSCORES
-	
-	#example-id
-	{
-		display: block;
-	}
-	
-	.example-class:hover
-	{
-		cursor: pointer;
-	}
+- all ids and classes use dashes, NO UNDERSCORES
+- brackets as follows: 
+#example-id
+{
+	display: block;
+}
+
+.example-class:hover
+{
+	cursor: pointer;
+}
 	
 

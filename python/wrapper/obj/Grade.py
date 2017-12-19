@@ -123,9 +123,13 @@ class NumericGrade(Grade):
             NumericGrade object for grade item and student is initialized.
         '''
         max_value = grade_item.get_max()
-        assert float(value), 'Grade value must be numeric'
-        assert float(value) <= max_value or grade_item.can_exceed(), 'Grade value is greater then grade item max : {}'.format( max_value )
-        assert float(value) >= 0, 'Grade value must be non-negative'
+        #assert float(value) doesnt work the way it should, needs to be try/except to get the right err msg
+        try:
+            float(value)
+        except:
+            raise ValueError('Grade must be a number')
+        assert float(value) <= max_value or grade_item.can_exceed(), 'Grade is more than the grade maximum'.format( max_value )
+        assert float(value) >= 0, 'Grade cannot be negative'
         
         super().__init__(grade_item, student, comment)
         self._json['GradeObjectType'] = 1

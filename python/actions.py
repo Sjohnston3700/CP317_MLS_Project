@@ -3,14 +3,14 @@ Functions that interact with the frontend via AJAX requests.
 '''
 import os, logging
 from app import app
-from flask import json, session, request
+from flask import json, session, request, abort
 from werkzeug.utils import secure_filename
 from conf_basic import ALLOWED_EXTENSIONS, UPLOAD_FOLDER
 
 from wrapper.obj import API
 from wrapper.obj.User import User
 from wrapper.obj.Host import Host
-from grade_functions import parse_grades, check_grades
+from grade_functions import *
 from grade_item_functions import *
 
 
@@ -97,13 +97,16 @@ def file_parse():
             file.save( full_path )
             
             #parse file in memory
+            results=[]
             with open(full_path,'r') as f:
                 results = parse_grades(f)
-                os.remove(full_path)    
-                if len(errors) == 0:                 
-                    return json.dumps(results)
-                else:
-                    return json.dumps(errors)
+            os.remove(full_path)  
+            if len(errors) == 0:                 
+                return json.dumps(results)
+            else:
+                return json.dumps(errors)
+        elif not allowed_file(file.filename):
+            errors = [{'msg':'Incorrect file type. Must be .csv or .txt'}] 
     return json.dumps(errors)
 
 
@@ -128,17 +131,16 @@ def grades_error_checking():
     
     errors, valid_grades = check_grades(grades, grade_item)
     
+    
+    '''
     if len(errors) == 0:
         successful_grades, failed_grades = API.put_grades(valid_grades)
         report = {'successful_grades':successful_grades, 'failed_grades':failed_grades}
         
         key = '{}_report'.format(user.get_id() )
         app.config[key] = report
-    
+    '''
     return json.dumps(errors)
-
-
-
 
 @app.route('/actions/update_max.py',methods=['POST'])
 def update_grade_max():
@@ -163,7 +165,33 @@ def update_grade_max():
     errors = modify_grade_max(grade_item, new_max)
     
     return json.dumps(errors)
+    
+@app.route('/actions/upload_grades.py',methods=['POST'])
+def upload_grades():
+    '''
+    Function to upload grades to Brightspace
+    Preconditions:
+        grades_json (dict)   : json information for each grade being checked.
+        courseId (string)    : Course Id, obtained through request.form.
+        gradeItemId (string) : GradeItem Id, obtained through request.form.
+    Postconditions:
+        returns json.dump(errors) (str) : success/errors messages for grade upload.    
+    '''
+    grades_json  = request.get_json(force=True)
+    if 'grades' not in grades_json:
+        return json.dumps({'error':"You didn't submit any grades"})
 
+    grades        = grades_json['grades']
+    course_id     = grades_json['courseId']
+    grade_item_id = grades_json['gradeItemId']
+     
+    user = app.config[session['user_id']]
+    course = user.get_course(course_id)
+    grade_item = course.get_grade_item(grade_item_id)
+    
+    errors = upload_grades_function(grades, user, course, grade_item)
+    
+    return json.dumps(errors)
     
         
 

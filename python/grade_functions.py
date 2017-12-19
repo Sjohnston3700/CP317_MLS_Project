@@ -1,7 +1,8 @@
 import csv # To handle csv files
 import re,sys, traceback
+from app import app
 
-from wrapper.obj.API import get as getRoute, put as putRoute
+from wrapper.obj.API import get as getRoute, put as putRoute, put_grade
 from wrapper.obj.Grade import Grade, NumericGrade
 from io import TextIOWrapper # To check if file object is valid
 
@@ -46,7 +47,9 @@ def parse_grades( csv_file ):
             
                 grades.append( grade )
         if len(grades) == 0 and len(errors) == 0:
-            errors=[{'msg':'File is empty'}]        
+            errors=[{'msg':'Empty file submitted'}]
+        elif len(grades) == 0:
+            raise Exception
     except Exception as e:
         errors = [{'msg' : 'Entire file is formatted incorrectly. Please ensure each student entry is formatted as student_name, brightspace_id, grade, comment'}]
     
@@ -112,3 +115,36 @@ def check_grades(grades_json, grade_item):
         errors = fail_errors
         
     return errors, valid_grades
+    
+def upload_grades_function(grades, user, course, grade_item):
+    '''
+    Function to upload grades to Brightspace.
+    Preconditions:
+        grades (dict)          : json information for each grade being checked.
+        course (Course)        : Course that the grades belong to.
+        grade_item (GradeItem) : GradeItem that the grade belong to.
+    Postconditions:
+        errors (list of json formatted errors ) : The grades that are invalid and the associated error. not quite implemented.   
+    '''    
+    errors=[]
+    successful_grades=[]
+    for grade in grades:
+        id = grade['id']
+        student = course.get_member(brightspace_id=id)
+        grade = NumericGrade(grade_item, student, grade['comment'], grade['value'])
+        
+        #if no errors, add to successful_id
+        if not put_grade(grade):
+            successful_grades.append(grade)
+        
+    if errors==[] or type(errors[0]==float):
+        report = {'total':len(grades), 'successful': len(successful_grades), 'grades':successful_grades}
+        key = '{}_report'.format(user.get_id() )
+        app.config[key] = report
+    else:
+        key = '{}_report'.format(user.get_id() )
+        app.config[key] = {'errors': errors}
+    
+    return errors
+    
+    
