@@ -22,7 +22,7 @@ git update-index --skip-worktree python/conf_basic.py
 sed -i "s|'app_id': '.*'|'api_id': '$PRODUCTION_API_ID' |" python/conf_basic.py
 sed -i "s|'app_key': '.*'|'api_key': '$PRODUCTION_API_KEY' |" python/conf_basic.py
 sed -i "s|'trusted_url': '.*'|'trusted_url': '$PRODUCTION_TRUSTED_URL' |" python/conf_basic.py
-sed -i "s|'port': '.*'|'port': '$INTERNAL_PORT' |" python/conf_basic.py
+sed -i "s|'port': .*,|'port': $INTERNAL_PORT, |" python/conf_basic.py
 sed -i "s|'our_host': '.*'|'out_host': '0.0.0.0' |" python/conf_basic.py
 sed -i "s|'debug': .*,|'dubug': False, |" python/conf_basic.py
 sed -i "s|SECRET_KEY.*=.*'.*'|SECRET_KEY = '$PRODUCTION_SECRET_KEY'|" python/conf_basic.py
