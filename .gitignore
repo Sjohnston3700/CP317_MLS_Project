@@ -4,4 +4,3 @@ __pycache__/
 *.log
 **/*.DS_Store
 python/Uploaded_Files
-python/conf_basic.py
