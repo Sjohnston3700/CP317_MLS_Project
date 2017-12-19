@@ -40,10 +40,11 @@ app_config = {
                'verify' : False,
                'lms_ver': {'lp':'1.20','le':'1.26','ep':'2.5'},
                'debug': True,
-               'trusted_url':'http://localhost:8080/index.py?page=token',
+               'trusted_url': 'http://localhost:8080/index.py?page=token',
                }
 
 USER_ROLES         = ['TA','Instructor']
 ALLOWED_EXTENSIONS = set(['txt','csv'])
 UPLOAD_FOLDER      = './Uploaded_Files'
 SECRET_KEY         = 'NDNiYTUwZGU3ZWJkYTUyZGE5ZTUxOWVj'
+
