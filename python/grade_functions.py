@@ -92,7 +92,7 @@ def check_grades(grades_json, grade_item):
         
         student = course.get_member(brightspace_id=student_id)
         #student doesn't exist
-        if student is None:
+        if student is None or student.get_role() != 101:
             error = grade_json
             error['msg'] = 'Student {} not found in course'.format(grade_json['name'])
             error['type'] = 2
