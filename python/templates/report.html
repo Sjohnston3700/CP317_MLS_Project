@@ -21,8 +21,8 @@
         </tr>
 	    {%for grade in grades %}                                 
 		<tr>
-			<th>{{ grade.get_student().get_name() }}</th>
-			<th>{{ "({}/{})".format(grade.get_value(), grade.get_grade_item().get_max())}}</th>
+			<td>{{ grade.get_student().get_name() }}</td>
+			<td>{{ "{}/{}".format(grade.get_value(), grade.get_grade_item().get_max())}}</td>
 		</tr>
 	    {% endfor %}	
 	</table> 
