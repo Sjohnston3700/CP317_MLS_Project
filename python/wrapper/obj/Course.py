@@ -149,7 +149,8 @@ class Course(object):
             Returns self._user (User) : Current User object. 
         '''
         return self._user
-        
+
+    #unused    
     def get_user_role(self):
         '''
         Function will return the user role for current course.

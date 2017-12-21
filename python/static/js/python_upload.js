@@ -516,8 +516,8 @@ function updateMax(new_max, id) {
 
 				$.ajax({
 					type: 'POST',
-					url: '/actions/check_grades.py',
-					data: formData,
+					url: '/actions/error_checking.py',
+					data: JSON.stringify(formData),
 					dataType: 'json',
 					encode: true,
 					success: function (data) {

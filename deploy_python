@@ -1,0 +1,45 @@
+#!/bin/bash
+#Script to deploy the python version of ezMarker as a docker container
+#Author Harold Hodgins <hodg4890@mylaurier.ca>
+
+#Deployment parameters
+EXTERNAL_PORT=8080 #what port is apache forwarding to
+INTERNAL_PORT=80 #what port is flask listening on
+
+PRODUCTION_TRUSTED_URL="Our production trusted URL"
+PRODUCTION_API_KEY="Our production API key"
+PRODUCTION_API_ID="Our production API ID"
+
+PRODUCTION_SECRET_KEY="Our production secret key"
+
+#Get the latest changes
+git pull
+
+
+#Update parameters (tell git to ignore changes to config file first)
+git update-index --skip-worktree python/conf_basic.py
+
+sed -i "s|'app_id': '.*'|'app_id': '$PRODUCTION_API_ID' |" python/conf_basic.py
+sed -i "s|'app_key': '.*'|'app_key': '$PRODUCTION_API_KEY' |" python/conf_basic.py
+sed -i "s|'trusted_url': '.*'|'trusted_url': '$PRODUCTION_TRUSTED_URL' |" python/conf_basic.py
+sed -i "s|'port': .*,|'port': $INTERNAL_PORT, |" python/conf_basic.py
+sed -i "s|'our_host': '.*'|'our_host': '0.0.0.0' |" python/conf_basic.py
+sed -i "s|'debug': .*,|'debug': False, |" python/conf_basic.py
+sed -i "s|SECRET_KEY.*=.*'.*'|SECRET_KEY = '$PRODUCTION_SECRET_KEY'|" python/conf_basic.py
+
+
+#Compile new docker image
+sudo docker build -t ezmarker .
+
+
+#Stop old container and start new one
+OLD_PID= $(docker ps -a -q  --filter ancestor=ezmarker)
+
+if [ -n "$OLD_PID" ]; then
+    sudo docker kill $OLD_PID
+fi
+
+sudo docker run -d -p $EXTERNAL_PORT:$INTERNAL_PORT ezmarker
+
+#Now forget changes to this file
+git update-index --skip-worktree deploy_python
