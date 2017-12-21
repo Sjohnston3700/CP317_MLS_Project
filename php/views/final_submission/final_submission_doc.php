@@ -13,7 +13,7 @@
 		<ul>
 			<li>Configuration file (Host information and API version)</li>
 			<li>Classes that contain attributes aligning with the Brightspace API</li>
-			<li>Gerenal get and put functions that will work for any valid Brightspace API route</li>
+			<li>General get and put functions that will work for any valid Brightspace API route</li>
 		</ul>
 		<li>ezMarker</li>
 		<ul>
@@ -64,7 +64,7 @@
 		<ul>
 			<li>lack of communication</li>
 			<li>lack of branching in repository</li>
-			<li>absense of unit testing</li>
+			<li>absence of unit testing</li>
 		</ul>
 	To combat these issues, some solutions proposed are:
 	<ul>
@@ -93,7 +93,7 @@
 <p>
 	Everything except for unit testing was completed for the final submission of the project. Had more time been given, the group could have continued to expand on error prevention and error checking and completed unit testing.
 </p>
-<h2>Conclsion</h2>
+<h2>Conclusion</h2>
 <p>
 	In conclusion, the team members experienced excellent and unsatisfactory parts of development. We thank our client for his feedback during the process.
 </p>
