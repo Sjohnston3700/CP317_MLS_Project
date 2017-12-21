@@ -146,6 +146,7 @@ function get_grade_items($course)
     return $items;
 }
 
+//Relic of old implementation. Left for future use
 function get_grade_item($course_id, $grade_item_id) 
 {
     global $config;
@@ -191,6 +192,8 @@ function put_grade($grade)
 
 }
 
+//Unused, perhaps should be instead of just making individual requests to put_grade
+//Low priority, so not done.
 function put_grades($grades) 
 {
     $successful = array();
@@ -299,7 +302,6 @@ function get_who_am_i()
     return $response;
 }
 
-//TODO: fix how report.php gets grades so can delete this
 function get_grade_values($course_id, $grade_item_id) 
 {
     global $config;

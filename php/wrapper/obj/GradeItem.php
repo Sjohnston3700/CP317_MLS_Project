@@ -91,6 +91,8 @@ class GradeItem
     
     /*
     Calls $grade->put_grade() for each Grade object
+    unused. Should be used instead of calling put_grade on individual grades, but low priority
+    Also, should call API.put_grades instead of grade->put_grades, but low priority
     */    
     function put_grades()
     {
@@ -110,6 +112,7 @@ class GradeItem
         return;
     }    
     
+    //unused
      /*
      Getter function
      

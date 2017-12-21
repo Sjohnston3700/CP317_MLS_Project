@@ -92,6 +92,7 @@ class User(object):
         """
         return self._host
 
+    #unused
     def get_roles(self):
         """
         Function to return a copy of the user's roles
