@@ -12,6 +12,7 @@
 <a href="index.php?page=requirements_wrapper">Wrapper Requirements</a><br>
 <a href="index.php?page=analysis_wrapper">Wrapper Analysis</a><br>
 <a href="index.php?page=design_wrapper">Wrapper Design</a><br>
+<a href="../../python/templates/standards">Standards</a><br>
 
 <h3>Logs</h3>
 <a href="logs/git">Git logs (supported by GitHub)</a><br>

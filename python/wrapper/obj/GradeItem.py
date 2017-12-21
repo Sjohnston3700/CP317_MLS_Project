@@ -97,6 +97,7 @@ class GradeItem(object):
     def put_grades(self):
         """
         Calls grade.put_grade() for each Grade object
+        Should just call API.put_grades, but low priority.
         """
         for grade in self._grades:
             grade.put_grade()

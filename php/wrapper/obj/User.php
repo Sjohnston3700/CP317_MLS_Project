@@ -25,6 +25,7 @@ class User
         $this->roles = $roles;
     }
 
+    //unused
     function get_roles() 
     {
         return $this->roles;

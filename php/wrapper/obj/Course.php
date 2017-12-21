@@ -74,6 +74,8 @@ class Course
     {
         return $this->json['OrgUnit']['Id'];
     }
+
+    //unused
     /*
     Function will return the user object
     PostCondition:
