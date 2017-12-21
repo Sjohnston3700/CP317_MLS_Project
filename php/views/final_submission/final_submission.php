@@ -13,6 +13,7 @@
 <a href="index.php?page=analysis_wrapper">Wrapper Analysis</a><br>
 <a href="index.php?page=design_wrapper">Wrapper Design</a><br>
 <a href="../../python/templates/standards">Standards</a><br>
+<a href="https://cocalc.com/share/0f65cb8b-6f11-42b9-87d4-2e2ec6e0bf63/final_report/CP317_Final_Report.pdf?viewer=share">Final Report with Recommendations for D2L</a><br>
 
 <h3>Logs</h3>
 <a href="logs/git">Git logs (supported by GitHub)</a><br>
