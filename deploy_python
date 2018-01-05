@@ -17,7 +17,7 @@ git pull
 
 
 #Update parameters (tell git to ignore changes to config file first)
-git update-index --skip-worktree python/conf_basic.py
+git update-index --skip-worktree conf_basic.py
 
 sed -i "s|'app_id': '.*'|'app_id': '$PRODUCTION_API_ID' |" conf_basic.py
 sed -i "s|'app_key': '.*'|'app_key': '$PRODUCTION_API_KEY' |" conf_basic.py
