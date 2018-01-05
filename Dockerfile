@@ -19,7 +19,7 @@ RUN apt-get install -y tar git curl nano wget dialog net-tools build-essential
 RUN apt-get install -y python3 python-dev python-distribute python3-pip
 
 # Get copy of repo with correct API credentials
-ADD . / /python
+ADD ./ /python
 
 # Get pip to download and install requirements:
 RUN pip3 install -r /python/requirements.txt
