@@ -1,0 +1,98 @@
+<html>
+	<head>
+    <title>ezMarker - Analysis</title>
+</head>
+
+<body>
+    <script src="../static/js/toc_generator.js"></script>
+
+    <h1>ezMarker - Analysis</h1>
+    <p>Version 3.0</p>
+    <p>Last updated: November 20, 2017</p>
+
+    <div id="toc">
+        <h2>Table of Contents</h2>
+    </div>
+
+    <h2>Introduction</h2>
+    <p>
+        ezMarker is a web application that allows instructors at Wilfrid Laurier University to bulk upload grades and feedback into MyLearningSpace, with the integration of the Brightspace API supported by D2L. The goal of ezMarker is to solve the issues regarding inefficient manual grade uploading and and feedback through the current MyLearningSpace interface. On average, it can take markers a few hours to physically upload grades for one class. Marking time is cut down to minutes with the use of ezMarker's bulk file uploading features. This document outlines the structure of the classes and objects for the ezMarker application, including the software interaction summary.
+    </p>
+
+    <hr>
+
+    <h2>Object Classification</h2>
+
+    <h3>Object Diagram</h3>
+    <img src="../static/img/object_diagram.png" alt="ezMarker Object Diagram">
+
+    <h3>Entity Objects</h3>
+    <ul>
+        <li>Host - Store information about the connection, including the Internet Protocol and API version.</li>
+        <li>User - Stores information about logged in user, including the user's identity and login credentials.</li>
+        <li>Course - Stores information about a course, including the ID and name.</li>
+        <li>GradeItem - Stores information about a grade item's parameters, including the ID and name. Implemented by specific grade item types.</li>
+        <li>Grade - Stores a student's grade for a grade item. Implemented by specific grade types.</li>
+        <li>OrgMember - Stores identifying information about a member of the organization.</li>
+    </ul>
+
+    <h3>Boundary Objects</h3>
+    <ul>
+        <li>LoginView - Where user signs in with MLS credentials and receives Brightspace API token.</li>
+        <li>LogoutView - Where user signs out.</li>
+        <li>CourseListView - Where user gets a list of courses that they have permission to manage grades for.</li>
+        <li>SearchStudentsView - Where user can search for students. The search is either by name or student identificaton number.</li>
+        <li>AvailableGradeItemsView - Where user selects a grade item of a course.</li>
+        <li>ChangeGradeTotalView - Where user can change the grade total for a grade item.</li>
+        <li>ManualGradingView - Where user can manually input grades for a set of students.</li>
+        <li>BulkGradingView - Where user can upload a file for bulk grade submission.</li>
+        <li>ReportView - Where user will be shown how many grades were successfully set and if any errors occurred.</li>
+    </ul>
+
+    <h3>Control Objects</h3>
+    <ul>
+        <li>LoginController - Handles retrieval of Brightspace token and updating the User object.</li>
+        <li>LogoutController - Handles the user's signout process and updating User object.</li>
+        <li>CourseListController - Allows retrieval of courses that the user has permission to upload grades to.</li>
+        <li>SearchStudentsController - Allows searching of students by name or student ID.</li>
+        <li>AvailableGradeItemsController - Allows retrieval of a course's GradeItems that the user has permission to upload grades to.</li>
+        <li>ChangeGradeTotalController - Allows changing of the grade total of a grade item and updating GradeItem object.</li>
+        <li>GradingController - Handles parsing, validating and uploading of students' grades and updating GradeItem object.</li>
+    </ul>
+
+    <h2>Class Diagram</h2>
+    <p>Please refer to Section 3 of the analysis document for the Brightspace API Wrapper.</p>
+
+    <h2 id="toc_exclude">Revision History</h2>
+    <h3 id="toc_exclude">Version 1.0 - 10/16/2017</h3>
+
+    <p>Authors: Sumeet Jhand, Shuaib Reeyaz, Sarah Johnston</p>
+    <p>SQA: Harold Hodgins, Troy Nechanicky</p>
+
+    <h3 id="toc_exclude">Version 2.0 - 10/22/2017</h3>
+    <h4 id="toc_exclude">Revision Notes</h4>
+    <ul>
+        <li>Removed the use of "coordinates"</li>
+        <li>Added object description details</li>
+    </ul>
+    <p>Authors: Sumeet Jhand</p>
+    <p>SQA: Sophie Wang, Pirajeev Prabaharan</p>
+
+    <h3 id="toc_exclude">Version 3.0 - 11/12/2017</h3>
+    <h4 id="toc_exclude">Revision Notes</h4>
+    <ul>
+        <li>Added Host entity object and updated diagram</li>
+        <li>Minor edits for clarity</li>
+    </ul>
+    <p>Authors: Sumeet Jhand, Troy Nechanicky</p>
+    <p>SQA: Simon Phothitay</p>
+
+
+</body>
+
+<style>
+    img {
+        width: 1200px;
+    }
+</style>
+</html>
