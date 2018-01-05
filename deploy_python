@@ -19,13 +19,13 @@ git pull
 #Update parameters (tell git to ignore changes to config file first)
 git update-index --skip-worktree python/conf_basic.py
 
-sed -i "s|'app_id': '.*'|'app_id': '$PRODUCTION_API_ID' |" python/conf_basic.py
-sed -i "s|'app_key': '.*'|'app_key': '$PRODUCTION_API_KEY' |" python/conf_basic.py
-sed -i "s|'trusted_url': '.*'|'trusted_url': '$PRODUCTION_TRUSTED_URL' |" python/conf_basic.py
-sed -i "s|'port': .*,|'port': $INTERNAL_PORT, |" python/conf_basic.py
-sed -i "s|'our_host': '.*'|'our_host': '0.0.0.0' |" python/conf_basic.py
-sed -i "s|'debug': .*,|'debug': False, |" python/conf_basic.py
-sed -i "s|SECRET_KEY.*=.*'.*'|SECRET_KEY = '$PRODUCTION_SECRET_KEY'|" python/conf_basic.py
+sed -i "s|'app_id': '.*'|'app_id': '$PRODUCTION_API_ID' |" conf_basic.py
+sed -i "s|'app_key': '.*'|'app_key': '$PRODUCTION_API_KEY' |" conf_basic.py
+sed -i "s|'trusted_url': '.*'|'trusted_url': '$PRODUCTION_TRUSTED_URL' |" conf_basic.py
+sed -i "s|'port': .*,|'port': $INTERNAL_PORT, |" conf_basic.py
+sed -i "s|'our_host': '.*'|'our_host': '0.0.0.0' |" conf_basic.py
+sed -i "s|'debug': .*,|'debug': False, |" conf_basic.py
+sed -i "s|SECRET_KEY.*=.*'.*'|SECRET_KEY = '$PRODUCTION_SECRET_KEY'|" conf_basic.py
 
 
 #Compile new docker image

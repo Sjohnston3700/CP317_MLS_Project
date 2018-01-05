@@ -19,7 +19,7 @@ RUN apt-get install -y tar git curl nano wget dialog net-tools build-essential
 RUN apt-get install -y python3 python-dev python-distribute python3-pip
 
 # Get copy of repo with correct API credentials
-ADD /python /python
+ADD . / /python
 
 # Get pip to download and install requirements:
 RUN pip3 install -r /python/requirements.txt
@@ -30,7 +30,7 @@ EXPOSE 80
 # Set the default directory where CMD will execute
 WORKDIR /python
 
-# Set the default command to execute    
+# Set the default command to execute
 # when creating a new container
 # i.e. using CherryPy to serve the application
 CMD python3 ezMarker.py
