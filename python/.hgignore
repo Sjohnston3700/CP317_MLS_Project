@@ -1,7 +1,0 @@
-# use glob syntax.
-syntax: glob
-
-conf_basic.py
-*.pyc
-*~
-user_data
