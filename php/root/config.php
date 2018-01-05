@@ -21,7 +21,3 @@ $config = array(
 //Localhost
 //Application ID: FNWvubihLM8CICkHONZ_aw
 //Application Key: OrL8HleCxiyuG8JBd7DEPg
-
-//Somethingdumb
-//Application ID: 7EgSmt25Zi_WDQg9QbnjZA
-//Application Key: MeXB--LewCR7f7ZQlPgKYw

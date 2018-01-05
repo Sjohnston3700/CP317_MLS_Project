@@ -13,9 +13,8 @@ require_once 'config.php';
 ob_start();
 session_start();
     
-$DEBUG = true;
-$PATH_TO_STATIC = '../../python/static';
-$PATH_TO_DOCS = '../../python/templates/';
+$PATH_TO_STATIC = '';
+$PATH_TO_DOCS = '';
 
 $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'home';
 $login_required = array('token', 'courses', 'upload', 'report', 'logout');
