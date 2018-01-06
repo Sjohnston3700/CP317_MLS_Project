@@ -1,0 +1,18 @@
+#!/bin/bash
+#Script to deploy the php version of ezMarker
+#Author Harold Hodgins <hodg4890@mylaurier.ca>
+
+PRODUCTION_TRUSTED_URL="Our production trusted URL"
+PRODUCTION_API_KEY="Our production API key"
+PRODUCTION_API_ID="Our production API ID"
+
+#Get the latest changes
+git pull
+
+#Update parameters (tell git to ignore changes to config file first)
+git update-index --skip-worktree root/config.php
+
+#Update root/config.php here
+
+#Now forget changes to this file
+git update-index --skip-worktree deploy_php
