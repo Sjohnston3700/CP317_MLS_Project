@@ -13,8 +13,8 @@ require_once 'config.php';
 ob_start();
 session_start();
     
-$PATH_TO_STATIC = '../static';
-$PATH_TO_DOCS = '';
+$PATH_TO_STATIC = '../static/';
+$PATH_TO_DOCS = '../views/';
 
 $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'home';
 $login_required = array('token', 'courses', 'upload', 'report', 'logout');
