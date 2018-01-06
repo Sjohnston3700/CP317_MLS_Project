@@ -7,7 +7,7 @@ $config = array(
 	'lms_port'   => '443',
 	'protocol'     => 'https',
 	'encrypt_requests' => true,
-	'route'      => '/token',
+	'trusted_url'      => 'http://localhost/CP317_MLS_Project/root/index.php?page=token',
 	'appId'     => 'FNWvubihLM8CICkHONZ_aw',
 	'appKey'    => 'OrL8HleCxiyuG8JBd7DEPg', 
 	'lms_ver' => array(

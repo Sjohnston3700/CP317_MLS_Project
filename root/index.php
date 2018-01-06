@@ -63,7 +63,7 @@ if (in_array($page, $login_required)) {
         die();
     }
     if (!isset($_SESSION['userId']) || !isset($_SESSION['userKey'])) {
-        $redirectPage = 'http://localhost/CP317_MLS_Project/php/root/index.php?page=token';
+        $redirectPage = $config['trusted_url'];
         $authContextFactory = new D2LAppContextFactory();
         $authContext = $authContextFactory->createSecurityContext($config['appId'], $config['appKey']);
         $hostSpec = new D2LHostSpec($config['lms_host'], $config['lms_port'], $config['protocol']);
