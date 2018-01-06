@@ -13,7 +13,7 @@ require_once 'config.php';
 ob_start();
 session_start();
     
-$PATH_TO_STATIC = '';
+$PATH_TO_STATIC = '../static';
 $PATH_TO_DOCS = '';
 
 $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'home';
