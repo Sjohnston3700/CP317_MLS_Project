@@ -2,6 +2,7 @@
 #Script to deploy the php version of ezMarker
 #Author Harold Hodgins <hodg4890@mylaurier.ca>
 
+PRODUCTION_LMS_HOST="Our LMS Host"
 PRODUCTION_TRUSTED_URL="Our production trusted URL"
 PRODUCTION_API_KEY="Our production API key"
 PRODUCTION_API_ID="Our production API ID"
@@ -12,7 +13,10 @@ git pull
 #Update parameters (tell git to ignore changes to config file first)
 git update-index --skip-worktree root/config.php
 
-#Update root/config.php here
+sed -i "s|'appId'.*,|'appId' => '$PRODUCTION_API_ID',|" root/config.php
+sed -i "s|'appKey'.*,|'appKey' => '$PRODUCTION_API_KEY',|" root/config.php
+sed -i "s|'trusted_url'.*,|'trusted_url' => '$PRODUCTION_TRUSTED_URL',|" root/config.php
+sed -i "s|'lms_host'.*,|'lms_host' => '$PRODUCTION_LMS_HOST',|" root/config.php
 
 #Now forget changes to this file
 git update-index --skip-worktree deploy_php
