@@ -16,8 +16,3 @@ $config = array(
 		'ep' => '2.5'),
 	'testMyEnrollments' => '1'
 );
-
-
-//Localhost
-//Application ID: FNWvubihLM8CICkHONZ_aw
-//Application Key: OrL8HleCxiyuG8JBd7DEPg
