@@ -25,19 +25,19 @@ Web application to extend a [Brightspace learning enviroment](https://www.d2l.co
 git fetch origin
 git checkout -b python origin/python
 ~~~~
-5. Create a copy of 'template_conf_basic.py' named conf_basic.py
-7. Update the values for API key/ID trusted_url and lms host in conf_basic.py
-7. Create a new python3 virtual environment (anywhere is fine)
+5. Update the values for API key/ID trusted_url and lms host in conf_basic.py. To tell git to ignore these changes use
+```git update-index --skip-worktree conf_basic.py```
+6. Create a new python3 virtual environment (anywhere is fine)
 ```virtualenv -p python3 name-of-your-env-here```
-8. Activate your virtual enviroment (need to do this anytime you want to run code)
+7. Activate your virtual enviroment (need to do this anytime you want to run code)
 ~~~
 source name-of-your-env-here/bin/activate (Linux/MAC)
 virtualenv_name\Scripts\activate (Windows)
 ~~~
-9. Install necessary libraries (only need to do once)
+8. Install necessary libraries (only need to do once)
 ```pip install -r requirements.txt```
-10. Inside git_project_folder run ```python ezmarker.py```
-11. In any browser goto ```localhost:8080``` and you should see the home page for web app
+9. Inside git_project_folder run ```python ezmarker.py```
+10. In any browser goto ```localhost:8080``` and you should see the home page for web app
 
 ### PHP
 - To be filled in
