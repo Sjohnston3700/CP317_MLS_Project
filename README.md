@@ -87,7 +87,7 @@ If you are interested in contributing to this project please send us an email.
 The code as is should be considered v1.0.0 It is functional, feature complete, and safe to use. 
 
 ## Authors
-* **Harold Hodgins** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth) See also the list of [contributors](https://github.com/Sjohnston3700/CP317_MLS_Project/contributors) who participated in this project.
+* **Harold Hodgins** - *Initial work* - [CP493 - Winter 2017](https://cocalc.com/share/9501f241-b52e-43f8-9034-7292e8ee54ce/final_report/MLS_API_Report.pdf?viewer=share) See also the list of [contributors](https://github.com/Sjohnston3700/CP317_MLS_Project/contributors) who participated in this project.
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 ## Acknowledgments
