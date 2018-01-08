@@ -11,7 +11,11 @@ Web application to extend a [Brightspace learning enviroment](https://www.d2l.co
 - [Apache](https://www.apache.org/)
 - [Docker](https://www.docker.com/)
 #### PHP
-- to be filled in
+##### Deployment
+- Local PHP server [XAMP](https://www.apachefriends.org/index.html) or [WAMP](http://www.wampserver.com/en/)
+##### Deployment
+- [Apache](https://www.apache.org/)
+- [PHP 5.x](http://php.net/)
 
 ### Installing
 ### Python
@@ -40,7 +44,10 @@ virtualenv_name\Scripts\activate (Windows)
 10. In any browser goto ```localhost:8080``` and you should see the home page for web app
 
 ### PHP
-- To be filled in
+1. Install [XAMP](https://www.apachefriends.org/index.html) or [WAMP](http://www.wampserver.com/en/)
+2. Clone repository into your-wamp-location/www/
+3. Run PHP server
+4. Go to ```http://localhost/CP317_MLS_Project/php/root/index.php``` in any browser and you should see the home page for web app
 
 ## Running the tests
 There are no tests
@@ -54,9 +61,10 @@ There are no tests
 git fetch origin
 git checkout -b python origin/python
 ~~~~
-3. Update API KEY/ID, trusted url, and LMS values in the deploy_python file. 
-4. Run deploy_python
-5. If you later want to run the latest version of the code just run deploy_python again.
+3. Add an Apache proxy to redirect traffic from port 80 and the desired url to a random port (see this [writeup](https://cocalc.com/share/0f65cb8b-6f11-42b9-87d4-2e2ec6e0bf63/final_report/CP317_Final_Report.pdf?viewer=share) for more details)
+4. Update API KEY/ID, trusted url, and LMS values in the deploy_python file. 
+5. Run deploy_python
+6. If you later want to run the latest version of the code just run deploy_python again.
 
 ### PHP
 1. Clone repository to server you want to run it on.
@@ -66,9 +74,10 @@ git checkout -b python origin/python
 git fetch origin
 git checkout -b php origin/php
 ~~~~
-3. Update API KEY/ID, trusted url, and LMS values in the deploy_php file. 
-4. Run deploy_php
-5. If you later want to run the latest version of the code just run deploy_php again.
+3. In sites-enabled for the site, make the documentRoot repository_location/root (This ensures users on the website only have access to anything in root)
+4. Update API KEY/ID, trusted url, and LMS values in the deploy_php file. 
+5. Run deploy_php
+6. If you later want to run the latest version of the code just run deploy_php again.
 
 ## Built With
 ### Python
@@ -78,7 +87,7 @@ git checkout -b php origin/php
 - [Docker](https://www.docker.com/)
 
 ### PHP
-- [PHP]
+- [PHP 5.x](http://php.net/)
 
 ## Contributing
 If you are interested in contributing to this project please send us an email.
